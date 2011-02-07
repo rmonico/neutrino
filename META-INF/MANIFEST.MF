@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test refactorings
+Bundle-SymbolicName: org.ita.testrefactoring;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.ita.testrefactoring.eclipseaction.Activator
+Bundle-Vendor: Rafael Monico
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.jdt,
+ org.eclipse.jdt.core,
+ org.eclipse.ui,
+ org.eclipse.ui.workbench,
+ org.eclipse.text,
+ org.eclipse.core.filebuffers,
+ org.eclipse.core.resources,
+ org.junit,
+ org.eclipse.jdt.junit.core
+Import-Package: org.eclipse.jdt.launching,
+ org.eclipse.jdt.ui,
+ org.eclipse.jface.text
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="Action Set Label"
+            description="Action Set Description"
+            visible="true"
+            id="org.ita.testrefactoring.actionset.id">
+            <menu
+				label="Test Refactorings"
+				id="org.ita.testrefactoring.menu">
+				<separator
+					name="mainGroup1">
+				</separator>
+				<separator
+					name="testGroup1">
+				</separator>
+			</menu>
+
+         <action
+               label="Add explanation to assertion"
+               menubarPath="org.ita.testrefactoring.menu/mainGroup1"
+               class="org.ita.testrefactoring.eclipseaction.ActionController"
+               id="org.ita.testrefactoring.addexplanation.AddExplanationAction">
+         </action>
+         <!-- Fazer depois
+         <action
+               label="Extract initialization method"
+               menubarPath="org.ita.testrefactoring.menu/mainGroup1"
+               class="org.ita.testrefactoring.eclipseaction.ActionController"
+               id="org.ita.testrefactoring.extractinitializationmethod.Action">
+         </action-->
+         <action
+               label="Run JUnits"
+               menubarPath="org.ita.testrefactoring.menu/testGroup1"
+               class="org.ita.testrefactoring.eclipseaction.ActionController"
+               id="org.ita.testrefactoring.tests.JUnitMain">
+         </action>
+      </actionSet>
+   </extension>
+</plugin>
