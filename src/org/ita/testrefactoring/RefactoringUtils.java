@@ -17,7 +17,7 @@ public class RefactoringUtils {
 //	 * devolve uma lista de todos os seus overrides em
 //	 * <code>getOcurrences</code>.
 //	 * 
-//	 * @author kxorroloko
+//	 * @author Rafael Monico
 //	 * 
 //	 */
 //	private static class LocateOverridesVisitor extends ASTVisitor {
@@ -147,7 +147,7 @@ public class RefactoringUtils {
 //	 * @return
 //	 */
 //	private static boolean isMethodInPublicClass(IMethodBinding method,
-//			CompilationUnit compilationUnit) {
+//			Environment compilationUnit) {
 //		String compilationUnitPublicClass = getPublicClassFrom(compilationUnit)
 //				.getName().toString();
 //
@@ -219,7 +219,7 @@ public class RefactoringUtils {
 //	}
 //
 //	public static TypeDeclaration getPublicClassFrom(
-//			CompilationUnit compilationUnit) {
+//			Environment compilationUnit) {
 //		ClassVisitor visitor = new ClassVisitor();
 //
 //		compilationUnit.accept(visitor);
@@ -281,7 +281,7 @@ public class RefactoringUtils {
 //	}
 //
 //	public static ASTNode getNodeOverSelection(
-//			CompilationUnit mainCompilationUnit, int selectionStart,
+//			Environment mainCompilationUnit, int selectionStart,
 //			int selectionLength) {
 //		LocateNodeInSelectionVisitor visitor = new LocateNodeInSelectionVisitor();
 //
@@ -364,7 +364,7 @@ public class RefactoringUtils {
 //
 //		visitor.setBaseMethod(baseMethod);
 //
-//		for (CompilationUnit compilationUnit : refactoringServices
+//		for (Environment compilationUnit : refactoringServices
 //				.getSourceFiles().getCompilationUnitList()) {
 //			compilationUnit.accept(visitor);
 //		}

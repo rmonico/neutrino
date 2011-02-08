@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.ita.testrefactoring.metacode.MethodInvocation;
 import org.ita.testrefactoring.parser.Assertion;
-import org.ita.testrefactoring.parser.MethodInvocationExpression;
 import org.ita.testrefactoring.parser.MethodParameter;
 
 public class JUnitAssertion extends JUnitTestElement implements Assertion {
@@ -31,8 +31,8 @@ public class JUnitAssertion extends JUnitTestElement implements Assertion {
 	private void loadParameterList(List<MethodParameter> parameterList) {
 //		System.out.println(getMethodInvocation().arguments().getClass());
 //		System.out.println(getMethodInvocation().arguments());
-		System.out.println(getMethodInvocation().typeArguments().getClass());
-		System.out.println(getMethodInvocation().typeArguments());
+//		System.out.println(getMethodInvocation().typeArguments().getClass());
+//		System.out.println(getMethodInvocation().typeArguments());
 		
 		for (Object o : getMethodInvocation().arguments()) {
 			ASTNode node = (ASTNode) o;
@@ -45,9 +45,9 @@ public class JUnitAssertion extends JUnitTestElement implements Assertion {
 				
 //				MethodInvocation mi = (MethodInvocation) node;
 				
-				MethodInvocationExpression expression = new MethodInvocationExpression();
+				MethodInvocation expression = new MethodInvocation();
 				
-				expression.setValue(node.toString());
+//				expression.setValue(node.toString());
 				
 				parameter.setExpression(expression);
 			} else {

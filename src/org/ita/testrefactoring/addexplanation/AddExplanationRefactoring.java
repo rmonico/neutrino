@@ -4,7 +4,7 @@ import org.ita.testrefactoring.AbstractRefactoring;
 import org.ita.testrefactoring.InitialConditionNotMet;
 import org.ita.testrefactoring.RefactoringException;
 import org.ita.testrefactoring.junitparser.JUnitAssertion;
-import org.ita.testrefactoring.parser.LiteralStringExpression;
+import org.ita.testrefactoring.metacode.LiteralExpression;
 import org.ita.testrefactoring.parser.MethodParameter;
 
 public class AddExplanationRefactoring extends AbstractRefactoring {
@@ -58,7 +58,7 @@ public class AddExplanationRefactoring extends AbstractRefactoring {
 	protected void doRefactor() throws RefactoringException {
 		MethodParameter explanationParameter = new MethodParameter();
 		
-		LiteralStringExpression explanationStringExpression = new LiteralStringExpression();
+		LiteralExpression explanationStringExpression = new LiteralExpression();
 		
 		explanationStringExpression.setValue(explanationString);
 		

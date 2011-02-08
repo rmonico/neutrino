@@ -6,7 +6,7 @@ import org.ita.testrefactoring.parser.TestFragment;
 
 /**
  * Seleção com classes específicas para o Eclipse.
- * @author kxorroloko
+ * @author Rafael Monico
  *
  */
 public class JUnitSelection extends AbstractSelection {
