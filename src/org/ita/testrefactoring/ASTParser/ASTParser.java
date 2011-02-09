@@ -8,6 +8,8 @@ import org.ita.testrefactoring.metacode.Environment;
 
 public class ASTParser extends AbstractParser {
 
+	private List<CompilationUnit> compilationUnitList;
+
 	@Override
 	public void parse() {
 		Environment environment = new Environment();
@@ -18,7 +20,7 @@ public class ASTParser extends AbstractParser {
 	}
 	
 	public List<CompilationUnit> getCompilationUnitList() {
-		return null;
+		return compilationUnitList;
 	}
 
 }
