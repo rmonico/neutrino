@@ -3,7 +3,7 @@ package org.ita.testrefactoring.metacode;
 public class ImportDeclaration {
 	private boolean isStatic;
 	private Package _package;
-	private CompilationUnit parent;
+	private SourceFile parent;
 
 	public boolean isStatic() {
 		return isStatic;
@@ -22,11 +22,11 @@ public class ImportDeclaration {
 		
 	}
 	
-	void setParent(CompilationUnit parent) {
+	void setParent(SourceFile parent) {
 		this.parent = parent;
 	}
 	
-	public CompilationUnit getParent() {
+	public SourceFile getParent() {
 		return parent;
 	}
 }

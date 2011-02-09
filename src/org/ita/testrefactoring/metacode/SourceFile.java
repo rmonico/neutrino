@@ -3,7 +3,7 @@ package org.ita.testrefactoring.metacode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompilationUnit {
+public class SourceFile {
 	private List<ImportDeclaration> importDeclarationList = new ArrayList<ImportDeclaration>();
 	private List<AbstractType> typeList = new ArrayList<AbstractType>();
 	private String fileName;
@@ -27,7 +27,7 @@ public class CompilationUnit {
 
 	// Navegação e controle de acesso:
 	// Construtor restrito ao pacote
-	CompilationUnit() {
+	SourceFile() {
 		
 	}
 	

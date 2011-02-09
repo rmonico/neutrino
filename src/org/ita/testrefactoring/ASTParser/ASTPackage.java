@@ -2,18 +2,17 @@ package org.ita.testrefactoring.ASTParser;
 
 import java.util.List;
 
-import org.ita.testrefactoring.metacode.CompilationUnit;
+import org.ita.testrefactoring.metacode.SourceFile;
 import org.ita.testrefactoring.metacode.Package;
 
 public class ASTPackage extends Package {
 
+	// Construtor restrito ao pacote
 	ASTPackage() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public List<? extends CompilationUnit> getCompilationUnitList() {
+	public List<? extends SourceFile> getCompilationUnitList() {
 		return null;
 	}
 

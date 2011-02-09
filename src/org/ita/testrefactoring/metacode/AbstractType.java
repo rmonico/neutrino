@@ -10,7 +10,7 @@ import java.util.List;
  */
 public abstract class AbstractType implements Type {
 	
-	private CompilationUnit parent;
+	private SourceFile parent;
 	private String name;
 	private TypeAccessModifier accessModifier = new TypeAccessModifier();
 	private List<TypeElement> elementList = new ArrayList<TypeElement>();
@@ -79,11 +79,11 @@ public abstract class AbstractType implements Type {
 		return innerAnnotation;
 	}
 	
-	void setParent(CompilationUnit parent) {
+	void setParent(SourceFile parent) {
 		this.parent = parent;
 	}
 	
-	public CompilationUnit getParent() {
+	public SourceFile getParent() {
 		return parent;
 	}
 
