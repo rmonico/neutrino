@@ -14,7 +14,7 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 
 class Utils {
-	List<ICompilationUnit> getAllCompilationUnitsInWorkspace() throws CoreException {
+	static List<ICompilationUnit> getAllCompilationUnitsInWorkspace() throws CoreException {
 		List<ICompilationUnit> resultingList = new ArrayList<ICompilationUnit>();
 
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
