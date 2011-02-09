@@ -3,37 +3,20 @@ package org.ita.testrefactoring.metacode;
 import java.util.List;
 
 public abstract class Package {
-	private String name;
-	private Environment parent;
-	
 	public abstract List<? extends SourceFile> getCompilationUnitList();
 	
-	public String getName() {
-		return name;
-	}
+	public abstract String getName();
 	
-	void setName(String name) {
-		this.name = name;
-	}
+	protected abstract void setName(String name);
 
-	// Navegação e controle de acesso:
-	// Construtor restrito ao pacote
+
 	protected Package() {
 		
 	}
 	
-	SourceFile createCompilationUnit() {
-		SourceFile compilationUnit = new SourceFile();
-		compilationUnit.setParent(this);
-		
-		return compilationUnit;
-	}
+	protected abstract SourceFile createSourceFile();
 	
-	void setParent(Environment parent) {
-		this.parent = parent;
-	}
+	protected abstract void setParent(Environment parent);
 	
-	public Environment getParent() {
-		return parent;
-	}
+	public abstract Environment getParent();
 }
