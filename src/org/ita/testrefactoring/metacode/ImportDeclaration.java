@@ -2,6 +2,7 @@ package org.ita.testrefactoring.metacode;
 
 public class ImportDeclaration {
 	private boolean isStatic;
+	private Type type;
 	private Package _package;
 	private SourceFile parent;
 
@@ -16,7 +17,15 @@ public class ImportDeclaration {
 	void setPackage(Package _package) {
 		this._package = _package;
 	}
-
+	
+	public Type getType() {
+		return type;
+	}
+	
+	void setType(Type type) {
+		this.type = type;
+	}
+	
 	// Construtor restrito ao pacote
 	ImportDeclaration() {
 		

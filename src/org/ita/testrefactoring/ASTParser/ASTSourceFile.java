@@ -12,7 +12,6 @@ public class ASTSourceFile extends SourceFile {
 	
 	@Override
 	protected void setParent(Package parent) {
-		// TODO Auto-generated method stub
 		super.setParent(parent);
 	}
 

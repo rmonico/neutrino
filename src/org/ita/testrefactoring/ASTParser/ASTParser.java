@@ -6,6 +6,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.JavaModelException;
 import org.ita.testrefactoring.metacode.AbstractParser;
+import org.ita.testrefactoring.metacode.Environment;
 import org.ita.testrefactoring.metacode.ParserException;
 
 public class ASTParser extends AbstractParser {
@@ -38,5 +39,10 @@ public class ASTParser extends AbstractParser {
 		
 		
 		setEnvironment(environment);
+	}
+	
+	@Override
+	public ASTEnvironment getEnvironment() {
+		return (ASTEnvironment) super.getEnvironment();
 	}
 }
