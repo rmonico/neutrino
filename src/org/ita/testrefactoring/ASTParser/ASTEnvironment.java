@@ -20,6 +20,9 @@ public class ASTEnvironment extends Environment {
 	}
 
 	protected ASTPackage createPackage() {
-		return new ASTPackage();
+		ASTPackage _package = new ASTPackage();
+		_package.setParent(this);
+		
+		return _package;
 	}	
 }
