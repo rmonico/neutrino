@@ -89,10 +89,10 @@ public class RefactoringAbstractTests {
 	}
 
 	protected ICompilationUnit createSourceFile(String packageName,
-			String fileName, StringBuilder beforeRefactoringSource)
+			String fileName, StringBuilder source)
 			throws JavaModelException {
 		ICompilationUnit compilationUnit = getPackageByName(packageName).createCompilationUnit(
-				fileName, beforeRefactoringSource.toString(), false, null);
+				fileName, source.toString(), false, null);
 		return compilationUnit;
 	}
 
