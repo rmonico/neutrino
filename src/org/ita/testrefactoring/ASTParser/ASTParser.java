@@ -7,6 +7,7 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.ita.testrefactoring.metacode.AbstractParser;
 import org.ita.testrefactoring.metacode.Environment;
+import org.ita.testrefactoring.metacode.Package;
 import org.ita.testrefactoring.metacode.ParserException;
 
 public class ASTParser extends AbstractParser {
@@ -15,15 +16,22 @@ public class ASTParser extends AbstractParser {
 
 	@Override
 	public void parse() throws ParserException {
+		List<IPackageFragment> packageList;
 		try {
-			List<IPackageFragment> packageList = Utils.getAllPackagesInWorkspace();
+			packageList = Utils.getAllPackagesInWorkspace();
 		} catch (CoreException e) {
 			throw new ParserException(e);
 		}
 		
-		Environment environment = new Environment();
+		ASTEnvironment environment = new ASTEnvironment();
 
-		environment.getPackageList();
+		for (IPackageFragment _package : packageList) {
+			ASTPackage parsedPackage = environment.createPackage();
+			
+//			parsedPackage.
+			environment.getPackageList().add(parsedPackage);
+		}
+		
 		
 		setEnvironment(environment);
 	}
