@@ -1,28 +1,30 @@
 package org.ita.testrefactoring.ASTParser;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.ita.testrefactoring.metacode.Environment;
-import org.ita.testrefactoring.metacode.SourceFile;
 import org.ita.testrefactoring.metacode.Package;
+import org.ita.testrefactoring.metacode.SourceFile;
 
 public class ASTPackage extends Package {
 
+	private List<? extends ASTSourceFile> sourceFileList = new ArrayList<ASTSourceFile>();
+	private String name;
+	private ASTEnvironment parent;
+
 	@Override
-	public List<ASTSourceFile> getCompilationUnitList() {
-		return null;
+	public List<? extends ASTSourceFile> getSourceFileList() {
+		return sourceFileList;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	@Override
 	protected void setName(String name) {
-		// TODO Auto-generated method stub
-		
+		this.name = name;
 	}
 
 	@Override
@@ -32,15 +34,13 @@ public class ASTPackage extends Package {
 		return sourceFile;
 	}
 
-	@Override
-	protected void setParent(Environment parent) {
-		// TODO Auto-generated method stub
+	protected void setParent(ASTEnvironment parent) {
+		this.parent = parent;
 	}
 
 	@Override
-	public Environment getParent() {
-		// TODO Auto-generated method stub
-		return null;
+	public ASTEnvironment getParent() {
+		return parent;
 	}
 
 }
