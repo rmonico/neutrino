@@ -4,11 +4,16 @@ import java.util.List;
 
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.ita.testrefactoring.metacode.AbstractParser;
+import org.ita.testrefactoring.metacode.Environment;
 
 public class ASTParser extends AbstractParser {
 
 	@Override
 	public void parse() {
+		Environment environment = new Environment();
+
+		environment.getPackageList();
+		
 		setEnvironment(null);
 	}
 	

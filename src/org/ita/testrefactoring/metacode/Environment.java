@@ -6,7 +6,7 @@ import java.util.List;
 public class Environment {
 	private List<Package> packages = new ArrayList<Package>();
 	
-	public List<Package> getPackages() {
+	public List<Package> getPackageList() {
 		return packages;
 	}
 	
