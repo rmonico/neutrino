@@ -10,7 +10,7 @@ import java.util.List;
  * @author Rafael Monico
  * 
  */
-public class MethodInvocationExpression extends AbstractStatement implements Expression {
+public class MethodInvocationExpression implements Expression, MethodInvocation {
 
 	private MethodDeclaration calledMethod;
 	private List<Expression> parameterList = new ArrayList<Expression>();
@@ -23,6 +23,7 @@ public class MethodInvocationExpression extends AbstractStatement implements Exp
 		this.calledMethod = calledMethod;
 	}
 	
+	@Override
 	public List<Expression> getParameterList() {
 		return parameterList;
 	}
