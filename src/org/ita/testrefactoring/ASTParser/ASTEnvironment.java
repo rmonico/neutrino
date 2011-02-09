@@ -7,7 +7,7 @@ import org.ita.testrefactoring.metacode.Environment;
 
 public class ASTEnvironment extends Environment {
 	
-	private List<? extends ASTPackage> packageList = new ArrayList<ASTPackage>();
+	private List<ASTPackage> packageList = new ArrayList<ASTPackage>();
 	
 	// Construtor restrito ao pacote
 	ASTEnvironment() {
@@ -15,7 +15,7 @@ public class ASTEnvironment extends Environment {
 	}
 
 	@Override
-	public List<? extends ASTPackage> getPackageList() {
+	public List<ASTPackage> getPackageList() {
 		return packageList;
 	}
 
