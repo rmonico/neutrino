@@ -8,14 +8,14 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 
 class Utils {
-	static List<ICompilationUnit> getAllPackagesInWorkspace() throws CoreException {
-		List<ICompilationUnit> resultingList = new ArrayList<ICompilationUnit>();
+	static List<IPackageFragment> getAllPackagesInWorkspace()
+			throws CoreException {
+		List<IPackageFragment> resultingList = new ArrayList<IPackageFragment>();
 
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IWorkspaceRoot root = workspace.getRoot();
@@ -33,14 +33,12 @@ class Utils {
 			IPackageFragment[] packages = JavaCore.create(project)
 					.getPackageFragments();
 
-			for (IPackageFragment mypackage : packages) {
-				if (mypackage.getKind() != IPackageFragmentRoot.K_SOURCE) {
+			for (IPackageFragment _package : packages) {
+				if (_package.getKind() != IPackageFragmentRoot.K_SOURCE) {
 					continue;
 				}
 
-				for (ICompilationUnit unit : mypackage.getCompilationUnits()) {
-					resultingList.add(unit);
-				}
+				resultingList.add(_package);
 			}
 		}
 
