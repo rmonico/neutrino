@@ -44,7 +44,8 @@ public class JUnitMain implements IAction {
 		List<Class<?>> classesToTest = new ArrayList<Class<?>>();
 		
 //		classesToTest.add(ASTRewriteExample.class);
-		classesToTest.add(AddExplanationRefactoringTests.class);
+		classesToTest.add(ASTParserTests.class);
+//		classesToTest.add(AddExplanationRefactoringTests.class);
 //		classesToTest.add(ExtractInitializationMethodTests.class);
 //		classesToTest.add(CreateModelTestTests.class);
 		
