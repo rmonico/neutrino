@@ -22,7 +22,7 @@ public class Package {
 
 	// Navegação e controle de acesso:
 	// Construtor restrito ao pacote
-	Package() {
+	protected Package() {
 		
 	}
 	
