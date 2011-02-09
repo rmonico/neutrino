@@ -27,7 +27,7 @@ public class AddExplanationRefactoring extends AbstractRefactoring {
 		
 	}
 
-	private String explanationString;
+//	private String explanationString;
 	private JUnitAssertion targetAssertion;
 	
 	@Override
@@ -60,7 +60,7 @@ public class AddExplanationRefactoring extends AbstractRefactoring {
 		
 		LiteralExpression explanationStringExpression = new LiteralExpression();
 		
-		explanationStringExpression.setValue(explanationString);
+//		explanationStringExpression.setValue(explanationString);
 		
 		explanationParameter.setType("java.lang.String");
 		explanationParameter.setExpression(explanationStringExpression);
@@ -69,7 +69,7 @@ public class AddExplanationRefactoring extends AbstractRefactoring {
 	}
 
 	public void setExplanationString(String explanationString) {
-		this.explanationString = explanationString;
+//		this.explanationString = explanationString;
 	}
 
 }

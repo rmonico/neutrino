@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.MethodInvocation;
-import org.ita.testrefactoring.metacode.MethodInvocation;
 import org.ita.testrefactoring.parser.Assertion;
 import org.ita.testrefactoring.parser.MethodParameter;
 
@@ -44,12 +43,12 @@ public class JUnitAssertion extends JUnitTestElement implements Assertion {
 			if (node instanceof MethodInvocation) {
 				
 //				MethodInvocation mi = (MethodInvocation) node;
-				
-				MethodInvocation expression = new MethodInvocation();
-				
+//				
+//				MethodInvocation expression = new MethodInvocation();
+//				
 //				expression.setValue(node.toString());
-				
-				parameter.setExpression(expression);
+//				
+//				parameter.setExpression(expression);
 			} else {
 				throw new JUnitInternalParserError("Tipo de nó não suportado por este parser :-(");
 			}
