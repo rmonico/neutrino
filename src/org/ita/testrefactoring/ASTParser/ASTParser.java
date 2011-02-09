@@ -6,8 +6,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.ita.testrefactoring.metacode.AbstractParser;
-import org.ita.testrefactoring.metacode.Environment;
-import org.ita.testrefactoring.metacode.Package;
 import org.ita.testrefactoring.metacode.ParserException;
 
 public class ASTParser extends AbstractParser {

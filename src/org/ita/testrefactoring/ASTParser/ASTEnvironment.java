@@ -9,6 +9,11 @@ public class ASTEnvironment extends Environment {
 	
 	private List<ASTPackage> packageList = new ArrayList<ASTPackage>();
 	
+	// Construtor restrito ao pacote
+	ASTEnvironment() {
+		
+	}
+
 	@Override
 	public List<ASTPackage> getPackageList() {
 		return packageList;
@@ -16,6 +21,5 @@ public class ASTEnvironment extends Environment {
 
 	protected ASTPackage createPackage() {
 		return new ASTPackage();
-	}
-
+	}	
 }

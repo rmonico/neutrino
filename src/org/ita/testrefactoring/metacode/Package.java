@@ -3,14 +3,12 @@ package org.ita.testrefactoring.metacode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Package {
+public abstract class Package {
 	private List<CompilationUnit> compilationUnitList = new ArrayList<CompilationUnit>();
 	private String name;
 	private Environment parent;
 	
-	public List<CompilationUnit> getCompilationUnitList() {
-		return compilationUnitList;
-	}
+	public abstract List<? extends CompilationUnit> getCompilationUnitList();
 	
 	public String getName() {
 		return name;
