@@ -85,7 +85,7 @@ public class RefactoringAbstractTests {
 
 	@After
 	public void releaseEnvironment() throws CoreException {
-//		project.delete(false, null);
+		project.delete(false, null);
 	}
 
 	protected ICompilationUnit createSourceFile(String packageName,

@@ -31,6 +31,7 @@ public class ASTPackage extends Package {
 	protected SourceFile createSourceFile() {
 		ASTSourceFile sourceFile = new ASTSourceFile();
 		sourceFile.setParent(this);
+		
 		return sourceFile;
 	}
 

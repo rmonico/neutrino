@@ -32,4 +32,6 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		assertTrue("Validade do ambiente do pacote 2", packageList.get(1).getParent() == parser.getEnvironment());
 		assertTrue("Nome do pacote 2", packageList.get(1).getName().equals("temp.pack2"));
 	}
+
+	
 }
