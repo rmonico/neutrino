@@ -1,5 +1,5 @@
 package org.ita.testrefactoring.metacode;
 
-public class MethodInvocationStatement extends MethodInvocation implements Statement {
+public class MethodInvocationStatement extends MethodInvocationExpression implements Statement {
 
 }

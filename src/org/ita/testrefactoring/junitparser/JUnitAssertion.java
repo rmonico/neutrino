@@ -42,9 +42,9 @@ public class JUnitAssertion extends JUnitTestElement implements Assertion {
 			
 			if (node instanceof MethodInvocation) {
 				
-//				MethodInvocation mi = (MethodInvocation) node;
+//				MethodInvocationExpression mi = (MethodInvocationExpression) node;
 //				
-//				MethodInvocation expression = new MethodInvocation();
+//				MethodInvocationExpression expression = new MethodInvocationExpression();
 //				
 //				expression.setValue(node.toString());
 //				
