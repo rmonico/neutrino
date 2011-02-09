@@ -354,11 +354,11 @@ public class RefactoringUtils {
 //	 * @param baseMethod
 //	 * @param iRefactoringServices
 //	 * @return
-//	 * @throws RefactoringException
+//	 * @throws ParserException
 //	 */
 //	public static List<IMethodBinding> getOverridesInWorkspace(
 //			IMethodBinding baseMethod, IRefactoringServices refactoringServices)
-//			throws RefactoringException {
+//			throws ParserException {
 //
 //		LocateOverridesVisitor visitor = new LocateOverridesVisitor();
 //
