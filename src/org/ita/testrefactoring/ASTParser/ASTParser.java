@@ -16,10 +16,12 @@ public class ASTParser extends AbstractParser {
 	@Override
 	public void parse() throws ParserException {
 		try {
-			List<ICompilationUnit> compilationUnitList = Utils.getAllCompilationUnitsInWorkspace();
+			List<ICompilationUnit> compilationUnitList = Utils.getAllPackagesInWorkspace();
 		} catch (CoreException e) {
 			throw new ParserException(e);
 		}
+		
+		
 		
 		Environment environment = new Environment();
 
