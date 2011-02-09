@@ -9,8 +9,7 @@ import org.ita.testrefactoring.metacode.Package;
 public class ASTPackage extends Package {
 
 	@Override
-	public List<? extends SourceFile> getCompilationUnitList() {
-		// TODO Auto-generated method stub
+	public List<ASTSourceFile> getCompilationUnitList() {
 		return null;
 	}
 
@@ -28,14 +27,14 @@ public class ASTPackage extends Package {
 
 	@Override
 	protected SourceFile createSourceFile() {
-		// TODO Auto-generated method stub
-		return null;
+		ASTSourceFile sourceFile = new ASTSourceFile();
+		sourceFile.setParent(this);
+		return sourceFile;
 	}
 
 	@Override
 	protected void setParent(Environment parent) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

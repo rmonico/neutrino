@@ -27,7 +27,7 @@ public class SourceFile {
 
 	// Navegação e controle de acesso:
 	// Construtor restrito ao pacote
-	SourceFile() {
+	protected SourceFile() {
 		
 	}
 	
@@ -66,7 +66,7 @@ public class SourceFile {
 		return annotation;
 	}
 	
-	void setParent(Package parent) {
+	protected void setParent(Package parent) {
 		this.parent = parent;
 	}
 	
