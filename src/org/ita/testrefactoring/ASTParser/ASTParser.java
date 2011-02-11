@@ -51,9 +51,9 @@ public class ASTParser extends AbstractParser {
 		for (ASTPackage pack : environment.getPackageList().values()) {
 			for (ASTSourceFile sourceFile : pack.getSourceFileList()) {
 				SourceFileParser parser = new SourceFileParser();
-				
+
 				parser.setSourceFile(sourceFile);
-				
+
 				parser.parse();
 			}
 		}
@@ -69,10 +69,11 @@ public class ASTParser extends AbstractParser {
 				continue;
 			}
 
-			ASTPackage parsedPackage = environment.createPackage(_package.getElementName());
+			ASTPackage parsedPackage = environment.createPackage(_package
+					.getElementName());
 
 			parsedPackage.setASTObject(_package);
-			
+
 			try {
 				compilationUnitList.addAll(Arrays.asList(_package
 						.getCompilationUnits()));
@@ -83,7 +84,7 @@ public class ASTParser extends AbstractParser {
 
 		return compilationUnitList;
 	}
-	
+
 	private void doCompilationUnitListParse(
 			List<ICompilationUnit> compilationUnitList,
 			ICompilationUnit activeCompilationUnit) {
@@ -111,25 +112,32 @@ public class ASTParser extends AbstractParser {
 
 						sourceFile.setASTObject(container);
 
+						// Já setou o ASTObject do sourceFile, agora precisa
+						// encontrar quem é o parent
 						IJavaElement element = source.getParent();
 
 						if (element instanceof IPackageFragment) {
 							IPackageFragment parent = (IPackageFragment) element;
 
-							for (ASTPackage p : environment.getPackageList().values()) {
+							for (ASTPackage p : environment.getPackageList()
+									.values()) {
 								if (p.getASTObject() == parent) {
 									sourceFile.setParent(p);
 									p.getSourceFileList().add(sourceFile);
+
+									break;
 								}
 							}
 						}
 
-						// Problema: esse método não lança exceção
-						// nenhuma...
 						if (sourceFile.getParent() == null) {
-							throw new Error(new ParserException(
-									"Package para o arquivo \"" + parsed
-											+ "\" não encontrado..."));
+							// Rejeito o arquivo, pois não sei em qual package
+							// ele está. Não preciso rejeitar ativamente, pois o
+							// mesmo irá se perder, pois não chamo setParent e
+							// ao final do método o mesmo fica elegível para a
+							// coleta de lixo
+							System.err.println("Package para o arquivo \""
+									+ source.getPath() + "\" não encontrado...");
 						}
 
 						super.acceptAST(source, parsed);
