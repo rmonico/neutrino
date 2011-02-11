@@ -7,6 +7,10 @@ public class ParserException extends Exception {
 		super(e);
 	}
 
+	public ParserException(String message) {
+		super(message);
+	}
+
 	/**
 	 * 
 	 */

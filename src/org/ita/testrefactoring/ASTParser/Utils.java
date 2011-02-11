@@ -8,9 +8,18 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.ITypeRoot;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.ui.JavaUI;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.ita.testrefactoring.eclipseaction.Activator;
 
 class Utils {
 	static List<IPackageFragment> getAllPackagesInWorkspace()
@@ -50,4 +59,26 @@ class Utils {
 		return resultingList;
 
 	}
+	
+	public static ICompilationUnit getActiveICompilationUnit() {
+		IWorkbench workbench = Activator.getDefault().getWorkbench();
+
+		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+
+		IWorkbenchPage page = workbenchWindow.getActivePage();
+
+		IEditorPart editorPart = page.getActiveEditor();
+
+		if (editorPart == null) {
+			// Nenhuma janela de edição ativa
+			return null;
+		}
+
+		IEditorInput editorInput = editorPart.getEditorInput();
+
+		ITypeRoot typeRoot = JavaUI.getEditorInputTypeRoot(editorInput);
+
+		return (ICompilationUnit) typeRoot;
+	}
+
 }

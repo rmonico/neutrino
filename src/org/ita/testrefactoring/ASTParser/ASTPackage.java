@@ -7,7 +7,7 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.ita.testrefactoring.metacode.Package;
 import org.ita.testrefactoring.metacode.SourceFile;
 
-public class ASTPackage extends Package {
+public class ASTPackage extends Package implements ASTWrapper<IPackageFragment> {
 
 	private List<? extends ASTSourceFile> sourceFileList = new ArrayList<ASTSourceFile>();
 	private String name;
@@ -46,10 +46,15 @@ public class ASTPackage extends Package {
 		return parent;
 	}
 
-	protected void setASTObject(IPackageFragment astObject) {
+	@Override
+	/**
+	 * Não deveria ser public, mas não teve jeito de fazer...
+	 */
+	public void setASTObject(IPackageFragment astObject) {
 		this.astObject = astObject;
 	}
 
+	@Override
 	public IPackageFragment getASTObject() {
 		return astObject;
 	}
