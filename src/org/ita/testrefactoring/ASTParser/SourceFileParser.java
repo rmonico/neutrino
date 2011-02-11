@@ -53,6 +53,8 @@ class SourceFileParser {
 	}
 
 	public void parse() {
+		sourceFile.setFileName(sourceFile.getASTObject().getICompilationUnit().getPath().toFile().getName());
+		
 		SourceFileVisitor visitor = new SourceFileVisitor();
 
 		visitor.setSourceFile(sourceFile);
