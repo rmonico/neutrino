@@ -1,13 +1,27 @@
 package org.ita.testrefactoring.ASTParser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
+import org.ita.testrefactoring.metacode.AbstractType;
+import org.ita.testrefactoring.metacode.Annotation;
+import org.ita.testrefactoring.metacode.Class;
+import org.ita.testrefactoring.metacode.Enum;
+import org.ita.testrefactoring.metacode.ImportDeclaration;
+import org.ita.testrefactoring.metacode.Interface;
 import org.ita.testrefactoring.metacode.Package;
 import org.ita.testrefactoring.metacode.SourceFile;
 
-public class ASTSourceFile extends SourceFile implements ASTWrapper<ASTSourceFile.ASTContainer> {
-
+public class ASTSourceFile implements SourceFile, ASTWrapper<ASTSourceFile.ASTContainer> {
+	
+	private List<ImportDeclaration> importDeclarationList = new ArrayList<ImportDeclaration>();
+	private List<AbstractType> typeList = new ArrayList<AbstractType>();
+	private String fileName;
+	private Package parent;
+	
 	class ASTContainer {
 		private CompilationUnit compilationUnit;
 		private ASTRewrite rewrite;
@@ -44,9 +58,8 @@ public class ASTSourceFile extends SourceFile implements ASTWrapper<ASTSourceFil
 		
 	}
 	
-	@Override
 	protected void setParent(Package parent) {
-		super.setParent(parent);
+
 	}
 
 	@Override
@@ -60,4 +73,64 @@ public class ASTSourceFile extends SourceFile implements ASTWrapper<ASTSourceFil
 		return astObject;
 	}
 
+	@Override
+	public String getFileName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setFileName(String fileName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<ASTImportDeclaration> getImportDeclarationList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<AbstractType> getTypeList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ASTImportDeclaration createImportDeclaration() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Class createClass() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Interface createInterface() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Enum createEnum() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Annotation createAnnotation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Package getParent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

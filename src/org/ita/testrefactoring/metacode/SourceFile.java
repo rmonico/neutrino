@@ -1,77 +1,27 @@
 package org.ita.testrefactoring.metacode;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class SourceFile {
-	private List<ImportDeclaration> importDeclarationList = new ArrayList<ImportDeclaration>();
-	private List<AbstractType> typeList = new ArrayList<AbstractType>();
-	private String fileName;
-	private Package parent;
+public interface SourceFile {
 	
-	public String getFileName() {
-		return fileName;
-	}
+	public String getFileName();
 	
-	void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+	void setFileName(String fileName);
 	
-	public List<ImportDeclaration> getImportDeclarationList() {
-		return importDeclarationList;
-	}
+	public List<? extends ImportDeclaration> getImportDeclarationList();
 	
-	public List<AbstractType> getTypeList() {
-		return typeList;
-	}
+	public List<? extends AbstractType> getTypeList();
 
-	// Navegação e controle de acesso:
-	// Construtor restrito ao pacote
-	protected SourceFile() {
-		
-	}
 	
-	ImportDeclaration createImportDeclaration() {
-		return null;
-//		ImportDeclaration importDeclaration = new ImportDeclaration();
-//		importDeclaration.setParent(this);
-//		
-//		return importDeclaration;
-	}
+	ImportDeclaration createImportDeclaration();
 	
-	Class createClass() {
-		Class clazz = new Class();
-		clazz.setParent(this);
-		
-		return clazz;
-	}
+	Class createClass();
 	
-	Interface createInterface() {
-		Interface _interface = new Interface();
-		_interface.setParent(this);
-		
-		return _interface;
-	}
+	Interface createInterface();
 	
-	Enum createEnum() {
-		Enum _enum = new Enum();
-		_enum.setParent(this);
-		
-		return _enum;
-	}
+	Enum createEnum();
 	
-	Annotation createAnnotation() {
-		Annotation annotation = new Annotation();
-		annotation.setParent(this);
-		
-		return annotation;
-	}
+	Annotation createAnnotation();
 	
-	protected void setParent(Package parent) {
-		this.parent = parent;
-	}
-	
-	public Package getParent() {
-		return parent;
-	}
+	Package getParent();
 }

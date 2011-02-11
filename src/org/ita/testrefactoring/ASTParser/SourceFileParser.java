@@ -14,7 +14,7 @@ class SourceFileParser {
 
 		@Override
 		public boolean visit(org.eclipse.jdt.core.dom.ImportDeclaration node) {
-			ASTImportDeclaration _import = new ASTImportDeclaration();
+			ASTImportDeclaration _import = sourceFile.createImportDeclaration();
 			
 			// Nunca visita os nós filhos, isso será feito posteriormente
 			return false;
