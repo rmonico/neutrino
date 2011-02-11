@@ -27,7 +27,7 @@ public class ImportDeclaration {
 	}
 	
 	// Construtor restrito ao pacote
-	ImportDeclaration() {
+	protected ImportDeclaration() {
 		
 	}
 	
