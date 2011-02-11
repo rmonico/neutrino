@@ -1,6 +1,6 @@
 package org.ita.testrefactoring.tests;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
@@ -27,13 +27,13 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		
 		List<? extends Package> packageList = parser.getEnvironment().getPackageList();
 		
-		assertTrue("Quantidade de pacotes", packageList.size() == 2);
+		assertEquals("Quantidade de pacotes", 2, packageList.size());
 		
-		assertTrue("Validade do ambiente do pacote 1", packageList.get(0).getParent() == parser.getEnvironment());
-		assertTrue("Nome do pacote 1", packageList.get(0).getName().equals("temp.pack1"));
+		assertEquals("Validade do ambiente do pacote 1", parser.getEnvironment(), packageList.get(0).getParent());
+		assertEquals("Nome do pacote 1", "temp.pack1", packageList.get(0).getName());
 
-		assertTrue("Validade do ambiente do pacote 2", packageList.get(1).getParent() == parser.getEnvironment());
-		assertTrue("Nome do pacote 2", packageList.get(1).getName().equals("temp.pack2"));
+		assertEquals("Validade do ambiente do pacote 2", parser.getEnvironment(), packageList.get(1).getParent());
+		assertEquals("Nome do pacote 2", "temp.pack2", packageList.get(1).getName());
 	}
 
 	@Test
@@ -65,16 +65,18 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		
 		ASTPackage testPackage = environment.getPackageList().get(0);
 		
+		assertEquals("Quantidade de arquivos parseados", 1, testPackage.getSourceFileList().size());
+		
 		ASTSourceFile sourceFile = testPackage.getSourceFileList().get(0);
 		
-		assertTrue("Validade do pacote", sourceFile.getParent() == testPackage);
+		assertEquals("Validade do pacote parent", testPackage, sourceFile.getParent());
 		
-		assertTrue("Lista de importações (size)", sourceFile.getImportDeclarationList().size() == 1);
-		assertTrue("Lista de importações", sourceFile.getImportDeclarationList().get(0).getType() == environment.getTypeCache().get("org.junit.Before"));
+		assertEquals("Lista de importações (size)", 1, sourceFile.getImportDeclarationList().size());
+		assertEquals("Lista de importações", environment.getTypeCache().get("org.junit.Before"), sourceFile.getImportDeclarationList().get(0).getType());
 		
-		assertTrue("Nome do arquivo", sourceFile.getFileName().equals("TestFile.java"));
+		assertEquals("Nome do arquivo", "TestFile.java", sourceFile.getFileName());
 		
-		assertTrue("Lista de tipos (size)", sourceFile.getTypeList().size() == 1);
-		assertTrue("Lista de tipos", sourceFile.getTypeList().get(0) == environment.getTypeCache().get("astparser.tests.TestFile"));
+		assertEquals("Lista de tipos (size)", 1, sourceFile.getTypeList());
+		assertEquals("Lista de tipos", environment.getTypeCache().get("astparser.tests.TestFile"), sourceFile.getTypeList().get(0));
 	}
 }
