@@ -20,15 +20,18 @@ class SourceFileParser {
 					.getPackageList()) {
 				if (pack.getName().equals(node.getName().toString())) {
 					_import.setPackage(pack);
+					
+//					pack.getSourceFileList()
+//					_import.setType(type);
 
 					break;
 				}
 			}
 
 			if (_import.getPackage() == null) {
-				// Pacote não encontrado no packageList do environment, depois
-				// resolver esse caso
-
+				ASTPackage pack = sourceFile.getParent().getParent().createPackage();
+				
+				pack.setName(node.getName().toString());
 			}
 
 			// _import.setPackage(_package);
