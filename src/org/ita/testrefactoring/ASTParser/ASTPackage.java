@@ -9,13 +9,13 @@ import org.ita.testrefactoring.metacode.SourceFile;
 
 public class ASTPackage extends Package implements ASTWrapper<IPackageFragment> {
 
-	private List<? extends ASTSourceFile> sourceFileList = new ArrayList<ASTSourceFile>();
+	private List<ASTSourceFile> sourceFileList = new ArrayList<ASTSourceFile>();
 	private String name;
 	private ASTEnvironment parent;
 	private IPackageFragment astObject;
 
 	@Override
-	public List<? extends ASTSourceFile> getSourceFileList() {
+	public List<ASTSourceFile> getSourceFileList() {
 		return sourceFileList;
 	}
 
@@ -57,6 +57,11 @@ public class ASTPackage extends Package implements ASTWrapper<IPackageFragment> 
 	@Override
 	public IPackageFragment getASTObject() {
 		return astObject;
+	}
+	
+	@Override
+	public String toString() {
+		return name;
 	}
 
 }
