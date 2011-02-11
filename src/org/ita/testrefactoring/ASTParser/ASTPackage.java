@@ -3,6 +3,7 @@ package org.ita.testrefactoring.ASTParser;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jdt.core.IPackageFragment;
 import org.ita.testrefactoring.metacode.Package;
 import org.ita.testrefactoring.metacode.SourceFile;
 
@@ -11,6 +12,7 @@ public class ASTPackage extends Package {
 	private List<? extends ASTSourceFile> sourceFileList = new ArrayList<ASTSourceFile>();
 	private String name;
 	private ASTEnvironment parent;
+	private IPackageFragment astObject;
 
 	@Override
 	public List<? extends ASTSourceFile> getSourceFileList() {
@@ -31,7 +33,7 @@ public class ASTPackage extends Package {
 	protected SourceFile createSourceFile() {
 		ASTSourceFile sourceFile = new ASTSourceFile();
 		sourceFile.setParent(this);
-		
+
 		return sourceFile;
 	}
 
@@ -42,6 +44,14 @@ public class ASTPackage extends Package {
 	@Override
 	public ASTEnvironment getParent() {
 		return parent;
+	}
+
+	protected void setASTObject(IPackageFragment astObject) {
+		this.astObject = astObject;
+	}
+
+	public IPackageFragment getASTObject() {
+		return astObject;
 	}
 
 }

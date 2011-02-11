@@ -37,6 +37,11 @@ class Utils {
 				if (_package.getKind() != IPackageFragmentRoot.K_SOURCE) {
 					continue;
 				}
+				
+				// Aparentemente um BUG da JDT: na primeira execução devolve um pacote chamado bin...
+				if (_package.getElementName().equals("bin")) {
+					continue;
+				}
 
 				resultingList.add(_package);
 			}
