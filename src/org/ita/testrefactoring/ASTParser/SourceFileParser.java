@@ -1,6 +1,5 @@
 package org.ita.testrefactoring.ASTParser;
 
-import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 
 class SourceFileParser {
@@ -16,30 +15,23 @@ class SourceFileParser {
 		@Override
 		public boolean visit(org.eclipse.jdt.core.dom.ImportDeclaration node) {
 			ASTImportDeclaration _import = sourceFile.createImportDeclaration();
-			
-			if (node.resolveBinding().getJavaElement() instanceof IPackageFragment) {
-				System.out.println("wow ow!");
-				
-				IPackageFragment fragment = (IPackageFragment) node.resolveBinding().getJavaElement();
-				
-				for (ASTPackage pack : sourceFile.getParent().getParent().getPackageList()) {
-					if (pack.getASTObject() == pack) {
-						ASTPackage foundPackage = pack;
-						
-						_import.setPackage(pack);
-					}
+
+			for (ASTPackage pack : sourceFile.getParent().getParent()
+					.getPackageList()) {
+				if (pack.getName().equals(node.getName().toString())) {
+					_import.setPackage(pack);
+
+					break;
 				}
-				
-				if (_import.getPackage() == null) {
-					// Pacote não encontrado no packageList do environment, depois resolver esse caso
-					
-				}
-				
-			} else {
-				System.out.println("doh!");
 			}
-			
-//			_import.setPackage(_package);
+
+			if (_import.getPackage() == null) {
+				// Pacote não encontrado no packageList do environment, depois
+				// resolver esse caso
+
+			}
+
+			// _import.setPackage(_package);
 			// Nunca visita os nós filhos, isso será feito posteriormente
 			return false;
 		}
@@ -53,8 +45,9 @@ class SourceFileParser {
 	}
 
 	public void parse() {
-		sourceFile.setFileName(sourceFile.getASTObject().getICompilationUnit().getPath().toFile().getName());
-		
+		sourceFile.setFileName(sourceFile.getASTObject().getICompilationUnit()
+				.getPath().toFile().getName());
+
 		SourceFileVisitor visitor = new SourceFileVisitor();
 
 		visitor.setSourceFile(sourceFile);
