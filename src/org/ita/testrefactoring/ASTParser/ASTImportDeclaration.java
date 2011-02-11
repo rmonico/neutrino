@@ -10,7 +10,7 @@ public class ASTImportDeclaration implements ImportDeclaration {
 	private boolean isStatic;
 	private Type type;
 	private Package _package;
-	private SourceFile parent;
+	private ASTSourceFile parent;
 
 	ASTImportDeclaration() {
 		super();
@@ -26,7 +26,7 @@ public class ASTImportDeclaration implements ImportDeclaration {
 	}
 
 	// A princípio é read-only
-	void setParent(SourceFile parent) {
+	void setParent(ASTSourceFile parent) {
 	}
 
 	@Override

@@ -99,7 +99,9 @@ public class ASTSourceFile implements SourceFile, ASTWrapper<ASTSourceFile.ASTCo
 
 	@Override
 	public ASTImportDeclaration createImportDeclaration() {
-		// TODO Auto-generated method stub
+		ASTImportDeclaration _import = new ASTImportDeclaration();
+		_import.setParent(this);
+		
 		return null;
 	}
 
@@ -128,8 +130,7 @@ public class ASTSourceFile implements SourceFile, ASTWrapper<ASTSourceFile.ASTCo
 	}
 
 	@Override
-	public Package getParent() {
-		// TODO Auto-generated method stub
+	public ASTPackage getParent() {
 		return null;
 	}
 	
