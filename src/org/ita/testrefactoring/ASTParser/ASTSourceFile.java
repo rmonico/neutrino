@@ -13,49 +13,51 @@ import org.ita.testrefactoring.metacode.Enum;
 import org.ita.testrefactoring.metacode.Interface;
 import org.ita.testrefactoring.metacode.SourceFile;
 
-public class ASTSourceFile implements SourceFile, ASTWrapper<ASTSourceFile.ASTContainer> {
-	
+public class ASTSourceFile implements SourceFile,
+		ASTWrapper<ASTSourceFile.ASTContainer> {
+
 	private List<ASTImportDeclaration> importDeclarationList = new ArrayList<ASTImportDeclaration>();
 	private List<AbstractType> typeList = new ArrayList<AbstractType>();
 	private String fileName;
 	private ASTPackage parent;
-	
+
 	class ASTContainer {
 		private CompilationUnit compilationUnit;
 		private ASTRewrite rewrite;
 		private ICompilationUnit icompilationUnit;
-		
+
 		public void setICompilationUnit(ICompilationUnit source) {
 			icompilationUnit = source;
 		}
-		
+
 		public ICompilationUnit getICompilationUnit() {
 			return icompilationUnit;
 		}
-		
+
 		public CompilationUnit getCompilationUnit() {
 			return compilationUnit;
 		}
-		
+
 		public void setCompilationUnit(CompilationUnit compilationUnit) {
 			this.compilationUnit = compilationUnit;
 		}
-		
+
 		public ASTRewrite getRewrite() {
 			return rewrite;
 		}
-		
+
 		public void setRewrite(ASTRewrite rewrite) {
 			this.rewrite = rewrite;
 		}
 	}
+
 	private ASTContainer astObject;
 
 	// Construtor restrito ao pacote
 	ASTSourceFile() {
-		
+
 	}
-	
+
 	protected void setParent(ASTPackage parent) {
 		this.parent = parent;
 	}
@@ -64,11 +66,11 @@ public class ASTSourceFile implements SourceFile, ASTWrapper<ASTSourceFile.ASTCo
 	public ASTPackage getParent() {
 		return parent;
 	}
-	
+
 	@Override
 	public void setASTObject(ASTContainer astObject) {
 		this.astObject = astObject;
-		
+
 	}
 
 	@Override
@@ -100,9 +102,9 @@ public class ASTSourceFile implements SourceFile, ASTWrapper<ASTSourceFile.ASTCo
 	public ASTImportDeclaration createImportDeclaration() {
 		ASTImportDeclaration _import = new ASTImportDeclaration();
 		_import.setParent(this);
-		
+
 		getImportDeclarationList().add(_import);
-		
+
 		return _import;
 	}
 
@@ -124,6 +126,19 @@ public class ASTSourceFile implements SourceFile, ASTWrapper<ASTSourceFile.ASTCo
 	@Override
 	public Annotation createAnnotation() {
 		throw new Error("Not implemented yet.");
+	}
+
+	ASTDummyType createDummyType(String typeName, ASTPackage pack) {
+		ASTDummyType dummy = new ASTDummyType();
+		dummy.setParent(this);
+		dummy.setName(typeName);
+		dummy.setPackage(pack);
+		getTypeList().add(dummy);
+		// Depois inventar um jeito de registrar isso junto ao
+		// Environment.getTypeList. Uma idéia seria mover esses métodos para o
+		// environment, afinal ele que tem que controlar tudo isso.
+
+		return dummy;
 	}
 
 }

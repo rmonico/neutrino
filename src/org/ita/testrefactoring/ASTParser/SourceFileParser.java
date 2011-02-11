@@ -26,20 +26,18 @@ class SourceFileParser {
 
 			AbstractType type = environment.getTypeCache().get(typeName);
 				
-			if (type == null) {
-				// Criar type "dummy"
-//				ASTDummy dummy = sourceFile.createDummyType();
-//				
-//				dummy.setName(...);
-//				
-//				type = dummy;
-			}
-
 			if (pack == null) {
 				// Pacote não encontrado no cache, criar um pacote "dummy"
 				pack = environment.createPackage(packageName);
 			}
 			
+			if (type == null) {
+				// Criar type "dummy"
+				ASTDummyType dummy = sourceFile.createDummyType(typeName, pack);
+				
+				type = dummy;
+			}
+
 			_import.setPackage(pack);
 			_import.setType(type);
 

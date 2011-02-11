@@ -31,17 +31,22 @@ public class RefactoringAbstractTests {
 	private Map<String, IPackageFragment> knownPackages = new HashMap<String, IPackageFragment>();
 	private IJavaProject javaProject;
 	private IProject project;
+	private boolean testsOk;
 
-	protected IPackageFragment getPackageByName(String packageName) throws JavaModelException {
+	protected IPackageFragment getPackageByName(String packageName)
+			throws JavaModelException {
 		if (knownPackages.containsKey(packageName)) {
 			return knownPackages.get(packageName);
 		} else {
-			// Se não encontrou o pacote solicitado, cria um novo com o mesmo nome
-			IPackageFragmentRoot root = javaProject.getPackageFragmentRoot(project);
-			IPackageFragment newPackage = root.createPackageFragment(packageName, false, null);
+			// Se não encontrou o pacote solicitado, cria um novo com o mesmo
+			// nome
+			IPackageFragmentRoot root = javaProject
+					.getPackageFragmentRoot(project);
+			IPackageFragment newPackage = root.createPackageFragment(
+					packageName, false, null);
 
 			knownPackages.put(packageName, newPackage);
-			
+
 			return newPackage;
 		}
 
@@ -81,18 +86,29 @@ public class RefactoringAbstractTests {
 		options.put(DefaultCodeFormatterConstants.FORMATTER_TAB_SIZE, "4");
 		javaProject.setOptions(options);
 
+		// Os testes não estão ok até que alguém diga que estão
+		testsOk = false;
 	}
 
 	@After
 	public void releaseEnvironment() throws CoreException {
-		project.delete(false, null);
+		if (isTestsOk()) {
+			project.delete(false, null);
+		}
+	}
+
+	private boolean isTestsOk() {
+		return testsOk;
+	}
+	
+	protected void setTestsOk() {
+		testsOk = true;
 	}
 
 	protected ICompilationUnit createSourceFile(String packageName,
-			String fileName, StringBuilder source)
-			throws JavaModelException {
-		ICompilationUnit compilationUnit = getPackageByName(packageName).createCompilationUnit(
-				fileName, source.toString(), false, null);
+			String fileName, StringBuilder source) throws JavaModelException {
+		ICompilationUnit compilationUnit = getPackageByName(packageName)
+				.createCompilationUnit(fileName, source.toString(), false, null);
 		return compilationUnit;
 	}
 
