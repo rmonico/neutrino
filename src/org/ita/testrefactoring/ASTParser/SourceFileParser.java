@@ -1,6 +1,7 @@
 package org.ita.testrefactoring.ASTParser;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
+import org.ita.testrefactoring.metacode.AbstractType;
 
 class SourceFileParser {
 
@@ -16,29 +17,47 @@ class SourceFileParser {
 		public boolean visit(org.eclipse.jdt.core.dom.ImportDeclaration node) {
 			ASTImportDeclaration _import = sourceFile.createImportDeclaration();
 
-			for (ASTPackage pack : sourceFile.getParent().getParent()
-					.getPackageList()) {
-				if (pack.getName().equals(node.getName().toString())) {
-					_import.setPackage(pack);
-					
-//					pack.getSourceFileList()
-//					_import.setType(type);
+			String packageName = extractPackageName(node.getName().toString());
+			String typeName = extractTypeName(node.getName().toString());
+			
+			ASTEnvironment environment = sourceFile.getParent().getParent();
+			
+			ASTPackage pack = environment.getPackageList().get(packageName);
 
-					break;
-				}
-			}
-
-			if (_import.getPackage() == null) {
-				ASTPackage pack = sourceFile.getParent().getParent().createPackage();
+			AbstractType type = environment.getTypeCache().get(typeName);
 				
-				pack.setName(node.getName().toString());
+			if (type == null) {
+				// Criar type "dummy"
+//				ASTDummy dummy = sourceFile.createDummyType();
+//				
+//				dummy.setName(...);
+//				
+//				type = dummy;
 			}
 
-			// _import.setPackage(_package);
+			if (pack == null) {
+				// Pacote não encontrado no cache, criar um pacote "dummy"
+				pack = environment.createPackage(packageName);
+			}
+			
+			_import.setPackage(pack);
+			_import.setType(type);
+
 			// Nunca visita os nós filhos, isso será feito posteriormente
 			return false;
 		}
 
+		private String extractTypeName(String packageName) {
+			int endDot = packageName.lastIndexOf('.');
+
+			return packageName.substring(endDot+1, packageName.length());
+		}
+
+		private String extractPackageName(String packageName) {
+			int endDot = packageName.lastIndexOf('.');
+
+			return packageName.substring(0, endDot);
+		}
 	}
 
 	private ASTSourceFile sourceFile;

@@ -101,7 +101,9 @@ public class ASTSourceFile implements SourceFile, ASTWrapper<ASTSourceFile.ASTCo
 		ASTImportDeclaration _import = new ASTImportDeclaration();
 		_import.setParent(this);
 		
-		return null;
+		getImportDeclarationList().add(_import);
+		
+		return _import;
 	}
 
 	@Override

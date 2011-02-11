@@ -48,7 +48,7 @@ public class ASTParser extends AbstractParser {
 
 		doCompilationUnitListParse(compilationUnitList, activeCompilationUnit);
 
-		for (ASTPackage pack : environment.getPackageList()) {
+		for (ASTPackage pack : environment.getPackageList().values()) {
 			for (ASTSourceFile sourceFile : pack.getSourceFileList()) {
 				SourceFileParser parser = new SourceFileParser();
 				
@@ -69,13 +69,10 @@ public class ASTParser extends AbstractParser {
 				continue;
 			}
 
-			ASTPackage parsedPackage = environment.createPackage();
+			ASTPackage parsedPackage = environment.createPackage(_package.getElementName());
 
-			parsedPackage.setName(_package.getElementName());
 			parsedPackage.setASTObject(_package);
-
-			environment.getPackageList().add(parsedPackage);
-
+			
 			try {
 				compilationUnitList.addAll(Arrays.asList(_package
 						.getCompilationUnits()));
@@ -119,7 +116,7 @@ public class ASTParser extends AbstractParser {
 						if (element instanceof IPackageFragment) {
 							IPackageFragment parent = (IPackageFragment) element;
 
-							for (ASTPackage p : environment.getPackageList()) {
+							for (ASTPackage p : environment.getPackageList().values()) {
 								if (p.getASTObject() == parent) {
 									sourceFile.setParent(p);
 									p.getSourceFileList().add(sourceFile);
