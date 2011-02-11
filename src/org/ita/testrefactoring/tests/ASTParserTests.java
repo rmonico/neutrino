@@ -71,10 +71,10 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		
 		assertEquals("Validade do pacote parent", testPackage, sourceFile.getParent());
 		
+		assertEquals("Nome do arquivo", "TestFile.java", sourceFile.getFileName());
+
 		assertEquals("Lista de importações (size)", 1, sourceFile.getImportDeclarationList().size());
 		assertEquals("Lista de importações", environment.getTypeCache().get("org.junit.Before"), sourceFile.getImportDeclarationList().get(0).getType());
-		
-		assertEquals("Nome do arquivo", "TestFile.java", sourceFile.getFileName());
 		
 		assertEquals("Lista de tipos (size)", 1, sourceFile.getTypeList());
 		assertEquals("Lista de tipos", environment.getTypeCache().get("astparser.tests.TestFile"), sourceFile.getTypeList().get(0));

@@ -35,7 +35,7 @@ public class ASTParser extends AbstractParser {
 
 		setEnvironment(environment);
 
-		List<ICompilationUnit> compilationUnitList = loadPackageList(
+		List<ICompilationUnit> compilationUnitList = doPackageListParse(
 				packageList, environment);
 
 		ICompilationUnit activeCompilationUnit = getActiveCompilationUnit(compilationUnitList);
@@ -47,15 +47,46 @@ public class ASTParser extends AbstractParser {
 		}
 
 		doCompilationUnitListParse(compilationUnitList, activeCompilationUnit);
-		// for (ASTPackage pack : environment.getPackageList()) {
-		// PackageParser packageParser = new PackageParser();
-		//
-		// packageParser.setPackage(pack);
-		//
-		// packageParser.parse();
-		// }
+
+		for (ASTPackage pack : environment.getPackageList()) {
+			for (ASTSourceFile sourceFile : pack.getSourceFileList()) {
+				SourceFileParser parser = new SourceFileParser();
+				
+				parser.setSourceFile(sourceFile);
+				
+				parser.parse();
+			}
+		}
 	}
 
+	private List<ICompilationUnit> doPackageListParse(
+			List<IPackageFragment> packageList, ASTEnvironment environment)
+			throws ParserException {
+		List<ICompilationUnit> compilationUnitList = new ArrayList<ICompilationUnit>();
+
+		for (IPackageFragment _package : packageList) {
+			if (!isPackageValid(_package)) {
+				continue;
+			}
+
+			ASTPackage parsedPackage = environment.createPackage();
+
+			parsedPackage.setName(_package.getElementName());
+			parsedPackage.setASTObject(_package);
+
+			environment.getPackageList().add(parsedPackage);
+
+			try {
+				compilationUnitList.addAll(Arrays.asList(_package
+						.getCompilationUnits()));
+			} catch (JavaModelException e) {
+				throw new ParserException(e);
+			}
+		}
+
+		return compilationUnitList;
+	}
+	
 	private void doCompilationUnitListParse(
 			List<ICompilationUnit> compilationUnitList,
 			ICompilationUnit activeCompilationUnit) {
@@ -95,7 +126,7 @@ public class ASTParser extends AbstractParser {
 								}
 							}
 						}
-						
+
 						// Problema: esse método não lança exceção
 						// nenhuma...
 						if (sourceFile.getParent() == null) {
@@ -121,34 +152,6 @@ public class ASTParser extends AbstractParser {
 			}
 		}
 		return activeCompilationUnit;
-	}
-
-	private List<ICompilationUnit> loadPackageList(
-			List<IPackageFragment> packageList, ASTEnvironment environment)
-			throws ParserException {
-		List<ICompilationUnit> compilationUnitList = new ArrayList<ICompilationUnit>();
-
-		for (IPackageFragment _package : packageList) {
-			if (!isPackageValid(_package)) {
-				continue;
-			}
-
-			ASTPackage parsedPackage = environment.createPackage();
-
-			parsedPackage.setName(_package.getElementName());
-			parsedPackage.setASTObject(_package);
-
-			environment.getPackageList().add(parsedPackage);
-
-			try {
-				compilationUnitList.addAll(Arrays.asList(_package
-						.getCompilationUnits()));
-			} catch (JavaModelException e) {
-				throw new ParserException(e);
-			}
-		}
-
-		return compilationUnitList;
 	}
 
 	private boolean isPackageValid(IPackageFragment _package)
