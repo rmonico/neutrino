@@ -14,7 +14,6 @@ public class ASTImportDeclaration implements ImportDeclaration {
 
 	ASTImportDeclaration() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	// A princípio é read-only

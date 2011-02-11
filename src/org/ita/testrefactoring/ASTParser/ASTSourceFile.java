@@ -10,17 +10,15 @@ import org.ita.testrefactoring.metacode.AbstractType;
 import org.ita.testrefactoring.metacode.Annotation;
 import org.ita.testrefactoring.metacode.Class;
 import org.ita.testrefactoring.metacode.Enum;
-import org.ita.testrefactoring.metacode.ImportDeclaration;
 import org.ita.testrefactoring.metacode.Interface;
-import org.ita.testrefactoring.metacode.Package;
 import org.ita.testrefactoring.metacode.SourceFile;
 
 public class ASTSourceFile implements SourceFile, ASTWrapper<ASTSourceFile.ASTContainer> {
 	
-	private List<ImportDeclaration> importDeclarationList = new ArrayList<ImportDeclaration>();
+	private List<ASTImportDeclaration> importDeclarationList = new ArrayList<ASTImportDeclaration>();
 	private List<AbstractType> typeList = new ArrayList<AbstractType>();
 	private String fileName;
-	private Package parent;
+	private ASTPackage parent;
 	
 	class ASTContainer {
 		private CompilationUnit compilationUnit;
@@ -58,10 +56,15 @@ public class ASTSourceFile implements SourceFile, ASTWrapper<ASTSourceFile.ASTCo
 		
 	}
 	
-	protected void setParent(Package parent) {
-
+	protected void setParent(ASTPackage parent) {
+		this.parent = parent;
 	}
 
+	@Override
+	public ASTPackage getParent() {
+		return parent;
+	}
+	
 	@Override
 	public void setASTObject(ASTContainer astObject) {
 		this.astObject = astObject;
@@ -75,26 +78,22 @@ public class ASTSourceFile implements SourceFile, ASTWrapper<ASTSourceFile.ASTCo
 
 	@Override
 	public String getFileName() {
-		// TODO Auto-generated method stub
-		return null;
+		return fileName;
 	}
 
 	@Override
 	public void setFileName(String fileName) {
-		// TODO Auto-generated method stub
-		
+		this.fileName = fileName;
 	}
 
 	@Override
 	public List<ASTImportDeclaration> getImportDeclarationList() {
-		// TODO Auto-generated method stub
-		return null;
+		return importDeclarationList;
 	}
 
 	@Override
 	public List<AbstractType> getTypeList() {
-		// TODO Auto-generated method stub
-		return null;
+		return typeList;
 	}
 
 	@Override
@@ -107,31 +106,22 @@ public class ASTSourceFile implements SourceFile, ASTWrapper<ASTSourceFile.ASTCo
 
 	@Override
 	public Class createClass() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new Error("Not implemented yet.");
 	}
 
 	@Override
 	public Interface createInterface() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new Error("Not implemented yet.");
 	}
 
 	@Override
 	public Enum createEnum() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new Error("Not implemented yet.");
 	}
 
 	@Override
 	public Annotation createAnnotation() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new Error("Not implemented yet.");
 	}
 
-	@Override
-	public ASTPackage getParent() {
-		return null;
-	}
-	
 }
