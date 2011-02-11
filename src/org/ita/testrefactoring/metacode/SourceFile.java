@@ -32,10 +32,11 @@ public class SourceFile {
 	}
 	
 	ImportDeclaration createImportDeclaration() {
-		ImportDeclaration importDeclaration = new ImportDeclaration();
-		importDeclaration.setParent(this);
-		
-		return importDeclaration;
+		return null;
+//		ImportDeclaration importDeclaration = new ImportDeclaration();
+//		importDeclaration.setParent(this);
+//		
+//		return importDeclaration;
 	}
 	
 	Class createClass() {
