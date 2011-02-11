@@ -91,6 +91,7 @@ public class ASTParser extends AbstractParser {
 							for (ASTPackage p : environment.getPackageList()) {
 								if (p.getASTObject() == parent) {
 									sourceFile.setParent(p);
+									p.getSourceFileList().add(sourceFile);
 								}
 							}
 						}
