@@ -6,6 +6,6 @@ package org.ita.testrefactoring.metacode;
  * @author Rafael Monico
  *
  */
-public class CheckedExceptionClass extends AbstractType {
+public interface CheckedExceptionClass extends Type {
 
 }
