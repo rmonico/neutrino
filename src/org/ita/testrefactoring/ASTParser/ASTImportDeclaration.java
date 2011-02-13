@@ -12,43 +12,45 @@ public class ASTImportDeclaration implements ImportDeclaration {
 	private Package _package;
 	private ASTSourceFile parent;
 
+	// Construtor acessível somente através do pacote
 	ASTImportDeclaration() {
-		super();
+
 	}
 
-	// A princípio é read-only
 	protected void setPackage(Package _package) {
+		this._package = _package;
 	}
-
-	// A princípio é read-only
-	void setType(Type type) {
-	}
-
-	// A princípio é read-only
-	void setParent(ASTSourceFile parent) {
-	}
-
-	@Override
-	public boolean isStatic() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
 	@Override
 	public Package getPackage() {
-		// TODO Auto-generated method stub
-		return null;
+		return _package;
 	}
 
+	protected void setType(Type type) {
+		this.type = type;
+	}
+	
 	@Override
 	public Type getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return type;
+	}
+
+	protected void setParent(ASTSourceFile parent) {
+		this.parent = parent;
 	}
 
 	@Override
 	public SourceFile getParent() {
-		// TODO Auto-generated method stub
-		return null;
+		return parent;
 	}
+
+	protected void setStatic(boolean isStatic) {
+		this.isStatic = isStatic;
+	}
+	
+	@Override
+	public boolean isStatic() {
+		return isStatic;
+	}
+
 }

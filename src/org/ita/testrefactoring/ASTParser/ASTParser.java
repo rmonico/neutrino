@@ -21,6 +21,10 @@ public class ASTParser extends AbstractParser {
 
 	private ASTEnvironment environment;
 
+	/**
+	 * Parser master, chama os demais parsers. Popula a lista de packages do
+	 * environment e chama os parsers para os source files encontrados.
+	 */
 	@Override
 	public void parse() throws ParserException {
 		List<IPackageFragment> packageList;
@@ -40,13 +44,13 @@ public class ASTParser extends AbstractParser {
 
 		ICompilationUnit activeCompilationUnit = getActiveCompilationUnit(compilationUnitList);
 
-		// Não há nenhuma compilation unit no projeto, não será necessário
-		// continuar o parsing
+		// Significa que não há nenhuma compilation unit no projeto, não será
+		// necessário continuar o parsing
 		if (activeCompilationUnit == null) {
 			return;
 		}
 
-		doCompilationUnitListParse(compilationUnitList, activeCompilationUnit);
+		doASTParsing(compilationUnitList, activeCompilationUnit);
 
 		for (ASTPackage pack : environment.getPackageList().values()) {
 			for (ASTSourceFile sourceFile : pack.getSourceFileList()) {
@@ -59,6 +63,16 @@ public class ASTParser extends AbstractParser {
 		}
 	}
 
+	/**
+	 * Popula a lista de packages do environment a partir da lista de packages
+	 * bruta fornecida pelo Eclipse. Devolve uma lista de compilation unit's do
+	 * ambiente, a partir da qual o parsing continuará.
+	 * 
+	 * @param packageList
+	 * @param environment
+	 * @return
+	 * @throws ParserException
+	 */
 	private List<ICompilationUnit> doPackageListParse(
 			List<IPackageFragment> packageList, ASTEnvironment environment)
 			throws ParserException {
@@ -85,8 +99,13 @@ public class ASTParser extends AbstractParser {
 		return compilationUnitList;
 	}
 
-	private void doCompilationUnitListParse(
-			List<ICompilationUnit> compilationUnitList,
+	/**
+	 * Chama o parsing do AST e popula as listas de source file de cada package.
+	 * 
+	 * @param compilationUnitList
+	 * @param activeCompilationUnit
+	 */
+	private void doASTParsing(List<ICompilationUnit> compilationUnitList,
 			ICompilationUnit activeCompilationUnit) {
 		org.eclipse.jdt.core.dom.ASTParser parser = org.eclipse.jdt.core.dom.ASTParser
 				.newParser(AST.JLS3);
@@ -100,6 +119,9 @@ public class ASTParser extends AbstractParser {
 		parser.createASTs(compilationUnitList.toArray(new ICompilationUnit[0]),
 				new String[0], new ASTRequestor() {
 					@Override
+					/**
+					 * Roda uma vez para cada compilation unit parseada. Uso para popular as listas de source file existentes em cada pacote.
+					 */
 					public void acceptAST(ICompilationUnit source,
 							CompilationUnit parsed) {
 						ASTSourceFile sourceFile = new ASTSourceFile();
@@ -113,7 +135,7 @@ public class ASTParser extends AbstractParser {
 						sourceFile.setASTObject(container);
 
 						// Já setou o ASTObject do sourceFile, agora precisa
-						// encontrar quem é o parent
+						// encontrar quem é o package parent.
 						IJavaElement element = source.getParent();
 
 						if (element instanceof IPackageFragment) {

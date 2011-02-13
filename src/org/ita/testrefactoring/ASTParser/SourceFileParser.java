@@ -27,7 +27,7 @@ class SourceFileParser {
 			AbstractType type = environment.getTypeCache().get(typeName);
 				
 			if (pack == null) {
-				// Pacote não encontrado no cache, criar um pacote "dummy"
+				// Pacote não encontrado no cache, cria um pacote "dummy"
 				pack = environment.createPackage(packageName);
 			}
 			
@@ -64,6 +64,9 @@ class SourceFileParser {
 		this.sourceFile = sourceFile;
 	}
 
+	/**
+	 * Faz o parsing do source file, baseado na compilation unit passada como parâmetro anteriormente.
+	 */
 	public void parse() {
 		sourceFile.setFileName(sourceFile.getASTObject().getICompilationUnit()
 				.getPath().toFile().getName());

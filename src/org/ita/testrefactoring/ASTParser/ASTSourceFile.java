@@ -134,11 +134,17 @@ public class ASTSourceFile implements SourceFile,
 		dummy.setName(typeName);
 		dummy.setPackage(pack);
 		getTypeList().add(dummy);
-		// Depois inventar um jeito de registrar isso junto ao
-		// Environment.getTypeList. Uma idéia seria mover esses métodos para o
-		// environment, afinal ele que tem que controlar tudo isso.
+		
+		// Posso popular a lista, pois a criação dessas classes está centralizada aqui.
+		ASTEnvironment environment = getParent().getParent();
+		environment.getTypeCache().put(typeName, dummy);
 
 		return dummy;
+	}
+
+	@Override
+	public String toString() {
+		return fileName;
 	}
 
 }
