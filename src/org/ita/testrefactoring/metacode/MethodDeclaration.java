@@ -12,6 +12,7 @@ import java.util.List;
 public class MethodDeclaration implements TypeElement {
 	
 	private String name;
+	private List<Annotation> annotationList = new ArrayList<Annotation>();
 	private InnerElementAccessModifier accessModifier = new InnerElementAccessModifier();
 	private MethodDeclarationNonAccessModifier nonAccessModifier = new MethodDeclarationNonAccessModifier();
 	private List<Argument> argumentList = new ArrayList<Argument>();
@@ -34,6 +35,10 @@ public class MethodDeclaration implements TypeElement {
 	
 	void setName(String name) {
 		this.name = name;
+	}
+	
+	public List<Annotation> getAnnotations() {
+		return annotationList;
 	}
 	
 	public InnerElementAccessModifier getAccessModifier() {
@@ -64,12 +69,12 @@ public class MethodDeclaration implements TypeElement {
 		return body;
 	}
 
-	@Override
-	public Type getParent() {
-		return parent;
-	}
-	
 	void setParent(Type parent) {
 		this.parent = parent;
+	}
+
+	@Override
+	public Type getType() {
+		return null;
 	}
 }
