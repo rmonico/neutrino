@@ -1,5 +1,5 @@
 package org.ita.testrefactoring.metacode;
 
-public class Enum extends AbstractType {
+public interface Enum extends Type {
 
 }

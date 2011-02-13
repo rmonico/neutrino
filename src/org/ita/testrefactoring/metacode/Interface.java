@@ -1,5 +1,7 @@
 package org.ita.testrefactoring.metacode;
 
-public class Interface extends AbstractType {
-
+public interface Interface extends Type {
+	
+	public Interface getParent();
+	
 }

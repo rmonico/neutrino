@@ -1,5 +1,5 @@
 package org.ita.testrefactoring.metacode;
 
-public class Annotation extends AbstractType {
+public interface Annotation extends Type {
 
 }

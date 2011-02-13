@@ -1,16 +1,9 @@
 package org.ita.testrefactoring.metacode;
 
-public class Class extends AbstractType {
+public interface Class extends Type {
 	
-	private NonAccessClassModifier nonAccessModifier = new NonAccessClassModifier();
+	public Class getParent();
 	
-	public NonAccessClassModifier getNonAccessModifier() {
-		return nonAccessModifier;
-	}
+	public NonAccessClassModifier getNonAccessModifier();
 	
-	// Navegação e controle de acesso
-	// Contrutor restrito ao pacote
-	Class() {
-		
-	}
 }
