@@ -6,18 +6,16 @@ import java.util.List;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
-import org.ita.testrefactoring.metacode.AbstractType;
 import org.ita.testrefactoring.metacode.Annotation;
-import org.ita.testrefactoring.metacode.Class;
 import org.ita.testrefactoring.metacode.Enum;
-import org.ita.testrefactoring.metacode.Interface;
 import org.ita.testrefactoring.metacode.SourceFile;
+import org.ita.testrefactoring.metacode.Type;
 
 public class ASTSourceFile implements SourceFile,
 		ASTWrapper<ASTSourceFile.ASTContainer> {
 
 	private List<ASTImportDeclaration> importDeclarationList = new ArrayList<ASTImportDeclaration>();
-	private List<AbstractType> typeList = new ArrayList<AbstractType>();
+	private List<Type> typeList = new ArrayList<Type>();
 	private String fileName;
 	private ASTPackage parent;
 
@@ -58,12 +56,12 @@ public class ASTSourceFile implements SourceFile,
 
 	}
 
-	protected void setParent(ASTPackage parent) {
+	protected void setPackage(ASTPackage parent) {
 		this.parent = parent;
 	}
 
 	@Override
-	public ASTPackage getParent() {
+	public ASTPackage getPackage() {
 		return parent;
 	}
 
@@ -83,63 +81,65 @@ public class ASTSourceFile implements SourceFile,
 		return fileName;
 	}
 
-	@Override
-	public void setFileName(String fileName) {
+	void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
 
 	@Override
-	public List<ASTImportDeclaration> getImportDeclarationList() {
+	public List<ASTImportDeclaration> getImportList() {
 		return importDeclarationList;
 	}
 
 	@Override
-	public List<AbstractType> getTypeList() {
+	public List<Type> getTypeList() {
 		return typeList;
 	}
 
-	@Override
-	public ASTImportDeclaration createImportDeclaration() {
+	ASTImportDeclaration createImportDeclaration() {
 		ASTImportDeclaration _import = new ASTImportDeclaration();
 		_import.setParent(this);
 
-		getImportDeclarationList().add(_import);
+		getImportList().add(_import);
 
 		return _import;
 	}
 
-	@Override
-	public Class createClass() {
-		throw new Error("Not implemented yet.");
+	private ASTEnvironment getEnvironment() {
+		return getPackage().getEnvironment();
 	}
-
-	@Override
-	public Interface createInterface() {
-		throw new Error("Not implemented yet.");
-	}
-
-	@Override
-	public Enum createEnum() {
-		throw new Error("Not implemented yet.");
-	}
-
-	@Override
-	public Annotation createAnnotation() {
-		throw new Error("Not implemented yet.");
-	}
-
-	ASTDummyType createDummyType(String typeName, ASTPackage pack) {
-		ASTDummyType dummy = new ASTDummyType();
-		dummy.setParent(this);
-		dummy.setName(typeName);
-		dummy.setPackage(pack);
-		getTypeList().add(dummy);
+	
+	private void setupType(ASTType type, String name) {
+		type.setName(name);
+		type.setPackage(getPackage());
+		type.setParent(this);
 		
-		// Posso popular a lista, pois a criação dessas classes está centralizada aqui.
-		ASTEnvironment environment = getParent().getParent();
-		environment.getTypeCache().put(typeName, dummy);
+		getTypeList().add(type);
+		
+		getEnvironment().registerType(type);
+	}
 
-		return dummy;
+	ASTClass createClass(String className) {
+		ASTClass clazz = new ASTClass();
+		
+		setupType(clazz, className);
+		
+		return clazz;
+	}
+
+	ASTInterface createInterface(String interfaceName) {
+		ASTInterface _interface = new ASTInterface();
+		
+		setupType(_interface, interfaceName);
+		
+		return _interface;
+	}
+
+	Enum createEnum() {
+		throw new Error("Not implemented yet.");
+	}
+
+	Annotation createAnnotation() {
+		throw new Error("Not implemented yet.");
 	}
 
 	@Override
