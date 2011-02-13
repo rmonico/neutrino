@@ -1,5 +1,5 @@
 /**
- * E_plora as principais possibilidade de TypeElements dentro de uma class.
+ * Explora as principais possibilidade de TypeElements dentro de uma class.
  */
 
 package org.ita.testrefactoring.testfiles;
@@ -139,7 +139,7 @@ interface Interface {
 	// Tipo de retorno
 	KnownClass methodWithReturnType();
 
-	// Lançamento de e_ceção
+	// Lançamento de exceção
 	void dummyThrowerMethod() throws Exception;
 
 	void nonDummyThrowerMethod() throws KnownException;

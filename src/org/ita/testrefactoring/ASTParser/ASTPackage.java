@@ -1,7 +1,7 @@
 package org.ita.testrefactoring.ASTParser;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.jdt.core.IPackageFragment;
 import org.ita.testrefactoring.metacode.Package;
@@ -9,12 +9,12 @@ import org.ita.testrefactoring.metacode.SourceFile;
 
 public class ASTPackage implements Package, ASTWrapper<IPackageFragment> {
 
-	private List<ASTSourceFile> sourceFileList = new ArrayList<ASTSourceFile>();
+	private Map<String, ASTSourceFile> sourceFileList = new HashMap<String, ASTSourceFile>();
 	private String name;
 	private ASTEnvironment parent;
 	private IPackageFragment astObject;
 
-	public List<ASTSourceFile> getSourceFileList() {
+	public Map<String, ASTSourceFile> getSourceFileList() {
 		return sourceFileList;
 	}
 

@@ -53,7 +53,7 @@ public class ASTParser extends AbstractParser {
 		doASTParsing(compilationUnitList, activeCompilationUnit);
 
 		for (ASTPackage pack : environment.getPackageList().values()) {
-			for (ASTSourceFile sourceFile : pack.getSourceFileList()) {
+			for (ASTSourceFile sourceFile : pack.getSourceFileList().values()) {
 				SourceFileParser parser = new SourceFileParser();
 
 				parser.setSourceFile(sourceFile);
@@ -145,7 +145,7 @@ public class ASTParser extends AbstractParser {
 									.values()) {
 								if (p.getASTObject() == parent) {
 									sourceFile.setPackage(p);
-									p.getSourceFileList().add(sourceFile);
+									p.getSourceFileList().put(source.getPath().toString(), sourceFile);
 
 									break;
 								}

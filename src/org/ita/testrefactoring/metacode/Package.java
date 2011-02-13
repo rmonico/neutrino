@@ -1,12 +1,12 @@
 package org.ita.testrefactoring.metacode;
 
-import java.util.List;
+import java.util.Map;
 
 public interface Package {
 	
 	String getName();
 	
-	List<? extends SourceFile> getSourceFileList();
+	Map<String, ? extends SourceFile> getSourceFileList();
 	
 	Environment getEnvironment();
 }
