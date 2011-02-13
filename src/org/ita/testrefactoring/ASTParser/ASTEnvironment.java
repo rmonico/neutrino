@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jdt.core.ICompilationUnit;
-import org.ita.testrefactoring.metacode.AbstractType;
 import org.ita.testrefactoring.metacode.Environment;
+import org.ita.testrefactoring.metacode.Type;
 
 public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilationUnit>> {
 	
 	private Map<String, ASTPackage> packageList = new HashMap<String, ASTPackage>();
-	private Map<String, AbstractType> typeCache = new HashMap<String, AbstractType>();
+	private Map<String, Type> typeCache = new HashMap<String, Type>();
 	private List<ICompilationUnit> astObject;
 	
 	// Construtor restrito ao pacote
@@ -31,7 +31,7 @@ public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilation
 	 */
 	protected ASTPackage createPackage(String packageName) {
 		ASTPackage _package = new ASTPackage();
-		_package.setParent(this);
+		_package.setEnvironment(this);
 		_package.setName(packageName);
 		
 		packageList.put(packageName, _package);
@@ -40,7 +40,7 @@ public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilation
 	}
 
 	@Override
-	public Map<String, AbstractType> getTypeCache() {
+	public Map<String, Type> getTypeCache() {
 		return typeCache;
 	}
 
@@ -53,5 +53,23 @@ public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilation
 	public List<ICompilationUnit> getASTObject() {
 		return astObject;
 	}
+
+	ASTDummyType createDummyType(String typeName, ASTPackage pack) {
+		ASTDummyType dummy = new ASTDummyType();
+		// Tirar esse método daqui, quem deve criar esse tipo de classe é o
+		// environment, pois o mesmo não possui qualquer ligação com a classe.
+		// dummy.setParent(this);
+		dummy.setName(typeName);
+		dummy.setPackage(pack);
+
+		registerType(dummy);
+
+		return dummy;
+	}
+
+	void registerType(ASTType type) {
+		getTypeCache().put(type.getQualifiedName(), type);
+	}
+
 
 }
