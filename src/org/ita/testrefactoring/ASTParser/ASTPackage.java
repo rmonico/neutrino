@@ -7,14 +7,13 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.ita.testrefactoring.metacode.Package;
 import org.ita.testrefactoring.metacode.SourceFile;
 
-public class ASTPackage extends Package implements ASTWrapper<IPackageFragment> {
+public class ASTPackage implements Package, ASTWrapper<IPackageFragment> {
 
 	private List<ASTSourceFile> sourceFileList = new ArrayList<ASTSourceFile>();
 	private String name;
 	private ASTEnvironment parent;
 	private IPackageFragment astObject;
 
-	@Override
 	public List<ASTSourceFile> getSourceFileList() {
 		return sourceFileList;
 	}
@@ -24,31 +23,29 @@ public class ASTPackage extends Package implements ASTWrapper<IPackageFragment> 
 		return name;
 	}
 
-	@Override
 	protected void setName(String name) {
 		this.name = name;
 	}
-
+	
 	@Override
+	public ASTEnvironment getEnvironment() {
+		return parent;
+	}
+
+	protected void setEnvironment(ASTEnvironment parent) {
+		this.parent = parent;
+	}
+
 	protected SourceFile createSourceFile() {
 		ASTSourceFile sourceFile = new ASTSourceFile();
-		sourceFile.setParent(this);
+		sourceFile.setPackage(this);
 
 		return sourceFile;
 	}
 
-	protected void setParent(ASTEnvironment parent) {
-		this.parent = parent;
-	}
-
-	@Override
-	public ASTEnvironment getParent() {
-		return parent;
-	}
-
 	@Override
 	/**
-	 * Não deveria ser public, mas não teve jeito de fazer...
+	 * Não deveria ser public, mas a interface e igiu
 	 */
 	public void setASTObject(IPackageFragment astObject) {
 		this.astObject = astObject;
