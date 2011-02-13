@@ -60,6 +60,10 @@ class Utils {
 
 	}
 	
+	/**
+	 * Devolve a compilation unit ativa do Eclipse, ou null caso não exista.
+	 * @return
+	 */
 	public static ICompilationUnit getActiveICompilationUnit() {
 		IWorkbench workbench = Activator.getDefault().getWorkbench();
 
