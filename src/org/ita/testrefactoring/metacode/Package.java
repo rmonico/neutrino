@@ -2,19 +2,11 @@ package org.ita.testrefactoring.metacode;
 
 import java.util.List;
 
-public abstract class Package {
-	public abstract List<? extends SourceFile> getSourceFileList();
+public interface Package {
 	
-	public abstract String getName();
+	String getName();
 	
-	protected abstract void setName(String name);
-
-
-	protected Package() {
-		
-	}
+	List<? extends SourceFile> getSourceFileList();
 	
-	protected abstract SourceFile createSourceFile();
-	
-	public abstract Environment getParent();
+	Environment getEnvironment();
 }
