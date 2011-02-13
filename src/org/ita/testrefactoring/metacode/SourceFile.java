@@ -6,22 +6,14 @@ public interface SourceFile {
 	
 	public String getFileName();
 	
-	void setFileName(String fileName);
+	public List<? extends ImportDeclaration> getImportList();
 	
-	public List<? extends ImportDeclaration> getImportDeclarationList();
+	/**
+	 * Lista de tipos presentes no arquivo.
+	 * 
+	 * @return
+	 */
+	public List<? extends Type> getTypeList();
 	
-	public List<? extends AbstractType> getTypeList();
-
-	
-	ImportDeclaration createImportDeclaration();
-	
-	Class createClass();
-	
-	Interface createInterface();
-	
-	Enum createEnum();
-	
-	Annotation createAnnotation();
-	
-	Package getParent();
+	Package getPackage();
 }
