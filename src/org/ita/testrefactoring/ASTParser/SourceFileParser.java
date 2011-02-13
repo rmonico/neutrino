@@ -1,11 +1,19 @@
 package org.ita.testrefactoring.ASTParser;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
-import org.ita.testrefactoring.metacode.AbstractType;
+import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
+import org.eclipse.jdt.core.dom.EnumDeclaration;
+import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.ita.testrefactoring.metacode.Type;
 
 class SourceFileParser {
 
-	private static class SourceFileVisitor extends ASTVisitor {
+	/**
+	 * Localiza as declarações de import e as salva.
+	 * @author Rafael Monico
+	 *
+	 */
+	private static class ImportVisitor extends ASTVisitor {
 
 		private ASTSourceFile sourceFile;
 
@@ -20,11 +28,11 @@ class SourceFileParser {
 			String packageName = extractPackageName(node.getName().toString());
 			String typeName = extractTypeName(node.getName().toString());
 			
-			ASTEnvironment environment = sourceFile.getParent().getParent();
+			ASTEnvironment environment = sourceFile.getPackage().getEnvironment();
 			
 			ASTPackage pack = environment.getPackageList().get(packageName);
 
-			AbstractType type = environment.getTypeCache().get(typeName);
+			Type type = environment.getTypeCache().get(typeName);
 				
 			if (pack == null) {
 				// Pacote não encontrado no cache, cria um pacote "dummy"
@@ -33,7 +41,7 @@ class SourceFileParser {
 			
 			if (type == null) {
 				// Criar type "dummy"
-				ASTDummyType dummy = sourceFile.createDummyType(typeName, pack);
+				ASTDummyType dummy = environment.createDummyType(typeName, pack);
 				
 				type = dummy;
 			}
@@ -58,6 +66,62 @@ class SourceFileParser {
 		}
 	}
 
+	public class TypeVisitor extends ASTVisitor {
+
+		private ASTSourceFile sourceFile;
+
+		public void setSourceFile(ASTSourceFile sourceFile) {
+			this.sourceFile = sourceFile;
+		}
+		
+		@Override
+		public boolean visit(TypeDeclaration node) {
+			
+			// Nesse caso, só pode ser classe
+			if (!node.isInterface()) {
+				classFound(node);
+			} else {
+				// É interface
+				interfaceFound(node);
+			}
+			
+			return false;
+		}
+		
+		private void classFound(TypeDeclaration node) {
+			// TODO: testar
+			sourceFile.createClass(node.getName().getIdentifier());
+		}
+		
+		private void interfaceFound(TypeDeclaration node) {
+			sourceFile.createInterface(node.getName().getIdentifier());
+			
+		}
+
+		@Override
+		public boolean visit(AnnotationTypeDeclaration node) {
+			annotationFound(node);
+			return false;
+		}
+		
+		private void annotationFound(AnnotationTypeDeclaration node) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public boolean visit(EnumDeclaration node) {
+			enumFound(node);
+			return false;
+		}
+
+		private void enumFound(EnumDeclaration node) {
+			// TODO Auto-generated method stub
+			
+		}
+
+	}
+
 	private ASTSourceFile sourceFile;
 
 	public void setSourceFile(ASTSourceFile sourceFile) {
@@ -71,12 +135,25 @@ class SourceFileParser {
 		sourceFile.setFileName(sourceFile.getASTObject().getICompilationUnit()
 				.getPath().toFile().getName());
 
-		SourceFileVisitor visitor = new SourceFileVisitor();
+		populateImportList();
+		
+		populateTypeList();
+	}
+
+	private void populateImportList() {
+		ImportVisitor visitor = new ImportVisitor();
 
 		visitor.setSourceFile(sourceFile);
 
 		sourceFile.getASTObject().getCompilationUnit().accept(visitor);
+	}
 
+	private void populateTypeList() {
+		TypeVisitor visitor = new TypeVisitor();
+		
+		visitor.setSourceFile(sourceFile);
+		
+		sourceFile.getASTObject().getCompilationUnit().accept(visitor);
 	}
 
 }
