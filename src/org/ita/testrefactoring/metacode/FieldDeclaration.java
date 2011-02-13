@@ -33,13 +33,14 @@ public class FieldDeclaration implements TypeElement {
 		this.initialization = value;
 	}
 	
-	@Override
-	public Type getParent() {
-		return parent;
-	}
-
 	void setParent(Type parent) {
 		this.parent = parent;
+	}
+
+	@Override
+	public Type getType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
