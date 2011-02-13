@@ -3,14 +3,14 @@ package org.ita.testrefactoring.metacode;
 public class NonAccessClassModifier {
 
 	// Nunca pode ser mais de um
-	private static final int NORMAL = 0;
+	private static final int NONE = 0;
 	private static final int ABSTRACT = 1;
 	private static final int FINAL = 2;
 	
 	private int modifier;
 	
-	public boolean isNormal() {
-		return modifier == NORMAL;
+	public boolean isNonModified() {
+		return modifier == NONE;
 	}
 	
 	public boolean isAbstract() {
@@ -22,7 +22,7 @@ public class NonAccessClassModifier {
 	}
 	
 	void setNormal() {
-		modifier = NORMAL;
+		modifier = NONE;
 	}
 	
 	void setAbstract() {
