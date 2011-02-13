@@ -1,9 +1,7 @@
 package org.ita.testrefactoring.metacode;
 
-public class InnerClass extends AbstractInnerType {
-	private NonAccessInnerClassModifier nonAccessModifier = new NonAccessInnerClassModifier();
+public interface InnerClass extends InnerType {
 	
-	public NonAccessInnerClassModifier getNonAccessModifier() {
-		return nonAccessModifier;
-	}
+	public NonAccessInnerClassModifier getNonAccessModifier();
+	
 }

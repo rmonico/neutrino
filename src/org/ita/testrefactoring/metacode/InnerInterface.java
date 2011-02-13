@@ -1,5 +1,5 @@
 package org.ita.testrefactoring.metacode;
 
-public class InnerInterface extends AbstractInnerType {
+public interface InnerInterface extends InnerType {
 
 }

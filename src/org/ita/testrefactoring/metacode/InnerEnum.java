@@ -1,5 +1,5 @@
 package org.ita.testrefactoring.metacode;
 
-public class InnerEnum extends AbstractInnerType {
+public interface InnerEnum extends InnerType {
 
 }
