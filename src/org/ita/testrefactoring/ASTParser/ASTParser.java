@@ -144,7 +144,7 @@ public class ASTParser extends AbstractParser {
 							for (ASTPackage p : environment.getPackageList()
 									.values()) {
 								if (p.getASTObject() == parent) {
-									sourceFile.setParent(p);
+									sourceFile.setPackage(p);
 									p.getSourceFileList().add(sourceFile);
 
 									break;
@@ -152,7 +152,7 @@ public class ASTParser extends AbstractParser {
 							}
 						}
 
-						if (sourceFile.getParent() == null) {
+						if (sourceFile.getPackage() == null) {
 							// Rejeito o arquivo, pois não sei em qual package
 							// ele está. Não preciso rejeitar ativamente, pois o
 							// mesmo irá se perder, pois não chamo setParent e
