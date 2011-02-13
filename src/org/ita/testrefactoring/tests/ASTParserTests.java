@@ -14,71 +14,109 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 	@Test
 	public void testPackageParsing() throws ParserException, JavaModelException {
-		getPackageByName("temp.pack1");
-		getPackageByName("temp.pack2");
-		
+		getPackageByName("org.ita.testrefactoring.testfiles.pack1");
+		getPackageByName("org.ita.testrefactoring.testfiles.pack2");
+
 		ASTParser parser = new ASTParser();
-		
+
 		// Faz o parsing de todo o workspace
 		parser.parse();
+
+		ASTEnvironment environment = parser.getEnvironment();
 		
-		ASTPackage[] packageList = parser.getEnvironment().getPackageList().values().toArray(new ASTPackage[0]);
+		ASTPackage[] packageList = parser.getEnvironment().getPackageList()
+				.values().toArray(new ASTPackage[0]);
 
 		assertEquals("Quantidade de pacotes", 2, packageList.length);
-		
-		assertEquals("Validade do ambiente do pacote 1", parser.getEnvironment(), packageList[0].getParent());
-		assertEquals("Nome do pacote 1", "temp.pack1", packageList[0].getName());
 
-		assertEquals("Validade do ambiente do pacote 2", parser.getEnvironment(), packageList[1].getParent());
-		assertEquals("Nome do pacote 2", "temp.pack2", packageList[1].getName());
 		
+		ASTPackage pack1 = environment.getPackageList().get("org.ita.testrefactoring.testfiles.pack1");
+		
+		assertEquals("Validade do ambiente do pacote 1",
+				parser.getEnvironment(), pack1.getEnvironment());
+		assertEquals("Nome do pacote 1",
+				"org.ita.testrefactoring.testfiles.pack1",
+				pack1.getName());
+
+		ASTPackage pack2= environment.getPackageList().get("org.ita.testrefactoring.testfiles.pack2");
+		
+		assertEquals("Validade do ambiente do pacote 2",
+				parser.getEnvironment(), pack2.getEnvironment());
+		assertEquals("Nome do pacote 2",
+				"org.ita.testrefactoring.testfiles.pack2",
+				pack2.getName());
+
 		setTestsOk();
 	}
 
 	@Test
-	public void testSourceFileParsing() throws ParserException, JavaModelException {
+	public void testMinimalSourceFileParsing() throws ParserException,
+			JavaModelException {
 		StringBuilder testSourceFile = new StringBuilder();
 
-		testSourceFile.append("package astparser.tests;\n");
+		testSourceFile.append("/**");
+		testSourceFile
+				.append(" * Tem a intenção de testar um arquivo com o mínimo possível de funcionalidade.");
+		testSourceFile.append(" * ");
+		testSourceFile.append(" */");
+		testSourceFile.append("package org.ita.testrefactoring.testfiles;\n");
 		testSourceFile.append("\n");
 		testSourceFile.append("import org.junit.Before;\n");
 		testSourceFile.append("\n");
-		testSourceFile.append("public class TestFile {\n");
+		testSourceFile.append("public class MinimalSourceFile {\n");
 		testSourceFile.append("    \n");
 		testSourceFile.append("    @Before\n");
 		testSourceFile.append("    public void setup() {\n");
 		testSourceFile.append("\n");
 		testSourceFile.append("    }\n");
 		testSourceFile.append("}\n");
-		
-		createSourceFile("astparser.tests", "TestFile.java", testSourceFile);
-		
-		
+
+		createSourceFile("org.ita.testrefactoring.testfiles",
+				"MinimalSourceFile.java", testSourceFile);
+
 		ASTParser parser = new ASTParser();
-		
+
 		// Faz o parsing de todo o workspace
 		parser.parse();
-		
-		
-		ASTEnvironment environment = parser.getEnvironment();
-		
-		ASTPackage testPackage = environment.getPackageList().get("astparser.tests");
-		
-		assertEquals("Quantidade de arquivos parseados", 1, testPackage.getSourceFileList().size());
-		
-		ASTSourceFile sourceFile = testPackage.getSourceFileList().get(0);
-		
-		assertEquals("Validade do pacote parent", testPackage, sourceFile.getParent());
-		
-		assertEquals("Nome do arquivo", "TestFile.java", sourceFile.getFileName());
 
-		assertEquals("Lista de importações (size)", 1, sourceFile.getImportDeclarationList().size());
-		assertEquals("Lista de importações (package)", environment.getPackageList().get("org.junit"), sourceFile.getImportDeclarationList().get(0).getPackage());
-		assertEquals("Lista de importações (tipo)", environment.getTypeCache().get("org.junit.Before"), sourceFile.getImportDeclarationList().get(0).getType());
-		
-		assertEquals("Lista de tipos (size)", 1, sourceFile.getTypeList());
-		assertEquals("Lista de tipos", environment.getTypeCache().get("astparser.tests.TestFile"), sourceFile.getTypeList().get(0));
-		
+		ASTEnvironment environment = parser.getEnvironment();
+
+		ASTPackage testPackage = environment.getPackageList().get(
+				"org.ita.testrefactoring.testfiles");
+
+		assertEquals("Quantidade de arquivos parseados", 1, testPackage
+				.getSourceFileList().size());
+
+		ASTSourceFile sourceFile = testPackage.getSourceFileList().get(0);
+
+		assertEquals("Validade do pacote parent", testPackage,
+				sourceFile.getPackage());
+
+		assertEquals("Nome do arquivo", "MinimalSourceFile.java",
+				sourceFile.getFileName());
+
+		assertEquals("Lista de importações (size)", 1, sourceFile
+				.getImportList().size());
+		assertEquals("Lista de importações (package)", environment
+				.getPackageList().get("org.junit"), sourceFile.getImportList()
+				.get(0).getPackage());
+		assertEquals("Lista de importações (tipo)", environment.getTypeCache()
+				.get("org.junit.Before"), sourceFile.getImportList().get(0)
+				.getType());
+
+		assertEquals("Lista de tipos (size)", 1, sourceFile.getTypeList()
+				.size());
+		assertEquals(
+				"Lista de tipos",
+				environment.getTypeCache().get(
+						"org.ita.testrefactoring.testfiles.MinimalSourceFile"),
+				sourceFile.getTypeList().get(0));
+
 		setTestsOk();
+	}
+
+	@Test
+	public void testCompleteSourceFileParsing() {
+
 	}
 }
