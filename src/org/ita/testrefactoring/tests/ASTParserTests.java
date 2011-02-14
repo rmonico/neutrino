@@ -1,10 +1,8 @@
 package org.ita.testrefactoring.tests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotSame;
-
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -15,11 +13,9 @@ import org.ita.testrefactoring.ASTParser.ASTPackage;
 import org.ita.testrefactoring.ASTParser.ASTParser;
 import org.ita.testrefactoring.ASTParser.ASTSourceFile;
 import org.ita.testrefactoring.metacode.Argument;
-import org.ita.testrefactoring.metacode.Block;
 import org.ita.testrefactoring.metacode.Field;
 import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.ParserException;
-import org.ita.testrefactoring.otherpackage.KnownAnnotation;
 import org.junit.Test;
 
 public class ASTParserTests extends RefactoringAbstractTests {
@@ -595,8 +591,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		Field methodInitializedField = fullClass.getFieldList().get("methodInitializedField");
 		
 		assertEquals("Inicialização de field com constante", "55", constantInitializedField.getInitialization().toString());
-		// TODO: Ver depois o que vai colocar como valor esperado nesse método
-		assertEquals("Inicialização de field por método", null, methodInitializedField.getInitialization());
+		assertEquals("Inicialização de field por método", "getFieldInitialization()", methodInitializedField.getInitialization().toString());
 		
 		
 		Method publicAccessMethod = fullClass.getMethodList().get("publicAccessMethod");
@@ -605,9 +600,9 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		Method privateAccessMethod = fullClass.getMethodList().get("privateAccessMethod");
 		
 		assertEquals("Modificador de acesso de método public", publicAccessMethod.getAccessModifier().isPublic());
-		assertEquals("Modificador de acesso de método default", publicAccessMethod.getAccessModifier().isDefault());
-		assertEquals("Modificador de acesso de método protected", publicAccessMethod.getAccessModifier().isProtected());
-		assertEquals("Modificador de acesso de método private", publicAccessMethod.getAccessModifier().isPrivate());
+		assertEquals("Modificador de acesso de método default", defaultAccessMethod.getAccessModifier().isDefault());
+		assertEquals("Modificador de acesso de método protected", protectedAccessMethod.getAccessModifier().isProtected());
+		assertEquals("Modificador de acesso de método private", privateAccessMethod.getAccessModifier().isPrivate());
 
 		
 		Method withoutNonAccessMethodModifier = fullClass.getMethodList().get("withoutNonAccessMethodModifier");
