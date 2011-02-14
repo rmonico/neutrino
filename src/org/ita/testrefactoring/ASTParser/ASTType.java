@@ -10,7 +10,7 @@ import org.ita.testrefactoring.metacode.SourceFile;
 import org.ita.testrefactoring.metacode.Type;
 import org.ita.testrefactoring.metacode.TypeAccessModifier;
 
-public class ASTType implements Type {
+public abstract class ASTType implements Type {
 
 	private SourceFile parent;
 	private Package pack;
@@ -64,5 +64,10 @@ public class ASTType implements Type {
 	@Override
 	public Map<String, Method> getMethodList() {
 		return methodList;
+	}
+	
+	@Override
+	public String toString() {
+		return getQualifiedName();
 	}
 }

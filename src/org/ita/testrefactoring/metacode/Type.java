@@ -2,6 +2,8 @@ package org.ita.testrefactoring.metacode;
 
 import java.util.Map;
 
+import org.ita.testrefactoring.ASTParser.TypeKind;
+
 
 public interface Type {
 	
@@ -16,4 +18,6 @@ public interface Type {
 	Map<String, Field> getFieldList();
 	
 	Map<String, Method> getMethodList();
+
+	TypeKind getKind();
 }

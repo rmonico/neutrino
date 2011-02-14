@@ -15,4 +15,9 @@ public class ASTInterface extends ASTType implements Interface {
 		this.parent = _interface;
 	}
 
+	@Override
+	public TypeKind getKind() {
+		return TypeKind.INTERFACE;
+	}
+
 }

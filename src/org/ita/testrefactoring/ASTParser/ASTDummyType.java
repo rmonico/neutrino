@@ -9,4 +9,9 @@ package org.ita.testrefactoring.ASTParser;
  */
 public class ASTDummyType extends ASTType {
 
+	@Override
+	public TypeKind getKind() {
+		return TypeKind.UNKNOWN;
+	}
+
 }

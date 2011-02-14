@@ -23,4 +23,8 @@ public class ASTClass extends ASTType implements Class {
 		this.parent = parent;
 	}
 
+	@Override
+	public TypeKind getKind() {
+		return TypeKind.CLASS;
+	}
 }

@@ -39,8 +39,7 @@ public class ASTParser extends AbstractParser {
 
 		setEnvironment(environment);
 
-		List<ICompilationUnit> compilationUnitList = doPackageListParse(
-				packageList, environment);
+		List<ICompilationUnit> compilationUnitList = doPackageListParse(packageList, environment);
 
 		ICompilationUnit activeCompilationUnit = getActiveCompilationUnit(compilationUnitList);
 
@@ -61,6 +60,19 @@ public class ASTParser extends AbstractParser {
 				parser.parse();
 			}
 		}
+
+		for (ASTPackage pack : environment.getPackageList().values()) {
+			for (ASTSourceFile sourceFile : pack.getSourceFileList().values()) {
+				for (ASTType type : sourceFile.getTypeList().values()) {
+//					switch (type.getKind()) {
+//					case CLASS: {
+//						ClassParser classParser = new ClassParser();
+//						
+//					}
+//					}
+				}
+			}
+		}
 	}
 
 	/**
@@ -73,9 +85,7 @@ public class ASTParser extends AbstractParser {
 	 * @return
 	 * @throws ParserException
 	 */
-	private List<ICompilationUnit> doPackageListParse(
-			List<IPackageFragment> packageList, ASTEnvironment environment)
-			throws ParserException {
+	private List<ICompilationUnit> doPackageListParse(List<IPackageFragment> packageList, ASTEnvironment environment) throws ParserException {
 		List<ICompilationUnit> compilationUnitList = new ArrayList<ICompilationUnit>();
 
 		for (IPackageFragment _package : packageList) {
@@ -83,14 +93,12 @@ public class ASTParser extends AbstractParser {
 				continue;
 			}
 
-			ASTPackage parsedPackage = environment.createPackage(_package
-					.getElementName());
+			ASTPackage parsedPackage = environment.createPackage(_package.getElementName());
 
 			parsedPackage.setASTObject(_package);
 
 			try {
-				compilationUnitList.addAll(Arrays.asList(_package
-						.getCompilationUnits()));
+				compilationUnitList.addAll(Arrays.asList(_package.getCompilationUnits()));
 			} catch (JavaModelException e) {
 				throw new ParserException(e);
 			}
@@ -105,10 +113,8 @@ public class ASTParser extends AbstractParser {
 	 * @param compilationUnitList
 	 * @param activeCompilationUnit
 	 */
-	private void doASTParsing(List<ICompilationUnit> compilationUnitList,
-			ICompilationUnit activeCompilationUnit) {
-		org.eclipse.jdt.core.dom.ASTParser parser = org.eclipse.jdt.core.dom.ASTParser
-				.newParser(AST.JLS3);
+	private void doASTParsing(List<ICompilationUnit> compilationUnitList, ICompilationUnit activeCompilationUnit) {
+		org.eclipse.jdt.core.dom.ASTParser parser = org.eclipse.jdt.core.dom.ASTParser.newParser(AST.JLS3);
 		parser.setKind(org.eclipse.jdt.core.dom.ASTParser.K_COMPILATION_UNIT);
 		parser.setSource(activeCompilationUnit);
 		parser.setResolveBindings(true);
@@ -116,61 +122,55 @@ public class ASTParser extends AbstractParser {
 		// Projeto java que será usado para resolver os bindings
 		parser.setProject(activeCompilationUnit.getJavaProject());
 
-		parser.createASTs(compilationUnitList.toArray(new ICompilationUnit[0]),
-				new String[0], new ASTRequestor() {
-					@Override
-					/**
-					 * Roda uma vez para cada compilation unit parseada. Uso para popular as listas de source file existentes em cada pacote.
-					 */
-					public void acceptAST(ICompilationUnit source,
-							CompilationUnit parsed) {
-						ASTSourceFile sourceFile = new ASTSourceFile();
+		parser.createASTs(compilationUnitList.toArray(new ICompilationUnit[0]), new String[0], new ASTRequestor() {
+			@Override
+			/**
+			 * Roda uma vez para cada compilation unit parseada. Uso para popular as listas de source file existentes em cada pacote.
+			 */
+			public void acceptAST(ICompilationUnit source, CompilationUnit parsed) {
+				ASTSourceFile sourceFile = new ASTSourceFile();
 
-						ASTSourceFile.ASTContainer container = sourceFile.new ASTContainer();
+				ASTSourceFile.ASTContainer container = sourceFile.new ASTContainer();
 
-						container.setICompilationUnit(source);
-						container.setCompilationUnit(parsed);
-						container.setRewrite(ASTRewrite.create(parsed.getAST()));
+				container.setICompilationUnit(source);
+				container.setCompilationUnit(parsed);
+				container.setRewrite(ASTRewrite.create(parsed.getAST()));
 
-						sourceFile.setASTObject(container);
+				sourceFile.setASTObject(container);
 
-						// Já setou o ASTObject do sourceFile, agora precisa
-						// encontrar quem é o package parent.
-						IJavaElement element = source.getParent();
+				// Já setou o ASTObject do sourceFile, agora precisa
+				// encontrar quem é o package parent.
+				IJavaElement element = source.getParent();
 
-						if (element instanceof IPackageFragment) {
-							IPackageFragment parent = (IPackageFragment) element;
+				if (element instanceof IPackageFragment) {
+					IPackageFragment parent = (IPackageFragment) element;
 
-							for (ASTPackage p : environment.getPackageList()
-									.values()) {
-								if (p.getASTObject() == parent) {
-									sourceFile.setPackage(p);
-									p.getSourceFileList().put(source.getPath().toFile().getName(), sourceFile);
+					for (ASTPackage p : environment.getPackageList().values()) {
+						if (p.getASTObject() == parent) {
+							sourceFile.setPackage(p);
+							p.getSourceFileList().put(source.getPath().toFile().getName(), sourceFile);
 
-									break;
-								}
-							}
+							break;
 						}
-
-						if (sourceFile.getPackage() == null) {
-							// Rejeito o arquivo, pois não sei em qual package
-							// ele está. Não preciso rejeitar ativamente, pois o
-							// mesmo irá se perder, pois não chamo setParent e
-							// ao final do método o mesmo fica elegível para a
-							// coleta de lixo
-							System.err.println("Package para o arquivo \""
-									+ source.getPath() + "\" não encontrado...");
-						}
-
-						super.acceptAST(source, parsed);
 					}
-				}, new NullProgressMonitor());
+				}
+
+				if (sourceFile.getPackage() == null) {
+					// Rejeito o arquivo, pois não sei em qual package
+					// ele está. Não preciso rejeitar ativamente, pois o
+					// mesmo irá se perder, pois não chamo setParent e
+					// ao final do método o mesmo fica elegível para a
+					// coleta de lixo
+					System.err.println("Package para o arquivo \"" + source.getPath() + "\" não encontrado...");
+				}
+
+				super.acceptAST(source, parsed);
+			}
+		}, new NullProgressMonitor());
 	}
 
-	private ICompilationUnit getActiveCompilationUnit(
-			List<ICompilationUnit> compilationUnitList) {
-		ICompilationUnit activeCompilationUnit = Utils
-				.getActiveICompilationUnit();
+	private ICompilationUnit getActiveCompilationUnit(List<ICompilationUnit> compilationUnitList) {
+		ICompilationUnit activeCompilationUnit = Utils.getActiveICompilationUnit();
 		if (activeCompilationUnit == null) {
 			if (compilationUnitList.size() > 0) {
 				// Se não tem nenhum arquivo aberto no editor, considero o
@@ -181,11 +181,9 @@ public class ASTParser extends AbstractParser {
 		return activeCompilationUnit;
 	}
 
-	private boolean isPackageValid(IPackageFragment _package)
-			throws ParserException {
+	private boolean isPackageValid(IPackageFragment _package) throws ParserException {
 		try {
-			return ((_package.getCompilationUnits().length > 0) || (!_package
-					.hasSubpackages()));
+			return ((_package.getCompilationUnits().length > 0) || (!_package.hasSubpackages()));
 		} catch (JavaModelException e) {
 			throw new ParserException(e);
 		}
