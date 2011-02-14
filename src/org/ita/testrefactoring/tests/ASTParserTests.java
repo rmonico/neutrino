@@ -31,38 +31,29 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		ASTEnvironment environment = parser.getEnvironment();
 
-		ASTPackage[] packageList = parser.getEnvironment().getPackageList()
-				.values().toArray(new ASTPackage[0]);
+		ASTPackage[] packageList = parser.getEnvironment().getPackageList().values().toArray(new ASTPackage[0]);
 
 		assertEquals("Quantidade de pacotes", 2, packageList.length);
 
-		ASTPackage pack1 = environment.getPackageList().get(
-				"org.ita.testrefactoring.testfiles.pack1");
+		ASTPackage pack1 = environment.getPackageList().get("org.ita.testrefactoring.testfiles.pack1");
 
-		assertEquals("Validade do ambiente do pacote 1",
-				parser.getEnvironment(), pack1.getEnvironment());
-		assertEquals("Nome do pacote 1",
-				"org.ita.testrefactoring.testfiles.pack1", pack1.getName());
+		assertEquals("Validade do ambiente do pacote 1", parser.getEnvironment(), pack1.getEnvironment());
+		assertEquals("Nome do pacote 1", "org.ita.testrefactoring.testfiles.pack1", pack1.getName());
 
-		ASTPackage pack2 = environment.getPackageList().get(
-				"org.ita.testrefactoring.testfiles.pack2");
+		ASTPackage pack2 = environment.getPackageList().get("org.ita.testrefactoring.testfiles.pack2");
 
-		assertEquals("Validade do ambiente do pacote 2",
-				parser.getEnvironment(), pack2.getEnvironment());
-		assertEquals("Nome do pacote 2",
-				"org.ita.testrefactoring.testfiles.pack2", pack2.getName());
+		assertEquals("Validade do ambiente do pacote 2", parser.getEnvironment(), pack2.getEnvironment());
+		assertEquals("Nome do pacote 2", "org.ita.testrefactoring.testfiles.pack2", pack2.getName());
 
 		setTestsOk();
 	}
 
 	@Test
-	public void testMinimalSourceFileParsing() throws ParserException,
-			JavaModelException {
+	public void testMinimalSourceFileParsing() throws ParserException, JavaModelException {
 		StringBuilder testSourceFile = new StringBuilder();
 
 		testSourceFile.append("/**");
-		testSourceFile
-				.append(" * Tem a intenção de testar um arquivo com o mínimo possível de funcionalidade.");
+		testSourceFile.append(" * Tem a intenção de testar um arquivo com o mínimo possível de funcionalidade.");
 		testSourceFile.append(" * ");
 		testSourceFile.append(" */");
 		testSourceFile.append("package org.ita.testrefactoring.testfiles;\n");
@@ -77,8 +68,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		testSourceFile.append("    }\n");
 		testSourceFile.append("}\n");
 
-		createSourceFile("org.ita.testrefactoring.testfiles",
-				"MinimalSourceFile.java", testSourceFile);
+		createSourceFile("org.ita.testrefactoring.testfiles", "MinimalSourceFile.java", testSourceFile);
 
 		ASTParser parser = new ASTParser();
 
@@ -86,103 +76,74 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		ASTEnvironment environment = parser.getEnvironment();
 
-		ASTPackage testPackage = environment.getPackageList().get(
-				"org.ita.testrefactoring.testfiles");
+		ASTPackage testPackage = environment.getPackageList().get("org.ita.testrefactoring.testfiles");
 
-		assertEquals("Quantidade de arquivos parseados", 1, testPackage
-				.getSourceFileList().size());
+		assertEquals("Quantidade de arquivos parseados", 1, testPackage.getSourceFileList().size());
 
-		ASTSourceFile sourceFile = testPackage.getSourceFileList().get(
-				"MinimalSourceFile.java");
+		ASTSourceFile sourceFile = testPackage.getSourceFileList().get("MinimalSourceFile.java");
 
-		assertEquals("Validade do pacote parent", testPackage,
-				sourceFile.getPackage());
+		assertEquals("Validade do pacote parent", testPackage, sourceFile.getPackage());
 
-		assertEquals("Nome do arquivo", "MinimalSourceFile.java",
-				sourceFile.getFileName());
+		assertEquals("Nome do arquivo", "MinimalSourceFile.java", sourceFile.getFileName());
 
-		assertEquals("Lista de importações (size)", 1, sourceFile
-				.getImportList().size());
-		assertEquals("Lista de importações (package)", environment
-				.getPackageList().get("org.junit"), sourceFile.getImportList()
-				.get(0).getPackage());
-		assertEquals("Lista de importações (tipo)", environment.getTypeCache()
-				.get("org.junit.Before"), sourceFile.getImportList().get(0)
-				.getType());
+		assertEquals("Lista de importações (size)", 1, sourceFile.getImportList().size());
+		assertEquals("Lista de importações (package)", environment.getPackageList().get("org.junit"), sourceFile.getImportList().get(0).getPackage());
+		assertEquals("Lista de importações (tipo)", environment.getTypeCache().get("org.junit.Before"), sourceFile.getImportList().get(0).getType());
 
-		assertEquals("Lista de tipos (size)", 1, sourceFile.getTypeList()
-				.size());
-		assertEquals(
-				"Lista de tipos",
-				environment.getTypeCache().get(
-						"org.ita.testrefactoring.testfiles.MinimalSourceFile"),
-				sourceFile.getTypeList().get("MinimalSourceFile"));
+		assertEquals("Lista de tipos (size)", 1, sourceFile.getTypeList().size());
+		assertEquals("Lista de tipos", environment.getTypeCache().get("org.ita.testrefactoring.testfiles.MinimalSourceFile"), sourceFile.getTypeList().get("MinimalSourceFile"));
 
 		setTestsOk();
 	}
 
 	@Test
-	public void testCompleteSourceFileParsing() throws JavaModelException,
-			ParserException {
+	public void testCompleteSourceFileParsing() throws JavaModelException, ParserException {
 		StringBuilder knownAnnotationSource = new StringBuilder();
 
-		knownAnnotationSource
-				.append("package org.ita.testrefactoring.otherpackage;\n");
+		knownAnnotationSource.append("package org.ita.testrefactoring.otherpackage;\n");
 		knownAnnotationSource.append("\n");
 		knownAnnotationSource.append("public @interface KnownAnnotation {\n");
 		knownAnnotationSource.append("\n");
 		knownAnnotationSource.append("}\n");
 
-		createSourceFile("org.ita.testrefactoring.otherpackage",
-				"KnownAnnotation.java", knownAnnotationSource);
+		createSourceFile("org.ita.testrefactoring.otherpackage", "KnownAnnotation.java", knownAnnotationSource);
 
 		StringBuilder knownClassSource = new StringBuilder();
 
-		knownClassSource
-				.append("package org.ita.testrefactoring.otherpackage;\n");
+		knownClassSource.append("package org.ita.testrefactoring.otherpackage;\n");
 		knownClassSource.append("\n");
 		knownClassSource.append("public class KnownClass {\n");
 		knownClassSource.append("\n");
 		knownClassSource.append("}\n");
 
-		createSourceFile("org.ita.testrefactoring.otherpackage",
-				"KnownClass.java", knownClassSource);
+		createSourceFile("org.ita.testrefactoring.otherpackage", "KnownClass.java", knownClassSource);
 
 		StringBuilder knownExceptionSource = new StringBuilder();
 
-		knownExceptionSource
-				.append("package org.ita.testrefactoring.otherpackage;\n");
+		knownExceptionSource.append("package org.ita.testrefactoring.otherpackage;\n");
 		knownExceptionSource.append("\n");
-		knownExceptionSource
-				.append("public class KnownException extends Exception {\n");
+		knownExceptionSource.append("public class KnownException extends Exception {\n");
 		knownExceptionSource.append("\n");
 		knownExceptionSource.append("    /**\n");
 		knownExceptionSource.append("     * \n");
 		knownExceptionSource.append("     */\n");
-		knownExceptionSource
-				.append("    private static final long serialVersionUID = -8382421077813396685L;\n");
+		knownExceptionSource.append("    private static final long serialVersionUID = -8382421077813396685L;\n");
 		knownExceptionSource.append("\n");
 		knownExceptionSource.append("}\n");
 
-		createSourceFile("org.ita.testrefactoring.otherpackage",
-				"KnownException.java", knownExceptionSource);
+		createSourceFile("org.ita.testrefactoring.otherpackage", "KnownException.java", knownExceptionSource);
 
 		StringBuilder publicClassSource = new StringBuilder();
 
 		publicClassSource.append("/**\n");
-		publicClassSource
-				.append(" * Explora as principais possibilidade de TypeElements dentro de uma class.\n");
+		publicClassSource.append(" * Explora as principais possibilidade de TypeElements dentro de uma class.\n");
 		publicClassSource.append(" */\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("package org.ita.testrefactoring.testfiles;\n");
+		publicClassSource.append("package org.ita.testrefactoring.testfiles;\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("import org.ita.testrefactoring.otherpackage.KnownAnnotation;\n");
-		publicClassSource
-				.append("import org.ita.testrefactoring.otherpackage.KnownException;\n");
-		publicClassSource
-				.append("import org.ita.testrefactoring.otherpackage.KnownClass;\n");
+		publicClassSource.append("import org.ita.testrefactoring.otherpackage.KnownAnnotation;\n");
+		publicClassSource.append("import org.ita.testrefactoring.otherpackage.KnownException;\n");
+		publicClassSource.append("import org.ita.testrefactoring.otherpackage.KnownClass;\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("// Modificadores de acesso para classe\n");
 		publicClassSource.append("class defaultAccessClass {\n");
@@ -201,38 +162,30 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("\n");
 		publicClassSource.append("}\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("abstract class FullClass extends KnownClass {\n");
+		publicClassSource.append("abstract class FullClass extends KnownClass {\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    // modificadores de acesso para campos\n");
+		publicClassSource.append("    // modificadores de acesso para campos\n");
 		publicClassSource.append("    private int privateField;\n");
 		publicClassSource.append("    protected int protectedField;\n");
 		publicClassSource.append("    int defaultField;\n");
 		publicClassSource.append("    public int publicField;\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    // modificadores não-referentes a acesso para campos\n");
+		publicClassSource.append("    // modificadores não-referentes a acesso para campos\n");
 		publicClassSource.append("    int withoutNonAccessModifier;\n");
 		publicClassSource.append("    static int staticField;\n");
 		publicClassSource.append("    final int finalField = 0;\n");
-		publicClassSource
-				.append("    // reaproveitado no teste de inicialização do campos\n");
-		publicClassSource
-				.append("    static final int staticAndFinalField = -1;\n");
+		publicClassSource.append("    // reaproveitado no teste de inicialização do campos\n");
+		publicClassSource.append("    static final int staticAndFinalField = -1;\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    // Campos inicializados\n");
 		publicClassSource.append("    int constantInitializedField = 55;\n");
-		publicClassSource
-				.append("    int methodInitializedField = getFieldInitialization();\n");
+		publicClassSource.append("    int methodInitializedField = getFieldInitialization();\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    private int getFieldInitialization() {\n");
+		publicClassSource.append("    private int getFieldInitialization() {\n");
 		publicClassSource.append("        return 56;\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    // Modificadores de acesso para declarações de método\n");
+		publicClassSource.append("    // Modificadores de acesso para declarações de método\n");
 		publicClassSource.append("    public void publicAccessMethod() {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
@@ -241,26 +194,21 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    protected void protectedAccessMethod() {\n");
+		publicClassSource.append("    protected void protectedAccessMethod() {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    private void privateAccessMethod(int i) {\n");
+		publicClassSource.append("    private void privateAccessMethod(int i) {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    // Modificadores não referentes a acesso para métodos (abstract, static e\n");
+		publicClassSource.append("    // Modificadores não referentes a acesso para métodos (abstract, static e\n");
 		publicClassSource.append("    // final suportados)\n");
-		publicClassSource
-				.append("    void withoutNonAccessMethodModifier() {\n");
+		publicClassSource.append("    void withoutNonAccessMethodModifier() {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    // Notar que o modificador abstract não ocorre com os outros dois (ainda\n");
+		publicClassSource.append("    // Notar que o modificador abstract não ocorre com os outros dois (ainda\n");
 		publicClassSource.append("    // bem!)\n");
 		publicClassSource.append("    abstract void abstractMethod();\n");
 		publicClassSource.append("\n");
@@ -272,14 +220,12 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    static final void staticFinalMethod() {\n");
+		publicClassSource.append("    static final void staticFinalMethod() {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    // Lista de argumentos\n");
-		publicClassSource
-				.append("    void methodWithArguments(int arg1, int arg2) {\n");
+		publicClassSource.append("    void methodWithArguments(int arg1, int arg2) {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
@@ -289,21 +235,17 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    // Método que lança exceçao dummy\n");
-		publicClassSource
-				.append("    void dummyThrowerMethod() throws Exception {\n");
+		publicClassSource.append("    void dummyThrowerMethod() throws Exception {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    void nonDummyThrowerMethod() throws KnownException {\n");
+		publicClassSource.append("    void nonDummyThrowerMethod() throws KnownException {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    void oneStatementBlockMethod() {\n");
-		publicClassSource
-				.append("        // Só para tirar os warnings lá em cima :-)\n");
-		publicClassSource
-				.append("        privateAccessMethod(privateField);\n");
+		publicClassSource.append("        // Só para tirar os warnings lá em cima :-)\n");
+		publicClassSource.append("        privateAccessMethod(privateField);\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    // Com anotação dummy\n");
@@ -319,11 +261,9 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("\n");
 		publicClassSource.append("}\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("// Interface não tem modificador não-referente a accesso\n");
+		publicClassSource.append("// Interface não tem modificador não-referente a accesso\n");
 		publicClassSource.append("interface Interface {\n");
-		publicClassSource
-				.append("    // Notar a inicialização obrigatoriamente por constante, implicitamente\n");
+		publicClassSource.append("    // Notar a inicialização obrigatoriamente por constante, implicitamente\n");
 		publicClassSource.append("    // public static final\n");
 		publicClassSource.append("    int member = 57;\n");
 		publicClassSource.append("\n");
@@ -331,18 +271,15 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("    void voidMethod();\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    // Lista de argumentos\n");
-		publicClassSource
-				.append("    void methodWithArguments(int arg1, int arg2);\n");
+		publicClassSource.append("    void methodWithArguments(int arg1, int arg2);\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    // Tipo de retorno\n");
 		publicClassSource.append("    KnownClass methodWithReturnType();\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    // Lançamento de exceção\n");
-		publicClassSource
-				.append("    void dummyThrowerMethod() throws Exception;\n");
+		publicClassSource.append("    void dummyThrowerMethod() throws Exception;\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    void nonDummyThrowerMethod() throws KnownException;\n");
+		publicClassSource.append("    void nonDummyThrowerMethod() throws KnownException;\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    // anotação\n");
 		publicClassSource.append("    @Deprecated\n");
@@ -353,11 +290,9 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("}\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("/**\n");
-		publicClassSource
-				.append(" * Enum não tem modificador não-referente a accesso.\n");
+		publicClassSource.append(" * Enum não tem modificador não-referente a accesso.\n");
 		publicClassSource.append(" * \n");
-		publicClassSource
-				.append(" * Observação: suporta os mesmos tipos de campos/\n");
+		publicClassSource.append(" * Observação: suporta os mesmos tipos de campos/\n");
 		publicClassSource.append(" * \n");
 		publicClassSource.append(" * @author Rafael Monico\n");
 		publicClassSource.append(" *\n");
@@ -370,35 +305,28 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("        }\n");
 		publicClassSource.append("    };\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    // modificadores de acesso para campos\n");
+		publicClassSource.append("    // modificadores de acesso para campos\n");
 		publicClassSource.append("    private int privateField;\n");
 		publicClassSource.append("    protected int protectedField;\n");
 		publicClassSource.append("    int defaultField;\n");
 		publicClassSource.append("    public int publicField;\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    // modificadores não-referentes a acesso para campos\n");
+		publicClassSource.append("    // modificadores não-referentes a acesso para campos\n");
 		publicClassSource.append("    int withoutNonAccessModifier;\n");
 		publicClassSource.append("    static int staticField;\n");
 		publicClassSource.append("    final int finalField = 0;\n");
-		publicClassSource
-				.append("    // reaproveitado no teste de inicialização do campos\n");
-		publicClassSource
-				.append("    static final int staticAndFinalField = -1;\n");
+		publicClassSource.append("    // reaproveitado no teste de inicialização do campos\n");
+		publicClassSource.append("    static final int staticAndFinalField = -1;\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    // Campos inicializados\n");
 		publicClassSource.append("    int constantInitializedField = 55;\n");
-		publicClassSource
-				.append("    int methodInitializedField = getFieldInitialization();\n");
+		publicClassSource.append("    int methodInitializedField = getFieldInitialization();\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    private int getFieldInitialization() {\n");
+		publicClassSource.append("    private int getFieldInitialization() {\n");
 		publicClassSource.append("        return 56;\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    // Modificadores de acesso para declarações de método\n");
+		publicClassSource.append("    // Modificadores de acesso para declarações de método\n");
 		publicClassSource.append("    public void publicAccessMethod() {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
@@ -407,26 +335,21 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    protected void protectedAccessMethod() {\n");
+		publicClassSource.append("    protected void protectedAccessMethod() {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    private void privateAccessMethod(int i) {\n");
+		publicClassSource.append("    private void privateAccessMethod(int i) {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    // Modificadores não referentes a acesso para métodos (abstract, static e\n");
+		publicClassSource.append("    // Modificadores não referentes a acesso para métodos (abstract, static e\n");
 		publicClassSource.append("    // final suportados)\n");
-		publicClassSource
-				.append("    void withoutNonAccessMethodModifier() {\n");
+		publicClassSource.append("    void withoutNonAccessMethodModifier() {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    // Notar que o modificador abstract não ocorre com os outros dois (ainda\n");
+		publicClassSource.append("    // Notar que o modificador abstract não ocorre com os outros dois (ainda\n");
 		publicClassSource.append("    // bem!)\n");
 		publicClassSource.append("    abstract void abstractMethod();\n");
 		publicClassSource.append("\n");
@@ -438,14 +361,12 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    static final void staticFinalMethod() {\n");
+		publicClassSource.append("    static final void staticFinalMethod() {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    // Lista de argumentos\n");
-		publicClassSource
-				.append("    void methodWithArguments(int arg1, int arg2) {\n");
+		publicClassSource.append("    void methodWithArguments(int arg1, int arg2) {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
@@ -455,21 +376,17 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    // Método que lança exceçao dummy\n");
-		publicClassSource
-				.append("    void dummyThrowerMethod() throws Exception {\n");
+		publicClassSource.append("    void dummyThrowerMethod() throws Exception {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("    void nonDummyThrowerMethod() throws KnownException {\n");
+		publicClassSource.append("    void nonDummyThrowerMethod() throws KnownException {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    void oneStatementBlockMethod() {\n");
-		publicClassSource
-				.append("        // Só para tirar os warnings lá em cima :-)\n");
-		publicClassSource
-				.append("        privateAccessMethod(privateField);\n");
+		publicClassSource.append("        // Só para tirar os warnings lá em cima :-)\n");
+		publicClassSource.append("        privateAccessMethod(privateField);\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    // Com anotação dummy\n");
@@ -483,14 +400,11 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("    }\n");
 		publicClassSource.append("}\n");
 		publicClassSource.append("\n");
-		publicClassSource
-				.append("// annotation não só pode ser public/default e (sempre) abstract\n");
+		publicClassSource.append("// annotation não só pode ser public/default e (sempre) abstract\n");
 		publicClassSource.append("@interface Annotation {\n");
-		publicClassSource
-				.append("//    Por enquanto só preciso saber que as anotações estão lá, não preciso mexer nelas\n");
+		publicClassSource.append("//    Por enquanto só preciso saber que as anotações estão lá, não preciso mexer nelas\n");
 		publicClassSource.append("//    // Campo\n");
-		publicClassSource
-				.append("//    public static final int member = -1;\n");
+		publicClassSource.append("//    public static final int member = -1;\n");
 		publicClassSource.append("//\n");
 		publicClassSource.append("//    //    Declarações de método\n");
 		publicClassSource.append("//    public abstract int method();\n");
@@ -503,8 +417,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("//    public int nonDummyAnnotated();\n");
 		publicClassSource.append("}\n");
 
-		createSourceFile("org.ita.testrefactoring.testfiles",
-				"PublicClass.java", publicClassSource);
+		createSourceFile("org.ita.testrefactoring.testfiles", "PublicClass.java", publicClassSource);
 
 		ASTParser parser = new ASTParser();
 
@@ -513,68 +426,46 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		// Teste dos modificadores de acesso para classe
 		ASTEnvironment environment = parser.getEnvironment();
 
-		ASTPackage testfilesPackage = environment.getPackageList().get(
-				"org.ita.testrefactoring.testfiles");
+		ASTPackage testfilesPackage = environment.getPackageList().get("org.ita.testrefactoring.testfiles");
 
-		ASTSourceFile publicClassFile = testfilesPackage.getSourceFileList()
-				.get("PublicClass.java");
+		ASTSourceFile publicClassFile = testfilesPackage.getSourceFileList().get("PublicClass.java");
 
-		// Montar aqui também um map para que seja possível recuperar a classe
-		// por nome
-		ASTClass fullClass = (ASTClass) publicClassFile.getTypeList().get(
-				"FullClass");
-		ASTClass publicClass = (ASTClass) publicClassFile.getTypeList().get(
-				"PublicClass");
+		ASTClass fullClass = (ASTClass) publicClassFile.getTypeList().get("FullClass");
+		ASTClass publicClass = (ASTClass) publicClassFile.getTypeList().get("PublicClass");
 
-		assertEquals(
-				"ASTClass: Propriedade package",
-				environment.getTypeCache().get(
-						"org.ita.testrefactoring.otherpackage.KnownClass"),
-				fullClass.getPackage());
-		
-		assertEquals("ASTClass: Propriedade parent", testfilesPackage, fullClass.getPackage());
-		
-		
+		assertEquals("ASTClass: Propriedade package", testfilesPackage, fullClass.getPackage());
+
+		assertEquals("ASTClass: Propriedade parent", environment.getTypeCache().get("org.ita.testrefactoring.otherpackage.KnownClass"), fullClass.getParent());
+
 		// Modificadores de acesso
-		assertTrue("Modificador de acesso default para classe", fullClass
-				.getAccessModifier().isDefault());
-		assertTrue("Modificador de acesso public para classe", publicClass
-				.getAccessModifier().isPublic());
+		assertTrue("Modificador de acesso default para classe", fullClass.getAccessModifier().isDefault());
+		assertTrue("Modificador de acesso public para classe", publicClass.getAccessModifier().isPublic());
 
-		
 		// Modificadores não-referentes a acesso
-		ASTClass abstractClass = (ASTClass) publicClassFile.getTypeList().get(
-				"AbstractClass");
-		ASTClass finalClass = (ASTClass) publicClassFile.getTypeList().get(
-				"FinalClass");
+		ASTClass abstractClass = (ASTClass) publicClassFile.getTypeList().get("AbstractClass");
+		ASTClass finalClass = (ASTClass) publicClassFile.getTypeList().get("FinalClass");
 
-		assertTrue("Modificador não-referente a acesso \"abstract\"",
-				abstractClass.getNonAccessModifier().isAbstract());
-		assertTrue("Modificador não-referente a acesso \"final\"", finalClass
-				.getNonAccessModifier().isFinal());
-		assertTrue("Classe sem nenhum modificador não-referente a acesso",
-				publicClass.getNonAccessModifier().isNonModified());
+		assertTrue("Modificador não-referente a acesso \"abstract\"", abstractClass.getNonAccessModifier().isAbstract());
+		assertTrue("Modificador não-referente a acesso \"final\"", finalClass.getNonAccessModifier().isFinal());
+		assertTrue("Classe sem nenhum modificador não-referente a acesso", publicClass.getNonAccessModifier().isNonModified());
 
-		
 		// Lista de campos
 		assertEquals("Lista de campos (size)", 10, fullClass.getFieldList().values().size());
-		
-		
+
 		Field privateField = fullClass.getFieldList().get("privateField");
 		Field protectedField = fullClass.getFieldList().get("protectedField");
 		Field defaultField = fullClass.getFieldList().get("defaultField");
 		Field publicField = fullClass.getFieldList().get("publicField");
 
 		assertEquals("Tipo parent", fullClass, privateField.getParent());
-		
+
 		assertEquals("Tipo do field", environment.getTypeCache().get("int"), privateField.getType());
-		
+
 		assertTrue("Modificador de acesso private para campo", privateField.getAccessModifier().isPrivate());
 		assertTrue("Modificador de acesso protected para campo", protectedField.getAccessModifier().isProtected());
 		assertTrue("Modificador de acesso default para campo", defaultField.getAccessModifier().isDefault());
 		assertTrue("Modificador de acesso public para campo", publicField.getAccessModifier().isPublic());
 
-		
 		Field withoutNonAccessModifier = fullClass.getFieldList().get("withoutNonAccessModifier");
 		Field staticField = fullClass.getFieldList().get("staticField");
 		Field finalField = fullClass.getFieldList().get("finalField");
@@ -585,26 +476,23 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		assertTrue("Modificador não referente a acesso \"final\" para campo", finalField.getNonAccessModifier().isFinal());
 		assertTrue("Modificador não referente a acesso \"static\" combinado com \"final\" para campo", staticAndFinalField.getNonAccessModifier().isStatic());
 		assertTrue("Modificador não referente a acesso \"final\" combinado com \"static\" para campo", staticAndFinalField.getNonAccessModifier().isFinal());
-		
-		
+
 		Field constantInitializedField = fullClass.getFieldList().get("constantInitializedField");
 		Field methodInitializedField = fullClass.getFieldList().get("methodInitializedField");
-		
+
 		assertEquals("Inicialização de field com constante", "55", constantInitializedField.getInitialization().toString());
 		assertEquals("Inicialização de field por método", "getFieldInitialization()", methodInitializedField.getInitialization().toString());
-		
-		
+
 		Method publicAccessMethod = fullClass.getMethodList().get("publicAccessMethod");
 		Method defaultAccessMethod = fullClass.getMethodList().get("defaultAccessMethod");
 		Method protectedAccessMethod = fullClass.getMethodList().get("protectedAccessMethod");
 		Method privateAccessMethod = fullClass.getMethodList().get("privateAccessMethod");
-		
+
 		assertEquals("Modificador de acesso de método public", publicAccessMethod.getAccessModifier().isPublic());
 		assertEquals("Modificador de acesso de método default", defaultAccessMethod.getAccessModifier().isDefault());
 		assertEquals("Modificador de acesso de método protected", protectedAccessMethod.getAccessModifier().isProtected());
 		assertEquals("Modificador de acesso de método private", privateAccessMethod.getAccessModifier().isPrivate());
 
-		
 		Method withoutNonAccessMethodModifier = fullClass.getMethodList().get("withoutNonAccessMethodModifier");
 		Method abstractMethod = fullClass.getMethodList().get("abstractMethod");
 		Method staticMethod = fullClass.getMethodList().get("staticMethod");
@@ -618,34 +506,29 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		assertTrue("Modificador não referente a acesso para método static combinado com final", staticFinalMethod.getNonAccessModifier().isStatic());
 		assertTrue("Modificador não referente a acesso para método final combinado com static", staticFinalMethod.getNonAccessModifier().isFinal());
 
-		
 		Method methodWithArguments = fullClass.getMethodList().get("methodWithArguments");
 		List<Argument> argumentList = methodWithArguments.getArgumentList();
-		
+
 		assertEquals("Lista de argumentos do método (size)", 2, argumentList.size());
 		assertEquals("Lista de argumentos do método (nome) #1", "arg1", argumentList.get(0).getName());
 		assertEquals("Lista de argumentos do método (type) #1", environment.getTypeCache().get("int"), argumentList.get(0).getName());
 
 		assertEquals("Lista de argumentos do método (nome) #2", "arg2", argumentList.get(1).getName());
 		assertEquals("Lista de argumentos do método (type) #2", environment.getTypeCache().get("int"), argumentList.get(1).getName());
-		
-		
+
 		Method methodWithReturnType = fullClass.getMethodList().get("methodWithReturnType");
 		assertEquals("Tipo de retorno do método", environment.getTypeCache().get("KnownClass"), methodWithReturnType.getReturnType());
-		
-		
+
 		Method dummyThrowerMethod = fullClass.getMethodList().get("dummyThrowerMethod");
 		assertEquals("Método que lança exceçao dummy", dummyThrowerMethod.getThrownExceptions().get(0));
-		
+
 		Method nonDummyThrowerMethod = fullClass.getMethodList().get("nonDummyThrowerMethod");
 		assertEquals("Método que lança exceçao não-dummy", nonDummyThrowerMethod.getThrownExceptions().get(0));
-		
-		
+
 		Method oneStatementBlockMethod = fullClass.getMethodList().get("oneStatementBlockMethod");
 		assertNotSame("Existência do bloco do método", null, oneStatementBlockMethod.getBody());
 		assertEquals("Tamanho do bloco de código do método", 1, oneStatementBlockMethod.getBody().getStatementList().size());
-		
-		
+
 		Method dummyAnnotatted = fullClass.getMethodList().get("dummyAnnotatted");
 		assertNotSame("Lista de anotações: existência", null, dummyAnnotatted.getAnnotations());
 		assertEquals("Lista de anotações: tamanho", 1, dummyAnnotatted.getAnnotations().size());
@@ -655,7 +538,6 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		assertNotSame("Lista de anotações: existência", null, nonDummyAnnotated.getAnnotations());
 		assertEquals("Lista de anotações: tamanho", 1, nonDummyAnnotated.getAnnotations().size());
 		assertEquals("Lista de anotações: conteúdo", environment.getTypeCache().get("org.ita.testrefactoring.otherpackage.KnownAnnotation"), dummyAnnotatted.getAnnotations().get(0));
-
 
 		setTestsOk();
 	}
