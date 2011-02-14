@@ -427,14 +427,13 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		ASTEnvironment environment = parser.getEnvironment();
 
 		ASTPackage testfilesPackage = environment.getPackageList().get("org.ita.testrefactoring.testfiles");
-
 		ASTSourceFile publicClassFile = testfilesPackage.getSourceFileList().get("PublicClass.java");
-
 		ASTClass fullClass = (ASTClass) publicClassFile.getTypeList().get("FullClass");
-		ASTClass publicClass = (ASTClass) publicClassFile.getTypeList().get("PublicClass");
-
+		
 		assertEquals("ASTClass: Propriedade package", testfilesPackage, fullClass.getPackage());
 
+		ASTClass publicClass = (ASTClass) publicClassFile.getTypeList().get("PublicClass");
+ 
 		assertEquals("ASTClass: Propriedade parent", environment.getTypeCache().get("org.ita.testrefactoring.otherpackage.KnownClass"), fullClass.getParent());
 
 		// Modificadores de acesso
