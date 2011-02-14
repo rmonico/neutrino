@@ -13,6 +13,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTRequestor;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.ita.testrefactoring.metacode.AbstractParser;
 import org.ita.testrefactoring.metacode.ParserException;
@@ -64,12 +65,41 @@ public class ASTParser extends AbstractParser {
 		for (ASTPackage pack : environment.getPackageList().values()) {
 			for (ASTSourceFile sourceFile : pack.getSourceFileList().values()) {
 				for (ASTType type : sourceFile.getTypeList().values()) {
-//					switch (type.getKind()) {
-//					case CLASS: {
-//						ClassParser classParser = new ClassParser();
+					ASTTypeParser parser = null;
+					
+					switch (type.getKind()) {
+					case CLASS: {
+						parser = new ClassParser();
+						
+						break;
+					}
+					
+//					case INTERFACE: {
+//						parser = new InterfaceParser();
 //						
+//						break;
 //					}
+//					
+//					case ENUM: {
+//						parser = new EnumParser();
+//						
+//						break;
 //					}
+//					
+//					case ANNOTATION: {
+//						parser = new AnnotationParser();
+//						
+//						break;
+//					}
+					
+					default:
+						assert false : "Should never happen.";
+					} // switch
+					
+					parser.setType(type);
+
+					parser.parse();
+
 				}
 			}
 		}
@@ -95,7 +125,8 @@ public class ASTParser extends AbstractParser {
 
 			ASTPackage parsedPackage = environment.createPackage(_package.getElementName());
 
-			parsedPackage.setASTObject(_package);
+			// TODO: testar
+			parsedPackage.setASTObject((PackageDeclaration) _package.getPrimaryElement());
 
 			try {
 				compilationUnitList.addAll(Arrays.asList(_package.getCompilationUnits()));

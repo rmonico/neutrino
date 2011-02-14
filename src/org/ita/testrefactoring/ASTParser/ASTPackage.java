@@ -3,16 +3,16 @@ package org.ita.testrefactoring.ASTParser;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.ita.testrefactoring.metacode.Package;
 import org.ita.testrefactoring.metacode.SourceFile;
 
-public class ASTPackage implements Package, ASTWrapper<IPackageFragment> {
+public class ASTPackage implements Package, ASTWrapper<PackageDeclaration> {
 
 	private Map<String, ASTSourceFile> sourceFileList = new HashMap<String, ASTSourceFile>();
 	private String name;
 	private ASTEnvironment parent;
-	private IPackageFragment astObject;
+	private PackageDeclaration astObject;
 
 	public Map<String, ASTSourceFile> getSourceFileList() {
 		return sourceFileList;
@@ -47,12 +47,12 @@ public class ASTPackage implements Package, ASTWrapper<IPackageFragment> {
 	/**
 	 * Não deveria ser public, mas a interface e igiu
 	 */
-	public void setASTObject(IPackageFragment astObject) {
+	public void setASTObject(PackageDeclaration astObject) {
 		this.astObject = astObject;
 	}
 
 	@Override
-	public IPackageFragment getASTObject() {
+	public PackageDeclaration getASTObject() {
 		return astObject;
 	}
 	

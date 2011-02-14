@@ -3,6 +3,7 @@ package org.ita.testrefactoring.ASTParser;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.ita.testrefactoring.metacode.Field;
 import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.Package;
@@ -10,7 +11,7 @@ import org.ita.testrefactoring.metacode.SourceFile;
 import org.ita.testrefactoring.metacode.Type;
 import org.ita.testrefactoring.metacode.TypeAccessModifier;
 
-public abstract class ASTType implements Type {
+public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 
 	private SourceFile parent;
 	private Package pack;
@@ -18,6 +19,7 @@ public abstract class ASTType implements Type {
 	private TypeAccessModifier accessModifier = new TypeAccessModifier();
 	private Map<String, Field> fieldList = new HashMap<String, Field>();
 	private Map<String, Method> methodList = new HashMap<String, Method>();
+	private TypeDeclaration astObject;
 	
 	
 	@Override
@@ -64,6 +66,15 @@ public abstract class ASTType implements Type {
 	@Override
 	public Map<String, Method> getMethodList() {
 		return methodList;
+	}
+	
+	@Override
+	public TypeDeclaration getASTObject() {
+		return astObject;
+	}
+	
+	public void setASTObject(TypeDeclaration astObject) {
+		this.astObject = astObject;
 	}
 	
 	@Override

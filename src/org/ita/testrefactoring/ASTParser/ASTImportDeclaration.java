@@ -5,12 +5,13 @@ import org.ita.testrefactoring.metacode.Package;
 import org.ita.testrefactoring.metacode.SourceFile;
 import org.ita.testrefactoring.metacode.Type;
 
-public class ASTImportDeclaration implements ImportDeclaration {
+public class ASTImportDeclaration implements ImportDeclaration, ASTWrapper<org.eclipse.jdt.core.dom.ImportDeclaration> {
 
 	private boolean isStatic;
 	private Type type;
 	private Package _package;
 	private ASTSourceFile parent;
+	private org.eclipse.jdt.core.dom.ImportDeclaration astObject;
 
 	// Construtor acessível somente através do pacote
 	ASTImportDeclaration() {
@@ -51,6 +52,18 @@ public class ASTImportDeclaration implements ImportDeclaration {
 	@Override
 	public boolean isStatic() {
 		return isStatic;
+	}
+
+	/**
+	 * Os dois métodos abaixo não estão sendo populados.
+	 */
+	@Override
+	public org.eclipse.jdt.core.dom.ImportDeclaration getASTObject() {
+		return astObject;
+	}
+	
+	public void setASTObject(org.eclipse.jdt.core.dom.ImportDeclaration astObject) {
+		this.astObject = astObject;
 	}
 
 }
