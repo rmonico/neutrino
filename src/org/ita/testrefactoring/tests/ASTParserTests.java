@@ -86,7 +86,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		assertEquals("Quantidade de arquivos parseados", 1, testPackage
 				.getSourceFileList().size());
 
-		ASTSourceFile sourceFile = testPackage.getSourceFileList().get(0);
+		ASTSourceFile sourceFile = testPackage.getSourceFileList().get("MinimalSourceFile.java");
 
 		assertEquals("Validade do pacote parent", testPackage,
 				sourceFile.getPackage());
@@ -109,7 +109,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 				"Lista de tipos",
 				environment.getTypeCache().get(
 						"org.ita.testrefactoring.testfiles.MinimalSourceFile"),
-				sourceFile.getTypeList().get(0));
+				sourceFile.getTypeList().get("MinimalSourceFile"));
 
 		setTestsOk();
 	}
