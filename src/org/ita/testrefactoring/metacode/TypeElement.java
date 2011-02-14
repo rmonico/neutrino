@@ -8,6 +8,8 @@ package org.ita.testrefactoring.metacode;
  */
 public interface TypeElement {
 	
+	InnerElementAccessModifier getAccessModifier();
+	
 	String getName();
 	
 	Type getType();

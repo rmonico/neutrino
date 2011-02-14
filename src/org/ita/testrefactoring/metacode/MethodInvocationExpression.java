@@ -12,14 +12,14 @@ import java.util.List;
  */
 public class MethodInvocationExpression implements Expression, MethodInvocation {
 
-	private MethodDeclaration calledMethod;
+	private Method calledMethod;
 	private List<Expression> parameterList = new ArrayList<Expression>();
 
-	public MethodDeclaration getCalledMethod() {
+	public Method getCalledMethod() {
 		return calledMethod;
 	}
 
-	void setCalledMethod(MethodDeclaration calledMethod) {
+	void setCalledMethod(Method calledMethod) {
 		this.calledMethod = calledMethod;
 	}
 	

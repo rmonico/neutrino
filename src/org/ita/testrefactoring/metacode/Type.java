@@ -1,6 +1,6 @@
 package org.ita.testrefactoring.metacode;
 
-import java.util.List;
+import java.util.Map;
 
 
 public interface Type {
@@ -13,5 +13,7 @@ public interface Type {
 	
 	TypeAccessModifier getAccessModifier();
 
-	List<TypeElement> getElementList();
+	Map<String, Field> getFieldList();
+	
+	Map<String, Method> getMethodList();
 }

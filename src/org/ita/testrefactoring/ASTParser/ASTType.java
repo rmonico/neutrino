@@ -1,13 +1,13 @@
 package org.ita.testrefactoring.ASTParser;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
+import org.ita.testrefactoring.metacode.Field;
+import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.Package;
 import org.ita.testrefactoring.metacode.SourceFile;
 import org.ita.testrefactoring.metacode.Type;
 import org.ita.testrefactoring.metacode.TypeAccessModifier;
-import org.ita.testrefactoring.metacode.TypeElement;
 
 public class ASTType implements Type {
 
@@ -15,7 +15,6 @@ public class ASTType implements Type {
 	private Package pack;
 	private String name;
 	private TypeAccessModifier accessModifier = new TypeAccessModifier();
-	private List<TypeElement> elementList = new ArrayList<TypeElement>();
 	
 	
 	@Override
@@ -50,12 +49,19 @@ public class ASTType implements Type {
 		return accessModifier;
 	}
 
-	@Override
-	public List<TypeElement> getElementList() {
-		return elementList;
-	}
-	
 	String getQualifiedName() {
 		return getPackage().getName() + "." + getName();
+	}
+
+	@Override
+	public Map<String, Field> getFieldList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, Method> getMethodList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -5,17 +5,17 @@ import java.util.List;
 
 public class Block {
 	private List<Statement> statementList = new ArrayList<Statement>();
-	private MethodDeclaration parent;
+	private Method parent;
 	
 	public List<Statement> getStatementList() {
 		return statementList;
 	}
 	
-	public MethodDeclaration getParent() {
+	public Method getParent() {
 		return parent;
 	}
 	
-	void setParent(MethodDeclaration parent) {
+	void setParent(Method parent) {
 		this.parent = parent;
 	}
 }
