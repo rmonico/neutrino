@@ -27,4 +27,15 @@ public class ASTClass extends ASTType implements Class {
 	public TypeKind getKind() {
 		return TypeKind.CLASS;
 	}
+
+	public ASTField createField(String name) {
+		ASTField field = new ASTField();
+		
+		field.setName(name);
+		field.setParent(this);
+		
+		getFieldList().put(name, field);
+		
+		return field;
+	}
 }
