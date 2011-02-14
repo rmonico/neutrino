@@ -15,7 +15,7 @@ public interface Type {
 	
 	TypeAccessModifier getAccessModifier();
 
-	Map<String, Field> getFieldList();
+	Map<String, ? extends Field> getFieldList();
 	
 	Map<String, Method> getMethodList();
 
