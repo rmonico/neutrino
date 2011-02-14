@@ -1,8 +1,10 @@
 package org.ita.testrefactoring.tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.eclipse.jdt.core.JavaModelException;
+import org.ita.testrefactoring.ASTParser.ASTClass;
 import org.ita.testrefactoring.ASTParser.ASTEnvironment;
 import org.ita.testrefactoring.ASTParser.ASTPackage;
 import org.ita.testrefactoring.ASTParser.ASTParser;
@@ -181,7 +183,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("\n");
 		publicClassSource.append("}\n");
 		publicClassSource.append("\n");
-		publicClassSource.append("abstract class AgoraEhPraValer extends KnownClass {\n");
+		publicClassSource.append("abstract class FullClass extends KnownClass {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    // modificadores de acesso para campos\n");
 		publicClassSource.append("    private int privateField;\n");
@@ -445,7 +447,19 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		
 		
 		// Teste dos modificadores de acesso para classe
-		parser.getEnvironment().getPackageList().get("org.ita.testrefactoring.testfiles").getSourceFileList().get("PublicClass.java");
+		ASTEnvironment environment = parser.getEnvironment();
+		
+		ASTPackage testfilesPackage = environment.getPackageList().get("org.ita.testrefactoring.testfiles");
+		
+		ASTSourceFile publicClassFile = testfilesPackage.getSourceFileList().get("PublicClass.java");
+		
+		// Montar aqui também um map para que seja possível recuperar a classe por nome
+		ASTClass fullClass = (ASTClass) publicClassFile.getTypeList().get(0);
+		ASTClass publicClass = (ASTClass) publicClassFile.getTypeList().get(0);
+		
+		assertTrue("Modificador de acesso default para classe", fullClass.getAccessModifier().isDefault());
+		assertTrue("Modificador de acesso public para classe", publicClass.getAccessModifier().isPublic());
+		
 		
 		setTestsOk();
 	}

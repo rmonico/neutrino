@@ -25,7 +25,7 @@ final class FinalClass {
 
 }
 
-abstract class AgoraEhPraValer extends KnownClass {
+abstract class FullClass extends KnownClass {
 
 	// modificadores de acesso para campos
 	private int privateField;
