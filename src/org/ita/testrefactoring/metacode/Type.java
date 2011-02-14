@@ -2,7 +2,7 @@ package org.ita.testrefactoring.metacode;
 
 import java.util.Map;
 
-import org.ita.testrefactoring.ASTParser.TypeKind;
+import org.ita.testrefactoring.astparser.TypeKind;
 
 
 public interface Type {

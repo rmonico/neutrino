@@ -7,11 +7,11 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.eclipse.jdt.core.JavaModelException;
-import org.ita.testrefactoring.ASTParser.ASTClass;
-import org.ita.testrefactoring.ASTParser.ASTEnvironment;
-import org.ita.testrefactoring.ASTParser.ASTPackage;
-import org.ita.testrefactoring.ASTParser.ASTParser;
-import org.ita.testrefactoring.ASTParser.ASTSourceFile;
+import org.ita.testrefactoring.astparser.ASTClass;
+import org.ita.testrefactoring.astparser.ASTEnvironment;
+import org.ita.testrefactoring.astparser.ASTPackage;
+import org.ita.testrefactoring.astparser.ASTParser;
+import org.ita.testrefactoring.astparser.ASTSourceFile;
 import org.ita.testrefactoring.metacode.Argument;
 import org.ita.testrefactoring.metacode.Field;
 import org.ita.testrefactoring.metacode.Method;

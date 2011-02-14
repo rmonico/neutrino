@@ -1,4 +1,4 @@
-package org.ita.testrefactoring.ASTParser;
+package org.ita.testrefactoring.astparser;
 
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 

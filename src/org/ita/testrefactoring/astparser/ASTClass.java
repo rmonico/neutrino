@@ -1,4 +1,4 @@
-package org.ita.testrefactoring.ASTParser;
+package org.ita.testrefactoring.astparser;
 
 import org.ita.testrefactoring.metacode.Class;
 import org.ita.testrefactoring.metacode.NonAccessClassModifier;

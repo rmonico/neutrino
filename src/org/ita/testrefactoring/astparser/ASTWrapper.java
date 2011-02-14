@@ -1,4 +1,4 @@
-package org.ita.testrefactoring.ASTParser;
+package org.ita.testrefactoring.astparser;
 
 interface ASTWrapper<T> {
 
