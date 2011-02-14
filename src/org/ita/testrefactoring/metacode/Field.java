@@ -5,5 +5,7 @@ public interface Field extends TypeElement {
 	NonAccessFieldModifier getNonAccessModifier();
 	
 	Expression getInitialization();
-	
+
+	Type getType();
+
 }

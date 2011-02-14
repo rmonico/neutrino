@@ -12,7 +12,9 @@ public interface TypeElement {
 	
 	String getName();
 	
+	/**
+	 * Container do element.
+	 * @return
+	 */
 	Type getParent();
-	
-	Type getType();
 }
