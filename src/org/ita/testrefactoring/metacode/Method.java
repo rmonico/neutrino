@@ -18,7 +18,7 @@ public interface Method extends TypeElement {
 	
 	List<Argument> getArgumentList();
 	
-	List<CheckedExceptionClass> getThrowableExceptions();
+	List<CheckedExceptionClass> getThrownExceptions();
 	
 	Block getBody();
 

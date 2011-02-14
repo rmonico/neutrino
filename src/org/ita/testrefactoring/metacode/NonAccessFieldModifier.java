@@ -20,4 +20,8 @@ public class NonAccessFieldModifier {
 	void setFinal(boolean value) {
 		_final = value;
 	}
+
+	public boolean isNoModified() {
+		return ((!_final) && (!_static));
+	}
 }

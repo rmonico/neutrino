@@ -51,4 +51,8 @@ public class MethodDeclarationNonAccessModifier {
 			_abstract = false;
 		}
 	}
+
+	public boolean isNoModified() {
+		return ((!_abstract) && (!_static) && (!_final));
+	}
 }

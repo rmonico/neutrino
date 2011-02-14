@@ -1,7 +1,12 @@
 package org.ita.testrefactoring.tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotSame;
+
+
+import java.util.List;
 
 import org.eclipse.jdt.core.JavaModelException;
 import org.ita.testrefactoring.ASTParser.ASTClass;
@@ -9,7 +14,12 @@ import org.ita.testrefactoring.ASTParser.ASTEnvironment;
 import org.ita.testrefactoring.ASTParser.ASTPackage;
 import org.ita.testrefactoring.ASTParser.ASTParser;
 import org.ita.testrefactoring.ASTParser.ASTSourceFile;
+import org.ita.testrefactoring.metacode.Argument;
+import org.ita.testrefactoring.metacode.Block;
+import org.ita.testrefactoring.metacode.Field;
+import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.ParserException;
+import org.ita.testrefactoring.otherpackage.KnownAnnotation;
 import org.junit.Test;
 
 public class ASTParserTests extends RefactoringAbstractTests {
@@ -546,12 +556,112 @@ public class ASTParserTests extends RefactoringAbstractTests {
 				abstractClass.getNonAccessModifier().isAbstract());
 		assertTrue("Modificador não-referente a acesso \"final\"", finalClass
 				.getNonAccessModifier().isFinal());
-		assertTrue("Classe sem nenhum modificador referente a acesso",
+		assertTrue("Classe sem nenhum modificador não-referente a acesso",
 				publicClass.getNonAccessModifier().isNonModified());
 
 		
-		// Elementos internos da classe
-//		fullClass.getElementList().
+		// Lista de campos
+		assertEquals("Lista de campos (size)", 10, fullClass.getFieldList().values().size());
+		
+		
+		Field privateField = fullClass.getFieldList().get("privateField");
+		Field protectedField = fullClass.getFieldList().get("protectedField");
+		Field defaultField = fullClass.getFieldList().get("defaultField");
+		Field publicField = fullClass.getFieldList().get("publicField");
+
+		assertEquals("Tipo parent", fullClass, privateField.getParent());
+		
+		assertEquals("Tipo do field", environment.getTypeCache().get("int"), privateField.getType());
+		
+		assertTrue("Modificador de acesso private para campo", privateField.getAccessModifier().isPrivate());
+		assertTrue("Modificador de acesso protected para campo", protectedField.getAccessModifier().isProtected());
+		assertTrue("Modificador de acesso default para campo", defaultField.getAccessModifier().isDefault());
+		assertTrue("Modificador de acesso public para campo", publicField.getAccessModifier().isPublic());
+
+		
+		Field withoutNonAccessModifier = fullClass.getFieldList().get("withoutNonAccessModifier");
+		Field staticField = fullClass.getFieldList().get("staticField");
+		Field finalField = fullClass.getFieldList().get("finalField");
+		Field staticAndFinalField = fullClass.getFieldList().get("staticAndFinalField");
+
+		assertTrue("Modificador não referente a acesso \"não modificado\" para campo", withoutNonAccessModifier.getNonAccessModifier().isNoModified());
+		assertTrue("Modificador não referente a acesso \"static\" para campo", staticField.getNonAccessModifier().isStatic());
+		assertTrue("Modificador não referente a acesso \"final\" para campo", finalField.getNonAccessModifier().isFinal());
+		assertTrue("Modificador não referente a acesso \"static\" combinado com \"final\" para campo", staticAndFinalField.getNonAccessModifier().isStatic());
+		assertTrue("Modificador não referente a acesso \"final\" combinado com \"static\" para campo", staticAndFinalField.getNonAccessModifier().isFinal());
+		
+		
+		Field constantInitializedField = fullClass.getFieldList().get("constantInitializedField");
+		Field methodInitializedField = fullClass.getFieldList().get("methodInitializedField");
+		
+		assertEquals("Inicialização de field com constante", "55", constantInitializedField.getInitialization().toString());
+		// TODO: Ver depois o que vai colocar como valor esperado nesse método
+		assertEquals("Inicialização de field por método", null, methodInitializedField.getInitialization());
+		
+		
+		Method publicAccessMethod = fullClass.getMethodList().get("publicAccessMethod");
+		Method defaultAccessMethod = fullClass.getMethodList().get("defaultAccessMethod");
+		Method protectedAccessMethod = fullClass.getMethodList().get("protectedAccessMethod");
+		Method privateAccessMethod = fullClass.getMethodList().get("privateAccessMethod");
+		
+		assertEquals("Modificador de acesso de método public", publicAccessMethod.getAccessModifier().isPublic());
+		assertEquals("Modificador de acesso de método default", publicAccessMethod.getAccessModifier().isDefault());
+		assertEquals("Modificador de acesso de método protected", publicAccessMethod.getAccessModifier().isProtected());
+		assertEquals("Modificador de acesso de método private", publicAccessMethod.getAccessModifier().isPrivate());
+
+		
+		Method withoutNonAccessMethodModifier = fullClass.getMethodList().get("withoutNonAccessMethodModifier");
+		Method abstractMethod = fullClass.getMethodList().get("abstractMethod");
+		Method staticMethod = fullClass.getMethodList().get("staticMethod");
+		Method finalMethod = fullClass.getMethodList().get("finalMethod");
+		Method staticFinalMethod = fullClass.getMethodList().get("staticFinalMethod");
+
+		assertTrue("Sem modificador não referente a acesso para método", withoutNonAccessMethodModifier.getNonAccessModifier().isNoModified());
+		assertTrue("Modificador não referente a acesso para método abstract", abstractMethod.getNonAccessModifier().isAbstract());
+		assertTrue("Modificador não referente a acesso para método static", staticMethod.getNonAccessModifier().isStatic());
+		assertTrue("Modificador não referente a acesso para método final", finalMethod.getNonAccessModifier().isFinal());
+		assertTrue("Modificador não referente a acesso para método static combinado com final", staticFinalMethod.getNonAccessModifier().isStatic());
+		assertTrue("Modificador não referente a acesso para método final combinado com static", staticFinalMethod.getNonAccessModifier().isFinal());
+
+		
+		Method methodWithArguments = fullClass.getMethodList().get("methodWithArguments");
+		List<Argument> argumentList = methodWithArguments.getArgumentList();
+		
+		assertEquals("Lista de argumentos do método (size)", 2, argumentList.size());
+		assertEquals("Lista de argumentos do método (nome) #1", "arg1", argumentList.get(0).getName());
+		assertEquals("Lista de argumentos do método (type) #1", environment.getTypeCache().get("int"), argumentList.get(0).getName());
+
+		assertEquals("Lista de argumentos do método (nome) #2", "arg2", argumentList.get(1).getName());
+		assertEquals("Lista de argumentos do método (type) #2", environment.getTypeCache().get("int"), argumentList.get(1).getName());
+		
+		
+		Method methodWithReturnType = fullClass.getMethodList().get("methodWithReturnType");
+		assertEquals("Tipo de retorno do método", environment.getTypeCache().get("KnownClass"), methodWithReturnType.getReturnType());
+		
+		
+		Method dummyThrowerMethod = fullClass.getMethodList().get("dummyThrowerMethod");
+		assertEquals("Método que lança exceçao dummy", dummyThrowerMethod.getThrownExceptions().get(0));
+		
+		Method nonDummyThrowerMethod = fullClass.getMethodList().get("nonDummyThrowerMethod");
+		assertEquals("Método que lança exceçao não-dummy", nonDummyThrowerMethod.getThrownExceptions().get(0));
+		
+		
+		Method oneStatementBlockMethod = fullClass.getMethodList().get("oneStatementBlockMethod");
+		assertNotSame("Existência do bloco do método", null, oneStatementBlockMethod.getBody());
+		assertEquals("Tamanho do bloco de código do método", 1, oneStatementBlockMethod.getBody().getStatementList().size());
+		
+		
+		Method dummyAnnotatted = fullClass.getMethodList().get("dummyAnnotatted");
+		assertNotSame("Lista de anotações: existência", null, dummyAnnotatted.getAnnotations());
+		assertEquals("Lista de anotações: tamanho", 1, dummyAnnotatted.getAnnotations().size());
+		assertEquals("Lista de anotações: conteúdo", environment.getTypeCache().get("java.lang.Deprecated"), dummyAnnotatted.getAnnotations().get(0));
+
+		Method nonDummyAnnotated = fullClass.getMethodList().get("nonDummyAnnotated");
+		assertNotSame("Lista de anotações: existência", null, nonDummyAnnotated.getAnnotations());
+		assertEquals("Lista de anotações: tamanho", 1, nonDummyAnnotated.getAnnotations().size());
+		assertEquals("Lista de anotações: conteúdo", environment.getTypeCache().get("org.ita.testrefactoring.otherpackage.KnownAnnotation"), dummyAnnotatted.getAnnotations().get(0));
+
+
 		setTestsOk();
 	}
 }

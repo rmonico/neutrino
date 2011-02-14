@@ -12,5 +12,7 @@ public interface TypeElement {
 	
 	String getName();
 	
+	Type getParent();
+	
 	Type getType();
 }
