@@ -65,41 +65,38 @@ public class ASTParser extends AbstractParser {
 		for (ASTPackage pack : environment.getPackageList().values()) {
 			for (ASTSourceFile sourceFile : pack.getSourceFileList().values()) {
 				for (ASTType type : sourceFile.getTypeList().values()) {
-					ASTTypeParser parser = null;
-					
 					switch (type.getKind()) {
 					case CLASS: {
-						parser = new ClassParser();
+						ClassParser parser = new ClassParser();
 						
+						parser.setType((ASTClass) type);
+
+						parser.parse();
+
 						break;
 					}
-					
-//					case INTERFACE: {
-//						parser = new InterfaceParser();
-//						
-//						break;
-//					}
-//					
-//					case ENUM: {
-//						parser = new EnumParser();
-//						
-//						break;
-//					}
-//					
-//					case ANNOTATION: {
-//						parser = new AnnotationParser();
-//						
-//						break;
-//					}
-					
+
+						// case INTERFACE: {
+						// parser = new InterfaceParser();
+						//
+						// break;
+						// }
+						//
+						// case ENUM: {
+						// parser = new EnumParser();
+						//
+						// break;
+						// }
+						//
+						// case ANNOTATION: {
+						// parser = new AnnotationParser();
+						//
+						// break;
+						// }
+
 					default:
 						assert false : "Should never happen.";
 					} // switch
-					
-					parser.setType(type);
-
-					parser.parse();
-
 				}
 			}
 		}
