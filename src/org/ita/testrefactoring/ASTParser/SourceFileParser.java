@@ -66,6 +66,12 @@ class SourceFileParser {
 		}
 	}
 
+	/**
+	 * Localiza as declarações de tipo e as lança na lista.
+	 * 
+	 * @author Rafael Monico
+	 *
+	 */
 	public class TypeVisitor extends ASTVisitor {
 
 		private ASTSourceFile sourceFile;
