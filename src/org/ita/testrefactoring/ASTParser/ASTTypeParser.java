@@ -1,8 +1,8 @@
 package org.ita.testrefactoring.ASTParser;
 
-interface ASTTypeParser {
+interface ASTTypeParser<T extends ASTType> {
 
-	void setType(ASTType type);
+	void setType(T type);
 
 	void parse();
 
