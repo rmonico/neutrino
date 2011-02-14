@@ -20,4 +20,6 @@ public interface Type {
 	Map<String, Method> getMethodList();
 
 	TypeKind getKind();
+
+	String getQualifiedName();
 }

@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.ita.testrefactoring.metacode.Method;
-import org.ita.testrefactoring.metacode.Package;
 import org.ita.testrefactoring.metacode.SourceFile;
 import org.ita.testrefactoring.metacode.Type;
 import org.ita.testrefactoring.metacode.TypeAccessModifier;
@@ -13,7 +12,7 @@ import org.ita.testrefactoring.metacode.TypeAccessModifier;
 public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 
 	private SourceFile parent;
-	private Package pack;
+	private ASTPackage pack;
 	private String name;
 	private TypeAccessModifier accessModifier = new TypeAccessModifier();
 	private Map<String, ASTField> fieldList = new HashMap<String, ASTField>();
@@ -31,7 +30,7 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 	}
 
 	@Override
-	public Package getPackage() {
+	public ASTPackage getPackage() {
 		return pack;
 	}
 	
@@ -53,7 +52,7 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 		return accessModifier;
 	}
 
-	String getQualifiedName() {
+	public String getQualifiedName() {
 		return getPackage().getName() + "." + getName();
 	}
 

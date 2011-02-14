@@ -22,9 +22,29 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 	@Test
 	public void testPackageParsing() throws ParserException, JavaModelException {
-		getPackageByName("org.ita.testrefactoring.testfiles.pack1");
-		getPackageByName("org.ita.testrefactoring.testfiles.pack2");
+		// Crio os arquivos, pois só considero pacotes quando há arquivos dentro
+		StringBuilder pack1ClassSource = new StringBuilder();
+		
+		pack1ClassSource.append("package org.ita.testrefactoring.testfiles.pack1;\n");
+		pack1ClassSource.append("\n");
+		pack1ClassSource.append("public class Pack1Class {\n");
+		pack1ClassSource.append("\n");
+		pack1ClassSource.append("}\n");
 
+		createSourceFile("org.ita.testrefactoring.testfiles.pack1", "Pack1Class.java", pack1ClassSource);
+
+		
+		StringBuilder pack2ClassSource = new StringBuilder();
+		
+		pack2ClassSource.append("package org.ita.testrefactoring.testfiles.pack2;\n");
+		pack2ClassSource.append("\n");
+		pack2ClassSource.append("public class Pack2Class {\n");
+		pack2ClassSource.append("\n");
+		pack2ClassSource.append("}\n");
+
+		createSourceFile("org.ita.testrefactoring.testfiles.pack2", "Pack2Class.java", pack2ClassSource);
+
+		
 		ASTParser parser = new ASTParser();
 
 		parser.parse();
@@ -434,7 +454,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		ASTClass publicClass = (ASTClass) publicClassFile.getTypeList().get("PublicClass");
  
-		assertEquals("ASTClass: Propriedade parent", environment.getTypeCache().get("org.ita.testrefactoring.otherpackage.KnownClass"), fullClass.getParent());
+		assertEquals("ASTClass: Propriedade parent", environment.getTypeCache().get("org.ita.testrefactoring.otherpackage.KnownClass"), fullClass.getSuperClass());
 
 		// Modificadores de acesso
 		assertTrue("Modificador de acesso default para classe", fullClass.getAccessModifier().isDefault());

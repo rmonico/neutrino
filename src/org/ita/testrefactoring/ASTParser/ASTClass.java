@@ -7,7 +7,7 @@ public class ASTClass extends ASTType implements Class {
 	
 	// Vai dar problema depois, pois NonAccessClassModifier é read-only
 	private NonAccessClassModifier nonAccessModifier = new NonAccessClassModifier();
-	private ASTClass parent;
+	private ASTType parent;
 
 	@Override
 	public NonAccessClassModifier getNonAccessModifier() {
@@ -15,11 +15,12 @@ public class ASTClass extends ASTType implements Class {
 	}
 
 	@Override
-	public ASTClass getParent() {
-		return parent;
+	public ASTClass getSuperClass() {
+//		return parent;
+		return null;
 	}
 	
-	protected void setParent(ASTClass parent) {
+	protected void setParent(ASTType parent) {
 		this.parent = parent;
 	}
 

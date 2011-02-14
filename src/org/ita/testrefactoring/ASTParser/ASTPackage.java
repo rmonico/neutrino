@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.ita.testrefactoring.metacode.Package;
-import org.ita.testrefactoring.metacode.SourceFile;
 
 public class ASTPackage implements Package, ASTWrapper<PackageDeclaration> {
 
@@ -36,9 +35,11 @@ public class ASTPackage implements Package, ASTWrapper<PackageDeclaration> {
 		this.parent = parent;
 	}
 
-	protected SourceFile createSourceFile() {
+	protected ASTSourceFile createSourceFile(String name) {
 		ASTSourceFile sourceFile = new ASTSourceFile();
 		sourceFile.setPackage(this);
+		
+		getSourceFileList().put(name, sourceFile);
 
 		return sourceFile;
 	}

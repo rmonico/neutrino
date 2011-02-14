@@ -7,7 +7,6 @@ import java.util.List;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
@@ -40,7 +39,7 @@ public class ASTParser extends AbstractParser {
 
 		setEnvironment(environment);
 
-		List<ICompilationUnit> compilationUnitList = doPackageListParse(packageList, environment);
+		List<ICompilationUnit> compilationUnitList = getAllCompilationUnits(packageList);
 
 		ICompilationUnit activeCompilationUnit = getActiveCompilationUnit(compilationUnitList);
 
@@ -112,18 +111,10 @@ public class ASTParser extends AbstractParser {
 	 * @return
 	 * @throws ParserException
 	 */
-	private List<ICompilationUnit> doPackageListParse(List<IPackageFragment> packageList, ASTEnvironment environment) throws ParserException {
+	private List<ICompilationUnit> getAllCompilationUnits(List<IPackageFragment> packageList) throws ParserException {
 		List<ICompilationUnit> compilationUnitList = new ArrayList<ICompilationUnit>();
 
 		for (IPackageFragment _package : packageList) {
-			if (!isPackageValid(_package)) {
-				continue;
-			}
-
-			ASTPackage parsedPackage = environment.createPackage(_package.getElementName());
-
-			// TODO: testar
-			parsedPackage.setASTObject((PackageDeclaration) _package.getPrimaryElement());
 
 			try {
 				compilationUnitList.addAll(Arrays.asList(_package.getCompilationUnits()));
@@ -155,44 +146,25 @@ public class ASTParser extends AbstractParser {
 			/**
 			 * Roda uma vez para cada compilation unit parseada. Uso para popular as listas de source file existentes em cada pacote.
 			 */
-			public void acceptAST(ICompilationUnit source, CompilationUnit parsed) {
-				ASTSourceFile sourceFile = new ASTSourceFile();
+			public void acceptAST(ICompilationUnit jdtObject, CompilationUnit astObject) {
+				PackageDeclaration pack = astObject.getPackage();
+				
+				ASTPackage parsedPackage = environment.createPackage(pack.getName().toString());
+
+				parsedPackage.setASTObject(pack);
+				
+
+				ASTSourceFile sourceFile = parsedPackage.createSourceFile(jdtObject.getPath().toFile().getName());
 
 				ASTSourceFile.ASTContainer container = sourceFile.new ASTContainer();
 
-				container.setICompilationUnit(source);
-				container.setCompilationUnit(parsed);
-				container.setRewrite(ASTRewrite.create(parsed.getAST()));
+				container.setICompilationUnit(jdtObject);
+				container.setCompilationUnit(astObject);
+				container.setRewrite(ASTRewrite.create(astObject.getAST()));
 
 				sourceFile.setASTObject(container);
 
-				// Já setou o ASTObject do sourceFile, agora precisa
-				// encontrar quem é o package parent.
-				IJavaElement element = source.getParent();
-
-				if (element instanceof IPackageFragment) {
-					IPackageFragment parent = (IPackageFragment) element;
-
-					for (ASTPackage p : environment.getPackageList().values()) {
-						if (p.getASTObject() == parent) {
-							sourceFile.setPackage(p);
-							p.getSourceFileList().put(source.getPath().toFile().getName(), sourceFile);
-
-							break;
-						}
-					}
-				}
-
-				if (sourceFile.getPackage() == null) {
-					// Rejeito o arquivo, pois não sei em qual package
-					// ele está. Não preciso rejeitar ativamente, pois o
-					// mesmo irá se perder, pois não chamo setParent e
-					// ao final do método o mesmo fica elegível para a
-					// coleta de lixo
-					System.err.println("Package para o arquivo \"" + source.getPath() + "\" não encontrado...");
-				}
-
-				super.acceptAST(source, parsed);
+				super.acceptAST(jdtObject, astObject);
 			}
 		}, new NullProgressMonitor());
 	}
@@ -209,13 +181,14 @@ public class ASTParser extends AbstractParser {
 		return activeCompilationUnit;
 	}
 
-	private boolean isPackageValid(IPackageFragment _package) throws ParserException {
-		try {
-			return ((_package.getCompilationUnits().length > 0) || (!_package.hasSubpackages()));
-		} catch (JavaModelException e) {
-			throw new ParserException(e);
-		}
-	}
+// TODO: excluir depois se não precisar mais
+//	private boolean isPackageValid(IPackageFragment _package) throws ParserException {
+//		try {
+//			return ((_package.getCompilationUnits().length > 0) || (!_package.hasSubpackages()));
+//		} catch (JavaModelException e) {
+//			throw new ParserException(e);
+//		}
+//	}
 
 	@Override
 	public ASTEnvironment getEnvironment() {

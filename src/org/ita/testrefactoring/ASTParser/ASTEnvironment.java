@@ -6,12 +6,11 @@ import java.util.Map;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.ita.testrefactoring.metacode.Environment;
-import org.ita.testrefactoring.metacode.Type;
 
 public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilationUnit>> {
 	
 	private Map<String, ASTPackage> packageList = new HashMap<String, ASTPackage>();
-	private Map<String, Type> typeCache = new HashMap<String, Type>();
+	private Map<String, ASTType> typeCache = new HashMap<String, ASTType>();
 	private List<ICompilationUnit> astObject;
 	
 	// Construtor restrito ao pacote
@@ -40,7 +39,7 @@ public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilation
 	}
 
 	@Override
-	public Map<String, Type> getTypeCache() {
+	public Map<String, ASTType> getTypeCache() {
 		return typeCache;
 	}
 

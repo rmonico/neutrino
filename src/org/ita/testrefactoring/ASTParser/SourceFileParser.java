@@ -95,8 +95,9 @@ class SourceFileParser {
 		}
 		
 		private void classFound(TypeDeclaration node) {
-			// TODO: testar
-			sourceFile.createClass(node.getName().getIdentifier());
+			ASTClass clazz = sourceFile.createClass(node.getName().getIdentifier());
+			
+			clazz.setASTObject(node);
 		}
 		
 		private void interfaceFound(TypeDeclaration node) {
