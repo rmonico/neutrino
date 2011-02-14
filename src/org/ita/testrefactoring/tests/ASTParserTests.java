@@ -466,7 +466,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		assertTrue("Modificador não-referente a acesso \"abstract\"", abstractClass.getNonAccessModifier().isAbstract());
 		assertTrue("Modificador não-referente a acesso \"final\"", finalClass.getNonAccessModifier().isFinal());
-		assertTrue("Classe sem nenhum modificador não-referente a acesso", publicClass.getNonAccessModifier().isNonModified());
+		assertTrue("Classe sem nenhum modificador não-referente a acesso", publicClass.getNonAccessModifier().isNoModified());
 
 		// Lista de campos
 		assertEquals("Lista de campos (size)", 10, fullClass.getFieldList().values().size());
