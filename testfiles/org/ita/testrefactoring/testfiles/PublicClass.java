@@ -155,7 +155,7 @@ interface Interface {
 /**
  * Enum não tem modificador não-referente a accesso.
  * 
- * Observação: suporta os mesmos tipos de campos/
+ * Observação: suporta os mesmos tipos de campos que a classe.
  * 
  * @author Rafael Monico
  *
