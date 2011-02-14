@@ -454,8 +454,8 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		ASTSourceFile publicClassFile = testfilesPackage.getSourceFileList().get("PublicClass.java");
 		
 		// Montar aqui também um map para que seja possível recuperar a classe por nome
-		ASTClass fullClass = (ASTClass) publicClassFile.getTypeList().get(0);
-		ASTClass publicClass = (ASTClass) publicClassFile.getTypeList().get(0);
+		ASTClass fullClass = (ASTClass) publicClassFile.getTypeList().get("FullClass");
+		ASTClass publicClass = (ASTClass) publicClassFile.getTypeList().get("PublicClass");
 		
 		assertTrue("Modificador de acesso default para classe", fullClass.getAccessModifier().isDefault());
 		assertTrue("Modificador de acesso public para classe", publicClass.getAccessModifier().isPublic());

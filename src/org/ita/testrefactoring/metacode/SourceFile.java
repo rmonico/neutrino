@@ -1,6 +1,7 @@
 package org.ita.testrefactoring.metacode;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SourceFile {
 	
@@ -13,7 +14,7 @@ public interface SourceFile {
 	 * 
 	 * @return
 	 */
-	public List<? extends Type> getTypeList();
+	public Map<String, ? extends Type> getTypeList();
 	
 	Package getPackage();
 }

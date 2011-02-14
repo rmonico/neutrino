@@ -1,7 +1,9 @@
 package org.ita.testrefactoring.ASTParser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.dom.CompilationUnit;
@@ -9,13 +11,12 @@ import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.ita.testrefactoring.metacode.Annotation;
 import org.ita.testrefactoring.metacode.Enum;
 import org.ita.testrefactoring.metacode.SourceFile;
-import org.ita.testrefactoring.metacode.Type;
 
 public class ASTSourceFile implements SourceFile,
 		ASTWrapper<ASTSourceFile.ASTContainer> {
 
 	private List<ASTImportDeclaration> importDeclarationList = new ArrayList<ASTImportDeclaration>();
-	private List<Type> typeList = new ArrayList<Type>();
+	private Map<String, ASTType> typeList = new HashMap<String, ASTType>();
 	private String fileName;
 	private ASTPackage parent;
 
@@ -91,7 +92,7 @@ public class ASTSourceFile implements SourceFile,
 	}
 
 	@Override
-	public List<Type> getTypeList() {
+	public Map<String, ASTType> getTypeList() {
 		return typeList;
 	}
 
@@ -113,7 +114,7 @@ public class ASTSourceFile implements SourceFile,
 		type.setPackage(getPackage());
 		type.setParent(this);
 		
-		getTypeList().add(type);
+		getTypeList().put(name, type);
 		
 		getEnvironment().registerType(type);
 	}
