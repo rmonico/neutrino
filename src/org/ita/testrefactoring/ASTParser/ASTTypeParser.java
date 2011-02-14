@@ -1,6 +1,6 @@
 package org.ita.testrefactoring.ASTParser;
 
-public interface ASTTypeParser {
+interface ASTTypeParser {
 
 	void setType(ASTType type);
 

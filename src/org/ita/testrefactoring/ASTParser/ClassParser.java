@@ -1,6 +1,6 @@
 package org.ita.testrefactoring.ASTParser;
 
-public class ClassParser implements ASTTypeParser {
+class ClassParser implements ASTTypeParser {
 	
 	private ASTType type;
 
