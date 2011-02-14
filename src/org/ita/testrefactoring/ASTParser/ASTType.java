@@ -1,5 +1,6 @@
 package org.ita.testrefactoring.ASTParser;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.ita.testrefactoring.metacode.Field;
@@ -15,6 +16,8 @@ public class ASTType implements Type {
 	private Package pack;
 	private String name;
 	private TypeAccessModifier accessModifier = new TypeAccessModifier();
+	private Map<String, Field> fieldList = new HashMap<String, Field>();
+	private Map<String, Method> methodList = new HashMap<String, Method>();
 	
 	
 	@Override
@@ -55,13 +58,11 @@ public class ASTType implements Type {
 
 	@Override
 	public Map<String, Field> getFieldList() {
-		// TODO Auto-generated method stub
-		return null;
+		return fieldList;
 	}
 
 	@Override
 	public Map<String, Method> getMethodList() {
-		// TODO Auto-generated method stub
-		return null;
+		return methodList;
 	}
 }
