@@ -53,7 +53,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		ASTPackage[] packageList = parser.getEnvironment().getPackageList().values().toArray(new ASTPackage[0]);
 
-		assertEquals("Quantidade de pacotes", 2, packageList.length);
+		assertEquals("Quantidade de pacotes", 3, packageList.length);
 
 		ASTPackage pack1 = (ASTPackage) environment.getPackageList().get("org.ita.testrefactoring.testfiles.pack1");
 
@@ -65,6 +65,11 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		assertEquals("Validade do ambiente do pacote 2", parser.getEnvironment(), pack2.getEnvironment());
 		assertEquals("Nome do pacote 2", "org.ita.testrefactoring.testfiles.pack2", pack2.getName());
 
+		ASTPackage pack3 = (ASTPackage) environment.getPackageList().get("java.lang");
+
+		assertEquals("Validade do ambiente do pacote 3", parser.getEnvironment(), pack3.getEnvironment());
+		assertEquals("Nome do pacote 3", "java.lang", pack3.getName());
+		
 		setTestsOk();
 	}
 

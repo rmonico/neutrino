@@ -74,7 +74,7 @@ public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilation
 	public Type createDummyClass(String qualifiedName) {
 		DummyClass dummy = new DummyClass();
 		
-		String packageName = qualifiedName.substring(0, qualifiedName.lastIndexOf('.')-1);
+		String packageName = qualifiedName.substring(0, qualifiedName.lastIndexOf('.'));
 		String className = qualifiedName.substring(qualifiedName.lastIndexOf('.')+1, qualifiedName.length());
 
 		Package pack = getPackageList().get(packageName);
