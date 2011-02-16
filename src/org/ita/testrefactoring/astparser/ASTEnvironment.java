@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jdt.core.ICompilationUnit;
-import org.ita.testrefactoring.metacode.DummyClass;
 import org.ita.testrefactoring.metacode.Environment;
 import org.ita.testrefactoring.metacode.Type;
 import org.ita.testrefactoring.metacode.Package;
@@ -78,10 +77,14 @@ public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilation
 		String packageName = qualifiedName.substring(0, qualifiedName.lastIndexOf('.')-1);
 		String className = qualifiedName.substring(qualifiedName.lastIndexOf('.')+1, qualifiedName.length());
 
-//		Package pack = getPackageList().get(packageName);
+		Package pack = getPackageList().get(packageName);
 
-//		dummy.setName(typeName);
-//		dummy.setPackage(pack);
+		if (pack == null) {
+			pack = createPackage(packageName);
+		}
+		
+		dummy.setName(className);
+		dummy.setPackage(pack);
 
 		registerType(dummy);
 
