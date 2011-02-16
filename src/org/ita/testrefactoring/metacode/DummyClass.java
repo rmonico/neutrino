@@ -6,16 +6,6 @@ package org.ita.testrefactoring.metacode;
  * @author Rafael Monico
  *
  */
-public class DummyClass extends DummyType implements Class {
-
-	@Override
-	public Class getSuperClass() {
-		return null;
-	}
-
-	@Override
-	public NonAccessClassModifier getNonAccessModifier() {
-		return null;
-	}
+public interface DummyClass extends DummyType, Class {
 
 }
