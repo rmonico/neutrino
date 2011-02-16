@@ -1,7 +1,5 @@
-package org.ita.testrefactoring.astparser;
+package org.ita.testrefactoring.metacode;
 
-import org.ita.testrefactoring.metacode.Class;
-import org.ita.testrefactoring.metacode.NonAccessClassModifier;
 
 /**
  * Representa um tipo onde tudo o que sei é que se trata de uma classe.

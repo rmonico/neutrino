@@ -1,6 +1,8 @@
-package org.ita.testrefactoring.astparser;
+package org.ita.testrefactoring.metacode;
 
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.ita.testrefactoring.astparser.ASTType;
+import org.ita.testrefactoring.astparser.TypeKind;
 
 
 /**

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.ita.testrefactoring.metacode.ASTDummyType;
 import org.ita.testrefactoring.metacode.Environment;
 
 public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilationUnit>> {
