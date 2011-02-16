@@ -44,9 +44,22 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 		
 		visitor.setClass(clazz);
 		
-		String superClassName = clazz.getASTObject().getSuperclassType().resolveBinding().getQualifiedName();
+		String superClassName;
+		
+		org.eclipse.jdt.core.dom.Type superclassNode = clazz.getASTObject().getSuperclassType();
+		
+		if (superclassNode == null) {
+			superClassName = "java.lang.Object";
+		} else {
+			superClassName = superclassNode.resolveBinding().getQualifiedName();
+		}
+		
 		ASTEnvironment environment = clazz.getPackage().getEnvironment();
 		Type superClass = environment.getTypeCache().get(superClassName);
+		
+		if (superClass == null) {
+//			environment.createDummyClass(superClassName);
+		}
 		
 		if ((superClass.getKind() != TypeKind.CLASS) && (superClass.getKind() != TypeKind.UNKNOWN)) {
 			throw new ParserException("Super classe de \"" + clazz.getQualifiedName() + "\" inválida (\"" + superClass.getQualifiedName() + ")");
