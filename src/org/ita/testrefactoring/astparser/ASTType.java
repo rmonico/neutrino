@@ -71,6 +71,7 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 		return astObject;
 	}
 	
+	@Override
 	public void setASTObject(TypeDeclaration astObject) {
 		this.astObject = astObject;
 	}
