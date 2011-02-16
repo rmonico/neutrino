@@ -28,7 +28,7 @@ public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilation
 	 * @param packageName
 	 * @return
 	 */
-	protected ASTPackage createPackage(String packageName) {
+	ASTPackage createPackage(String packageName) {
 		ASTPackage _package = new ASTPackage();
 		_package.setEnvironment(this);
 		_package.setName(packageName);
