@@ -55,12 +55,12 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		assertEquals("Quantidade de pacotes", 2, packageList.length);
 
-		ASTPackage pack1 = environment.getPackageList().get("org.ita.testrefactoring.testfiles.pack1");
+		ASTPackage pack1 = (ASTPackage) environment.getPackageList().get("org.ita.testrefactoring.testfiles.pack1");
 
 		assertEquals("Validade do ambiente do pacote 1", parser.getEnvironment(), pack1.getEnvironment());
 		assertEquals("Nome do pacote 1", "org.ita.testrefactoring.testfiles.pack1", pack1.getName());
 
-		ASTPackage pack2 = environment.getPackageList().get("org.ita.testrefactoring.testfiles.pack2");
+		ASTPackage pack2 = (ASTPackage) environment.getPackageList().get("org.ita.testrefactoring.testfiles.pack2");
 
 		assertEquals("Validade do ambiente do pacote 2", parser.getEnvironment(), pack2.getEnvironment());
 		assertEquals("Nome do pacote 2", "org.ita.testrefactoring.testfiles.pack2", pack2.getName());
@@ -96,7 +96,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		ASTEnvironment environment = parser.getEnvironment();
 
-		ASTPackage testPackage = environment.getPackageList().get("org.ita.testrefactoring.testfiles");
+		ASTPackage testPackage = (ASTPackage) environment.getPackageList().get("org.ita.testrefactoring.testfiles");
 
 		assertEquals("Quantidade de arquivos parseados", 1, testPackage.getSourceFileList().size());
 
@@ -446,7 +446,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		// Teste dos modificadores de acesso para classe
 		ASTEnvironment environment = parser.getEnvironment();
 
-		ASTPackage testfilesPackage = environment.getPackageList().get("org.ita.testrefactoring.testfiles");
+		ASTPackage testfilesPackage = (ASTPackage) environment.getPackageList().get("org.ita.testrefactoring.testfiles");
 		ASTSourceFile publicClassFile = testfilesPackage.getSourceFileList().get("PublicClass.java");
 		ASTClass fullClass = (ASTClass) publicClassFile.getTypeList().get("FullClass");
 		
