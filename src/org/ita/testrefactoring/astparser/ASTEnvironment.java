@@ -12,7 +12,7 @@ import org.ita.testrefactoring.metacode.Package;
 
 public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilationUnit>> {
 	
-	private Map<String, Package> packageList = new HashMap<String, Package>();
+	private Map<String, ASTPackage> packageList = new HashMap<String, ASTPackage>();
 	private Map<String, Type> typeCache = new HashMap<String, Type>();
 	private List<ICompilationUnit> astObject;
 	
@@ -22,7 +22,7 @@ public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilation
 	}
 
 	@Override
-	public Map<String, Package> getPackageList() {
+	public Map<String, ASTPackage> getPackageList() {
 		return packageList;
 	}
 
