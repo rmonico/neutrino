@@ -29,7 +29,7 @@ public class ASTClass extends ASTType implements Class {
 		return TypeKind.CLASS;
 	}
 
-	public ASTField createField(String name) {
+	ASTField createField(String name) {
 		ASTField field = new ASTField();
 		
 		field.setName(name);
