@@ -58,7 +58,7 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 		Type superClass = environment.getTypeCache().get(superClassName);
 		
 		if (superClass == null) {
-//			environment.createDummyClass(superClassName);
+			superClass = environment.createDummyClass(superClassName);
 		}
 		
 		if ((superClass.getKind() != TypeKind.CLASS) && (superClass.getKind() != TypeKind.UNKNOWN)) {
