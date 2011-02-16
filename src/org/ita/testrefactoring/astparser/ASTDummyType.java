@@ -20,5 +20,4 @@ public class ASTDummyType extends ASTType {
 	public TypeDeclaration getASTObject() {
 		return null;
 	}
-
 }
