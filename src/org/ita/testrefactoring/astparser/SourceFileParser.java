@@ -4,7 +4,7 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
-import org.ita.testrefactoring.metacode.ASTDummyType;
+import org.ita.testrefactoring.metacode.DummyType;
 import org.ita.testrefactoring.metacode.Type;
 
 class SourceFileParser {
@@ -42,7 +42,7 @@ class SourceFileParser {
 			
 			if (type == null) {
 				// Criar type "dummy"
-				ASTDummyType dummy = environment.createDummyType(typeName, pack);
+				DummyType dummy = environment.createDummyType(typeName, pack);
 				
 				type = dummy;
 			}

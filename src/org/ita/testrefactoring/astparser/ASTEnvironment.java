@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jdt.core.ICompilationUnit;
-import org.ita.testrefactoring.metacode.ASTDummyType;
+import org.ita.testrefactoring.metacode.DummyType;
 import org.ita.testrefactoring.metacode.Environment;
 
 public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilationUnit>> {
@@ -54,8 +54,8 @@ public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilation
 		return astObject;
 	}
 
-	ASTDummyType createDummyType(String typeName, ASTPackage pack) {
-		ASTDummyType dummy = new ASTDummyType();
+	DummyType createDummyType(String typeName, ASTPackage pack) {
+		DummyType dummy = new DummyType();
 		// Tirar esse método daqui, quem deve criar esse tipo de classe é o
 		// environment, pois o mesmo não possui qualquer ligação com a classe.
 		// dummy.setParent(this);

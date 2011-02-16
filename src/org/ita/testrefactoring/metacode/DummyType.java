@@ -11,7 +11,7 @@ import org.ita.testrefactoring.astparser.TypeKind;
  * @author Rafael Monico
  * 
  */
-public class ASTDummyType extends ASTType {
+public class DummyType extends ASTType {
 
 	@Override
 	public TypeKind getKind() {

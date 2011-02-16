@@ -6,7 +6,7 @@ package org.ita.testrefactoring.metacode;
  * @author Rafael Monico
  *
  */
-public class DummyClass extends ASTDummyType implements Class {
+public class DummyClass extends DummyType implements Class {
 
 	@Override
 	public Class getSuperClass() {
