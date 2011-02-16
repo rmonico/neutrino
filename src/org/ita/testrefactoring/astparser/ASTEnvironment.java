@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.ita.testrefactoring.metacode.DummyClass;
 import org.ita.testrefactoring.metacode.Environment;
 import org.ita.testrefactoring.metacode.Type;
+import org.ita.testrefactoring.metacode.Package;
+
 
 public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilationUnit>> {
 	
-	private Map<String, ASTPackage> packageList = new HashMap<String, ASTPackage>();
+	private Map<String, Package> packageList = new HashMap<String, Package>();
 	private Map<String, Type> typeCache = new HashMap<String, Type>();
 	private List<ICompilationUnit> astObject;
 	
@@ -20,7 +23,7 @@ public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilation
 	}
 
 	@Override
-	public Map<String, ASTPackage> getPackageList() {
+	public Map<String, Package> getPackageList() {
 		return packageList;
 	}
 
@@ -54,11 +57,9 @@ public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilation
 		return astObject;
 	}
 
-	DummyType createDummyType(String typeName, ASTPackage pack) {
+	DummyType createDummyType(String typeName, Package pack) {
 		DummyType dummy = new DummyType();
-		// Tirar esse método daqui, quem deve criar esse tipo de classe é o
-		// environment, pois o mesmo não possui qualquer ligação com a classe.
-		// dummy.setParent(this);
+
 		dummy.setName(typeName);
 		dummy.setPackage(pack);
 
@@ -69,6 +70,22 @@ public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilation
 
 	void registerType(Type type) {
 		getTypeCache().put(type.getQualifiedName(), type);
+	}
+
+	public Type createDummyClass(String qualifiedName) {
+		DummyClass dummy = new DummyClass();
+		
+		String packageName = qualifiedName.substring(0, qualifiedName.lastIndexOf('.')-1);
+		String className = qualifiedName.substring(qualifiedName.lastIndexOf('.')+1, qualifiedName.length());
+
+//		Package pack = getPackageList().get(packageName);
+
+//		dummy.setName(typeName);
+//		dummy.setPackage(pack);
+
+		registerType(dummy);
+
+		return dummy;
 	}
 
 
