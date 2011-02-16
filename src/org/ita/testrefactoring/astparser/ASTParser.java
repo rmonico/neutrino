@@ -61,42 +61,46 @@ public class ASTParser extends AbstractParser {
 			}
 		}
 
+		List<ASTSourceFile> allSourceFiles = new ArrayList<ASTSourceFile>();
+
 		for (ASTPackage pack : environment.getPackageList().values()) {
-			for (ASTSourceFile sourceFile : pack.getSourceFileList().values()) {
-				for (ASTType type : sourceFile.getTypeList().values()) {
-					switch (type.getKind()) {
-					case CLASS: {
-						ClassParser parser = new ClassParser();
-						
-						parser.setType((ASTClass) type);
+			allSourceFiles.addAll(pack.getSourceFileList().values());
+		}
 
-						parser.parse();
+		for (ASTSourceFile sourceFile : allSourceFiles) {
+			for (ASTType type : sourceFile.getTypeList().values()) {
+				switch (type.getKind()) {
+				case CLASS: {
+					ClassParser parser = new ClassParser();
 
-						break;
-					}
+					parser.setType((ASTClass) type);
 
-						// case INTERFACE: {
-						// parser = new InterfaceParser();
-						//
-						// break;
-						// }
-						//
-						// case ENUM: {
-						// parser = new EnumParser();
-						//
-						// break;
-						// }
-						//
-						// case ANNOTATION: {
-						// parser = new AnnotationParser();
-						//
-						// break;
-						// }
+					parser.parse();
 
-					default:
-						assert false : "Should never happen.";
-					} // switch
+					break;
 				}
+
+					// case INTERFACE: {
+					// parser = new InterfaceParser();
+					//
+					// break;
+					// }
+					//
+					// case ENUM: {
+					// parser = new EnumParser();
+					//
+					// break;
+					// }
+					//
+					// case ANNOTATION: {
+					// parser = new AnnotationParser();
+					//
+					// break;
+					// }
+
+				default:
+					assert false : "Should never happen.";
+				} // switch
 			}
 		}
 	}
@@ -148,11 +152,10 @@ public class ASTParser extends AbstractParser {
 			 */
 			public void acceptAST(ICompilationUnit jdtObject, CompilationUnit astObject) {
 				PackageDeclaration pack = astObject.getPackage();
-				
+
 				ASTPackage parsedPackage = environment.createPackage(pack.getName().toString());
 
 				parsedPackage.setASTObject(pack);
-				
 
 				ASTSourceFile sourceFile = parsedPackage.createSourceFile(jdtObject.getPath().toFile().getName());
 
@@ -181,14 +184,16 @@ public class ASTParser extends AbstractParser {
 		return activeCompilationUnit;
 	}
 
-// TODO: excluir depois se não precisar mais
-//	private boolean isPackageValid(IPackageFragment _package) throws ParserException {
-//		try {
-//			return ((_package.getCompilationUnits().length > 0) || (!_package.hasSubpackages()));
-//		} catch (JavaModelException e) {
-//			throw new ParserException(e);
-//		}
-//	}
+	// TODO: excluir depois se não precisar mais
+	// private boolean isPackageValid(IPackageFragment _package) throws
+	// ParserException {
+	// try {
+	// return ((_package.getCompilationUnits().length > 0) ||
+	// (!_package.hasSubpackages()));
+	// } catch (JavaModelException e) {
+	// throw new ParserException(e);
+	// }
+	// }
 
 	@Override
 	public ASTEnvironment getEnvironment() {
