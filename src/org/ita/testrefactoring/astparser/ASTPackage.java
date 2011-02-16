@@ -32,11 +32,11 @@ public class ASTPackage implements Package, ASTWrapper<PackageDeclaration> {
 		return parent;
 	}
 
-	protected void setEnvironment(ASTEnvironment parent) {
+	void setEnvironment(ASTEnvironment parent) {
 		this.parent = parent;
 	}
 
-	protected ASTSourceFile createSourceFile(String name) {
+	ASTSourceFile createSourceFile(String name) {
 		ASTSourceFile sourceFile = new ASTSourceFile();
 		sourceFile.setPackage(this);
 		
