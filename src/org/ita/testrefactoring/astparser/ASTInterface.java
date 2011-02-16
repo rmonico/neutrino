@@ -11,7 +11,7 @@ public class ASTInterface extends ASTType implements Interface {
 		return parent;
 	}
 	
-	protected void setParent(Interface _interface) {
+	void setParent(Interface _interface) {
 		this.parent = _interface;
 	}
 
