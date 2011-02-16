@@ -3,6 +3,7 @@ package org.ita.testrefactoring.astparser;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.ita.testrefactoring.metacode.Class;
 import org.ita.testrefactoring.metacode.ParserException;
 import org.ita.testrefactoring.metacode.Type;
 
@@ -45,13 +46,14 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 		
 		String superClassName = clazz.getASTObject().getSuperclassType().resolveBinding().getQualifiedName();
 		ASTEnvironment environment = clazz.getPackage().getEnvironment();
-		ASTType superClass = environment.getTypeCache().get(superClassName);
+		Type superClass = environment.getTypeCache().get(superClassName);
 		
 		if ((superClass.getKind() != TypeKind.CLASS) && (superClass.getKind() != TypeKind.UNKNOWN)) {
 			throw new ParserException("Super classe de \"" + clazz.getQualifiedName() + "\" inválida (\"" + superClass.getQualifiedName() + ")");
 		}
 		
-		clazz.setParent(superClass);
+		// Aqui superClass deve ser uma classe, já que getKind devolveu CLASS...
+		clazz.setParent((Class) superClass);
 		
 		clazz.getASTObject().accept(visitor);
 	}
