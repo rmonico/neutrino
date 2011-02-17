@@ -145,7 +145,25 @@ public class ASTSourceFile implements SourceFile,
 
 	@Override
 	public String toString() {
-		return fileName;
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Source file \"" + fileName + "\":");
+		sb.append("Parent package: " + parent.getName());
+		sb.append("\n");
+		sb.append("\n");
+		
+		sb.append("Import list:\n");
+		for (ASTImportDeclaration importDeclaration : importDeclarationList) {
+			sb.append(importDeclaration.toString() + "\n");
+		}
+		sb.append("\n");
+		sb.append("\n");
+		sb.append("Type list:\n");
+		for (String key : typeList.keySet()) {
+			sb.append(key + " --> " + typeList.get(key) + "\n");
+		}
+
+		return sb.toString();
 	}
 
 }

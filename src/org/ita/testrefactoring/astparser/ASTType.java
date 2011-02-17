@@ -78,6 +78,45 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 	
 	@Override
 	public String toString() {
-		return getQualifiedName();
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(getQualifiedName() + ":\n");
+		sb.append("\n");
+		sb.append("File: " + parent.getFileName() + "\n");
+		sb.append("Package: " + pack.getName() + "\n");
+		sb.append("Access: " + accessModifier.toString() + "\n");
+		
+		int firstLineBreak = astObject.toString().indexOf('\n');
+		
+		if (firstLineBreak == -1) {
+			firstLineBreak = astObject.toString().length();
+		}
+		
+		String astHeader = astObject.toString().substring(0, firstLineBreak);
+		
+		sb.append("AST: <" + astHeader + ">\n");
+		
+		sb.append("\n");
+		sb.append("\n");
+		sb.append("Field list:\n");
+		
+		for (String key : fieldList.keySet()) {
+			ASTField field = fieldList.get(key);
+			
+			sb.append(key + " --> " + field.getFieldType().getQualifiedName() + " " + field.getName() + ";\n");
+		}
+		
+		sb.append("\n");
+		sb.append("\n");
+		sb.append("Method list:\n");
+		
+		for (String key : methodList.keySet()) {
+			Method method = methodList.get(key);
+			
+			sb.append(key + " --> " + method.getName() + "();\n");
+		}
+		
+
+		return sb.toString();
 	}
 }

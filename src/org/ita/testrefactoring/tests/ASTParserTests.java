@@ -16,6 +16,7 @@ import org.ita.testrefactoring.metacode.Argument;
 import org.ita.testrefactoring.metacode.Field;
 import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.ParserException;
+import org.ita.testrefactoring.metacode.Type;
 import org.junit.Test;
 
 public class ASTParserTests extends RefactoringAbstractTests {
@@ -451,9 +452,21 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		// Teste dos modificadores de acesso para classe
 		ASTEnvironment environment = parser.getEnvironment();
 		
-		System.out.println("Environment:\n");
+		System.out.println("Environment:");
+		System.out.println("");
 		System.out.println(environment.toString());
-
+		System.out.println("");
+		System.out.println("Packages:");
+		System.out.println("");
+		
+		for (ASTPackage pack : environment.getPackageList().values()) {
+			System.out.println(pack.toString());
+		}
+		
+		for (Type type : environment.getTypeCache().values()) {
+			System.out.println(type.toString());
+		}
+		
 		ASTPackage testfilesPackage = (ASTPackage) environment.getPackageList().get("org.ita.testrefactoring.testfiles");
 		ASTSourceFile publicClassFile = testfilesPackage.getSourceFileList().get("PublicClass.java");
 		ASTClass fullClass = (ASTClass) publicClassFile.getTypeList().get("FullClass");

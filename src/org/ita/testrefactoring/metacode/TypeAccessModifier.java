@@ -30,6 +30,19 @@ public class TypeAccessModifier {
 	void setDefault() {
 		modifier = DEFAULT;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		if (isPublic()) {
+			sb.append("public");
+		} else {
+			sb.append("default");
+		}
+		
+		return sb.toString(); 
+	}
 }
 
 

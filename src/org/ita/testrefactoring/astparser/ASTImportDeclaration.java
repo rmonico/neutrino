@@ -65,5 +65,20 @@ public class ASTImportDeclaration implements ImportDeclaration, ASTWrapper<org.e
 	public void setASTObject(org.eclipse.jdt.core.dom.ImportDeclaration astObject) {
 		this.astObject = astObject;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("import ");
+		
+		if (isStatic) {
+			sb.append("static ");
+		}
+			
+		sb.append(type.getQualifiedName() + ";");
+		
+		return sb.toString();
+	}
 
 }

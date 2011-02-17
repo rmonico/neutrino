@@ -60,7 +60,21 @@ public class ASTPackage implements Package, ASTWrapper<PackageDeclaration> {
 	
 	@Override
 	public String toString() {
-		return name;
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Package: " + name + "\n");
+		sb.append("\n");
+		sb.append("\n");
+
+		for (String key : sourceFileList.keySet()) {
+			sb.append(key + " --> " + sourceFileList.get(key).getFileName() + "\n");
+		}
+
+		sb.append("\n");
+		sb.append("\n");
+		sb.append("AST: <" + astObject + ">");
+		
+		return sb.toString();
 	}
 
 }
