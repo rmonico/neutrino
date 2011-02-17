@@ -43,16 +43,6 @@ public class ASTEnvironment implements Environment {
 		return typeCache;
 	}
 
-//	@Override
-//	public void setASTObject(List<ICompilationUnit> astObject) {
-//		this.astObject = astObject;
-//	}
-//
-//	@Override
-//	public List<ICompilationUnit> getASTObject() {
-//		return astObject;
-//	}
-//
 	DummyType createDummyType(String typeName, Package pack) {
 		DummyType dummy = new DummyType();
 
@@ -100,8 +90,8 @@ public class ASTEnvironment implements Environment {
 		sb.append("Lista de pacotes:\n");
 		sb.append("\n");
 		
-		for (ASTPackage pack : packageList.values()) {
-			sb.append(pack.getName() + "\n");
+		for (String key : packageList.keySet()) {
+			sb.append(key + " --> " + packageList.get(key).getName() + "\n");
 		}
 		
 		sb.append("\n");
@@ -109,8 +99,8 @@ public class ASTEnvironment implements Environment {
 		sb.append("Lista de tipos:\n");
 		sb.append("\n");
 		
-		for (Type type : typeCache.values()) {
-			sb.append(type.getQualifiedName() + "\n");
+		for (String key : typeCache.keySet()) {
+			sb.append(key + " --> " + typeCache.get(key).getQualifiedName() + "\n");
 		}
 		
 		return sb.toString();

@@ -451,6 +451,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		// Teste dos modificadores de acesso para classe
 		ASTEnvironment environment = parser.getEnvironment();
 		
+		System.out.println("Environment:\n");
 		System.out.println(environment.toString());
 
 		ASTPackage testfilesPackage = (ASTPackage) environment.getPackageList().get("org.ita.testrefactoring.testfiles");
