@@ -76,6 +76,11 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 			superClass = environment.createDummyClass(superClassName);
 		}
 		
+		// Antes não era possível saber qual o Kind do tipo, agora sabe-se que se trata de uma classe, promovê-lo
+		if (superClass.getKind() == TypeKind.UNKNOWN) {
+			superClass = environment.promoteDummyTypeToDummyClass(superClass);
+		}
+		
 		if ((superClass.getKind() != TypeKind.CLASS) && (superClass.getKind() != TypeKind.UNKNOWN)) {
 			throw new ParserException("Super classe de \"" + clazz.getQualifiedName() + "\" inválida (\"" + superClass.getQualifiedName() + ")");
 		}
@@ -83,6 +88,8 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 		// Aqui superClass deve ser uma classe, já que getKind devolveu CLASS...
 		clazz.setParent((Class) superClass);
 		
+		// TODO: Popular os modificadores da classe
+
 		clazz.getASTObject().accept(visitor);
 	}
 

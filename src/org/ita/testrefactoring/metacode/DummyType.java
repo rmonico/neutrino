@@ -1,5 +1,7 @@
 package org.ita.testrefactoring.metacode;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.ita.testrefactoring.astparser.TypeKind;
@@ -20,6 +22,8 @@ public class DummyType implements Type {
 	private TypeAccessModifier accessModifier;
 	private Map<String, ? extends Field> fieldList;
 	private Map<String, Method> methodList;
+	private Type promotedType;
+	private List<TypeListener> listenerList = new ArrayList<TypeListener>();
 	
 	@Override
 	public SourceFile getSourceFile() {
@@ -71,6 +75,33 @@ public class DummyType implements Type {
 	@Override
 	public String getQualifiedName() {
 		return getPackage().getName() + "." + getName();
+	}
+
+	@Override
+	public Type getPromotion() {
+		return promotedType;
+	}
+
+	@Override
+	public void promote(Type promotion) throws AlreadyPromotedTypeException {
+		if (promotedType != null) {
+			throw new AlreadyPromotedTypeException(this, promotion);
+		}
+		
+		promotedType = promotion;
+
+		notifyListeners();
+	}
+
+	private void notifyListeners() {
+		for (TypeListener listener : listenerList) {
+			listener.typePromoted(this);
+		}
+	}
+
+	@Override
+	public void addTypeListener(TypeListener listener) {
+		listenerList .add(listener);
 	}
 
 }
