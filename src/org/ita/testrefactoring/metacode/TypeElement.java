@@ -16,5 +16,5 @@ public interface TypeElement {
 	 * Container do element.
 	 * @return
 	 */
-	Type getParent();
+	Type getParentType();
 }

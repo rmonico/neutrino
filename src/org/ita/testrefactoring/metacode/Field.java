@@ -6,6 +6,6 @@ public interface Field extends TypeElement {
 	
 	Expression getInitialization();
 
-	Type getType();
+	Type getFieldType();
 
 }

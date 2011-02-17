@@ -22,6 +22,21 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 			// TODO: Continuar daqui
 			ASTField field = clazz.createField(node.toString());
 			
+//			field.setInitialization()
+			field.setParentType(clazz);
+			
+			
+			String fieldTypeQualifiedName = node.getType().resolveBinding().getQualifiedName();
+			
+			ASTEnvironment environment = clazz.getPackage().getEnvironment();
+			Type fieldType = environment.getTypeCache().get(fieldTypeQualifiedName);
+			
+			if (fieldType == null) {
+				fieldType = environment.createDummyClass(fieldTypeQualifiedName);
+			}
+			
+			field.setFieldType(fieldType);
+			
 			return false;
 		}
 		

@@ -32,7 +32,7 @@ public class ASTClass extends ASTType implements Class {
 		ASTField field = new ASTField();
 		
 		field.setName(name);
-		field.setParent(this);
+		field.setParentType(this);
 		
 		getFieldList().put(name, field);
 		
