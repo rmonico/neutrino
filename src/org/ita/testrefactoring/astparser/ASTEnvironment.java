@@ -1,20 +1,17 @@
 package org.ita.testrefactoring.astparser;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.eclipse.jdt.core.ICompilationUnit;
 import org.ita.testrefactoring.metacode.Environment;
-import org.ita.testrefactoring.metacode.Type;
 import org.ita.testrefactoring.metacode.Package;
+import org.ita.testrefactoring.metacode.Type;
 
 
-public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilationUnit>> {
+public class ASTEnvironment implements Environment {
 	
 	private Map<String, ASTPackage> packageList = new HashMap<String, ASTPackage>();
 	private Map<String, Type> typeCache = new HashMap<String, Type>();
-	private List<ICompilationUnit> astObject;
 	
 	// Construtor restrito ao pacote
 	ASTEnvironment() {
@@ -46,16 +43,16 @@ public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilation
 		return typeCache;
 	}
 
-	@Override
-	public void setASTObject(List<ICompilationUnit> astObject) {
-		this.astObject = astObject;
-	}
-
-	@Override
-	public List<ICompilationUnit> getASTObject() {
-		return astObject;
-	}
-
+//	@Override
+//	public void setASTObject(List<ICompilationUnit> astObject) {
+//		this.astObject = astObject;
+//	}
+//
+//	@Override
+//	public List<ICompilationUnit> getASTObject() {
+//		return astObject;
+//	}
+//
 	DummyType createDummyType(String typeName, Package pack) {
 		DummyType dummy = new DummyType();
 
@@ -96,4 +93,26 @@ public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilation
 		return dummy;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Lista de pacotes:\n");
+		sb.append("\n");
+		
+		for (ASTPackage pack : packageList.values()) {
+			sb.append(pack.getName() + "\n");
+		}
+		
+		sb.append("\n");
+		sb.append("\n");
+		sb.append("Lista de tipos:\n");
+		sb.append("\n");
+		
+		for (Type type : typeCache.values()) {
+			sb.append(type.getQualifiedName() + "\n");
+		}
+		
+		return sb.toString();
+	}
 }
