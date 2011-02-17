@@ -20,7 +20,6 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 
 		@Override
 		public boolean visit(FieldDeclaration node) {
-			// TODO: Continuar daqui
 			ASTField field = clazz.createField(node.toString());
 
 			// field.setInitialization()
@@ -90,7 +89,7 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 		}
 
 		if (superClass.getKind() != TypeKind.CLASS) {
-			throw new ParserException("Super classe de \"" + clazz.getQualifiedName() + "\" inválida (\"" + superClass.getQualifiedName() + ")");
+			throw new ParserException("Super classe de \"" + clazz.getQualifiedName() + "\" inválida (\"" + superClass.getQualifiedName() + "\")");
 		}
 
 		// Aqui superClass deve ser uma classe, já que getKind devolveu CLASS...

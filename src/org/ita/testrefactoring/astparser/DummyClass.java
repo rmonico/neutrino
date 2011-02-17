@@ -13,4 +13,9 @@ public class DummyClass extends org.ita.testrefactoring.metacode.DummyClass {
 	protected void setPackage(Package pack) {
 		super.setPackage(pack);
 	}
+
+	@Override
+	public TypeKind getKind() {
+		return TypeKind.CLASS;
+	}
 }
