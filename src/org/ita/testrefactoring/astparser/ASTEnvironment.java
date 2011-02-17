@@ -71,7 +71,7 @@ public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilation
 		getTypeCache().put(type.getQualifiedName(), type);
 	}
 
-	public Type createDummyClass(String qualifiedName) {
+	public DummyClass createDummyClass(String qualifiedName) {
 		DummyClass dummy = new DummyClass();
 		
 		String packageName = qualifiedName.substring(0, qualifiedName.lastIndexOf('.'));
@@ -90,6 +90,5 @@ public class ASTEnvironment implements Environment, ASTWrapper<List<ICompilation
 
 		return dummy;
 	}
-
 
 }
