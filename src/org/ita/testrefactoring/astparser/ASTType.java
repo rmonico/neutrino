@@ -82,6 +82,8 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 		
 		sb.append(getQualifiedName() + ":\n");
 		sb.append("\n");
+		sb.append("Kind: " + getKind() + "\n");
+		sb.append("instanceof: " + getClass() + "\n");
 		sb.append("File: " + parent.getFileName() + "\n");
 		sb.append("Package: " + pack.getName() + "\n");
 		sb.append("Access: " + accessModifier.toString() + "\n");

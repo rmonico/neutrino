@@ -103,5 +103,40 @@ public class DummyType implements Type {
 	public void addTypeListener(TypeListener listener) {
 		listenerList .add(listener);
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(getQualifiedName() + ":\n");
+		sb.append("\n");
+		sb.append("Kind: " + getKind() + "\n");
+		sb.append("instanceof: " + getClass() + "\n");
+		sb.append("Package: " + pack.getName() + "\n");
+		sb.append("Access: " + accessModifier.toString() + "\n");
+		
+		sb.append("\n");
+		sb.append("\n");
+		sb.append("Field list:\n");
+		
+		for (String key : fieldList.keySet()) {
+			Field field = fieldList.get(key);
+			
+			sb.append(key + " --> " + field.getFieldType().getQualifiedName() + " " + field.getName() + ";\n");
+		}
+		
+		sb.append("\n");
+		sb.append("\n");
+		sb.append("Method list:\n");
+		
+		for (String key : methodList.keySet()) {
+			Method method = methodList.get(key);
+			
+			sb.append(key + " --> " + method.getName() + "();\n");
+		}
+		
+
+		return sb.toString();
+	}
 
 }
