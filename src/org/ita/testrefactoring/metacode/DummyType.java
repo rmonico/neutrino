@@ -1,6 +1,7 @@
 package org.ita.testrefactoring.metacode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,9 +20,9 @@ public class DummyType implements Type {
 	private SourceFile sourceFile;
 	private Package pack;
 	private String name;
-	private TypeAccessModifier accessModifier;
-	private Map<String, ? extends Field> fieldList;
-	private Map<String, Method> methodList;
+	private TypeAccessModifier accessModifier = new TypeAccessModifier();
+	private Map<String, ? extends Field> fieldList = new HashMap<String, Field>();
+	private Map<String, Method> methodList = new HashMap<String, Method>();
 	private Type promotedType;
 	private List<TypeListener> listenerList = new ArrayList<TypeListener>();
 	
