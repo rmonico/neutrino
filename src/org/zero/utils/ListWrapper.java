@@ -1,56 +1,55 @@
 package org.zero.utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
 
-public class ListWrapper<E> implements List<E> {
+public class ListWrapper<E> implements IListWrapper<E> {
 
 	private List<E> instance;
-	private List<ListListener<E>> listenerList = new ArrayList<ListListener<E>>();
-	private ListListener<E> notifier = new Ǹotifier<E>(listenerList);
+	private List<IListListener<E>> listenerList = new ArrayList<IListListener<E>>();
+	private IListListener<E> notifier = new Ǹotifier<E>(listenerList);
 
 	public ListWrapper(List<E> instance) {
 		this.instance = instance;
 	}
 
-	public void addListener(ListListener<E> listener) {
+	public void addListener(IListListener<E> listener) {
 		listenerList.add(listener);
 	}
 
-	public void removeListener(ListListener<E> listener) {
+	public void removeListener(IListListener<E> listener) {
 		listenerList.remove(listener);
 	}
 
-	private static class Ǹotifier<E> implements ListListener<E> {
+	private static class Ǹotifier<E> implements IListListener<E> {
 
-		private List<ListListener<E>> listeners;
+		private List<IListListener<E>> listeners;
 
-		public Ǹotifier(List<ListListener<E>> listeners) {
+		public Ǹotifier(List<IListListener<E>> listeners) {
 			this.listeners = listeners;
 		}
 
 		@Override
 		public void add(int index, E element) {
-			for (ListListener<E> listener : listeners) {
+			for (IListListener<E> listener : listeners) {
 				listener.add(index, element);
 			}
 		}
 
 		@Override
 		public void set(int index, E element) {
-			for (ListListener<E> listener : listeners) {
+			for (IListListener<E> listener : listeners) {
 				listener.set(index, element);
 			}
 		}
 
 		@Override
 		public void remove(int index, E element) {
-			for (ListListener<E> listener : listeners) {
+			for (IListListener<E> listener : listeners) {
 				listener.remove(index, element);
 			}
 		}

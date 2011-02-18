@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.zero.utils.ListListener;
+import org.zero.utils.IListListener;
+import org.zero.utils.IListWrapper;
 import org.zero.utils.ListWrapper;
 
 public class ListenerTests {
 	
-	private class SimpleListener<E> implements ListListener<E> {
+	private class SimpleListener<E> implements IListListener<E> {
 
 		private boolean addTest = false;
 		private boolean setTest = false;
@@ -41,12 +42,12 @@ public class ListenerTests {
 	}
 	
 	@Test
-	public void testListening() {
+	public void testListListening() {
 		SimpleListener<Integer> listener1 = new SimpleListener<Integer>();
 		
 		SimpleListener<Integer> listener2 = new SimpleListener<Integer>();
 		
-		ListWrapper<Integer> wrapper = new ListWrapper<Integer>(new ArrayList<Integer>()); 
+		IListWrapper<Integer> wrapper = new ListWrapper<Integer>(new ArrayList<Integer>()); 
 		List<Integer> list = wrapper; 
 
 		wrapper.addListener(listener1);
@@ -67,5 +68,10 @@ public class ListenerTests {
 		
 		assertTrue("Teste de remoção", listener1.removeTest);
 		assertTrue("Teste de remoção", listener2.removeTest);
+	}
+	
+	@Test
+	public void testMapListening() {
+		
 	}
 }
