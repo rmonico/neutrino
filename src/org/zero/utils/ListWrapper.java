@@ -172,8 +172,8 @@ public class ListWrapper<E> implements List<E> {
 
 	@Override
 	public boolean retainAll(Collection<?> c) {
-		// TODO: Ver no javado o que esse método faz
-		return instance.retainAll(c);
+		// TODO: por enquanto não vou suportar essa operação
+		throw new UnsupportedOperationException();
 	}
 
 	@SuppressWarnings("unchecked")
