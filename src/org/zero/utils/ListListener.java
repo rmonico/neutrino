@@ -1,4 +1,4 @@
-package org.zero.utils.tests;
+package org.zero.utils;
 
 
 public interface ListListener<E> {

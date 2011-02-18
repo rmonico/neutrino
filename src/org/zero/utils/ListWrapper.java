@@ -1,4 +1,4 @@
-package org.zero.utils.tests;
+package org.zero.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+
 
 public class ListWrapper<E> implements List<E> {
 
@@ -97,6 +98,7 @@ public class ListWrapper<E> implements List<E> {
 		return added;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean remove(Object o) {
 		int indexOfRemoved = instance.indexOf(o);
@@ -144,6 +146,7 @@ public class ListWrapper<E> implements List<E> {
 		return added;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean removeAll(Collection<?> c) {
 		int[] indexes = new int[c.size()];
@@ -173,6 +176,7 @@ public class ListWrapper<E> implements List<E> {
 		return instance.retainAll(c);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void clear() {
 		Object[] oldList = instance.toArray(new Object[0]);
