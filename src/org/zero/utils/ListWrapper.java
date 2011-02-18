@@ -17,10 +17,12 @@ public class ListWrapper<E> implements IListWrapper<E> {
 		this.instance = instance;
 	}
 
+	@Override
 	public void addListener(IListListener<E> listener) {
 		listenerList.add(listener);
 	}
 
+	@Override
 	public void removeListener(IListListener<E> listener) {
 		listenerList.remove(listener);
 	}
