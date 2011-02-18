@@ -3,6 +3,7 @@ package org.zero.utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -28,9 +29,8 @@ public class MapWrapper<K, V> implements IMapWrapper<K, V> {
 		listenerList.remove(listener);
 	}
 
-	
 	private static class Notifier<K, V> implements IMapListener<K, V> {
-		
+
 		private List<IMapListener<K, V>> listeners;
 
 		public Notifier(List<IMapListener<K, V>> listeners) {
@@ -52,77 +52,92 @@ public class MapWrapper<K, V> implements IMapWrapper<K, V> {
 		}
 
 	}
-	
+
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return instance.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return instance.isEmpty();
 	}
 
 	@Override
 	public boolean containsKey(Object key) {
-		// TODO Auto-generated method stub
-		return false;
+		return instance.containsKey(key);
 	}
 
 	@Override
 	public boolean containsValue(Object value) {
-		// TODO Auto-generated method stub
-		return false;
+		return instance.containsValue(value);
 	}
 
 	@Override
 	public V get(Object key) {
-		// TODO Auto-generated method stub
-		return null;
+		return instance.get(key);
 	}
 
 	@Override
 	public V put(K key, V value) {
-		// TODO Auto-generated method stub
-		return null;
+		V v = instance.put(key, value);
+
+		notifier.put(key, value);
+
+		return v;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public V remove(Object key) {
-		// TODO Auto-generated method stub
-		return null;
+		V v = instance.remove(key);
+
+		if (v != null) {
+			// Se conseguiu remover é por que key instanceof K
+			notifier.remove((K) key, v);
+		}
+
+		return v;
 	}
 
 	@Override
 	public void putAll(Map<? extends K, ? extends V> m) {
-		// TODO Auto-generated method stub
+		instance.putAll(m);
 
+		for (K key : m.keySet()) {
+			notifier.put(key, m.get(key));
+		}
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		Map<K, V> oldInstance = new HashMap<K, V>();
 
+		// Salvo a instância antes do clear
+		oldInstance.putAll(instance);
+
+		// Chamo o clear
+		instance.clear();
+
+		// E faço a notificação usando a instância antiga
+		for (K key : oldInstance.keySet()) {
+			notifier.put(key, oldInstance.get(key));
+		}
 	}
 
 	@Override
 	public Set<K> keySet() {
-		// TODO Auto-generated method stub
-		return null;
+		return instance.keySet();
 	}
 
 	@Override
 	public Collection<V> values() {
-		// TODO Auto-generated method stub
-		return null;
+		return instance.values();
 	}
 
 	@Override
 	public Set<java.util.Map.Entry<K, V>> entrySet() {
-		// TODO Auto-generated method stub
-		return null;
+		return instance.entrySet();
 	}
 
 }
