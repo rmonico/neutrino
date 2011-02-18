@@ -1,7 +1,7 @@
 package org.zero.utils;
 
 
-public interface ListListener<E> {
+public interface IListListener<E> {
 
 	/**
 	 * Invocado quando um novo elemento é inserido na lista.
