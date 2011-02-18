@@ -14,9 +14,8 @@ public class ListWrapper<E> implements List<E> {
 	private List<ListListener<E>> listenerList = new ArrayList<ListListener<E>>();
 	private ListListener<E> notifier = new Ǹotifier<E>(listenerList);
 
-	public ListWrapper(List<E> instance, ListListener<E>... listeners) {
+	public ListWrapper(List<E> instance) {
 		this.instance = instance;
-		listenerList.addAll(Arrays.asList(listeners));
 	}
 
 	public void addListener(ListListener<E> listener) {

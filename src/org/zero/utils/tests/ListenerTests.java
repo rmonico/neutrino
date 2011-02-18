@@ -46,8 +46,12 @@ public class ListenerTests {
 		
 		SimpleListener<Integer> listener2 = new SimpleListener<Integer>();
 		
-		@SuppressWarnings("unchecked")
-		List<Integer> list = new ListWrapper<Integer>(new ArrayList<Integer>(), listener1, listener2);
+		ListWrapper<Integer> wrapper = new ListWrapper<Integer>(new ArrayList<Integer>()); 
+		List<Integer> list = wrapper; 
+
+		wrapper.addListener(listener1);
+		wrapper.addListener(listener2);
+		
 		
 		list.add(33);
 		
