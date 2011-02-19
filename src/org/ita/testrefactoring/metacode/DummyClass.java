@@ -9,7 +9,7 @@ package org.ita.testrefactoring.metacode;
 public class DummyClass extends DummyType implements Class {
 
 	private NonAccessClassModifier nonAccessClassModifier;
-	private SuperClassListener parentListener = new SuperClassListener();
+	private SuperClassListener superClassListener = new SuperClassListener();
 	private Class superClass;
 
 	private class SuperClassListener implements TypeListener {
@@ -28,13 +28,13 @@ public class DummyClass extends DummyType implements Class {
 
 	protected void setSuperClass(Class superClass) {
 		if (this.superClass != null) {
-			this.superClass.removeListener(parentListener);
+			this.superClass.removeListener(superClassListener);
 		}
 
 		this.superClass = superClass;
 
 		if (this.superClass != null) {
-			this.superClass.addListener(parentListener);
+			this.superClass.addListener(superClassListener);
 		}
 	}
 
