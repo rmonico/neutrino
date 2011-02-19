@@ -80,6 +80,8 @@ public class DummyType implements Type {
 	
 	@Override
 	public void promote(Type newType) {
+		assert this.getQualifiedName().equals(newType.getQualifiedName()) : "O tipo só pode ser promovido a um tipo de mesmo qualified name.";
+		
 		for (TypeListener listener : listeners) {
 			listener.typePromoted(this, newType);
 		}

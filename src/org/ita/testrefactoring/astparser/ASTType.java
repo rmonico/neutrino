@@ -84,6 +84,8 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 	 * Apenas notifica os listeners sobre a promoção.
 	 */
 	public void promote(Type newType) {
+		assert this.getQualifiedName().equals(newType.getQualifiedName()) : "O tipo só pode ser promovido a um tipo de mesmo qualified name.";
+		
 		for (TypeListener listener : listeners ) {
 			listener.typePromoted(this, newType);
 		}
