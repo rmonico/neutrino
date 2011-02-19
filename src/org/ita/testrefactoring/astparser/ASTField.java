@@ -5,15 +5,33 @@ import org.ita.testrefactoring.metacode.Field;
 import org.ita.testrefactoring.metacode.InnerElementAccessModifier;
 import org.ita.testrefactoring.metacode.NonAccessFieldModifier;
 import org.ita.testrefactoring.metacode.Type;
+import org.ita.testrefactoring.metacode.TypeListener;
 
 public class ASTField implements Field {
 
 	private String name;
+	private FieldTypeListener fieldTypeListener = new FieldTypeListener(); 
 	private Type fieldType;
+	private ParentTypeListener parentTypeListener = new ParentTypeListener();
 	private ASTType parent;
 	private NonAccessFieldModifier nonAccessModifier = new NonAccessFieldModifier();
 	private Expression initialization;
 	private InnerElementAccessModifier accessModifier = new InnerElementAccessModifier();
+	
+	
+	private class FieldTypeListener implements TypeListener {
+		@Override
+		public void typePromoted(Type oldType, Type newType) {
+			fieldType = newType;
+		}
+	}
+	
+	private class ParentTypeListener implements TypeListener {
+		@Override
+		public void typePromoted(Type oldType, Type newType) {
+			parent = (ASTType) newType;
+		}
+	}
 	
 	@Override
 	public InnerElementAccessModifier getAccessModifier() {
@@ -35,7 +53,15 @@ public class ASTField implements Field {
 	}
 	
 	void setParentType(ASTType parent) {
+		if (this.parent != null) {
+			this.parent.removeListener(parentTypeListener);
+		}
+		
 		this.parent = parent;
+		
+		if (this.parent != null) {
+			this.parent.addListener(parentTypeListener);
+		}
 	}
 
 	@Override
@@ -44,7 +70,15 @@ public class ASTField implements Field {
 	}
 	
 	void setFieldType(Type type) {
-		this.fieldType = type;
+		if (fieldType != null) {
+			fieldType.removeListener(fieldTypeListener);
+		}
+		
+		fieldType = type;
+		
+		if (fieldType != null) {
+			fieldType.addListener(fieldTypeListener);
+		}
 	}
 
 	@Override
