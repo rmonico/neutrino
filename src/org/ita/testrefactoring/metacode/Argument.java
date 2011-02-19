@@ -7,6 +7,7 @@ package org.ita.testrefactoring.metacode;
  */
 public class Argument {
 	private String name;
+	// TODO: Implementar TypeListener aqui
 	private Type type;
 	
 	public String getName() {
