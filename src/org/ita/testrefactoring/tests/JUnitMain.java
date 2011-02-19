@@ -8,6 +8,9 @@ import org.eclipse.jface.viewers.ISelection;
 import org.ita.testrefactoring.eclipseaction.ActionException;
 import org.ita.testrefactoring.eclipseaction.IAction;
 import org.junit.runner.JUnitCore;
+import org.zero.utils.tests.JUnitUtilsTests;
+import org.zero.utils.tests.ListenerTests;
+import org.zero.utils.tests.StringUtilsTests;
 
 public class JUnitMain implements IAction {
 	
@@ -43,7 +46,14 @@ public class JUnitMain implements IAction {
 	private Class<?>[] getClassesToTest() {
 		List<Class<?>> classesToTest = new ArrayList<Class<?>>();
 		
+//		Demo de como fazer JUnit para plugin no Eclipse
 //		classesToTest.add(ASTRewriteExample.class);
+		
+//		Testes de org.zero.utils
+		classesToTest.add(JUnitUtilsTests.class);
+		classesToTest.add(StringUtilsTests.class);
+		classesToTest.add(ListenerTests.class);
+		
 		classesToTest.add(ASTParserTests.class);
 //		classesToTest.add(AddExplanationRefactoringTests.class);
 //		classesToTest.add(ExtractInitializationMethodTests.class);
