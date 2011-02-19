@@ -16,6 +16,7 @@ public class ASTSourceFile implements SourceFile,
 		ASTWrapper<ASTSourceFile.ASTContainer> {
 
 	private List<ASTImportDeclaration> importDeclarationList = new ArrayList<ASTImportDeclaration>();
+	// TODO: Implementar o wrapper de lista aqui
 	private Map<String, ASTType> typeList = new HashMap<String, ASTType>();
 	private String fileName;
 	private ASTPackage parent;
@@ -98,7 +99,7 @@ public class ASTSourceFile implements SourceFile,
 
 	ASTImportDeclaration createImportDeclaration() {
 		ASTImportDeclaration _import = new ASTImportDeclaration();
-		_import.setParent(this);
+		_import.setSourceFile(this);
 
 		getImportList().add(_import);
 

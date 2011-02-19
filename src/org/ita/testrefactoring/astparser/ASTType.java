@@ -1,6 +1,8 @@
 package org.ita.testrefactoring.astparser;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jdt.core.dom.TypeDeclaration;
@@ -8,6 +10,7 @@ import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.SourceFile;
 import org.ita.testrefactoring.metacode.Type;
 import org.ita.testrefactoring.metacode.TypeAccessModifier;
+import org.ita.testrefactoring.metacode.TypeListener;
 
 public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 
@@ -18,6 +21,7 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 	private Map<String, ASTField> fieldList = new HashMap<String, ASTField>();
 	private Map<String, Method> methodList = new HashMap<String, Method>();
 	private TypeDeclaration astObject;
+	private List<TypeListener> listeners = new ArrayList<TypeListener>();
 
 	@Override
 	public SourceFile getSourceFile() {
@@ -74,7 +78,27 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 	public void setASTObject(TypeDeclaration astObject) {
 		this.astObject = astObject;
 	}
+	
+	@Override
+	/**
+	 * Apenas notifica os listeners sobre a promoção.
+	 */
+	public void promote(Type newType) {
+		for (TypeListener listener : listeners ) {
+			listener.typePromoted(this, newType);
+		}
+	}
 
+	@Override
+	public void addListener(TypeListener listener) {
+		listeners.add(listener);
+	}
+	
+	@Override
+	public void removeListener(TypeListener listener) {
+		listeners.remove(listener);
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

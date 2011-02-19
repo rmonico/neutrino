@@ -11,8 +11,34 @@ import org.ita.testrefactoring.metacode.Type;
 public class ASTEnvironment implements Environment {
 	
 	private Map<String, ASTPackage> packageList = new HashMap<String, ASTPackage>();
+//	private IMapWrapper<String, Type> typeCacheWrapper = wrapperCreator();
 	private Map<String, Type> typeCache = new HashMap<String, Type>();
-	
+
+//	private MapWrapper<String, Type> wrapperCreator() {
+//		MapWrapper<String, Type> wrapper = new MapWrapper<String, Type>(new HashMap<String, Type>());
+//		
+//		IMapListener<String, Type> typeCacheListener = new TypeCacheListener();
+//		wrapper.addListener(typeCacheListener);
+//		
+//		
+//		return wrapper;
+//	}
+//	
+//	private static class TypeCacheListener implements IMapListener<String, Type> {
+//
+//		@Override
+//		public void put(String key, Type value) {
+//			
+//		}
+//
+//		@Override
+//		public void remove(String key, Type value) {
+//			// TODO Auto-generated method stub
+//
+//		}
+//
+//	}
+//
 	// Construtor restrito ao pacote
 	ASTEnvironment() {
 		
@@ -104,5 +130,16 @@ public class ASTEnvironment implements Environment {
 		}
 		
 		return sb.toString();
+	}
+	
+	
+	
+	/**
+	 * Atualiza as listas de tipos com a informação sobre a promoção de <code>type</code> a <code>promotedType</code>.
+	 * @param type
+	 * @param promotedType
+	 */
+	void promote(Type type, Type promotedType) {
+		
 	}
 }

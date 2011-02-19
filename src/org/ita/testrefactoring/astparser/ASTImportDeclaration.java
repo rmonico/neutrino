@@ -1,30 +1,18 @@
 package org.ita.testrefactoring.astparser;
 
 import org.ita.testrefactoring.metacode.ImportDeclaration;
-import org.ita.testrefactoring.metacode.Package;
-import org.ita.testrefactoring.metacode.SourceFile;
 import org.ita.testrefactoring.metacode.Type;
 
 public class ASTImportDeclaration implements ImportDeclaration, ASTWrapper<org.eclipse.jdt.core.dom.ImportDeclaration> {
 
 	private boolean isStatic;
 	private Type type;
-	private Package _package;
 	private ASTSourceFile parent;
 	private org.eclipse.jdt.core.dom.ImportDeclaration astObject;
 
 	// Construtor acessível somente através do pacote
 	ASTImportDeclaration() {
 
-	}
-
-	protected void setPackage(Package _package) {
-		this._package = _package;
-	}
-	
-	@Override
-	public Package getPackage() {
-		return _package;
 	}
 
 	protected void setType(Type type) {
@@ -36,12 +24,12 @@ public class ASTImportDeclaration implements ImportDeclaration, ASTWrapper<org.e
 		return type;
 	}
 
-	protected void setParent(ASTSourceFile parent) {
+	protected void setSourceFile(ASTSourceFile parent) {
 		this.parent = parent;
 	}
 
 	@Override
-	public SourceFile getParent() {
+	public ASTSourceFile getSourceFile() {
 		return parent;
 	}
 

@@ -3,7 +3,6 @@ package org.ita.testrefactoring.astparser;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.ita.testrefactoring.metacode.AlreadyPromotedTypeException;
 import org.ita.testrefactoring.metacode.Class;
 import org.ita.testrefactoring.metacode.ParserException;
 import org.ita.testrefactoring.metacode.Type;
@@ -73,22 +72,15 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 
 		if (superClass == null) {
 			superClass = environment.createDummyClass(superClassName);
-		}
-
-		// Antes não era possível saber qual o Kind do tipo, agora sabe-se que
-		// se trata de uma classe, promovê-lo
-		if (superClass.getKind() == TypeKind.UNKNOWN) {
+		} else if (superClass.getKind() == TypeKind.UNKNOWN) {
+			// Se antes não era possível saber qual o Kind do tipo, agora sei
+			// que se trata de uma classe
 			DummyClass dummyClass = environment.createDummyClass(superClassName);
-			try {
-				superClass.promote(dummyClass);
-			} catch (AlreadyPromotedTypeException e) {
-				assert false : "Nunca deveria acontecer...";
-				e.printStackTrace();
-			}
-			superClass = dummyClass;
-		}
 
-		if (superClass.getKind() != TypeKind.CLASS) {
+			superClass.promote(dummyClass);
+
+			superClass = dummyClass;
+		} else if (superClass.getKind() != TypeKind.CLASS) {
 			throw new ParserException("Super classe de \"" + clazz.getQualifiedName() + "\" inválida (\"" + superClass.getQualifiedName() + "\")");
 		}
 
@@ -96,7 +88,6 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 		clazz.setParent((Class) superClass);
 
 		// TODO: Popular os modificadores da classe
-
 		clazz.getASTObject().accept(visitor);
 	}
 

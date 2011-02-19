@@ -59,17 +59,22 @@ public interface Type {
 	 * @return
 	 */
 	String getQualifiedName();
-
-	void addTypeListener(TypeListener listener);
+	
 	
 	/**
-	 * Devolve o tipo para o qual esse tipo foi, possivelmente, promovido. Para
-	 * implementações de classes não-dummy deve devolver nulo.
-	 * 
-	 * @return
+	 * Promove o tipo, na maioria das implementações apenas vai notificar os listeners da mudança.
 	 */
-	Type getPromotion();
-	
-	
-	void promote(Type promotion) throws AlreadyPromotedTypeException;
+	void promote(Type newType);
+
+	/**
+	 * Adiciona um listener de tipo, são usados para informar outras instâncias quando um tipo é promovido.
+	 * @param listener
+	 */
+	void addListener(TypeListener listener);
+
+	/**
+	 * Remove um listener de tipo.
+	 * @param listener
+	 */
+	void removeListener(TypeListener listener);
 }

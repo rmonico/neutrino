@@ -1,11 +1,10 @@
 package org.ita.testrefactoring.metacode;
 
 public interface ImportDeclaration {
-	boolean isStatic();
 	
-	Package getPackage();
+	boolean isStatic();
 	
 	Type getType();
 	
-	SourceFile getParent();
+	SourceFile getSourceFile();
 }

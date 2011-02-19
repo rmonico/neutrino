@@ -113,7 +113,6 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		assertEquals("Nome do arquivo", "MinimalSourceFile.java", sourceFile.getFileName());
 
 		assertEquals("Lista de importações (size)", 1, sourceFile.getImportList().size());
-		assertEquals("Lista de importações (package)", environment.getPackageList().get("org.junit"), sourceFile.getImportList().get(0).getPackage());
 		assertEquals("Lista de importações (tipo)", environment.getTypeCache().get("org.junit.Before"), sourceFile.getImportList().get(0).getType());
 
 		assertEquals("Lista de tipos (size)", 1, sourceFile.getTypeList().size());

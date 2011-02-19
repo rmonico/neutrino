@@ -9,7 +9,7 @@ import org.ita.testrefactoring.metacode.Type;
 public class ASTField implements Field {
 
 	private String name;
-	private Type type;
+	private Type fieldType;
 	private ASTType parent;
 	private NonAccessFieldModifier nonAccessModifier = new NonAccessFieldModifier();
 	private Expression initialization;
@@ -40,11 +40,11 @@ public class ASTField implements Field {
 
 	@Override
 	public Type getFieldType() {
-		return type;
+		return fieldType;
 	}
 	
 	void setFieldType(Type type) {
-		this.type = type;
+		this.fieldType = type;
 	}
 
 	@Override

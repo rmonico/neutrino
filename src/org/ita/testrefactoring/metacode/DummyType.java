@@ -23,8 +23,7 @@ public class DummyType implements Type {
 	private TypeAccessModifier accessModifier = new TypeAccessModifier();
 	private Map<String, ? extends Field> fieldList = new HashMap<String, Field>();
 	private Map<String, Method> methodList = new HashMap<String, Method>();
-	private Type promotedType;
-	private List<TypeListener> listenerList = new ArrayList<TypeListener>();
+	private List<TypeListener> listeners = new ArrayList<TypeListener>();
 	
 	@Override
 	public SourceFile getSourceFile() {
@@ -77,32 +76,23 @@ public class DummyType implements Type {
 	public String getQualifiedName() {
 		return getPackage().getName() + "." + getName();
 	}
-
+	
+	
 	@Override
-	public Type getPromotion() {
-		return promotedType;
-	}
-
-	@Override
-	public void promote(Type promotion) throws AlreadyPromotedTypeException {
-		if (promotedType != null) {
-			throw new AlreadyPromotedTypeException(this, promotion);
-		}
-		
-		promotedType = promotion;
-
-		notifyListeners();
-	}
-
-	private void notifyListeners() {
-		for (TypeListener listener : listenerList) {
-			listener.typePromoted(this);
+	public void promote(Type newType) {
+		for (TypeListener listener : listeners) {
+			listener.typePromoted(this, newType);
 		}
 	}
-
+	
 	@Override
-	public void addTypeListener(TypeListener listener) {
-		listenerList .add(listener);
+	public void addListener(TypeListener listener) {
+		listeners .add(listener);
+	}
+	
+	@Override
+	public void removeListener(TypeListener listener) {
+		listeners.remove(listener);
 	}
 	
 	@Override

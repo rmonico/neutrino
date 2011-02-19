@@ -31,23 +31,22 @@ class SourceFileParser {
 			
 			ASTEnvironment environment = sourceFile.getPackage().getEnvironment();
 			
-			ASTPackage pack = environment.getPackageList().get(packageName);
-
 			Type type = environment.getTypeCache().get(typeName);
 				
-			if (pack == null) {
-				// Pacote não encontrado no cache, cria um pacote "dummy"
-				pack = environment.createPackage(packageName);
-			}
-			
 			if (type == null) {
+				ASTPackage pack = environment.getPackageList().get(packageName);
+
+				if (pack == null) {
+					// Pacote não encontrado no cache, cria um pacote para o tipo
+					pack = environment.createPackage(packageName);
+				}
+				
 				// Criar type "dummy"
 				DummyType dummy = environment.createDummyType(typeName, pack);
 				
 				type = dummy;
 			}
 
-			_import.setPackage(pack);
 			_import.setType(type);
 
 			// Nunca visita os nós filhos, isso será feito posteriormente
