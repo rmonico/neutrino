@@ -10,14 +10,14 @@ public class ASTClass extends ASTType implements Class {
 	// Vai dar problema depois, pois NonAccessClassModifier é read-only
 	private NonAccessClassModifier nonAccessModifier = new NonAccessClassModifier();
 	private ParentListener parentListener = new ParentListener();
-	private Class parent;
+	private Class superClass;
 	
 	
 	private class ParentListener implements TypeListener {
 
 		@Override
 		public void typePromoted(Type oldType, Type newType) {
-			parent = (Class) newType;
+			superClass = (Class) newType;
 		}
 		
 	}
@@ -29,18 +29,18 @@ public class ASTClass extends ASTType implements Class {
 
 	@Override
 	public Class getSuperClass() {
-		return parent;
+		return superClass;
 	}
 	
-	protected void setParent(Class parent) {
-		if (this.parent != null) {
-			this.parent.removeListener(parentListener);
+	protected void setSuperClass(Class superClass) {
+		if (this.superClass != null) {
+			this.superClass.removeListener(parentListener);
 		}
 		
-		this.parent = parent;
+		this.superClass = superClass;
 		
-		if (this.parent != null) {
-			this.parent.addListener(parentListener);
+		if (this.superClass != null) {
+			this.superClass.addListener(parentListener);
 		}
 	}
 

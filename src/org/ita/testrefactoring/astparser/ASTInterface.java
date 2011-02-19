@@ -7,32 +7,32 @@ import org.ita.testrefactoring.metacode.TypeListener;
 public class ASTInterface extends ASTType implements Interface {
 
 	private ParentListener parentListener = new ParentListener();
-	private Interface parent;
+	private Interface superInterface;
 
 	private class ParentListener implements TypeListener {
 
 		@Override
 		public void typePromoted(Type oldType, Type newType) {
-			parent = (Interface) newType;
+			superInterface = (Interface) newType;
 		}
 		
 	}
 	
 	
 	@Override
-	public Interface getParent() {
-		return parent;
+	public Interface getSuperInterface() {
+		return superInterface;
 	}
 	
-	void setParent(Interface _interface) {
-		if (parent != null) {
-			parent.removeListener(parentListener);
+	void setSuperInterface(Interface superInterface) {
+		if (this.superInterface != null) {
+			this.superInterface.removeListener(parentListener);
 		}
 		
-		this.parent = _interface;
+		this.superInterface = superInterface;
 		
-		if (parent != null) {
-			parent.addListener(parentListener);
+		if (this.superInterface != null) {
+			this.superInterface.addListener(parentListener);
 		}
 	}
 

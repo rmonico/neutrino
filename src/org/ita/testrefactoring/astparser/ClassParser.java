@@ -85,7 +85,7 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 		}
 
 		// Aqui superClass deve ser uma classe, já que getKind devolveu CLASS...
-		clazz.setParent((Class) superClass);
+		clazz.setSuperClass((Class) superClass);
 
 		// TODO: Popular os modificadores da classe
 		clazz.getASTObject().accept(visitor);
