@@ -15,24 +15,15 @@ import org.zero.utils.MapWrapper;
 public class ASTEnvironment implements Environment {
 	
 	private Map<String, ASTPackage> packageList = new HashMap<String, ASTPackage>();
-	private IMapWrapper<String, Type> wrapper = wrapperCreator();
-	private WrapperListener wrapperListener = new WrapperListener();
+	@SuppressWarnings("unchecked")
+	private IMapWrapper<String, Type> wrapper = new MapWrapper<String, Type>(new HashMap<String, Type>(), new WrapperListener<Type>());
 	private Map<String, Type> typeCache = wrapper;
 	private CacheListener typeListener = new CacheListener();
 
-	private MapWrapper<String, Type> wrapperCreator() {
-		MapWrapper<String, Type> wrapper = new MapWrapper<String, Type>(new HashMap<String, Type>());
-		
-		wrapper.addListener(wrapperListener);
-		
-		
-		return wrapper;
-	}
-	
-	private class WrapperListener implements IMapListener<String, Type> {
+	private class WrapperListener<T extends Type> implements IMapListener<String, T> {
 
 		@Override
-		public void put(String key, Type newValue, Type oldValue) {
+		public void put(String key, T newValue, T oldValue) {
 			if (oldValue != null) {
 				oldValue.removeListener(typeListener);
 			}
@@ -43,7 +34,7 @@ public class ASTEnvironment implements Environment {
 		}
 
 		@Override
-		public void remove(String key, Type removedValue) {
+		public void remove(String key, T removedValue) {
 			if (removedValue != null) {
 				removedValue.removeListener(typeListener);
 			}
