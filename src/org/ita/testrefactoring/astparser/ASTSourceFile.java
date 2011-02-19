@@ -12,57 +12,21 @@ import org.ita.testrefactoring.metacode.Annotation;
 import org.ita.testrefactoring.metacode.Enum;
 import org.ita.testrefactoring.metacode.SourceFile;
 import org.ita.testrefactoring.metacode.Type;
-import org.zero.utils.IMapListener;
+import org.ita.testrefactoring.metacode.TypeListener;
 import org.zero.utils.IMapWrapper;
 import org.zero.utils.MapWrapper;
 
 public class ASTSourceFile implements SourceFile,
-		ASTWrapper<ASTSourceFile.ASTContainer> {
+		ASTWrapper<ASTSourceFile.ASTContainer>, TypeListener {
 
 	private List<ASTImportDeclaration> importDeclarationList = new ArrayList<ASTImportDeclaration>();
-	@SuppressWarnings("unchecked")
-	private IMapWrapper<String, ASTType> wrapper = new MapWrapper<String, ASTType>(new HashMap<String, ASTType>(), new WrapperListener());
-	private Map<String, ASTType> typeList = wrapper;
-	private TypeListener typeListener = this.new TypeListener();
+	private IMapWrapper<String, ASTType> wrapper;
+	private Map<String, ASTType> typeList;
 	private String fileName;
 	private ASTPackage parent;
 	private ASTContainer astObject;
 
 
-	private class WrapperListener implements IMapListener<String, ASTType> {
-
-		@Override
-		public void put(String key, ASTType newValue, ASTType oldValue) {
-			if (oldValue != null) {
-				oldValue.removeListener(typeListener);
-			}
-			
-			if (newValue != null) {
-				newValue.addListener(typeListener);
-			}
-		}
-
-		@Override
-		public void remove(String key, ASTType removedValue) {
-			if (removedValue != null) {
-				removedValue.removeListener(typeListener);
-			}
-		}
-
-	}
-
-	
-	private class TypeListener implements org.ita.testrefactoring.metacode.TypeListener {
-
-		@Override
-		public void typePromoted(Type oldType, Type newType) {
-			ASTType astNewType = (ASTType) newType;
-			typeList.put(astNewType.getQualifiedName(), astNewType);
-		}
-		
-	}
-	
-	
 	class ASTContainer {
 		private CompilationUnit compilationUnit;
 		private ASTRewrite rewrite;
@@ -95,7 +59,13 @@ public class ASTSourceFile implements SourceFile,
 
 	// Construtor restrito ao pacote
 	ASTSourceFile() {
-
+		WrappedMapListener<ASTType> wrapperListener = new WrappedMapListener<ASTType>();
+		wrapperListener.setTypeListener(this);
+		
+		wrapper = new MapWrapper<String, ASTType>(new HashMap<String, ASTType>());
+		wrapper.addListener(wrapperListener);
+		
+		typeList = wrapper;
 	}
 
 	protected void setPackage(ASTPackage parent) {
@@ -205,6 +175,12 @@ public class ASTSourceFile implements SourceFile,
 		}
 
 		return sb.toString();
+	}
+
+	@Override
+	public void typePromoted(Type oldType, Type newType) {
+		ASTType astNewType = (ASTType) newType;
+		typeList.put(astNewType.getQualifiedName(), astNewType);
 	}
 
 }

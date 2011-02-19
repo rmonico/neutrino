@@ -7,53 +7,25 @@ import org.ita.testrefactoring.metacode.Environment;
 import org.ita.testrefactoring.metacode.Package;
 import org.ita.testrefactoring.metacode.Type;
 import org.ita.testrefactoring.metacode.TypeListener;
-import org.zero.utils.IMapListener;
 import org.zero.utils.IMapWrapper;
 import org.zero.utils.MapWrapper;
 
 
-public class ASTEnvironment implements Environment {
+public class ASTEnvironment implements Environment, TypeListener {
 	
 	private Map<String, ASTPackage> packageList = new HashMap<String, ASTPackage>();
-	@SuppressWarnings("unchecked")
-	private IMapWrapper<String, Type> wrapper = new MapWrapper<String, Type>(new HashMap<String, Type>(), new WrapperListener<Type>());
-	private Map<String, Type> typeCache = wrapper;
-	private CacheListener typeListener = new CacheListener();
+	private IMapWrapper<String, Type> wrapper;
+	private Map<String, Type> typeCache;
 
-	private class WrapperListener<T extends Type> implements IMapListener<String, T> {
-
-		@Override
-		public void put(String key, T newValue, T oldValue) {
-			if (oldValue != null) {
-				oldValue.removeListener(typeListener);
-			}
-			
-			if (newValue != null) {
-				newValue.addListener(typeListener);
-			}
-		}
-
-		@Override
-		public void remove(String key, T removedValue) {
-			if (removedValue != null) {
-				removedValue.removeListener(typeListener);
-			}
-		}
-
-	}
-
-	private class CacheListener implements TypeListener {
-
-		@Override
-		public void typePromoted(Type oldType, Type newType) {
-			typeCache.put(newType.getQualifiedName(), newType);
-		}
-		
-	}
-	
 	// Construtor restrito ao pacote
 	ASTEnvironment() {
+		WrappedMapListener<Type> wrapperListener = new WrappedMapListener<Type>();
+		wrapperListener.setTypeListener(this);
 		
+		wrapper = new MapWrapper<String, Type>(new HashMap<String, Type>());
+		wrapper.addListener(wrapperListener);
+		
+		typeCache = wrapper;
 	}
 
 	@Override
@@ -144,4 +116,9 @@ public class ASTEnvironment implements Environment {
 		return sb.toString();
 	}
 	
+	@Override
+	public void typePromoted(Type oldType, Type newType) {
+		typeCache.put(newType.getQualifiedName(), newType);
+	}
+
 }
