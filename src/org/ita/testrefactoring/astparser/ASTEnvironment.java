@@ -15,30 +15,38 @@ import org.zero.utils.MapWrapper;
 public class ASTEnvironment implements Environment {
 	
 	private Map<String, ASTPackage> packageList = new HashMap<String, ASTPackage>();
-	private IMapWrapper<String, Type> typeCacheWrapper = wrapperCreator();
-	private Map<String, Type> typeCache = typeCacheWrapper;
-	private TypeCacheListener typeCacheListener = new TypeCacheListener();
+	private IMapWrapper<String, Type> wrapper = wrapperCreator();
+	private WrapperListener wrapperListener = new WrapperListener();
+	private Map<String, Type> typeCache = wrapper;
+	private CacheListener typeListener = new CacheListener();
 
 	private MapWrapper<String, Type> wrapperCreator() {
 		MapWrapper<String, Type> wrapper = new MapWrapper<String, Type>(new HashMap<String, Type>());
 		
-		wrapper.addListener(typeCacheListener);
+		wrapper.addListener(wrapperListener);
 		
 		
 		return wrapper;
 	}
 	
-	private static class TypeCacheListener implements IMapListener<String, Type> {
+	private class WrapperListener implements IMapListener<String, Type> {
 
 		@Override
 		public void put(String key, Type newValue, Type oldValue) {
+			if (oldValue != null) {
+				oldValue.removeListener(typeListener);
+			}
 			
+			if (newValue != null) {
+				newValue.addListener(typeListener);
+			}
 		}
 
 		@Override
-		public void remove(String key, Type value) {
-			// TODO Auto-generated method stub
-
+		public void remove(String key, Type removedValue) {
+			if (removedValue != null) {
+				removedValue.removeListener(typeListener);
+			}
 		}
 
 	}
@@ -47,7 +55,7 @@ public class ASTEnvironment implements Environment {
 
 		@Override
 		public void typePromoted(Type oldType, Type newType) {
-			
+			typeCache.put(newType.getQualifiedName(), newType);
 		}
 		
 	}
@@ -145,14 +153,4 @@ public class ASTEnvironment implements Environment {
 		return sb.toString();
 	}
 	
-	
-	
-	/**
-	 * Atualiza as listas de tipos com a informação sobre a promoção de <code>type</code> a <code>promotedType</code>.
-	 * @param type
-	 * @param promotedType
-	 */
-	void promote(Type type, Type promotedType) {
-		
-	}
 }

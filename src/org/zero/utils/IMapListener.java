@@ -6,6 +6,6 @@ public interface IMapListener<K, V> {
 
 	public void put(K key, V newValue, V oldValue);
 
-	public void remove(K key, V value);
+	public void remove(K key, V removedValue);
 
 }
