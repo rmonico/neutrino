@@ -6,39 +6,52 @@ import java.util.Map;
 import org.ita.testrefactoring.metacode.Environment;
 import org.ita.testrefactoring.metacode.Package;
 import org.ita.testrefactoring.metacode.Type;
+import org.ita.testrefactoring.metacode.TypeListener;
+import org.zero.utils.IMapListener;
+import org.zero.utils.IMapWrapper;
+import org.zero.utils.MapWrapper;
 
 
 public class ASTEnvironment implements Environment {
 	
 	private Map<String, ASTPackage> packageList = new HashMap<String, ASTPackage>();
-//	private IMapWrapper<String, Type> typeCacheWrapper = wrapperCreator();
-	private Map<String, Type> typeCache = new HashMap<String, Type>();
+	private IMapWrapper<String, Type> typeCacheWrapper = wrapperCreator();
+	private Map<String, Type> typeCache = typeCacheWrapper;
+	private TypeCacheListener typeCacheListener = new TypeCacheListener();
 
-//	private MapWrapper<String, Type> wrapperCreator() {
-//		MapWrapper<String, Type> wrapper = new MapWrapper<String, Type>(new HashMap<String, Type>());
-//		
-//		IMapListener<String, Type> typeCacheListener = new TypeCacheListener();
-//		wrapper.addListener(typeCacheListener);
-//		
-//		
-//		return wrapper;
-//	}
-//	
-//	private static class TypeCacheListener implements IMapListener<String, Type> {
-//
-//		@Override
-//		public void put(String key, Type value) {
-//			
-//		}
-//
-//		@Override
-//		public void remove(String key, Type value) {
-//			// TODO Auto-generated method stub
-//
-//		}
-//
-//	}
-//
+	private MapWrapper<String, Type> wrapperCreator() {
+		MapWrapper<String, Type> wrapper = new MapWrapper<String, Type>(new HashMap<String, Type>());
+		
+		wrapper.addListener(typeCacheListener);
+		
+		
+		return wrapper;
+	}
+	
+	private static class TypeCacheListener implements IMapListener<String, Type> {
+
+		@Override
+		public void put(String key, Type newValue, Type oldValue) {
+			
+		}
+
+		@Override
+		public void remove(String key, Type value) {
+			// TODO Auto-generated method stub
+
+		}
+
+	}
+
+	private class CacheListener implements TypeListener {
+
+		@Override
+		public void typePromoted(Type oldType, Type newType) {
+			
+		}
+		
+	}
+	
 	// Construtor restrito ao pacote
 	ASTEnvironment() {
 		

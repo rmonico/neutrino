@@ -38,9 +38,9 @@ public class MapWrapper<K, V> implements IMapWrapper<K, V> {
 		}
 
 		@Override
-		public void put(K key, V value) {
+		public void put(K key, V newValue, V oldValue) {
 			for (IMapListener<K, V> listener : listeners) {
-				listener.put(key, value);
+				listener.put(key, newValue, oldValue);
 			}
 		}
 
@@ -79,12 +79,12 @@ public class MapWrapper<K, V> implements IMapWrapper<K, V> {
 	}
 
 	@Override
-	public V put(K key, V value) {
-		V v = instance.put(key, value);
+	public V put(K key, V newValue) {
+		V oldValue = instance.put(key, newValue);
 
-		notifier.put(key, value);
+		notifier.put(key, newValue, oldValue);
 
-		return v;
+		return oldValue;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -102,11 +102,14 @@ public class MapWrapper<K, V> implements IMapWrapper<K, V> {
 
 	@Override
 	public void putAll(Map<? extends K, ? extends V> m) {
-		instance.putAll(m);
-
-		for (K key : m.keySet()) {
-			notifier.put(key, m.get(key));
-		}
+		// TODO: Depois resolvo isso...
+		throw new UnsupportedOperationException();
+//		instance.putAll(m);
+//
+//		for (K key : m.keySet()) {
+//			V newValue = m.get(key);
+//			notifier.put(key, newValue, oldValues[i]);
+//		}
 	}
 
 	@Override
@@ -121,7 +124,7 @@ public class MapWrapper<K, V> implements IMapWrapper<K, V> {
 
 		// E faço a notificação usando a instância antiga
 		for (K key : oldInstance.keySet()) {
-			notifier.put(key, oldInstance.get(key));
+			notifier.remove(key, oldInstance.get(key));
 		}
 	}
 

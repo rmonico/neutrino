@@ -81,12 +81,12 @@ public class ListenerTests {
 		private boolean isRemoveOk = false;
 		
 		@Override
-		public void put(K key, V value) {
+		public void put(K key, V newValue, V oldValue) {
 			isPutOk = true;
 		}
 		
 		@Override
-		public void remove(K key, V value) {
+		public void remove(K key, V newValue) {
 			isRemoveOk = true;
 		}
 		
