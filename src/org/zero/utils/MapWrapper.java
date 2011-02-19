@@ -1,22 +1,29 @@
 package org.zero.utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Empacota um Map, responsável manter e notificar uma lista de listeners sobre
+ * alterações realizadas na instância de Map passada como parâmetro.
+ * 
+ * @author Rafael Monico
+ * 
+ * @param <K>
+ * @param <V>
+ */
 public class MapWrapper<K, V> implements IMapWrapper<K, V> {
 
 	private Map<K, V> instance;
 	private List<IMapListener<K, V>> listenerList = new ArrayList<IMapListener<K, V>>();
 	private IMapListener<K, V> notifier = new Notifier<K, V>(listenerList);
 
-	public MapWrapper(Map<K, V> instance, IMapListener<K, V>... listeners) {
+	public MapWrapper(Map<K, V> instance) {
 		this.instance = instance;
-		listenerList.addAll(Arrays.asList(listeners));
 	}
 
 	@Override
@@ -104,12 +111,12 @@ public class MapWrapper<K, V> implements IMapWrapper<K, V> {
 	public void putAll(Map<? extends K, ? extends V> m) {
 		// TODO: Depois resolvo isso...
 		throw new UnsupportedOperationException();
-//		instance.putAll(m);
-//
-//		for (K key : m.keySet()) {
-//			V newValue = m.get(key);
-//			notifier.put(key, newValue, oldValues[i]);
-//		}
+		// instance.putAll(m);
+		//
+		// for (K key : m.keySet()) {
+		// V newValue = m.get(key);
+		// notifier.put(key, newValue, oldValues[i]);
+		// }
 	}
 
 	@Override
