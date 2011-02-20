@@ -76,7 +76,9 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 		public boolean visit(MethodDeclaration node) {
 			String methodName = node.getName().toString();
 			
-			Method method = clazz.createMethod(methodName);
+			ASTMethod method = clazz.createMethod(methodName);
+
+			ASTMethodBlock block = method.createBlock();
 			
 			return false;
 		}
