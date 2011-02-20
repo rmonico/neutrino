@@ -19,7 +19,7 @@ public class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
 	private Type parent;
 	private MethodDeclarationNonAccessModifier nonAccessModifier = new MethodDeclarationNonAccessModifier();
 	private MethodDeclaration astObject;
-	private Block body = new ASTBlock();
+	private Block body = createBlock();
 	
 	@Override
 	public InnerElementAccessModifier getAccessModifier() {
