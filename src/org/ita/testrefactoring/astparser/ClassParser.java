@@ -9,6 +9,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.ita.testrefactoring.metacode.Class;
+import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.ParserException;
 import org.ita.testrefactoring.metacode.Type;
 import org.zero.utils.StringUtils;
@@ -35,7 +36,6 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 			// TODO
 //			field.getAccessModifier()
 //			field.getNonAccessModifier()
-			
 
 			ASTField field = clazz.createField(variableDeclaration.getName().toString());
 			
@@ -74,6 +74,10 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 
 		@Override
 		public boolean visit(MethodDeclaration node) {
+			String methodName = node.getName().toString();
+			
+			Method method = clazz.createMethod(methodName);
+			
 			return false;
 		}
 	}
