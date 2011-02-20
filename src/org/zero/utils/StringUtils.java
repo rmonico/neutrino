@@ -7,29 +7,28 @@ public class StringUtils {
 
 	public static String quote(String s, Map<Character, String> specialCharList) {
 		StringBuilder quotedStr = new StringBuilder();
-		
-		for (int i=0; i<s.length(); i++) {
+
+		for (int i = 0; i < s.length(); i++) {
 			char unquoted = s.charAt(i);
-			
+
 			String replacement = specialCharList.get(unquoted);
-			
+
 			if (replacement != null) {
 				quotedStr.append(replacement);
 			} else {
 				quotedStr.append(unquoted);
 			}
 		}
-		
+
 		return quotedStr.toString();
 	}
 
 	public static final Map<Character, String> JAVA_SOURCE_SPECIAL_CHAR_LIST = createSpecialCharListForJavaSource();
-	
+
 	private static Map<Character, String> createSpecialCharListForJavaSource() {
-		
-		Map<Character, String> list = new HashMap<Character, String>(); 
-		
-	
+
+		Map<Character, String> list = new HashMap<Character, String>();
+
 		list.put('\t', "\\t");
 		list.put('\b', "\\b");
 		list.put('\n', "\\n");
@@ -43,10 +42,18 @@ public class StringUtils {
 	}
 
 	public static String extractPackageName(String typeFullQualifiedName) {
-		return typeFullQualifiedName.substring(0, typeFullQualifiedName.lastIndexOf('.'));
+
+		int lastIndexOf = typeFullQualifiedName.lastIndexOf('.');
+		
+		if (lastIndexOf == -1) {
+			return "";
+		}
+		
+		return typeFullQualifiedName.substring(0, lastIndexOf);
+
 	}
-	
+
 	public static String extractTypeName(String typeFullQualifiedName) {
-		return typeFullQualifiedName.substring(typeFullQualifiedName.lastIndexOf('.')+1, typeFullQualifiedName.length());
+		return typeFullQualifiedName.substring(typeFullQualifiedName.lastIndexOf('.') + 1, typeFullQualifiedName.length());
 	}
 }
