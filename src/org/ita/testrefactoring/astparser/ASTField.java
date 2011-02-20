@@ -1,5 +1,6 @@
 package org.ita.testrefactoring.astparser;
 
+import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.ita.testrefactoring.metacode.Expression;
 import org.ita.testrefactoring.metacode.Field;
 import org.ita.testrefactoring.metacode.InnerElementAccessModifier;
@@ -7,7 +8,7 @@ import org.ita.testrefactoring.metacode.NonAccessFieldModifier;
 import org.ita.testrefactoring.metacode.Type;
 import org.ita.testrefactoring.metacode.TypeListener;
 
-public class ASTField implements Field {
+public class ASTField implements Field, ASTWrapper<FieldDeclaration> {
 
 	private String name;
 	private FieldTypeListener fieldTypeListener = new FieldTypeListener(); 
@@ -17,6 +18,7 @@ public class ASTField implements Field {
 	private NonAccessFieldModifier nonAccessModifier = new NonAccessFieldModifier();
 	private Expression initialization;
 	private InnerElementAccessModifier accessModifier = new InnerElementAccessModifier();
+	private FieldDeclaration fieldDeclaration;
 	
 	
 	private class FieldTypeListener implements TypeListener {
@@ -93,6 +95,16 @@ public class ASTField implements Field {
 	
 	public void setInitialization(Expression initialization) {
 		this.initialization = initialization;
+	}
+
+	@Override
+	public void setASTObject(FieldDeclaration astObject) {
+		this.fieldDeclaration = astObject;
+	}
+
+	@Override
+	public FieldDeclaration getASTObject() {
+		return fieldDeclaration;
 	}
 
 }
