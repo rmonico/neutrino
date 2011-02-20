@@ -73,12 +73,16 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 		}
 
 		@Override
-		public boolean visit(MethodDeclaration node) {
-			String methodName = node.getName().toString();
+		public boolean visit(MethodDeclaration methodDeclaration) {
+			String methodName = methodDeclaration.getName().toString();
 			
 			ASTMethod method = clazz.createMethod(methodName);
+			
+			method.setASTObject(methodDeclaration);
 
 			ASTMethodBlock block = method.createBlock();
+			
+			block.setASTObject(methodDeclaration.getBody());
 			
 			return false;
 		}
