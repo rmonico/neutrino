@@ -13,6 +13,7 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.ITypeRoot;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -22,8 +23,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.ita.testrefactoring.eclipseaction.Activator;
 
 class Utils {
-	static List<IPackageFragment> getAllPackagesInWorkspace()
-			throws CoreException {
+	static List<IPackageFragment> getAllPackagesInWorkspace() throws CoreException {
 		List<IPackageFragment> resultingList = new ArrayList<IPackageFragment>();
 
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
@@ -39,15 +39,15 @@ class Utils {
 				continue;
 			}
 
-			IPackageFragment[] packages = JavaCore.create(project)
-					.getPackageFragments();
+			IPackageFragment[] packages = JavaCore.create(project).getPackageFragments();
 
 			for (IPackageFragment _package : packages) {
 				if (_package.getKind() != IPackageFragmentRoot.K_SOURCE) {
 					continue;
 				}
-				
-				// Aparentemente um BUG da JDT: na primeira execução devolve um pacote chamado bin...
+
+				// Aparentemente um BUG da JDT: na primeira execução devolve um
+				// pacote chamado bin...
 				if (_package.getElementName().equals("bin")) {
 					continue;
 				}
@@ -59,9 +59,10 @@ class Utils {
 		return resultingList;
 
 	}
-	
+
 	/**
 	 * Devolve a compilation unit ativa do Eclipse, ou null caso não exista.
+	 * 
 	 * @return
 	 */
 	public static ICompilationUnit getActiveICompilationUnit() {
@@ -85,4 +86,34 @@ class Utils {
 		return (ICompilationUnit) typeRoot;
 	}
 
+	/**
+	 * Altera a ordem dos elementos na lista de acordo com as classes passadas
+	 * no var-arg.
+	 * 
+	 * @param list
+	 * @param newOrder
+	 */
+	public static void rearrangeArray(List<ASTNode> list, Class<? extends ASTNode>... newOrder) {
+
+		for (int destIndex = 0; destIndex < newOrder.length; destIndex++) {
+			Class<? extends ASTNode> nodeClass = newOrder[destIndex];
+			int sourceIndex;
+
+			boolean itemFound = false;
+			for (sourceIndex = 0; sourceIndex < list.size(); sourceIndex++) {
+				if (list.get(sourceIndex).getClass().equals(nodeClass)) {
+					itemFound = true;
+					break;
+				}
+			}
+
+			ASTNode element = itemFound ? list.get(sourceIndex) : null;
+
+			if (itemFound) {
+				list.remove(sourceIndex);
+			}
+			
+			list.add(destIndex, element);
+		}
+	}
 }
