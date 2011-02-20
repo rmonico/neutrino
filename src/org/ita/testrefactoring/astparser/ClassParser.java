@@ -9,7 +9,6 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.ita.testrefactoring.metacode.Class;
-import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.ParserException;
 import org.ita.testrefactoring.metacode.Type;
 import org.zero.utils.StringUtils;
@@ -76,13 +75,26 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 		public boolean visit(MethodDeclaration methodDeclaration) {
 			String methodName = methodDeclaration.getName().toString();
 			
-			ASTMethod method = clazz.createMethod(methodName);
+			System.out.println(methodDeclaration.modifiers().getClass());
+			System.out.println();
+			for (Object modifier : methodDeclaration.modifiers()) {
+				System.out.println(modifier.getClass());
+				System.out.println(modifier);
+			}
+			
+			boolean isAbstract = false;
+			
+			ASTMethod method = clazz.createMethod(methodName, isAbstract);
 			
 			method.setASTObject(methodDeclaration);
 
-			ASTMethodBlock block = method.createBlock();
-			
-			block.setASTObject(methodDeclaration.getBody());
+			if (!isAbstract) {
+				ASTConcreteMethod concreteMethod = (ASTConcreteMethod) method;
+
+				ASTMethodBlock block = concreteMethod.createBlock();
+				
+				block.setASTObject(methodDeclaration.getBody());
+			}
 			
 			return false;
 		}
