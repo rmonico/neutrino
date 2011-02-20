@@ -6,6 +6,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.ita.testrefactoring.metacode.Class;
 import org.ita.testrefactoring.metacode.ParserException;
 import org.ita.testrefactoring.metacode.Type;
+import org.zero.utils.StringUtils;
 
 class ClassParser implements ASTTypeParser<ASTClass> {
 
@@ -16,12 +17,12 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 		public void setClass(ASTClass clazz) {
 			this.clazz = clazz;
 		}
-
+		
 		@Override
 		public boolean visit(FieldDeclaration node) {
 			ASTField field = clazz.createField(node.toString());
-
-			// field.setInitialization()
+			
+			// TODO: field.setInitialization
 			field.setParentType(clazz);
 
 			String fieldTypeQualifiedName = node.getType().resolveBinding().getQualifiedName();
@@ -30,11 +31,21 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 			Type fieldType = environment.getTypeCache().get(fieldTypeQualifiedName);
 
 			if (fieldType == null) {
-				fieldType = environment.createDummyClass(fieldTypeQualifiedName);
+				String packageName = StringUtils.extractPackageName(fieldTypeQualifiedName);
+				
+				ASTPackage pack = environment.getPackageList().get(packageName);
+				
+				if (pack == null) {
+					pack = environment.createPackage(packageName);
+				}
+				
+				String typeName = StringUtils.extractTypeName(fieldTypeQualifiedName);
+					
+				fieldType = environment.createDummyType(typeName, pack);
 			}
 
 			field.setFieldType(fieldType);
-
+			
 			return false;
 		}
 
@@ -60,6 +71,9 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 		String superClassName;
 
 		org.eclipse.jdt.core.dom.Type superclassNode = clazz.getASTObject().getSuperclassType();
+		
+		// TODO: Popular a lista de interfaces implementadas
+		//clazz.getASTObject().superInterfaceTypes()
 
 		if (superclassNode == null) {
 			superClassName = "java.lang.Object";
