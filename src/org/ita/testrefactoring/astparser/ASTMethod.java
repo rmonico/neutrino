@@ -5,21 +5,19 @@ import java.util.List;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.ita.testrefactoring.metacode.Annotation;
 import org.ita.testrefactoring.metacode.Argument;
-import org.ita.testrefactoring.metacode.Block;
 import org.ita.testrefactoring.metacode.CheckedExceptionClass;
 import org.ita.testrefactoring.metacode.InnerElementAccessModifier;
 import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.MethodDeclarationNonAccessModifier;
 import org.ita.testrefactoring.metacode.Type;
 
-public class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
+public abstract class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
 
 	private InnerElementAccessModifier accessModifier = new InnerElementAccessModifier();
 	private String name;
 	private Type parent;
 	private MethodDeclarationNonAccessModifier nonAccessModifier = new MethodDeclarationNonAccessModifier();
 	private MethodDeclaration astObject;
-	private Block body = createBlock();
 	
 	@Override
 	public InnerElementAccessModifier getAccessModifier() {
@@ -70,11 +68,6 @@ public class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
 	}
 
 	@Override
-	public Block getBody() {
-		return body;
-	}
-
-	@Override
 	public void setASTObject(MethodDeclaration astObject) {
 		this.astObject = astObject; 
 	}
@@ -84,12 +77,4 @@ public class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
 		return astObject;
 	}
 	
-	ASTMethodBlock createBlock() {
-		ASTMethodBlock methodBlock = new ASTMethodBlock();
-		
-		methodBlock.setParentMethod(this);
-		
-		return methodBlock;
-	}
-
 }

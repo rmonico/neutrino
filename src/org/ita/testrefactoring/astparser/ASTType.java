@@ -19,7 +19,7 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 	private String name;
 	private TypeAccessModifier accessModifier = new TypeAccessModifier();
 	private Map<String, ASTField> fieldList = new HashMap<String, ASTField>();
-	private Map<String, Method> methodList = new HashMap<String, Method>();
+	private Map<String, ASTMethod> methodList = new HashMap<String, ASTMethod>();
 	private TypeDeclaration astObject;
 	private List<TypeListener> listeners = new ArrayList<TypeListener>();
 
@@ -65,7 +65,7 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 	}
 
 	@Override
-	public Map<String, Method> getMethodList() {
+	public Map<String, ASTMethod> getMethodList() {
 		return methodList;
 	}
 

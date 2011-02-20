@@ -60,8 +60,8 @@ public class ASTClass extends ASTType implements Class {
 		return field;
 	}
 
-	ASTMethod createMethod(String methodName) {
-		ASTMethod method = new ASTMethod();
+	ASTMethod createMethod(String methodName, boolean isAbstract) {
+		ASTMethod method = isAbstract ? new ASTAbstractMethod() : new ASTConcreteMethod();
 		
 		method.setName(methodName);
 		method.setParentType(this);

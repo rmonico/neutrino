@@ -8,11 +8,12 @@ import java.util.Map;
 import org.eclipse.jdt.core.JavaModelException;
 import org.ita.testrefactoring.astparser.ASTClass;
 import org.ita.testrefactoring.astparser.ASTEnvironment;
+import org.ita.testrefactoring.astparser.ASTMethod;
 import org.ita.testrefactoring.astparser.ASTPackage;
 import org.ita.testrefactoring.astparser.ASTParser;
 import org.ita.testrefactoring.astparser.ASTSourceFile;
+import org.ita.testrefactoring.metacode.ConcreteMethod;
 import org.ita.testrefactoring.metacode.Field;
-import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.ParserException;
 import org.ita.testrefactoring.metacode.Type;
 import org.junit.Test;
@@ -519,7 +520,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 //		assertEquals("Inicialização de field com constante", "55", constantInitializedField.getInitialization().toString());
 //		assertEquals("Inicialização de field por método", "getFieldInitialization()", methodInitializedField.getInitialization().toString());
 
-		Map<String, Method> methodList = fullClass.getMethodList();
+		Map<String, ASTMethod> methodList = fullClass.getMethodList();
 		
 		assertEquals("Lista de métodos (size)", 17, methodList.values().size());
 		
@@ -565,7 +566,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 //		Method nonDummyThrowerMethod = methodList.get("nonDummyThrowerMethod");
 //		assertEquals("Método que lança exceçao não-dummy", nonDummyThrowerMethod.getThrownExceptions().get(0));
 
-		Method oneStatementBlockMethod = methodList.get("oneStatementBlockMethod");
+		ConcreteMethod oneStatementBlockMethod = (ConcreteMethod) methodList.get("oneStatementBlockMethod");
 		assertTrue("Existência do bloco do método", oneStatementBlockMethod.getBody() != null);
 		assertEquals("Tamanho do bloco de código do método", 1, oneStatementBlockMethod.getBody().getStatementList().size());
 

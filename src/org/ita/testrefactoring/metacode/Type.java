@@ -44,7 +44,7 @@ public interface Type {
 	 * 
 	 * @return
 	 */
-	Map<String, Method> getMethodList();
+	Map<String, ? extends Method> getMethodList();
 
 	/**
 	 * Kind do tipo, indica se é uma classe, etc
