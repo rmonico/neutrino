@@ -45,6 +45,10 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 			field.setParentType(clazz);
 
 			String fieldTypeQualifiedName = fieldDeclaration.getType().resolveBinding().getQualifiedName();
+			
+			if (fieldDeclaration.getType().resolveBinding().isPrimitive()) {
+				fieldTypeQualifiedName = "." + fieldTypeQualifiedName;
+			}
 
 			ASTEnvironment environment = clazz.getPackage().getEnvironment();
 			Type fieldType = environment.getTypeCache().get(fieldTypeQualifiedName);
