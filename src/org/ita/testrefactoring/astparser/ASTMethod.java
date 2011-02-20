@@ -83,5 +83,13 @@ public class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
 	public MethodDeclaration getASTObject() {
 		return astObject;
 	}
+	
+	ASTMethodBlock createBlock() {
+		ASTMethodBlock methodBlock = new ASTMethodBlock();
+		
+		methodBlock.setParentMethod(this);
+		
+		return methodBlock;
+	}
 
 }
