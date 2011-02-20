@@ -1,8 +1,13 @@
 package org.ita.testrefactoring.astparser;
 
+import java.util.List;
+
+import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.Modifier;
+import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.ita.testrefactoring.metacode.Class;
 import org.ita.testrefactoring.metacode.ParserException;
 import org.ita.testrefactoring.metacode.Type;
@@ -18,14 +23,28 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 			this.clazz = clazz;
 		}
 		
+		@SuppressWarnings("unchecked")
 		@Override
-		public boolean visit(FieldDeclaration node) {
-			ASTField field = clazz.createField(node.toString());
+		public boolean visit(FieldDeclaration fieldDeclaration) {
+			List<ASTNode> nodes = new QuickVisitor().quickVisit(fieldDeclaration);
 			
+			Utils.rearrangeArray(nodes, VariableDeclarationFragment.class, Modifier.class);
+			
+			VariableDeclarationFragment variableDeclaration = (VariableDeclarationFragment) nodes.get(0);
+
+			// TODO
+//			field.getAccessModifier()
+//			field.getNonAccessModifier()
+			
+
+			ASTField field = clazz.createField(variableDeclaration.getName().toString());
+			
+			field.setASTObject(fieldDeclaration);
+
 			// TODO: field.setInitialization
 			field.setParentType(clazz);
 
-			String fieldTypeQualifiedName = node.getType().resolveBinding().getQualifiedName();
+			String fieldTypeQualifiedName = fieldDeclaration.getType().resolveBinding().getQualifiedName();
 
 			ASTEnvironment environment = clazz.getPackage().getEnvironment();
 			Type fieldType = environment.getTypeCache().get(fieldTypeQualifiedName);
