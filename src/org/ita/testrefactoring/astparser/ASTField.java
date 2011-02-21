@@ -3,7 +3,6 @@ package org.ita.testrefactoring.astparser;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.ita.testrefactoring.metacode.Expression;
 import org.ita.testrefactoring.metacode.Field;
-import org.ita.testrefactoring.metacode.InnerElementAccessModifier;
 import org.ita.testrefactoring.metacode.NonAccessFieldModifier;
 import org.ita.testrefactoring.metacode.Type;
 import org.ita.testrefactoring.metacode.TypeListener;
@@ -17,7 +16,7 @@ public class ASTField implements Field, ASTWrapper<FieldDeclaration> {
 	private ASTType parent;
 	private NonAccessFieldModifier nonAccessModifier = new NonAccessFieldModifier();
 	private Expression initialization;
-	private InnerElementAccessModifier accessModifier = new InnerElementAccessModifier();
+	private ASTInnerElementAccessModifier accessModifier = new ASTInnerElementAccessModifier();
 	private FieldDeclaration fieldDeclaration;
 	
 	
@@ -36,7 +35,7 @@ public class ASTField implements Field, ASTWrapper<FieldDeclaration> {
 	}
 	
 	@Override
-	public InnerElementAccessModifier getAccessModifier() {
+	public ASTInnerElementAccessModifier getAccessModifier() {
 		return accessModifier;
 	}
 
