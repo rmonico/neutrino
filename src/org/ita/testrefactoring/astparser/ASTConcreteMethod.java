@@ -1,11 +1,10 @@
 package org.ita.testrefactoring.astparser;
 
-import org.ita.testrefactoring.metacode.Block;
 import org.ita.testrefactoring.metacode.ConcreteMethod;
 
 public class ASTConcreteMethod extends ASTMethod implements ConcreteMethod {
 	
-	private Block body = createBlock();
+	private ASTMethodBlock body = createBlock();
 
 	ASTMethodBlock createBlock() {
 		ASTMethodBlock methodBlock = new ASTMethodBlock();
@@ -16,7 +15,7 @@ public class ASTConcreteMethod extends ASTMethod implements ConcreteMethod {
 	}
 
 	@Override
-	public Block getBody() {
+	public ASTMethodBlock getBody() {
 		return body;
 	}
 
