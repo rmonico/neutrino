@@ -7,7 +7,6 @@ import org.ita.testrefactoring.metacode.Annotation;
 import org.ita.testrefactoring.metacode.Argument;
 import org.ita.testrefactoring.metacode.CheckedExceptionClass;
 import org.ita.testrefactoring.metacode.Method;
-import org.ita.testrefactoring.metacode.MethodDeclarationNonAccessModifier;
 import org.ita.testrefactoring.metacode.Type;
 
 public abstract class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
