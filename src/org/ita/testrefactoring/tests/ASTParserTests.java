@@ -24,7 +24,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 	public void testPackageParsing() throws ParserException, JavaModelException {
 		// Crio os arquivos, pois só considero pacotes quando há arquivos dentro
 		StringBuilder pack1ClassSource = new StringBuilder();
-		
+
 		pack1ClassSource.append("package org.ita.testrefactoring.testfiles.pack1;\n");
 		pack1ClassSource.append("\n");
 		pack1ClassSource.append("public class Pack1Class {\n");
@@ -33,9 +33,8 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		createSourceFile("org.ita.testrefactoring.testfiles.pack1", "Pack1Class.java", pack1ClassSource);
 
-		
 		StringBuilder pack2ClassSource = new StringBuilder();
-		
+
 		pack2ClassSource.append("package org.ita.testrefactoring.testfiles.pack2;\n");
 		pack2ClassSource.append("\n");
 		pack2ClassSource.append("public class Pack2Class {\n");
@@ -44,7 +43,6 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		createSourceFile("org.ita.testrefactoring.testfiles.pack2", "Pack2Class.java", pack2ClassSource);
 
-		
 		ASTParser parser = new ASTParser();
 
 		parser.parse();
@@ -69,7 +67,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		assertEquals("Validade do ambiente do pacote 3", parser.getEnvironment(), pack3.getEnvironment());
 		assertEquals("Nome do pacote 3", "java.lang", pack3.getName());
-		
+
 		setTestsOk();
 	}
 
@@ -449,136 +447,179 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		// Teste dos modificadores de acesso para classe
 		ASTEnvironment environment = parser.getEnvironment();
-		
+
 		System.out.println("Environment:");
 		System.out.println("");
 		System.out.println(environment.toString());
 		System.out.println("");
 		System.out.println("Packages:");
 		System.out.println("");
-		
+
 		for (ASTPackage pack : environment.getPackageList().values()) {
 			System.out.println(pack.toString());
 		}
-		
+
 		for (Type type : environment.getTypeCache().values()) {
 			System.out.println(type.toString());
 		}
-		
+
 		ASTPackage testfilesPackage = (ASTPackage) environment.getPackageList().get("org.ita.testrefactoring.testfiles");
 		ASTSourceFile publicClassFile = testfilesPackage.getSourceFileList().get("PublicClass.java");
 		ASTClass fullClass = (ASTClass) publicClassFile.getTypeList().get("FullClass");
-		
+
 		assertEquals("ASTClass: Propriedade package", testfilesPackage, fullClass.getPackage());
 
-//		ASTClass publicClass = (ASTClass) publicClassFile.getTypeList().get("PublicClass");
- 
+		// ASTClass publicClass = (ASTClass)
+		// publicClassFile.getTypeList().get("PublicClass");
+
 		assertEquals("ASTClass: Propriedade parent", environment.getTypeCache().get("org.ita.testrefactoring.otherpackage.KnownClass"), fullClass.getSuperClass());
 
 		// Modificadores de acesso
-//		assertTrue("Modificador de acesso default para classe", fullClass.getAccessModifier().isDefault());
-//		assertTrue("Modificador de acesso public para classe", publicClass.getAccessModifier().isPublic());
+		// assertTrue("Modificador de acesso default para classe",
+		// fullClass.getAccessModifier().isDefault());
+		// assertTrue("Modificador de acesso public para classe",
+		// publicClass.getAccessModifier().isPublic());
 
-//		ASTClass abstractClass = (ASTClass) publicClassFile.getTypeList().get("AbstractClass");
-//		ASTClass finalClass = (ASTClass) publicClassFile.getTypeList().get("FinalClass");
-		
-//		assertTrue("Modificador não-referente a acesso \"abstract\"", abstractClass.getNonAccessModifier().isAbstract());
-//		assertTrue("Modificador não-referente a acesso \"final\"", finalClass.getNonAccessModifier().isFinal());
-//		assertTrue("Classe sem nenhum modificador não-referente a acesso", publicClass.getNonAccessModifier().isNoModified());
+		// ASTClass abstractClass = (ASTClass)
+		// publicClassFile.getTypeList().get("AbstractClass");
+		// ASTClass finalClass = (ASTClass)
+		// publicClassFile.getTypeList().get("FinalClass");
+
+		// assertTrue("Modificador não-referente a acesso \"abstract\"",
+		// abstractClass.getNonAccessModifier().isAbstract());
+		// assertTrue("Modificador não-referente a acesso \"final\"",
+		// finalClass.getNonAccessModifier().isFinal());
+		// assertTrue("Classe sem nenhum modificador não-referente a acesso",
+		// publicClass.getNonAccessModifier().isNoModified());
 
 		// Lista de campos
 		assertEquals("Lista de campos (size)", 10, fullClass.getFieldList().values().size());
 
 		Field privateField = fullClass.getFieldList().get("privateField");
-//		Field protectedField = fullClass.getFieldList().get("protectedField");
-//		Field defaultField = fullClass.getFieldList().get("defaultField");
-//		Field publicField = fullClass.getFieldList().get("publicField");
+		// Field protectedField =
+		// fullClass.getFieldList().get("protectedField");
+		// Field defaultField = fullClass.getFieldList().get("defaultField");
+		// Field publicField = fullClass.getFieldList().get("publicField");
 
 		assertEquals("Tipo parent", fullClass, privateField.getParentType());
 
 		assertEquals("Tipo do field", environment.getTypeCache().get(".int"), privateField.getFieldType());
 
-//		assertTrue("Modificador de acesso private para campo", privateField.getAccessModifier().isPrivate());
-//		assertTrue("Modificador de acesso protected para campo", protectedField.getAccessModifier().isProtected());
-//		assertTrue("Modificador de acesso default para campo", defaultField.getAccessModifier().isDefault());
-//		assertTrue("Modificador de acesso public para campo", publicField.getAccessModifier().isPublic());
+		// assertTrue("Modificador de acesso private para campo",
+		// privateField.getAccessModifier().isPrivate());
+		// assertTrue("Modificador de acesso protected para campo",
+		// protectedField.getAccessModifier().isProtected());
+		// assertTrue("Modificador de acesso default para campo",
+		// defaultField.getAccessModifier().isDefault());
+		// assertTrue("Modificador de acesso public para campo",
+		// publicField.getAccessModifier().isPublic());
 
 		Field withoutNonAccessModifier = fullClass.getFieldList().get("withoutNonAccessModifier");
-//		Field staticField = fullClass.getFieldList().get("staticField");
-//		Field finalField = fullClass.getFieldList().get("finalField");
-//		Field staticAndFinalField = fullClass.getFieldList().get("staticAndFinalField");
+		// Field staticField = fullClass.getFieldList().get("staticField");
+		// Field finalField = fullClass.getFieldList().get("finalField");
+		// Field staticAndFinalField =
+		// fullClass.getFieldList().get("staticAndFinalField");
 
 		assertTrue("Modificador não referente a acesso \"não modificado\" para campo", withoutNonAccessModifier.getNonAccessModifier().isNoModified());
-//		assertTrue("Modificador não referente a acesso \"static\" para campo", staticField.getNonAccessModifier().isStatic());
-//		assertTrue("Modificador não referente a acesso \"final\" para campo", finalField.getNonAccessModifier().isFinal());
-//		assertTrue("Modificador não referente a acesso \"static\" combinado com \"final\" para campo", staticAndFinalField.getNonAccessModifier().isStatic());
-//		assertTrue("Modificador não referente a acesso \"final\" combinado com \"static\" para campo", staticAndFinalField.getNonAccessModifier().isFinal());
+		// assertTrue("Modificador não referente a acesso \"static\" para campo",
+		// staticField.getNonAccessModifier().isStatic());
+		// assertTrue("Modificador não referente a acesso \"final\" para campo",
+		// finalField.getNonAccessModifier().isFinal());
+		// assertTrue("Modificador não referente a acesso \"static\" combinado com \"final\" para campo",
+		// staticAndFinalField.getNonAccessModifier().isStatic());
+		// assertTrue("Modificador não referente a acesso \"final\" combinado com \"static\" para campo",
+		// staticAndFinalField.getNonAccessModifier().isFinal());
 
-//		Field constantInitializedField = fullClass.getFieldList().get("constantInitializedField");
-//		Field methodInitializedField = fullClass.getFieldList().get("methodInitializedField");
+		// Field constantInitializedField =
+		// fullClass.getFieldList().get("constantInitializedField");
+		// Field methodInitializedField =
+		// fullClass.getFieldList().get("methodInitializedField");
 
-//		assertEquals("Inicialização de field com constante", "55", constantInitializedField.getInitialization().toString());
-//		assertEquals("Inicialização de field por método", "getFieldInitialization()", methodInitializedField.getInitialization().toString());
+		// assertEquals("Inicialização de field com constante", "55",
+		// constantInitializedField.getInitialization().toString());
+		// assertEquals("Inicialização de field por método",
+		// "getFieldInitialization()",
+		// methodInitializedField.getInitialization().toString());
 
 		Map<String, ASTMethod> methodList = fullClass.getMethodList();
-		
+
 		assertEquals("Lista de métodos (size)", 17, methodList.values().size());
-		
-//		Method publicAccessMethod = methodList.get("publicAccessMethod");
-//		Method defaultAccessMethod = methodList.get("defaultAccessMethod");
-//		Method protectedAccessMethod = methodList.get("protectedAccessMethod");
-//		Method privateAccessMethod = methodList.get("privateAccessMethod");
 
-//		assertEquals("Modificador de acesso de método public", publicAccessMethod.getAccessModifier().isPublic());
-//		assertEquals("Modificador de acesso de método default", defaultAccessMethod.getAccessModifier().isDefault());
-//		assertEquals("Modificador de acesso de método protected", protectedAccessMethod.getAccessModifier().isProtected());
-//		assertEquals("Modificador de acesso de método private", privateAccessMethod.getAccessModifier().isPrivate());
+		ConcreteMethod publicAccessMethod = (ConcreteMethod) methodList.get("publicAccessMethod");
+		ConcreteMethod defaultAccessMethod = (ConcreteMethod) methodList.get("defaultAccessMethod");
+		ConcreteMethod protectedAccessMethod = (ConcreteMethod) methodList.get("protectedAccessMethod");
+		ConcreteMethod privateAccessMethod = (ConcreteMethod) methodList.get("privateAccessMethod");
 
-//		Method withoutNonAccessMethodModifier = methodList.get("withoutNonAccessMethodModifier");
-//		Method abstractMethod = methodList.get("abstractMethod");
-//		Method staticMethod = methodList.get("staticMethod");
-//		Method finalMethod = methodList.get("finalMethod");
-//		Method staticFinalMethod = methodList.get("staticFinalMethod");
+		assertEquals("Modificador de acesso de método public", publicAccessMethod.getAccessModifier().isPublic());
+		assertEquals("Modificador de acesso de método default", defaultAccessMethod.getAccessModifier().isDefault());
+		assertEquals("Modificador de acesso de método protected", protectedAccessMethod.getAccessModifier().isProtected());
+		assertEquals("Modificador de acesso de método private", privateAccessMethod.getAccessModifier().isPrivate());
 
-//		assertTrue("Sem modificador não referente a acesso para método", withoutNonAccessMethodModifier.getNonAccessModifier().isNoModified());
-//		assertTrue("Modificador não referente a acesso para método abstract", abstractMethod.getNonAccessModifier().isAbstract());
-//		assertTrue("Modificador não referente a acesso para método static", staticMethod.getNonAccessModifier().isStatic());
-//		assertTrue("Modificador não referente a acesso para método final", finalMethod.getNonAccessModifier().isFinal());
-//		assertTrue("Modificador não referente a acesso para método static combinado com final", staticFinalMethod.getNonAccessModifier().isStatic());
-//		assertTrue("Modificador não referente a acesso para método final combinado com static", staticFinalMethod.getNonAccessModifier().isFinal());
+		ConcreteMethod withoutNonAccessMethodModifier = (ConcreteMethod) methodList.get("withoutNonAccessMethodModifier");
+		ConcreteMethod abstractMethod = (ConcreteMethod) methodList.get("abstractMethod");
+		ConcreteMethod staticMethod = (ConcreteMethod) methodList.get("staticMethod");
+		ConcreteMethod finalMethod = (ConcreteMethod) methodList.get("finalMethod");
+		ConcreteMethod staticFinalMethod = (ConcreteMethod) methodList.get("staticFinalMethod");
 
-//		Method methodWithArguments = methodList.get("methodWithArguments");
-//		List<Argument> argumentList = methodWithArguments.getArgumentList();
+		assertTrue("Sem modificador não referente a acesso para método", withoutNonAccessMethodModifier.getNonAccessModifier().isNonModified());
+		assertTrue("Modificador não referente a acesso para método abstract", abstractMethod.getNonAccessModifier().isAbstract());
+		assertTrue("Modificador não referente a acesso para método static", staticMethod.getNonAccessModifier().isStatic());
+		assertTrue("Modificador não referente a acesso para método final", finalMethod.getNonAccessModifier().isFinal());
+		assertTrue("Modificador não referente a acesso para método static combinado com final", staticFinalMethod.getNonAccessModifier().isStatic());
+		assertTrue("Modificador não referente a acesso para método final combinado com static", staticFinalMethod.getNonAccessModifier().isFinal());
 
-//		assertEquals("Lista de argumentos do método (size)", 2, argumentList.size());
-//		assertEquals("Lista de argumentos do método (nome) #1", "arg1", argumentList.get(0).getName());
-//		assertEquals("Lista de argumentos do método (type) #1", environment.getTypeCache().get("int"), argumentList.get(0).getName());
-//
-//		assertEquals("Lista de argumentos do método (nome) #2", "arg2", argumentList.get(1).getName());
-//		assertEquals("Lista de argumentos do método (type) #2", environment.getTypeCache().get("int"), argumentList.get(1).getName());
+		// Method methodWithArguments = methodList.get("methodWithArguments");
+		// List<Argument> argumentList = methodWithArguments.getArgumentList();
 
-//		Method methodWithReturnType = methodList.get("methodWithReturnType");
-//		assertEquals("Tipo de retorno do método", environment.getTypeCache().get("KnownClass"), methodWithReturnType.getReturnType());
+		// assertEquals("Lista de argumentos do método (size)", 2,
+		// argumentList.size());
+		// assertEquals("Lista de argumentos do método (nome) #1", "arg1",
+		// argumentList.get(0).getName());
+		// assertEquals("Lista de argumentos do método (type) #1",
+		// environment.getTypeCache().get("int"),
+		// argumentList.get(0).getName());
+		//
+		// assertEquals("Lista de argumentos do método (nome) #2", "arg2",
+		// argumentList.get(1).getName());
+		// assertEquals("Lista de argumentos do método (type) #2",
+		// environment.getTypeCache().get("int"),
+		// argumentList.get(1).getName());
 
-//		Method dummyThrowerMethod = methodList.get("dummyThrowerMethod");
-//		assertEquals("Método que lança exceçao dummy", dummyThrowerMethod.getThrownExceptions().get(0));
+		// Method methodWithReturnType = methodList.get("methodWithReturnType");
+		// assertEquals("Tipo de retorno do método",
+		// environment.getTypeCache().get("KnownClass"),
+		// methodWithReturnType.getReturnType());
 
-//		Method nonDummyThrowerMethod = methodList.get("nonDummyThrowerMethod");
-//		assertEquals("Método que lança exceçao não-dummy", nonDummyThrowerMethod.getThrownExceptions().get(0));
+		// Method dummyThrowerMethod = methodList.get("dummyThrowerMethod");
+		// assertEquals("Método que lança exceçao dummy",
+		// dummyThrowerMethod.getThrownExceptions().get(0));
+
+		// Method nonDummyThrowerMethod =
+		// methodList.get("nonDummyThrowerMethod");
+		// assertEquals("Método que lança exceçao não-dummy",
+		// nonDummyThrowerMethod.getThrownExceptions().get(0));
 
 		ConcreteMethod oneStatementBlockMethod = (ConcreteMethod) methodList.get("oneStatementBlockMethod");
 		assertTrue("Existência do bloco do método", oneStatementBlockMethod.getBody() != null);
 		assertEquals("Tamanho do bloco de código do método", 1, oneStatementBlockMethod.getBody().getStatementList().size());
 
-//		Method dummyAnnotatted = methodList.get("dummyAnnotatted");
-//		assertNotSame("Lista de anotações: existência", null, dummyAnnotatted.getAnnotations());
-//		assertEquals("Lista de anotações: tamanho", 1, dummyAnnotatted.getAnnotations().size());
-//		assertEquals("Lista de anotações: conteúdo", environment.getTypeCache().get("java.lang.Deprecated"), dummyAnnotatted.getAnnotations().get(0));
+		// Method dummyAnnotatted = methodList.get("dummyAnnotatted");
+		// assertNotSame("Lista de anotações: existência", null,
+		// dummyAnnotatted.getAnnotations());
+		// assertEquals("Lista de anotações: tamanho", 1,
+		// dummyAnnotatted.getAnnotations().size());
+		// assertEquals("Lista de anotações: conteúdo",
+		// environment.getTypeCache().get("java.lang.Deprecated"),
+		// dummyAnnotatted.getAnnotations().get(0));
 
-//		Method nonDummyAnnotated = methodList.get("nonDummyAnnotated");
-//		assertNotSame("Lista de anotações: existência", null, nonDummyAnnotated.getAnnotations());
-//		assertEquals("Lista de anotações: tamanho", 1, nonDummyAnnotated.getAnnotations().size());
-//		assertEquals("Lista de anotações: conteúdo", environment.getTypeCache().get("org.ita.testrefactoring.otherpackage.KnownAnnotation"), dummyAnnotatted.getAnnotations().get(0));
+		// Method nonDummyAnnotated = methodList.get("nonDummyAnnotated");
+		// assertNotSame("Lista de anotações: existência", null,
+		// nonDummyAnnotated.getAnnotations());
+		// assertEquals("Lista de anotações: tamanho", 1,
+		// nonDummyAnnotated.getAnnotations().size());
+		// assertEquals("Lista de anotações: conteúdo",
+		// environment.getTypeCache().get("org.ita.testrefactoring.otherpackage.KnownAnnotation"),
+		// dummyAnnotatted.getAnnotations().get(0));
 
 		setTestsOk();
 	}
