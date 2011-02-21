@@ -9,7 +9,7 @@ public class MethodDeclarationNonAccessModifier {
 		return _abstract;
 	}
 
-	void setAbstract(boolean value) {
+	protected void setAbstract(boolean value) {
 		_abstract = value;
 
 		if (value) {
@@ -27,7 +27,7 @@ public class MethodDeclarationNonAccessModifier {
 		}
 	}
 
-	void setStatic(boolean value) {
+	protected void setStatic(boolean value) {
 		_static = value;
 		
 		if (value) {
@@ -44,7 +44,7 @@ public class MethodDeclarationNonAccessModifier {
 		}
 	}
 	
-	void setFinal(boolean value) {
+	protected void setFinal(boolean value) {
 		_final = value;
 		
 		if (value) {
@@ -52,7 +52,14 @@ public class MethodDeclarationNonAccessModifier {
 		}
 	}
 
-	public boolean isNoModified() {
+	public boolean isNonModified() {
 		return ((!_abstract) && (!_static) && (!_final));
+	}
+	
+	protected void setNonModified() {
+		// Poderia ter chamado setAbstract(false), mas por legibilidade preferi setar tudo como false mesmo
+		_abstract = false;
+		_static = false;
+		_final = false;
 	}
 }
