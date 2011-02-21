@@ -79,6 +79,10 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 			ASTMethodDeclarationNonAccessModifier nonAccessModifier = new ASTMethodDeclarationNonAccessModifier();
 			
 			for (Object m : methodDeclaration.modifiers()) {
+				// Se é alguma coisa que não foi prevista, ignora
+				if (!(m instanceof Modifier)) {
+					continue;
+				}
 				Modifier modifier = (Modifier) m;
 				
 				if (modifier.isAbstract()) {

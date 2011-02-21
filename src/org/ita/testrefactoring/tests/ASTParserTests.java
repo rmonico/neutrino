@@ -187,6 +187,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("abstract class FullClass extends KnownClass {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    // modificadores de acesso para campos\n");
+		publicClassSource.append("    @SuppressWarnings(\"unused\")\n");
 		publicClassSource.append("    private int privateField;\n");
 		publicClassSource.append("    protected int protectedField;\n");
 		publicClassSource.append("    int defaultField;\n");
@@ -220,6 +221,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
+		publicClassSource.append("    @SuppressWarnings(\"unused\")\n");
 		publicClassSource.append("    private void privateAccessMethod(int i) {\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    }\n");
@@ -263,11 +265,6 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("\n");
 		publicClassSource.append("    void nonDummyThrowerMethod() throws KnownException {\n");
 		publicClassSource.append("\n");
-		publicClassSource.append("    }\n");
-		publicClassSource.append("\n");
-		publicClassSource.append("    void oneStatementBlockMethod() {\n");
-		publicClassSource.append("        // Só para tirar os warnings lá em cima :-)\n");
-		publicClassSource.append("        privateAccessMethod(privateField);\n");
 		publicClassSource.append("    }\n");
 		publicClassSource.append("\n");
 		publicClassSource.append("    // Com anotação dummy\n");
@@ -314,7 +311,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("/**\n");
 		publicClassSource.append(" * Enum não tem modificador não-referente a accesso.\n");
 		publicClassSource.append(" * \n");
-		publicClassSource.append(" * Observação: suporta os mesmos tipos de campos/\n");
+		publicClassSource.append(" * Observação: suporta os mesmos tipos de campos que a classe.\n");
 		publicClassSource.append(" * \n");
 		publicClassSource.append(" * @author Rafael Monico\n");
 		publicClassSource.append(" *\n");
@@ -543,17 +540,17 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		Map<String, ASTMethod> methodList = fullClass.getMethodList();
 
-		assertEquals("Lista de métodos (size)", 17, methodList.values().size());
+		assertEquals("Lista de métodos (size)", 16, methodList.values().size());
 
 		ConcreteMethod publicAccessMethod = (ConcreteMethod) methodList.get("publicAccessMethod");
 		ConcreteMethod defaultAccessMethod = (ConcreteMethod) methodList.get("defaultAccessMethod");
 		ConcreteMethod protectedAccessMethod = (ConcreteMethod) methodList.get("protectedAccessMethod");
 		ConcreteMethod privateAccessMethod = (ConcreteMethod) methodList.get("privateAccessMethod");
 
-		assertEquals("Modificador de acesso de método public", publicAccessMethod.getAccessModifier().isPublic());
-		assertEquals("Modificador de acesso de método default", defaultAccessMethod.getAccessModifier().isDefault());
-		assertEquals("Modificador de acesso de método protected", protectedAccessMethod.getAccessModifier().isProtected());
-		assertEquals("Modificador de acesso de método private", privateAccessMethod.getAccessModifier().isPrivate());
+		assertTrue("Modificador de acesso de método public", publicAccessMethod.getAccessModifier().isPublic());
+		assertTrue("Modificador de acesso de método default", defaultAccessMethod.getAccessModifier().isDefault());
+		assertTrue("Modificador de acesso de método protected", protectedAccessMethod.getAccessModifier().isProtected());
+		assertTrue("Modificador de acesso de método private", privateAccessMethod.getAccessModifier().isPrivate());
 
 		ConcreteMethod withoutNonAccessMethodModifier = (ConcreteMethod) methodList.get("withoutNonAccessMethodModifier");
 		ConcreteMethod abstractMethod = (ConcreteMethod) methodList.get("abstractMethod");
@@ -599,9 +596,8 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		// assertEquals("Método que lança exceçao não-dummy",
 		// nonDummyThrowerMethod.getThrownExceptions().get(0));
 
-		ConcreteMethod oneStatementBlockMethod = (ConcreteMethod) methodList.get("oneStatementBlockMethod");
-		assertTrue("Existência do bloco do método", oneStatementBlockMethod.getBody() != null);
-		assertEquals("Tamanho do bloco de código do método", 1, oneStatementBlockMethod.getBody().getStatementList().size());
+		ConcreteMethod getFieldInitializationMethod = (ConcreteMethod) methodList.get("getFieldInitialization");
+		assertTrue("Existência do bloco do método", getFieldInitializationMethod.getBody() != null);
 
 		// Method dummyAnnotatted = methodList.get("dummyAnnotatted");
 		// assertNotSame("Lista de anotações: existência", null,

@@ -28,6 +28,7 @@ final class FinalClass {
 abstract class FullClass extends KnownClass {
 
 	// modificadores de acesso para campos
+	@SuppressWarnings("unused")
 	private int privateField;
 	protected int protectedField;
 	int defaultField;
@@ -61,6 +62,7 @@ abstract class FullClass extends KnownClass {
 
 	}
 
+	@SuppressWarnings("unused")
 	private void privateAccessMethod(int i) {
 
 	}
@@ -104,11 +106,6 @@ abstract class FullClass extends KnownClass {
 
 	void nonDummyThrowerMethod() throws KnownException {
 
-	}
-
-	void oneStatementBlockMethod() {
-		// Só para tirar os warnings lá em cima :-)
-		privateAccessMethod(privateField);
 	}
 
 	// Com anotação dummy
