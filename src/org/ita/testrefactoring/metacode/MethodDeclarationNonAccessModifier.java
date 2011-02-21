@@ -4,6 +4,10 @@ public class MethodDeclarationNonAccessModifier {
 	private boolean _abstract;
 	private boolean _static;
 	private boolean _final;
+	
+	protected MethodDeclarationNonAccessModifier() {
+		setNonModified();
+	}
 
 	public boolean isAbstract() {
 		return _abstract;
