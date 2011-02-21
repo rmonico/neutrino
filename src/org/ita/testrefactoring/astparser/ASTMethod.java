@@ -51,8 +51,12 @@ public abstract class ASTMethod implements Method, ASTWrapper<MethodDeclaration>
 	}
 
 	@Override
-	public MethodDeclarationNonAccessModifier getNonAccessModifier() {
-		return nonAccessModifier ;
+	public ASTMethodDeclarationNonAccessModifier getNonAccessModifier() {
+		return nonAccessModifier;
+	}
+	
+	void setNonAccessModifier(ASTMethodDeclarationNonAccessModifier nonAccessModifier) {
+		this.nonAccessModifier = nonAccessModifier;
 	}
 
 	@Override
