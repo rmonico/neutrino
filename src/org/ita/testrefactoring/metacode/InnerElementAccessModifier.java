@@ -13,16 +13,16 @@ public class InnerElementAccessModifier extends TypeAccessModifier {
 	public boolean isProtected() {
 		return getModifier() == PROTECTED;
 	}
-
+	
+	protected void setProtected() {
+		setModifier(PROTECTED);
+	}
+	
 	public boolean isPrivate() {
 		return getModifier() == PRIVATE;
 	}
 	
-	void setProtected() {
-		setModifier(PROTECTED);
-	}
-	
-	void setPrivate() {
+	protected void setPrivate() {
 		setModifier(PRIVATE);
 	}
 

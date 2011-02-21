@@ -19,15 +19,15 @@ public class TypeAccessModifier {
 		return modifier == PUBLIC;
 	}
 
+	protected void setPublic() {
+		modifier = PUBLIC;
+	}
+	
 	public boolean isDefault() {
 		return modifier == DEFAULT;
 	}
 	
-	void setPublic() {
-		modifier = PUBLIC;
-	}
-	
-	void setDefault() {
+	protected void setDefault() {
 		modifier = DEFAULT;
 	}
 	
