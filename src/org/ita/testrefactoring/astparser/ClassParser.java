@@ -75,20 +75,46 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 		public boolean visit(MethodDeclaration methodDeclaration) {
 			String methodName = methodDeclaration.getName().toString();
 			
-			System.out.println(methodDeclaration.modifiers().getClass());
-			System.out.println();
-			for (Object modifier : methodDeclaration.modifiers()) {
-				System.out.println(modifier.getClass());
-				System.out.println(modifier);
+			ASTInnerElementAccessModifier accessModifier = new ASTInnerElementAccessModifier();
+			ASTMethodDeclarationNonAccessModifier nonAccessModifier = new ASTMethodDeclarationNonAccessModifier();
+			
+			for (Object m : methodDeclaration.modifiers()) {
+				Modifier modifier = (Modifier) m;
+				
+				if (modifier.isAbstract()) {
+					nonAccessModifier.setAbstract(true);
+				}
+				
+				if (modifier.isFinal()) {
+					nonAccessModifier.setFinal(true);
+				}
+				
+				if (modifier.isStatic()) {
+					nonAccessModifier.setStatic(true);
+				}
+				
+				if (modifier.isPublic()) {
+					accessModifier.setPublic();
+				}
+				
+				if (modifier.isProtected()) {
+					accessModifier.setProtected();
+				}
+				
+				if (modifier.isPrivate()) {
+					accessModifier.setPrivate();
+				}
 			}
 			
-			boolean isAbstract = false;
-			
-			ASTMethod method = clazz.createMethod(methodName, isAbstract);
+			ASTMethod method = clazz.createMethod(methodName, nonAccessModifier.isAbstract());
 			
 			method.setASTObject(methodDeclaration);
+			
+			method.setAccessModifier(accessModifier);
+			
+			method.setNonAccessModifier(nonAccessModifier);
 
-			if (!isAbstract) {
+			if (!method.getNonAccessModifier().isAbstract()) {
 				ASTConcreteMethod concreteMethod = (ASTConcreteMethod) method;
 
 				ASTMethodBlock block = concreteMethod.createBlock();
