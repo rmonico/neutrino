@@ -7,6 +7,10 @@ package org.ita.testrefactoring.metacode;
  */
 public class InnerElementAccessModifier extends TypeAccessModifier {
 	
+	protected InnerElementAccessModifier() {
+		setDefault();
+	}
+	
 	protected static final int PROTECTED = 3;
 	protected static final int PRIVATE = 4;
 	

@@ -13,15 +13,19 @@ import org.ita.testrefactoring.metacode.Type;
 
 public abstract class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
 
-	private InnerElementAccessModifier accessModifier = new InnerElementAccessModifier();
+	private ASTInnerElementAccessModifier accessModifier = new ASTInnerElementAccessModifier();
 	private String name;
 	private Type parent;
-	private MethodDeclarationNonAccessModifier nonAccessModifier = new MethodDeclarationNonAccessModifier();
+	private ASTMethodDeclarationNonAccessModifier nonAccessModifier = new ASTMethodDeclarationNonAccessModifier();
 	private MethodDeclaration astObject;
 	
 	@Override
-	public InnerElementAccessModifier getAccessModifier() {
+	public ASTInnerElementAccessModifier getAccessModifier() {
 		return accessModifier;
+	}
+	
+	void setAccessModifier(ASTInnerElementAccessModifier accessModifier) {
+		this.accessModifier = accessModifier;
 	}
 
 	void setName(String name) {
