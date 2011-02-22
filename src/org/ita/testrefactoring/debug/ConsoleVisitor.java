@@ -12,7 +12,7 @@ import org.ita.testrefactoring.astparser.QuickVisitor;
  *
  */
 public class ConsoleVisitor  {
-	public void showNodes(ASTNode visitedNode) {
+	public static void showNodes(ASTNode visitedNode) {
 		List<ASTNode> nodes = new QuickVisitor().quickVisit(visitedNode);
 		
 		System.out.println("--- " + visitedNode.toString() + " ---");

@@ -13,6 +13,7 @@ import org.ita.testrefactoring.astparser.ASTPackage;
 import org.ita.testrefactoring.astparser.ASTParser;
 import org.ita.testrefactoring.astparser.ASTSourceFile;
 import org.ita.testrefactoring.metacode.AbstractMethod;
+import org.ita.testrefactoring.metacode.Block;
 import org.ita.testrefactoring.metacode.ConcreteMethod;
 import org.ita.testrefactoring.metacode.Field;
 import org.ita.testrefactoring.metacode.ParserException;
@@ -617,6 +618,161 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		// assertEquals("Lista de anotações: conteúdo",
 		// environment.getTypeCache().get("org.ita.testrefactoring.otherpackage.KnownAnnotation"),
 		// dummyAnnotatted.getAnnotations().get(0));
+
+		setTestsOk();
+	}
+	
+	@Test
+	public void testSupportedBlockSintax() throws JavaModelException, ParserException {
+		StringBuilder blockSupportedSource = new StringBuilder();
+
+		blockSupportedSource.append("package org.ita.testrefactoring.testfiles;\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("public class BlockSupportedSintax {\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("    @SuppressWarnings(\"unused\")\n");
+		blockSupportedSource.append("    public void variableDeclaration() {\n");
+		blockSupportedSource.append("        int nonInitializedVariable;\n");
+		blockSupportedSource.append("        int initializedVariable = -1;\n");
+		blockSupportedSource.append("        int methodInitializedVariable = returnStatement();\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("        Integer nonInitializedObject;\n");
+		blockSupportedSource.append("        Integer nullInitializedObject = null;\n");
+		blockSupportedSource.append("        Integer constructedObject = new Integer(99);\n");
+		blockSupportedSource.append("    }\n");
+		blockSupportedSource.append("    \n");
+		blockSupportedSource.append("    // Reaproveitado para testar o return statement\n");
+		blockSupportedSource.append("    private int returnStatement() {\n");
+		blockSupportedSource.append("        return 55;\n");
+		blockSupportedSource.append("    }\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("    public void ifStatements() {\n");
+		blockSupportedSource.append("        boolean b = false;\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("        // if sem else\n");
+		blockSupportedSource.append("        if (b) {\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("        }\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("        // if com else\n");
+		blockSupportedSource.append("        if (b) {\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("        } else {\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("        }\n");
+		blockSupportedSource.append("        \n");
+		blockSupportedSource.append("        // Condicional ternário\n");
+		blockSupportedSource.append("        b = b ? b : b;\n");
+		blockSupportedSource.append("    }\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("    @SuppressWarnings(\"unused\")\n");
+		blockSupportedSource.append("    public void controlStructures(boolean avoidUnreachableCode) {\n");
+		blockSupportedSource.append("        // for simples\n");
+		blockSupportedSource.append("        for (int i = 0; i < 10; i++) {\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("        }\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("        // enhanced for\n");
+		blockSupportedSource.append("        for (Object o : new Object[3]) {\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("        }\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("        while (avoidUnreachableCode) {\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("        }\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("        do {\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("        } while (avoidUnreachableCode);\n");
+		blockSupportedSource.append("        \n");
+		blockSupportedSource.append("        // non-labeled continue\n");
+		blockSupportedSource.append("        while (avoidUnreachableCode) {\n");
+		blockSupportedSource.append("            continue;\n");
+		blockSupportedSource.append("        }\n");
+		blockSupportedSource.append("        \n");
+		blockSupportedSource.append("        // non-labeled break\n");
+		blockSupportedSource.append("        while (avoidUnreachableCode) {\n");
+		blockSupportedSource.append("            break;\n");
+		blockSupportedSource.append("        }\n");
+		blockSupportedSource.append("        \n");
+		blockSupportedSource.append("    }\n");
+		blockSupportedSource.append("    \n");
+		blockSupportedSource.append("    @SuppressWarnings(\"unused\")\n");
+		blockSupportedSource.append("    public void explicityCast() {\n");
+		blockSupportedSource.append("        Object o = null;\n");
+		blockSupportedSource.append("        BlockSupportedSintax b = (BlockSupportedSintax)o;\n");
+		blockSupportedSource.append("    }\n");
+		blockSupportedSource.append("    \n");
+		blockSupportedSource.append("    @SuppressWarnings(\"unused\")\n");
+		blockSupportedSource.append("    public void expressions() {\n");
+		blockSupportedSource.append("        int constantInteger = 0;\n");
+		blockSupportedSource.append("        double constantFloat = 0.1;\n");
+		blockSupportedSource.append("        String constantString = \"constantString\";\n");
+		blockSupportedSource.append("        String stringConcatenation = \"string\" + \" concatenation\";\n");
+		blockSupportedSource.append("        int add = 55 + 89;\n");
+		blockSupportedSource.append("        int sub = 55 - 89;\n");
+		blockSupportedSource.append("        int multiplication = 55 * 89;\n");
+		blockSupportedSource.append("        int division = 55 / 89;\n");
+		blockSupportedSource.append("        int modulus = 55 % 89;\n");
+		blockSupportedSource.append("\n");
+		blockSupportedSource.append("        boolean constantBoolean = true;\n");
+		blockSupportedSource.append("        boolean optimizedAnd = false && true;\n");
+		blockSupportedSource.append("        boolean optimizedOr = true || false;\n");
+		blockSupportedSource.append("        boolean completeEvalAnd = false & true;\n");
+		blockSupportedSource.append("        boolean completeEvalOr = true | false;\n");
+		blockSupportedSource.append("        \n");
+		blockSupportedSource.append("        boolean equalsOperator = true == false;\n");
+		blockSupportedSource.append("        boolean notEqualsOperator = true != false;\n");
+		blockSupportedSource.append("        boolean notOperator = !true;\n");
+		blockSupportedSource.append("        boolean greaterThan = 0 > 1;\n");
+		blockSupportedSource.append("        boolean greaterThanOrEqualTo = 0 >= 1;\n");
+		blockSupportedSource.append("        boolean lessThan = 0 < 1;\n");
+		blockSupportedSource.append("        boolean lessThanOrEqualTo = 0 <= 1;\n");
+		blockSupportedSource.append("        boolean instanceOfOperator = new Object() instanceof Object; \n");
+		blockSupportedSource.append("        \n");
+		blockSupportedSource.append("        Object nullExpression = null;\n");
+		blockSupportedSource.append("        \n");
+		blockSupportedSource.append("        int assignmentStatement;\n");
+		blockSupportedSource.append("        \n");
+		blockSupportedSource.append("        assignmentStatement = 1;\n");
+		blockSupportedSource.append("        \n");
+		blockSupportedSource.append("        assignmentStatement += 1;\n");
+		blockSupportedSource.append("        assignmentStatement -= 1;\n");
+		blockSupportedSource.append("        assignmentStatement *= 1;\n");
+		blockSupportedSource.append("        assignmentStatement /= 1;\n");
+		blockSupportedSource.append("    }\n");
+		blockSupportedSource.append("    \n");
+		blockSupportedSource.append("    public void exceptions() {\n");
+		blockSupportedSource.append("        try {\n");
+		blockSupportedSource.append("            throw new Error();\n");
+		blockSupportedSource.append("        } catch (Error e) {\n");
+		blockSupportedSource.append("        }\n");
+		blockSupportedSource.append("        \n");
+		blockSupportedSource.append("        try {\n");
+		blockSupportedSource.append("            \n");
+		blockSupportedSource.append("        } finally {\n");
+		blockSupportedSource.append("            \n");
+		blockSupportedSource.append("        }\n");
+		blockSupportedSource.append("    }\n");
+		blockSupportedSource.append("}\n");
+
+		createSourceFile("org.ita.testrefactoring.testfiles", "BlockSupportedSintax.java", blockSupportedSource);
+		
+		
+		ASTParser parser = new ASTParser();
+		
+		parser.parse();
+		
+		
+		ASTEnvironment environment = parser.getEnvironment();
+		
+		Type clazz = environment.getTypeCache().get("BlockSupportedSintax");
+		
+		ConcreteMethod method = (ConcreteMethod) clazz.getMethodList().get("variableDeclaration");
+		
+		Block block = method.getBody();
+		
+		assertEquals("Lista de statements (size)", 6, block.getStatementList().size());
 
 		setTestsOk();
 	}
