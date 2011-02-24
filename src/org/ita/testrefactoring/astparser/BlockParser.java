@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ReturnStatement;
-import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
+import org.ita.testrefactoring.debug.ConsoleVisitor;
 import org.ita.testrefactoring.metacode.ParserException;
 
 class BlockParser {
@@ -26,24 +26,43 @@ class BlockParser {
 	}
 
 	private void parseStatement(ASTNode node) throws ParserException {
+		ConsoleVisitor.showNodes(node);
 		if (node instanceof VariableDeclarationStatement) {
 			parseVariableDeclaration((VariableDeclarationStatement) node);
 		} else if (node instanceof ReturnStatement) {
 			parseReturnStatement((ReturnStatement) node);
 		}
+		
+		block.getStatementList().add(null);
 	}
 
 	private void parseVariableDeclaration(VariableDeclarationStatement node) throws ParserException {
-		List<ASTNode>nodes = quickVisitor.quickVisit(node);
-		
-		if (nodes.get(0) instanceof Type) {
-			Type type = (Type) nodes.get(0);
-			
-			type.resolveBinding().getQualifiedName();
-		} else {
-			throw new ParserException("Sintax não suportada.");
-		}
+//		List<ASTNode>nodes = quickVisitor.quickVisit(node);
+//		
+//		if (!checkNodeStructure(nodes, Type.class, VariableDeclarationFragment.class)) {
+//			throw new ParserException("Sintax não suportada.");
+//		}
+//		
+//		Type type = (Type) nodes.get(0);
+//		
+//		ConsoleVisitor.showNodes(type);
+//		
+//		type.resolveBinding().getQualifiedName();
 	}
+
+//	private boolean checkNodeStructure(List<ASTNode> nodeList, Class<?>... nodes) {
+//		if (nodeList.size() != nodes.length) {
+//			return false;
+//		}
+//		
+//		for (int i=0; i<nodeList.size(); i++) {
+//			if (!(nodeList.get(i).getClass().equals(nodes[i]))) {
+//				return false;
+//			}
+//		}
+//		
+//		return true;
+//	}
 
 	private void parseReturnStatement(ReturnStatement node) {
 		// TODO Auto-generated method stub
