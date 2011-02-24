@@ -12,20 +12,37 @@ import org.ita.testrefactoring.astparser.QuickVisitor;
  *
  */
 public class ConsoleVisitor  {
-	public static void showNodes(ASTNode visitedNode) {
-		List<ASTNode> nodes = new QuickVisitor().quickVisit(visitedNode);
+	private static String getIdentString(int identLevel) {
+		StringBuilder s = new StringBuilder();
 		
-		System.out.println("--- " + visitedNode.toString() + " ---");
-		System.out.println("Class: " + visitedNode.getClass());
-		System.out.println("Subnodes:");
-
-		for (ASTNode node : nodes) {
-			System.out.println("Class: " + node.getClass());
-			System.out.println("--- " + node.toString() + " ---");
-			System.out.println();
+		for (int i=0; i<identLevel; i++) {
+			s.append("  ");
 		}
 		
-		System.out.println("--- " + visitedNode.toString() + " ---");
+		return s.toString();
+	}
+	
+	private static void showNodes(int identacao, ASTNode visitedNode) {
+		List<ASTNode> nodes = new QuickVisitor().quickVisit(visitedNode);
+		
+		String line = getIdentString(identacao) + visitedNode.toString();
+		
+		if (line.charAt(line.length()-1) == '\n') {
+			line = line.substring(0, line.length()-1);
+		}
+		
+		System.out.println(line + " (" + visitedNode.getClass() + ")");
+		
+		for (ASTNode node : nodes) {
+			showNodes(identacao+1, node);
+		}
+		
+	}
+	
+	public static void showNodes(ASTNode visitedNode) {
+		showNodes(0, visitedNode);
+		
+		System.out.println();
 		System.out.println();
 	}
 
