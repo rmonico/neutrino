@@ -2,9 +2,9 @@ package org.ita.testrefactoring.metacode;
 
 public interface VariableDeclarationStatement extends Statement {
 
-	public Type getType();
+	public Type getVariableType();
 	
-	public String getName();
+	public String getVariableName();
 	
 	public Expression getInitialization();
 }
