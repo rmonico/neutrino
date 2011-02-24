@@ -17,7 +17,9 @@ import org.ita.testrefactoring.metacode.Block;
 import org.ita.testrefactoring.metacode.ConcreteMethod;
 import org.ita.testrefactoring.metacode.Field;
 import org.ita.testrefactoring.metacode.ParserException;
+import org.ita.testrefactoring.metacode.Statement;
 import org.ita.testrefactoring.metacode.Type;
+import org.ita.testrefactoring.metacode.VariableDeclarationStatement;
 import org.junit.Test;
 
 public class ASTParserTests extends RefactoringAbstractTests {
@@ -759,6 +761,10 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		
 		assertEquals("Lista de statements (size)", 6, block.getStatementList().size());
 
+		Statement statement = block.getStatementList().get(0);
+		
+		assertTrue("Tipo do statement", statement instanceof VariableDeclarationStatement);
+		
 		setTestsOk();
 	}
 }
