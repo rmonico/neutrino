@@ -184,17 +184,6 @@ public class ASTParser extends AbstractParser {
 		return activeCompilationUnit;
 	}
 
-	// TODO: excluir depois se não precisar mais
-	// private boolean isPackageValid(IPackageFragment _package) throws
-	// ParserException {
-	// try {
-	// return ((_package.getCompilationUnits().length > 0) ||
-	// (!_package.hasSubpackages()));
-	// } catch (JavaModelException e) {
-	// throw new ParserException(e);
-	// }
-	// }
-
 	@Override
 	public ASTEnvironment getEnvironment() {
 		return (ASTEnvironment) super.getEnvironment();
