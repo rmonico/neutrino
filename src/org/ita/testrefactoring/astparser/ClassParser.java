@@ -129,7 +129,11 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 				
 				parser.setBlock(block);
 
-				parser.parse();
+				try {
+					parser.parse();
+				} catch (ParserException e) {
+					throw new Error(e);
+				}
 			}
 			
 			return false;
