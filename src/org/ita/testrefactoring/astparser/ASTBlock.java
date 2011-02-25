@@ -10,6 +10,7 @@ public class ASTBlock implements Block, ASTWrapper<org.eclipse.jdt.core.dom.Bloc
 	
 	private List<Statement> statementList = new ArrayList<Statement>();
 	private org.eclipse.jdt.core.dom.Block astObject;
+	private ASTConcreteMethod method;
 	
 	@Override
 	public List<Statement> getStatementList() {
@@ -24,5 +25,23 @@ public class ASTBlock implements Block, ASTWrapper<org.eclipse.jdt.core.dom.Bloc
 	@Override
 	public org.eclipse.jdt.core.dom.Block getASTObject() {
 		return astObject;
+	}
+
+	@Override
+	public ASTConcreteMethod getMethod() {
+		return method;
+	}
+	
+	protected void setParent(ASTConcreteMethod method) {
+		this.method = method;
+	}
+
+	protected ASTVariableDeclarationStatement createVariableDeclaration(String variableName) {
+		ASTVariableDeclarationStatement variableDeclaration = new ASTVariableDeclarationStatement();
+		
+		variableDeclaration.setParent(this);
+		variableDeclaration.setVariableName(variableName);
+		
+		return variableDeclaration;
 	}
 }
