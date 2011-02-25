@@ -28,11 +28,11 @@ public class ASTBlock implements Block, ASTWrapper<org.eclipse.jdt.core.dom.Bloc
 	}
 
 	@Override
-	public ASTConcreteMethod getMethod() {
+	public ASTConcreteMethod getParentMethod() {
 		return method;
 	}
 	
-	protected void setParent(ASTConcreteMethod method) {
+	protected void setParentMethod(ASTConcreteMethod method) {
 		this.method = method;
 	}
 

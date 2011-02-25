@@ -121,7 +121,7 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 			if (!method.getNonAccessModifier().isAbstract()) {
 				ASTConcreteMethod concreteMethod = (ASTConcreteMethod) method;
 
-				ASTMethodBlock block = concreteMethod.getBody();
+				ASTBlock block = concreteMethod.getBody();
 				
 				block.setASTObject(methodDeclaration.getBody());
 

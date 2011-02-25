@@ -4,10 +4,10 @@ import org.ita.testrefactoring.metacode.ConcreteMethod;
 
 public class ASTConcreteMethod extends ASTMethod implements ConcreteMethod {
 	
-	private ASTMethodBlock body = createBlock();
+	private ASTBlock body = createBlock();
 
-	ASTMethodBlock createBlock() {
-		ASTMethodBlock methodBlock = new ASTMethodBlock();
+	ASTBlock createBlock() {
+		ASTBlock methodBlock = new ASTBlock();
 		
 		methodBlock.setParentMethod(this);
 		
@@ -15,7 +15,7 @@ public class ASTConcreteMethod extends ASTMethod implements ConcreteMethod {
 	}
 
 	@Override
-	public ASTMethodBlock getBody() {
+	public ASTBlock getBody() {
 		return body;
 	}
 
