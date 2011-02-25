@@ -766,8 +766,8 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		VariableDeclarationStatement nonInitializedVariable = (VariableDeclarationStatement) block.getStatementList().get(0);
 
 		// TODO: Fazer passar esses testes
-		assertEquals("Declaração de variável sem inicialização (Tipo)", "nonInitializedVariable", nonInitializedVariable.getVariableName());
-		assertEquals("Declaração de variável sem inicialização (Name)", ".int", nonInitializedVariable.getVariableType().getName());
+		assertEquals("Declaração de variável sem inicialização (Name)", "nonInitializedVariable", nonInitializedVariable.getVariableName());
+		assertEquals("Declaração de variável sem inicialização (Tipo)", ".int", nonInitializedVariable.getVariableType().getName());
 		assertEquals("Declaração de variável sem inicialização (Inicialização)", null, nonInitializedVariable.getInitialization());
 		
 		
