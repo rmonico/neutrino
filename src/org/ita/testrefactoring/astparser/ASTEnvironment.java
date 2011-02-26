@@ -13,6 +13,7 @@ import org.zero.utils.MapWrapper;
 
 public class ASTEnvironment implements Environment, TypeListener {
 	
+	private static final String PRIMITIVE_TYPE_PACKAGE_NAME = "<primitive type package>";
 	private Map<String, ASTPackage> packageList = new HashMap<String, ASTPackage>();
 	private IMapWrapper<String, Type> wrapper;
 	private Map<String, Type> typeCache;
@@ -127,7 +128,7 @@ public class ASTEnvironment implements Environment, TypeListener {
 		int lastIndexOf = typeFullQualifiedName.lastIndexOf('.');
 		
 		if (lastIndexOf == -1) {
-			return "";
+			return PRIMITIVE_TYPE_PACKAGE_NAME;
 		}
 		
 		return typeFullQualifiedName.substring(0, lastIndexOf);
