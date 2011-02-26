@@ -3,6 +3,7 @@ package org.ita.testrefactoring.astparser;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.PrefixExpression;
 import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
@@ -86,8 +87,6 @@ class BlockParser {
 		
 		SimpleName variableNameNode = (SimpleName) fragmentNodes.get(0);
 		
-		
-		
 		ASTEnvironment environment = getEnvironmentForBlock();
 
 		Type variableType = environment.getTypeCache().get(variableTypeNode.resolveBinding().getQualifiedName());
@@ -97,7 +96,24 @@ class BlockParser {
 		ASTVariableDeclarationStatement variableDeclaration = block.createVariableDeclaration(variableName);
 
 		variableDeclaration.setVariableType(variableType);
+		
+		variableDeclaration.setASTObject(variableFragment);
 
+		
+		// Inicialização da variável
+		if (fragmentNodes.size() > 1) {
+			
+			// Expressão listeral
+			if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.PrefixExpression) {
+				org.eclipse.jdt.core.dom.PrefixExpression astNode = (PrefixExpression) fragmentNodes.get(1);
+				
+				ASTLiteralExpression literalExpression = environment.createLiteralExpression(astNode.toString());
+				
+				variableDeclaration.setInitializationExpression(literalExpression);
+			}
+		}
+		
+		
 		return variableDeclaration;
 	}
 
