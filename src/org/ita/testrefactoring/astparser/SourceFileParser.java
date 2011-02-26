@@ -4,7 +4,6 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
-import org.ita.testrefactoring.metacode.DummyType;
 import org.ita.testrefactoring.metacode.Type;
 
 class SourceFileParser {
@@ -26,44 +25,16 @@ class SourceFileParser {
 		public boolean visit(org.eclipse.jdt.core.dom.ImportDeclaration node) {
 			ASTImportDeclaration _import = sourceFile.createImportDeclaration();
 
-			String packageName = extractPackageName(node.getName().toString());
-			String typeName = extractTypeName(node.getName().toString());
-			
 			ASTEnvironment environment = sourceFile.getPackage().getEnvironment();
 			
-			Type type = environment.getTypeCache().get(typeName);
+			Type type = environment.getTypeCache().get(node.getName());
 				
-			if (type == null) {
-				ASTPackage pack = environment.getPackageList().get(packageName);
-
-				if (pack == null) {
-					// Pacote não encontrado no cache, cria um pacote para o tipo
-					pack = environment.createPackage(packageName);
-				}
-				
-				// Criar type "dummy"
-				DummyType dummy = environment.createDummyType(typeName, pack);
-				
-				type = dummy;
-			}
-
 			_import.setType(type);
 
 			// Nunca visita os nós filhos, isso será feito posteriormente
 			return false;
 		}
 
-		private String extractTypeName(String packageName) {
-			int endDot = packageName.lastIndexOf('.');
-
-			return packageName.substring(endDot+1, packageName.length());
-		}
-
-		private String extractPackageName(String packageName) {
-			int endDot = packageName.lastIndexOf('.');
-
-			return packageName.substring(0, endDot);
-		}
 	}
 
 	/**
