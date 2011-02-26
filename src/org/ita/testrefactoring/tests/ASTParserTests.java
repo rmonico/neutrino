@@ -774,23 +774,23 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		VariableDeclarationStatement nonInitializedVariable = (VariableDeclarationStatement) block.getStatementList().get(0);
 
 		assertEquals("Declaração de variável sem inicialização (Name)", "nonInitializedVariable", nonInitializedVariable.getVariableName());
-		assertEquals("Declaração de variável sem inicialização (Tipo)", "<primitive type package>.int", nonInitializedVariable.getVariableType().getQualifiedName());
-		assertEquals("Declaração de variável sem inicialização (Inicialização)", null, nonInitializedVariable.getInitialization());
+		assertEquals("Declaração de variável sem inicialização (Type)", "<primitive type package>.int", nonInitializedVariable.getVariableType().getQualifiedName());
+		assertEquals("Declaração de variável sem inicialização (Initialization)", null, nonInitializedVariable.getInitialization());
 
 		
-		// TODO: Fazer passar esses testes
 		VariableDeclarationStatement initializedVariable = (VariableDeclarationStatement) block.getStatementList().get(1);
 		
-		assertEquals("Declaração de variável com inicialização literal (Tipo)", "initializedVariable", initializedVariable.getVariableName());
-		assertEquals("Declaração de variável com inicialização literal (Name)", "<primitive type package>.int", initializedVariable.getVariableType().getQualifiedName());
-		assertEquals("Declaração de variável com inicialização literal (Inicialização)", "-1", initializedVariable.getInitialization().toString());
+		assertEquals("Declaração de variável com inicialização literal (Name)", "initializedVariable", initializedVariable.getVariableName());
+		assertEquals("Declaração de variável com inicialização literal (Type)", "<primitive type package>.int", initializedVariable.getVariableType().getQualifiedName());
+		assertEquals("Declaração de variável com inicialização literal (Initialization)", "-1", initializedVariable.getInitialization().toString());
 		
 		
-		VariableDeclarationStatement methodInitializedVariable = (VariableDeclarationStatement) block.getStatementList().get(1);
+		// TODO: Fazer passar esses testes
+		VariableDeclarationStatement methodInitializedVariable = (VariableDeclarationStatement) block.getStatementList().get(2);
 		
 		assertEquals("Declaração de variável inicializada por método (Tipo)", "methodInitializedVariable", methodInitializedVariable.getVariableName());
-		assertEquals("Declaração de variável inicializada por método (Name)", ".int", methodInitializedVariable.getVariableType().getName());
-		assertEquals("Declaração de variável inicializada por método (Inicialização)", clazz.getMethodList().get("returnStatement"), (MethodInvocationExpression) methodInitializedVariable.getInitialization());
+		assertEquals("Declaração de variável inicializada por método (Type)", "<primitive type package>.int", methodInitializedVariable.getVariableType().getName());
+		assertEquals("Declaração de variável inicializada por método (Initialization)", clazz.getMethodList().get("returnStatement"), ((MethodInvocationExpression) methodInitializedVariable.getInitialization()).getCalledMethod());
 		
 		setTestsOk();
 	}
