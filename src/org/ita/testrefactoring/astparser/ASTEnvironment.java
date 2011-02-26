@@ -3,7 +3,10 @@ package org.ita.testrefactoring.astparser;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.jdt.core.dom.Expression;
+import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.ita.testrefactoring.metacode.Environment;
+import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.Package;
 import org.ita.testrefactoring.metacode.Type;
 import org.ita.testrefactoring.metacode.TypeListener;
@@ -145,6 +148,60 @@ public class ASTEnvironment implements Environment, TypeListener {
 		expression.setValue(value);
 		
 		return expression;
+	}
+
+	public ASTMethodInvocationExpression createMethodInvocationExpression(String methodSignature) {
+		Method calledMethod = locateMethod(methodSignature);
+		
+		ASTMethodInvocationExpression methodInvocationExpression = new ASTMethodInvocationExpression();
+		
+		methodInvocationExpression.setCalledMethod(calledMethod);
+		
+		return methodInvocationExpression;
+	}
+
+	/**
+	 * Devolve o método correspondente ao nome qualificado de método passado no parâmetro.
+	 * 
+	 * Por exemplo:
+	 * org.ita.testrefactoring.astparser.ASTEnvironment.locateMethod(java.lang.String, packageName.SecondParameterClass);
+	 * 
+	 * @param qualifiedMethodName
+	 * @return
+	 */
+	public Method locateMethod(String methodSignatureString) {
+		String packageName;
+		String className;
+		String methodName;
+		String methodParameters;
+		
+		return null;
+	}
+
+	// TODO: Testar
+	static String getMethodSignature(MethodInvocation methodInvocation) {
+		
+		StringBuilder parameterList = new StringBuilder();
+		
+		parameterList.append("(");
+		
+		for (int i=0; i<methodInvocation.arguments().size(); i++) {
+			org.eclipse.jdt.core.dom.Expression expression = ((Expression) methodInvocation.arguments().get(i));
+
+			parameterList.append(expression.resolveTypeBinding().getQualifiedName());
+			
+			if (i<methodInvocation.arguments().size()-1) {
+				parameterList.append(", ");				
+			}
+		}
+		
+		parameterList.append(");");
+		
+		String packageName = extractPackageName(methodInvocation.resolveMethodBinding().getDeclaringClass().getQualifiedName());
+		String className = extractTypeName(methodInvocation.resolveMethodBinding().getDeclaringClass().getQualifiedName());
+		String methodName = methodInvocation.getName().toString();
+		
+		return packageName + "." + className + "." + methodName + parameterList.toString();
 	}
 
 }
