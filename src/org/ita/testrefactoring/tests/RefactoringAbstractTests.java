@@ -32,6 +32,7 @@ public class RefactoringAbstractTests {
 	private IJavaProject javaProject;
 	private IProject project;
 	private boolean testsOk;
+	private boolean alwaysDeleteTestProject;
 
 	protected IPackageFragment getPackageByName(String packageName)
 			throws JavaModelException {
@@ -92,17 +93,17 @@ public class RefactoringAbstractTests {
 
 	@After
 	public void releaseEnvironment() throws CoreException {
-		if (isTestsOk()) {
+		if (testsOk || alwaysDeleteTestProject) {
 			project.delete(false, null);
 		}
 	}
 
-	private boolean isTestsOk() {
-		return testsOk;
-	}
-	
 	protected void setTestsOk() {
 		testsOk = true;
+	}
+	
+	protected void setAlwaysDeleteTestProject(boolean value) {
+		alwaysDeleteTestProject = value;
 	}
 
 	protected ICompilationUnit createSourceFile(String packageName,

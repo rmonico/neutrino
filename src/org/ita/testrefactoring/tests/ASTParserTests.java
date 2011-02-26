@@ -19,10 +19,17 @@ import org.ita.testrefactoring.metacode.Field;
 import org.ita.testrefactoring.metacode.ParserException;
 import org.ita.testrefactoring.metacode.Type;
 import org.ita.testrefactoring.metacode.VariableDeclarationStatement;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ASTParserTests extends RefactoringAbstractTests {
 
+	@Before
+	public void setup() {
+		// Não apaga o projeto de testes após rodar cada teste.
+		setAlwaysDeleteTestProject(true);
+	}
+	
 	@Test
 	public void testPackageParsing() throws ParserException, JavaModelException {
 		// Crio os arquivos, pois só considero pacotes quando há arquivos dentro
