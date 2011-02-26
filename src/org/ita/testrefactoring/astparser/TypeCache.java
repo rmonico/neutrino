@@ -37,9 +37,9 @@ public class TypeCache extends HashMap<String, Type> {
 				pack = environment.createPackage(packageName);
 			}
 			
-			environment.createDummyType(typeName, pack);
+			Type newType = environment.createDummyType(typeName, pack);
 			
-			cachedType = super.get(key);
+			cachedType = super.get(newType.getQualifiedName());
 		}
 		
 		return cachedType;
