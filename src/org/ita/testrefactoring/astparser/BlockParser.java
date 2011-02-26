@@ -3,6 +3,7 @@ package org.ita.testrefactoring.astparser;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.PrefixExpression;
 import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.SimpleName;
@@ -110,27 +111,18 @@ class BlockParser {
 				ASTLiteralExpression literalExpression = environment.createLiteralExpression(astNode.toString());
 				
 				variableDeclaration.setInitializationExpression(literalExpression);
+			} else if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.MethodInvocation) {
+				org.eclipse.jdt.core.dom.MethodInvocation astNode = (MethodInvocation) fragmentNodes.get(1);
+				
+				String methodSignatureString = ASTEnvironment.getMethodSignature(astNode);
+
+				environment.createMethodInvocationExpression(methodSignatureString);
 			}
 		}
 		
 		
 		return variableDeclaration;
 	}
-
-	// private boolean checkNodeStructure(List<ASTNode> nodeList, Class<?>...
-	// nodes) {
-	// if (nodeList.size() != nodes.length) {
-	// return false;
-	// }
-	//
-	// for (int i=0; i<nodeList.size(); i++) {
-	// if (!(nodeList.get(i).getClass().equals(nodes[i]))) {
-	// return false;
-	// }
-	// }
-	//
-	// return true;
-	// }
 
 	private Statement parseReturnStatement(ReturnStatement node) {
 		return null;
