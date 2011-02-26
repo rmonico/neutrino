@@ -39,13 +39,14 @@ public class ASTEnvironment implements Environment, TypeListener {
 	 * @return
 	 */
 	ASTPackage createPackage(String packageName) {
-		ASTPackage _package = new ASTPackage();
-		_package.setEnvironment(this);
-		_package.setName(packageName);
+		ASTPackage pack = new ASTPackage();
 		
-		packageList.put(packageName, _package);
+		pack.setEnvironment(this);
+		pack.setName(packageName);
 		
-		return _package;
+		packageList.put(packageName, pack);
+		
+		return pack;
 	}
 
 	@Override
