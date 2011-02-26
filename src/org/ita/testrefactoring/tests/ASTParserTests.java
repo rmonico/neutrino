@@ -16,6 +16,7 @@ import org.ita.testrefactoring.metacode.AbstractMethod;
 import org.ita.testrefactoring.metacode.Block;
 import org.ita.testrefactoring.metacode.ConcreteMethod;
 import org.ita.testrefactoring.metacode.Field;
+import org.ita.testrefactoring.metacode.MethodInvocationExpression;
 import org.ita.testrefactoring.metacode.ParserException;
 import org.ita.testrefactoring.metacode.Type;
 import org.ita.testrefactoring.metacode.VariableDeclarationStatement;
@@ -785,12 +786,12 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		assertEquals("Declaração de variável com inicialização literal (Inicialização)", "-1", initializedVariable.getInitialization().toString());
 		
 		
-//		VariableDeclarationStatement methodInitializedVariable = (VariableDeclarationStatement) block.getStatementList().get(1);
-//		
-//		assertEquals("Declaração de variável inicializada por método (Tipo)", "methodInitializedVariable", methodInitializedVariable.getVariableName());
-//		assertEquals("Declaração de variável inicializada por método (Name)", ".int", methodInitializedVariable.getVariableType().getName());
-//		assertEquals("Declaração de variável inicializada por método (Inicialização)", clazz.getMethodList().get("returnStatement"), (MethodInvocationExpression) methodInitializedVariable.getInitialization());
-//		
+		VariableDeclarationStatement methodInitializedVariable = (VariableDeclarationStatement) block.getStatementList().get(1);
+		
+		assertEquals("Declaração de variável inicializada por método (Tipo)", "methodInitializedVariable", methodInitializedVariable.getVariableName());
+		assertEquals("Declaração de variável inicializada por método (Name)", ".int", methodInitializedVariable.getVariableType().getName());
+		assertEquals("Declaração de variável inicializada por método (Inicialização)", clazz.getMethodList().get("returnStatement"), (MethodInvocationExpression) methodInitializedVariable.getInitialization());
+		
 		setTestsOk();
 	}
 }
