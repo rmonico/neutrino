@@ -1,7 +1,5 @@
 package org.ita.testrefactoring.metacode;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -10,6 +8,6 @@ import java.util.List;
  * @author Rafael Monico
  * 
  */
-public interface MethodInvocationExpression implements Expression, MethodInvocation {
+public interface MethodInvocationExpression extends Expression, MethodInvocation {
 
 }
