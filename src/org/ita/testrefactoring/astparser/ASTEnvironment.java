@@ -139,4 +139,10 @@ public class ASTEnvironment implements Environment, TypeListener {
 		return typeFullQualifiedName.substring(typeFullQualifiedName.lastIndexOf('.') + 1, typeFullQualifiedName.length());
 	}
 
+	public ASTLiteralExpression createLiteralExpression() {
+		ASTLiteralExpression expression = new ASTLiteralExpression();
+		
+		return expression;
+	}
+
 }
