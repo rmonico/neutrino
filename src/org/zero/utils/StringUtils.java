@@ -40,20 +40,4 @@ public class StringUtils {
 
 		return list;
 	}
-
-	public static String extractPackageName(String typeFullQualifiedName) {
-
-		int lastIndexOf = typeFullQualifiedName.lastIndexOf('.');
-		
-		if (lastIndexOf == -1) {
-			return "";
-		}
-		
-		return typeFullQualifiedName.substring(0, lastIndexOf);
-
-	}
-
-	public static String extractTypeName(String typeFullQualifiedName) {
-		return typeFullQualifiedName.substring(typeFullQualifiedName.lastIndexOf('.') + 1, typeFullQualifiedName.length());
-	}
 }

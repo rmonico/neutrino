@@ -22,7 +22,7 @@ public class ASTEnvironment implements Environment, TypeListener {
 		WrappedMapListener<Type> wrapperListener = new WrappedMapListener<Type>();
 		wrapperListener.setTypeListener(this);
 		
-		wrapper = new MapWrapper<String, Type>(new HashMap<String, Type>());
+		wrapper = new MapWrapper<String, Type>(new TypeCache(this));
 		wrapper.addListener(wrapperListener);
 		
 		typeCache = wrapper;
@@ -119,6 +119,22 @@ public class ASTEnvironment implements Environment, TypeListener {
 	@Override
 	public void typePromoted(Type oldType, Type newType) {
 		typeCache.put(newType.getQualifiedName(), newType);
+	}
+
+	public static String extractPackageName(String typeFullQualifiedName) {
+	
+		int lastIndexOf = typeFullQualifiedName.lastIndexOf('.');
+		
+		if (lastIndexOf == -1) {
+			return "";
+		}
+		
+		return typeFullQualifiedName.substring(0, lastIndexOf);
+	
+	}
+
+	public static String extractTypeName(String typeFullQualifiedName) {
+		return typeFullQualifiedName.substring(typeFullQualifiedName.lastIndexOf('.') + 1, typeFullQualifiedName.length());
 	}
 
 }
