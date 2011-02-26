@@ -3,7 +3,6 @@ package org.ita.testrefactoring.astparser;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
-import org.eclipse.jdt.core.dom.PrimitiveType;
 import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
@@ -43,14 +42,14 @@ class BlockParser {
 	private void parseStatement(ASTNode node) throws ParserException {
 		// ConsoleVisitor.showNodes(node);
 
-		Statement statement;
+		Statement statement = null;
 
 		if (node instanceof org.eclipse.jdt.core.dom.VariableDeclarationStatement) {
 			statement = parseVariableDeclaration((org.eclipse.jdt.core.dom.VariableDeclarationStatement) node);
 		} else if (node instanceof ReturnStatement) {
 			statement = parseReturnStatement((ReturnStatement) node);
 		} else {
-			throw new UnsupportedSintaxException();
+//			throw new UnsupportedSintaxException();
 		}
 
 		block.getStatementList().add(statement);
@@ -66,11 +65,11 @@ class BlockParser {
 	private VariableDeclarationStatement parseVariableDeclaration(org.eclipse.jdt.core.dom.VariableDeclarationStatement node) throws ParserException {
 		List<ASTNode> nodes = quickVisitor.quickVisit(node);
 
-		if (!(nodes.get(0) instanceof PrimitiveType)) {
+		if (!(nodes.get(0) instanceof org.eclipse.jdt.core.dom.Type)) {
 			throw new UnsupportedSintaxException();
 		}
 
-		PrimitiveType variableTypeNode = (PrimitiveType) nodes.get(0);
+		org.eclipse.jdt.core.dom.Type variableTypeNode = (org.eclipse.jdt.core.dom.Type) nodes.get(0);
 
 
 		if (!(nodes.get(1) instanceof VariableDeclarationFragment)) {
