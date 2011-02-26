@@ -7,6 +7,9 @@ public class ASTLiteralExpression extends AbstractASTExpression implements Liter
 
 	private String value;
 
+	public ASTLiteralExpression() {
+	}
+	
 	@Override
 	public String getValue() {
 		return value;
