@@ -51,16 +51,29 @@ public class ASTParser extends AbstractParser {
 
 		doASTParsing(compilationUnitList, activeCompilationUnit);
 
+		parseAllSourceFilesInWorkspace();
+
+		parseAllClassesInWorkspace();
+	}
+
+	private void parseAllSourceFilesInWorkspace() {
+		List<ASTSourceFile> allSourceFiles = new ArrayList<ASTSourceFile>();
+
 		for (ASTPackage pack : environment.getPackageList().values()) {
-			for (ASTSourceFile sourceFile : pack.getSourceFileList().values()) {
-				SourceFileParser parser = new SourceFileParser();
-
-				parser.setSourceFile(sourceFile);
-
-				parser.parse();
-			}
+			allSourceFiles.addAll(pack.getSourceFileList().values());
 		}
 
+		for (ASTSourceFile sourceFile : allSourceFiles) {
+			SourceFileParser parser = new SourceFileParser();
+
+			parser.setSourceFile(sourceFile);
+
+			parser.parse();
+		}
+
+	}
+
+	private void parseAllClassesInWorkspace() throws ParserException {
 		List<ASTSourceFile> allSourceFiles = new ArrayList<ASTSourceFile>();
 
 		for (ASTPackage pack : environment.getPackageList().values()) {
