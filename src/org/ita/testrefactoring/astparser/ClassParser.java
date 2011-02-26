@@ -169,7 +169,7 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 		if (superClass.getKind() == TypeKind.UNKNOWN) {
 			// Se antes não era possível saber qual o Kind do tipo, agora sei
 			// que se trata de uma classe
-			DummyClass dummyClass = environment.createDummyClass(superClass.getName());
+			DummyClass dummyClass = environment.createDummyClass(superClass.getQualifiedName());
 
 			superClass.promote(dummyClass);
 
