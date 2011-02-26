@@ -10,21 +10,6 @@ import java.util.List;
  * @author Rafael Monico
  * 
  */
-public class MethodInvocationExpression implements Expression, MethodInvocation {
+public interface MethodInvocationExpression implements Expression, MethodInvocation {
 
-	private Method calledMethod;
-	private List<Expression> parameterList = new ArrayList<Expression>();
-
-	public Method getCalledMethod() {
-		return calledMethod;
-	}
-
-	void setCalledMethod(Method calledMethod) {
-		this.calledMethod = calledMethod;
-	}
-	
-	@Override
-	public List<Expression> getParameterList() {
-		return parameterList;
-	}
 }
