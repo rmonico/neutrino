@@ -8,6 +8,7 @@ import org.eclipse.jdt.core.dom.PrefixExpression;
 import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+import org.ita.testrefactoring.metacode.MethodInvocationExpression;
 import org.ita.testrefactoring.metacode.ParserException;
 import org.ita.testrefactoring.metacode.Statement;
 import org.ita.testrefactoring.metacode.Type;
@@ -118,7 +119,9 @@ class BlockParser {
 				
 				String methodSignatureString = ASTEnvironment.getMethodSignature(astNode);
 
-				environment.createMethodInvocationExpression(methodSignatureString);
+				MethodInvocationExpression mie = environment.createMethodInvocationExpression(methodSignatureString);
+				
+				variableDeclaration.setInitializationExpression(mie);
 			}
 		}
 		
