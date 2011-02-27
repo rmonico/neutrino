@@ -132,4 +132,10 @@ public class DummyType implements Type {
 		return sb.toString();
 	}
 
+	@Override
+	public Method getOrCreateMethod(String methodName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

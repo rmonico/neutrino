@@ -81,4 +81,6 @@ public interface Type {
 	 * @param listener
 	 */
 	void removeListener(TypeListener listener);
+
+	Method getOrCreateMethod(String methodName);
 }

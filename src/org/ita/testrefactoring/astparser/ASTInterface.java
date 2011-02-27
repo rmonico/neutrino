@@ -1,6 +1,7 @@
 package org.ita.testrefactoring.astparser;
 
 import org.ita.testrefactoring.metacode.Interface;
+import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.Type;
 import org.ita.testrefactoring.metacode.TypeListener;
 
@@ -39,6 +40,12 @@ public class ASTInterface extends ASTType implements Interface {
 	@Override
 	public TypeKind getKind() {
 		return TypeKind.INTERFACE;
+	}
+
+	@Override
+	public Method getOrCreateMethod(String methodName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
