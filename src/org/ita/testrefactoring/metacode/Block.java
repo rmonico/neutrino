@@ -11,5 +11,5 @@ public interface Block {
 	 * 
 	 * @return
 	 */
-	ConcreteMethod getParentMethod();
+	Method getParentMethod();
 }

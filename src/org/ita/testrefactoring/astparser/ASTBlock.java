@@ -10,7 +10,7 @@ public class ASTBlock implements Block, ASTWrapper<org.eclipse.jdt.core.dom.Bloc
 	
 	private List<Statement> statementList = new ArrayList<Statement>();
 	private org.eclipse.jdt.core.dom.Block astObject;
-	private ASTConcreteMethod method;
+	private ASTMethod method;
 	
 	@Override
 	public List<Statement> getStatementList() {
@@ -28,11 +28,11 @@ public class ASTBlock implements Block, ASTWrapper<org.eclipse.jdt.core.dom.Bloc
 	}
 
 	@Override
-	public ASTConcreteMethod getParentMethod() {
+	public ASTMethod getParentMethod() {
 		return method;
 	}
 	
-	protected void setParentMethod(ASTConcreteMethod method) {
+	protected void setParentMethod(ASTMethod method) {
 		this.method = method;
 	}
 

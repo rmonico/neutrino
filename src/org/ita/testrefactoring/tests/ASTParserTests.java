@@ -13,8 +13,8 @@ import org.ita.testrefactoring.astparser.ASTPackage;
 import org.ita.testrefactoring.astparser.ASTParser;
 import org.ita.testrefactoring.astparser.ASTSourceFile;
 import org.ita.testrefactoring.metacode.Block;
-import org.ita.testrefactoring.metacode.ConcreteMethod;
 import org.ita.testrefactoring.metacode.Field;
+import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.MethodInvocationExpression;
 import org.ita.testrefactoring.metacode.ParserException;
 import org.ita.testrefactoring.metacode.Type;
@@ -537,21 +537,21 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		assertEquals("Lista de métodos (size)", 16, methodList.values().size());
 
-		ConcreteMethod publicAccessMethod = (ConcreteMethod) methodList.get("publicAccessMethod");
-		ConcreteMethod defaultAccessMethod = (ConcreteMethod) methodList.get("defaultAccessMethod");
-		ConcreteMethod protectedAccessMethod = (ConcreteMethod) methodList.get("protectedAccessMethod");
-		ConcreteMethod privateAccessMethod = (ConcreteMethod) methodList.get("privateAccessMethod");
+		Method publicAccessMethod = (Method) methodList.get("publicAccessMethod");
+		Method defaultAccessMethod = (Method) methodList.get("defaultAccessMethod");
+		Method protectedAccessMethod = (Method) methodList.get("protectedAccessMethod");
+		Method privateAccessMethod = (Method) methodList.get("privateAccessMethod");
 
 		assertTrue("Modificador de acesso de método public", publicAccessMethod.getAccessModifier().isPublic());
 		assertTrue("Modificador de acesso de método default", defaultAccessMethod.getAccessModifier().isDefault());
 		assertTrue("Modificador de acesso de método protected", protectedAccessMethod.getAccessModifier().isProtected());
 		assertTrue("Modificador de acesso de método private", privateAccessMethod.getAccessModifier().isPrivate());
 
-		ConcreteMethod withoutNonAccessMethodModifier = (ConcreteMethod) methodList.get("withoutNonAccessMethodModifier");
-		ConcreteMethod abstractMethod = (ConcreteMethod) methodList.get("abstractMethod");
-		ConcreteMethod staticMethod = (ConcreteMethod) methodList.get("staticMethod");
-		ConcreteMethod finalMethod = (ConcreteMethod) methodList.get("finalMethod");
-		ConcreteMethod staticFinalMethod = (ConcreteMethod) methodList.get("staticFinalMethod");
+		Method withoutNonAccessMethodModifier = (Method) methodList.get("withoutNonAccessMethodModifier");
+		Method abstractMethod = (Method) methodList.get("abstractMethod");
+		Method staticMethod = (Method) methodList.get("staticMethod");
+		Method finalMethod = (Method) methodList.get("finalMethod");
+		Method staticFinalMethod = (Method) methodList.get("staticFinalMethod");
 
 		assertTrue("Sem modificador não referente a acesso para método", withoutNonAccessMethodModifier.getNonAccessModifier().isNonModified());
 		assertTrue("Modificador não referente a acesso para método abstract", abstractMethod.getNonAccessModifier().isAbstract());
@@ -591,7 +591,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		// assertEquals("Método que lança exceçao não-dummy",
 		// nonDummyThrowerMethod.getThrownExceptions().get(0));
 
-		ConcreteMethod getFieldInitializationMethod = (ConcreteMethod) methodList.get("getFieldInitialization");
+		Method getFieldInitializationMethod = (Method) methodList.get("getFieldInitialization");
 		assertTrue("Existência do bloco do método", getFieldInitializationMethod.getBody() != null);
 
 		// Method dummyAnnotatted = methodList.get("dummyAnnotatted");
@@ -761,7 +761,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		
 		Type clazz = environment.getTypeCache().get("org.ita.testrefactoring.testfiles.BlockSupportedSintax");
 		
-		ConcreteMethod method = (ConcreteMethod) clazz.getMethodList().get("variableDeclaration");
+		Method method = (Method) clazz.getMethodList().get("variableDeclaration");
 		
 		Block block = method.getBody();
 		

@@ -20,4 +20,6 @@ public interface Method extends TypeElement {
 	
 	List<CheckedExceptionClass> getThrownExceptions();
 
+	Block getBody();
+
 }

@@ -9,14 +9,23 @@ import org.ita.testrefactoring.metacode.CheckedExceptionClass;
 import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.Type;
 
-public abstract class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
+public class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
 
 	private ASTInnerElementAccessModifier accessModifier = new ASTInnerElementAccessModifier();
 	private String name;
 	private Type parent;
 	private ASTMethodDeclarationNonAccessModifier nonAccessModifier = new ASTMethodDeclarationNonAccessModifier();
 	private MethodDeclaration astObject;
+	private ASTBlock body = createBlock();
 	
+	ASTBlock createBlock() {
+		ASTBlock methodBlock = new ASTBlock();
+		
+		methodBlock.setParentMethod(this);
+		
+		return methodBlock;
+	}
+
 	@Override
 	public ASTInnerElementAccessModifier getAccessModifier() {
 		return accessModifier;
@@ -83,4 +92,9 @@ public abstract class ASTMethod implements Method, ASTWrapper<MethodDeclaration>
 		return astObject;
 	}
 	
+	@Override
+	public ASTBlock getBody() {
+		return body;
+	}
+
 }
