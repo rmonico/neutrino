@@ -3,7 +3,7 @@ package org.ita.testrefactoring.astparser;
 import org.ita.testrefactoring.metacode.LiteralExpression;
 
 
-public class ASTLiteralExpression extends AbstractASTExpression implements LiteralExpression {
+public class ASTLiteralExpression extends ASTAbstractExpression implements LiteralExpression {
 
 	private String value;
 

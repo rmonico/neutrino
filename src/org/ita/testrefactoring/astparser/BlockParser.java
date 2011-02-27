@@ -3,7 +3,6 @@ package org.ita.testrefactoring.astparser;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
-import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.PrefixExpression;
 import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.SimpleName;
@@ -115,13 +114,18 @@ class BlockParser {
 				
 			// Variável inicializada por método
 			} else if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.MethodInvocation) {
-				org.eclipse.jdt.core.dom.MethodInvocation astNode = (MethodInvocation) fragmentNodes.get(1);
+				org.eclipse.jdt.core.dom.MethodInvocation astNode = (org.eclipse.jdt.core.dom.MethodInvocation) fragmentNodes.get(1);
 				
 				String methodSignatureString = ASTEnvironment.getMethodSignature(astNode);
 
 				MethodInvocationExpression mie = environment.createMethodInvocationExpression(methodSignatureString);
 				
 				variableDeclaration.setInitializationExpression(mie);
+				
+			// Variável inicializada com null
+			} else if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.NullLiteral) {
+			} else {
+				throw new UnsupportedSintaxException();
 			}
 		}
 		

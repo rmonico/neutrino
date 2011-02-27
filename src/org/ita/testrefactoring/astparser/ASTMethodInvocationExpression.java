@@ -7,7 +7,7 @@ import org.ita.testrefactoring.metacode.Expression;
 import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.MethodInvocationExpression;
 
-public class ASTMethodInvocationExpression extends AbstractASTExpression implements MethodInvocationExpression {
+public class ASTMethodInvocationExpression extends ASTAbstractExpression implements MethodInvocationExpression {
 
 	private Method calledMethod;
 	private List<Expression> parameterList = new ArrayList<Expression>();
