@@ -1,6 +1,5 @@
 package org.ita.testrefactoring.metacode;
 
-import java.util.List;
 
 /**
  * Representa uma declaração de método dentro de uma classe.
@@ -8,18 +7,10 @@ import java.util.List;
  * @author Rafael Monico
  *
  */
-public interface Method extends TypeElement {
-	
-	List<Annotation> getAnnotations();
+public interface Method extends TypeElement, Invokable {
 	
 	MethodDeclarationNonAccessModifier getNonAccessModifier();
 	
 	Type getReturnType();
 	
-	List<Argument> getArgumentList();
-	
-	List<CheckedExceptionClass> getThrownExceptions();
-
-	Block getBody();
-
 }
