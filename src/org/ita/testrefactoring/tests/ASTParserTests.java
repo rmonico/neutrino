@@ -788,7 +788,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		VariableDeclarationStatement methodInitializedVariable = (VariableDeclarationStatement) block.getStatementList().get(2);
 		
 		assertEquals("Declaração de variável inicializada por método (Tipo)", "methodInitializedVariable", methodInitializedVariable.getVariableName());
-		assertEquals("Declaração de variável inicializada por método (Type)", "<primitive type package>.int", methodInitializedVariable.getVariableType().getName());
+		assertEquals("Declaração de variável inicializada por método (Type)", "<primitive type package>.int", methodInitializedVariable.getVariableType().getQualifiedName());
 		assertEquals("Declaração de variável inicializada por método (Initialization)", clazz.getMethodList().get("returnStatement"), ((MethodInvocationExpression) methodInitializedVariable.getInitialization()).getCalledMethod());
 		
 		setTestsOk();
