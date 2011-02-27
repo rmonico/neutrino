@@ -111,6 +111,8 @@ class BlockParser {
 				ASTLiteralExpression literalExpression = environment.createLiteralExpression(astNode.toString());
 				
 				variableDeclaration.setInitializationExpression(literalExpression);
+				
+			// Variável inicializada por método
 			} else if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.MethodInvocation) {
 				org.eclipse.jdt.core.dom.MethodInvocation astNode = (MethodInvocation) fragmentNodes.get(1);
 				

@@ -61,7 +61,7 @@ public class ASTClass extends ASTType implements Class {
 		return field;
 	}
 
-	ASTMethod createMethod(String methodName, boolean isAbstract) {
+	ASTMethod createMethod(String methodName) {
 		ASTMethod method = new ASTMethod();
 		
 		method.setName(methodName);
@@ -74,13 +74,13 @@ public class ASTClass extends ASTType implements Class {
 
 	@Override
 	public Method getOrCreateMethod(String methodName) {
-		Method method = getMethodList().get(methodName);
+		ASTMethod method = getMethodList().get(methodName);
 		
 		if (method == null) {
-			method = createMethod(methodName, false);
+			method = createMethod(methodName);
 		}
 		
-		return null;
+		return method;
 	}
 
 }
