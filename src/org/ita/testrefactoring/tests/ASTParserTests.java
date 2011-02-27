@@ -784,12 +784,34 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		assertEquals("Declaração de variável com inicialização literal (Initialization)", "-1", initializedVariable.getInitialization().toString());
 		
 		
-		// TODO: Fazer passar esses testes
 		VariableDeclarationStatement methodInitializedVariable = (VariableDeclarationStatement) block.getStatementList().get(2);
 		
 		assertEquals("Declaração de variável inicializada por método (Tipo)", "methodInitializedVariable", methodInitializedVariable.getVariableName());
 		assertEquals("Declaração de variável inicializada por método (Type)", "<primitive type package>.int", methodInitializedVariable.getVariableType().getQualifiedName());
 		assertEquals("Declaração de variável inicializada por método (Initialization)", clazz.getMethodList().get("returnStatement"), ((MethodInvocationExpression) methodInitializedVariable.getInitialization()).getCalledMethod());
+		
+		
+		// TODO: Fazer passar esses testes
+		VariableDeclarationStatement nonInitializedObject = (VariableDeclarationStatement) block.getStatementList().get(3);
+		
+		assertEquals("Declaração de variável objeto não inicializada (Tipo)", "nonInitializedObject", nonInitializedObject.getVariableName());
+		assertEquals("Declaração de variável objeto não inicializada (Type)", "java.lang.Integer", nonInitializedObject.getVariableType().getQualifiedName());
+		assertEquals("Declaração de variável objeto não inicializada (Initialization)", null, ((MethodInvocationExpression) nonInitializedObject.getInitialization()).getCalledMethod());
+
+		
+		VariableDeclarationStatement nullInitializedObject = (VariableDeclarationStatement) block.getStatementList().get(4);
+		
+		assertEquals("Declaração de variável objeto inicializada com null (Tipo)", "nullInitializedObject", nullInitializedObject.getVariableName());
+		assertEquals("Declaração de variável objeto inicializada com null (Type)", "java.lang.Integer", nullInitializedObject.getVariableType().getQualifiedName());
+		assertEquals("Declaração de variável objeto inicializada com null (Initialization)", "null", nullInitializedObject.getInitialization().toString());
+
+		
+		VariableDeclarationStatement constructedObject = (VariableDeclarationStatement) block.getStatementList().get(5);
+		
+		assertEquals("Declaração de variável objeto inicializada por construtor (Tipo)", "constructedObject", constructedObject.getVariableName());
+		assertEquals("Declaração de variável objeto inicializada por construtor (Type)", "java.lang.Integer", constructedObject.getVariableType().getQualifiedName());
+		assertEquals("Declaração de variável objeto inicializada por construtor (Initialization)", "new Integer(99)", constructedObject.getInitialization().toString());
+
 		
 		setTestsOk();
 	}
