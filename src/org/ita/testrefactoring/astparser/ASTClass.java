@@ -1,7 +1,6 @@
 package org.ita.testrefactoring.astparser;
 
 import org.ita.testrefactoring.metacode.Class;
-import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.NonAccessClassModifier;
 import org.ita.testrefactoring.metacode.Type;
 import org.ita.testrefactoring.metacode.TypeListener;
@@ -73,7 +72,7 @@ public class ASTClass extends ASTType implements Class {
 	}
 
 	@Override
-	public Method getOrCreateMethod(String methodName) {
+	public ASTMethod getOrCreateMethod(String methodName) {
 		ASTMethod method = getMethodList().get(methodName);
 		
 		if (method == null) {
