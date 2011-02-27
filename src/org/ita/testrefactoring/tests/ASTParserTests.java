@@ -12,7 +12,6 @@ import org.ita.testrefactoring.astparser.ASTMethod;
 import org.ita.testrefactoring.astparser.ASTPackage;
 import org.ita.testrefactoring.astparser.ASTParser;
 import org.ita.testrefactoring.astparser.ASTSourceFile;
-import org.ita.testrefactoring.metacode.AbstractMethod;
 import org.ita.testrefactoring.metacode.Block;
 import org.ita.testrefactoring.metacode.ConcreteMethod;
 import org.ita.testrefactoring.metacode.Field;
@@ -549,7 +548,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		assertTrue("Modificador de acesso de método private", privateAccessMethod.getAccessModifier().isPrivate());
 
 		ConcreteMethod withoutNonAccessMethodModifier = (ConcreteMethod) methodList.get("withoutNonAccessMethodModifier");
-		AbstractMethod abstractMethod = (AbstractMethod) methodList.get("abstractMethod");
+		ConcreteMethod abstractMethod = (ConcreteMethod) methodList.get("abstractMethod");
 		ConcreteMethod staticMethod = (ConcreteMethod) methodList.get("staticMethod");
 		ConcreteMethod finalMethod = (ConcreteMethod) methodList.get("finalMethod");
 		ConcreteMethod staticFinalMethod = (ConcreteMethod) methodList.get("staticFinalMethod");
