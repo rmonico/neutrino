@@ -7,7 +7,5 @@ package org.ita.testrefactoring.metacode;
  *
  */
 public interface Expression {
-//	boolean isLiteral();
-//	
-//	boolean isNullExpression();
+
 }
