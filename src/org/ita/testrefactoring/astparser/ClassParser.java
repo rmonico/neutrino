@@ -109,7 +109,7 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 				}
 			}
 
-			ASTMethod method = clazz.createMethod(methodName);
+			ASTMethod method = clazz.getOrCreateMethod(methodName);
 
 			method.setASTObject(methodDeclaration);
 
