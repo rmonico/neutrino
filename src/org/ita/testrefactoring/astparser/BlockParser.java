@@ -7,6 +7,7 @@ import org.eclipse.jdt.core.dom.PrefixExpression;
 import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+import org.ita.testrefactoring.metacode.LiteralExpression;
 import org.ita.testrefactoring.metacode.MethodInvocationExpression;
 import org.ita.testrefactoring.metacode.ParserException;
 import org.ita.testrefactoring.metacode.Statement;
@@ -124,6 +125,7 @@ class BlockParser {
 				
 			// Variável inicializada com null
 			} else if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.NullLiteral) {
+				variableDeclaration.setInitializationExpression(LiteralExpression.NULL_EXPRESSION); 
 			} else {
 				throw new UnsupportedSintaxException();
 			}
