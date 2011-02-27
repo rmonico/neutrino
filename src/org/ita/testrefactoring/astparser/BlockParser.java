@@ -125,16 +125,22 @@ class BlockParser {
 				
 			// Variável inicializada com null
 			} else if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.NullLiteral) {
-				variableDeclaration.setInitializationExpression(LiteralExpression.NULL_EXPRESSION); 
+				variableDeclaration.setInitializationExpression(LiteralExpression.NULL_EXPRESSION);
+			} else if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.ClassInstanceCreation) {
+//				org.eclipse.jdt.core.dom.ClassInstanceCreation astNode = (org.eclipse.jdt.core.dom.ClassInstanceCreation) fragmentNodes.get(1);
+//				
+//				astNode.
+				
 			} else {
-				throw new UnsupportedSintaxException();
+				// TODO: Depois que estiver pronto, lançar a exceção
+//				throw new UnsupportedSintaxException();
 			}
 		}
 		
 		
 		return variableDeclaration;
 	}
-
+	
 	private Statement parseReturnStatement(ReturnStatement node) {
 		return null;
 	}
