@@ -170,15 +170,24 @@ public class ASTEnvironment implements Environment, TypeListener {
 	 * @return
 	 */
 	public Method locateMethod(String methodSignatureString) {
-		String packageName;
-		String className;
-		String methodName;
-		String methodParameters;
 		
-		return null;
+		int parenthesisIndex = methodSignatureString.indexOf('(');
+		
+		String fullMethodName = methodSignatureString.substring(0, parenthesisIndex);
+		
+		int lastDotIndex = fullMethodName.lastIndexOf('.');
+		
+		String qualifiedClassName = fullMethodName.substring(0, lastDotIndex);
+		
+		Type type = getTypeCache().get(qualifiedClassName);
+		
+		String methodName = fullMethodName.substring(lastDotIndex+1, parenthesisIndex);
+			
+		Method method = type.getOrCreateMethod(methodName);
+		
+		return method;
 	}
 
-	// TODO: Testar
 	static String getMethodSignature(MethodInvocation methodInvocation) {
 		
 		StringBuilder parameterList = new StringBuilder();
