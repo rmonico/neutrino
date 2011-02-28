@@ -74,6 +74,8 @@ class SourceFileParser {
 		private void interfaceFound(TypeDeclaration node) {
 			sourceFile.createInterface(node.getName().getIdentifier());
 			
+			// ASTInterface _interface = <line above>;
+			// _interface.setASTObject(node);
 		}
 
 		@Override
