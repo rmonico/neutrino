@@ -84,5 +84,13 @@ public interface Type {
 
 	Method getOrCreateMethod(String methodName);
 
-	Constructor getOrCreateConstructor(String constructorName);
+	/**
+	 * Devolve o construtor baseado na lista de parâmetros passada. Por exemplo:
+	 * 
+	 * (param1packagename.Param1Class, param2packagename.Param2Class)
+	 * 
+	 * @param constructorParams
+	 * @return
+	 */
+	Constructor getOrCreateConstructor(String constructorParams);
 }
