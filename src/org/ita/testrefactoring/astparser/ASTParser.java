@@ -15,7 +15,6 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.ita.testrefactoring.metacode.AbstractParser;
-import org.ita.testrefactoring.metacode.Block;
 import org.ita.testrefactoring.metacode.Constructor;
 import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.ParserException;
@@ -135,11 +134,13 @@ public class ASTParser extends AbstractParser {
 
 					if (type.getKind() != TypeKind.UNKNOWN) {
 						for (Constructor constructor : type.getConstructorList().values()) {
-							allCodeBlocksInWorkspace.add(((ASTConstructor) constructor).getBody());
+							ASTConstructor astConstructor = (ASTConstructor) constructor;
+							allCodeBlocksInWorkspace.add(astConstructor.getBody());
 						}
 
 						for (Method method : type.getMethodList().values()) {
-							allCodeBlocksInWorkspace.add(method.getBody());
+							ASTMethod astMethod = (ASTMethod) method;
+							allCodeBlocksInWorkspace.add(astMethod.getBody());
 						}
 					}
 				}
