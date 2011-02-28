@@ -8,7 +8,6 @@ import java.util.Map;
 import org.eclipse.jdt.core.JavaModelException;
 import org.ita.testrefactoring.astparser.ASTClass;
 import org.ita.testrefactoring.astparser.ASTEnvironment;
-import org.ita.testrefactoring.astparser.ASTMethod;
 import org.ita.testrefactoring.astparser.ASTPackage;
 import org.ita.testrefactoring.astparser.ASTParser;
 import org.ita.testrefactoring.astparser.ASTSourceFile;
@@ -533,7 +532,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		// "getFieldInitialization()",
 		// methodInitializedField.getInitialization().toString());
 
-		Map<String, ASTMethod> methodList = fullClass.getMethodList();
+		Map<String, Method> methodList = fullClass.getMethodList();
 
 		assertEquals("Lista de métodos (size)", 16, methodList.values().size());
 
