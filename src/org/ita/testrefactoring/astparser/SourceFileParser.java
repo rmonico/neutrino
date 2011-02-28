@@ -110,9 +110,6 @@ class SourceFileParser {
 	 * Faz o parsing do source file, baseado na compilation unit passada como parâmetro anteriormente.
 	 */
 	public void parse() {
-		sourceFile.setFileName(sourceFile.getASTObject().getICompilationUnit()
-				.getPath().toFile().getName());
-
 		populateImportList();
 		
 		populateTypeList();
