@@ -145,6 +145,8 @@ public class ASTParser extends AbstractParser {
 
 	/**
 	 * Chama o parsing do AST e popula as listas de source file de cada package.
+	 * Roda uma vez para cada compilation unit parseada. Uso para popular as
+	 * listas de source file existentes em cada pacote.
 	 * 
 	 * @param compilationUnitList
 	 * @param activeCompilationUnit
@@ -160,9 +162,6 @@ public class ASTParser extends AbstractParser {
 
 		parser.createASTs(compilationUnitList.toArray(new ICompilationUnit[0]), new String[0], new ASTRequestor() {
 			@Override
-			/**
-			 * Roda uma vez para cada compilation unit parseada. Uso para popular as listas de source file existentes em cada pacote.
-			 */
 			public void acceptAST(ICompilationUnit jdtObject, CompilationUnit astObject) {
 				PackageDeclaration pack = astObject.getPackage();
 
@@ -170,7 +169,9 @@ public class ASTParser extends AbstractParser {
 
 				parsedPackage.setASTObject(pack);
 
-				ASTSourceFile sourceFile = parsedPackage.createSourceFile(jdtObject.getPath().toFile().getName());
+				String sourceFileName = jdtObject.getPath().toFile().getName();
+				
+				ASTSourceFile sourceFile = parsedPackage.createSourceFile(sourceFileName);
 
 				ASTSourceFile.ASTContainer container = sourceFile.new ASTContainer();
 
