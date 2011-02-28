@@ -140,7 +140,10 @@ public class ASTParser extends AbstractParser {
 
 						for (Method method : type.getMethodList().values()) {
 							ASTMethod astMethod = (ASTMethod) method;
-							allCodeBlocksInWorkspace.add(astMethod.getBody());
+							
+							if (!astMethod.getNonAccessModifier().isAbstract()) {
+								allCodeBlocksInWorkspace.add(astMethod.getBody());
+							}
 						}
 					}
 				}
