@@ -7,7 +7,6 @@ import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.ita.testrefactoring.metacode.Constructor;
-import org.ita.testrefactoring.metacode.ConstructorInvocationExpression;
 import org.ita.testrefactoring.metacode.Environment;
 import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.Package;
@@ -225,7 +224,7 @@ public class ASTEnvironment implements Environment, TypeListener {
 		return packageName + "." + className + "." + methodName + parameterList.toString();
 	}
 
-	ConstructorInvocationExpression createConstructorInvocationExpression(String constructorSignature) {
+	ASTConstructorInvocationExpression createConstructorInvocationExpression(String constructorSignature) {
 		Constructor calledConstructor = locateConstructor(constructorSignature);
 
 		ASTConstructorInvocationExpression constructorInvocationExpression = new ASTConstructorInvocationExpression();

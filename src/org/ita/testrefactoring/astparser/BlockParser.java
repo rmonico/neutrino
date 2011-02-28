@@ -7,9 +7,7 @@ import org.eclipse.jdt.core.dom.PrefixExpression;
 import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
-import org.ita.testrefactoring.metacode.ConstructorInvocationExpression;
 import org.ita.testrefactoring.metacode.LiteralExpression;
-import org.ita.testrefactoring.metacode.MethodInvocationExpression;
 import org.ita.testrefactoring.metacode.ParserException;
 import org.ita.testrefactoring.metacode.Statement;
 import org.ita.testrefactoring.metacode.Type;
@@ -112,6 +110,8 @@ class BlockParser {
 				
 				ASTLiteralExpression literalExpression = environment.createLiteralExpression(astNode.toString());
 				
+				literalExpression.setASTObject((org.eclipse.jdt.core.dom.PrefixExpression) fragmentNodes.get(1));
+				
 				variableDeclaration.setInitializationExpression(literalExpression);
 				
 			// Variável inicializada por método
@@ -120,19 +120,24 @@ class BlockParser {
 				
 				String methodSignatureString = ASTEnvironment.getMethodSignature(astNode);
 
-				MethodInvocationExpression mie = environment.createMethodInvocationExpression(methodSignatureString);
+				ASTMethodInvocationExpression mie = environment.createMethodInvocationExpression(methodSignatureString);
+				
+				mie.setASTObject((org.eclipse.jdt.core.dom.MethodInvocation) fragmentNodes.get(1));
 				
 				variableDeclaration.setInitializationExpression(mie);
 				
 			// Variável inicializada com null
 			} else if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.NullLiteral) {
 				variableDeclaration.setInitializationExpression(LiteralExpression.NULL_EXPRESSION);
+
 			} else if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.ClassInstanceCreation) {
 				org.eclipse.jdt.core.dom.ClassInstanceCreation astNode = (org.eclipse.jdt.core.dom.ClassInstanceCreation) fragmentNodes.get(1);
 				
 				String constructorSignatureString = ASTEnvironment.getConstructorSignature(astNode);
 				
-				ConstructorInvocationExpression cie = environment.createConstructorInvocationExpression(constructorSignatureString);
+				ASTConstructorInvocationExpression cie = environment.createConstructorInvocationExpression(constructorSignatureString);
+				
+				cie.setASTObject((org.eclipse.jdt.core.dom.ClassInstanceCreation) fragmentNodes.get(1));
 				
 				variableDeclaration.setInitializationExpression(cie);
 			} else {
