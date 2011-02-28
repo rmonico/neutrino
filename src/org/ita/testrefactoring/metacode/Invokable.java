@@ -6,6 +6,8 @@ public interface Invokable {
 	
 	List<Annotation> getAnnotations();
 	
+	String getName();
+	
 	List<Argument> getArgumentList();
 	
 	List<CheckedExceptionClass> getThrownExceptions();
