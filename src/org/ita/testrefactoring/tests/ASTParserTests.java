@@ -798,14 +798,14 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		assertEquals("Declaração de variável objeto não inicializada (Initialization)", null, nonInitializedObject.getInitialization());
 
 		
-		// TODO: Fazer passar esses testes
 		VariableDeclarationStatement nullInitializedObject = (VariableDeclarationStatement) block.getStatementList().get(4);
 		
 		assertEquals("Declaração de variável objeto inicializada com null (Tipo)", "nullInitializedObject", nullInitializedObject.getVariableName());
 		assertEquals("Declaração de variável objeto inicializada com null (Type)", "java.lang.Integer", nullInitializedObject.getVariableType().getQualifiedName());
 		assertEquals("Declaração de variável objeto inicializada com null (Initialization)", "null", nullInitializedObject.getInitialization().toString());
 
-		
+
+		// TODO: Fazer passar esses testes
 		VariableDeclarationStatement constructedObject = (VariableDeclarationStatement) block.getStatementList().get(5);
 		
 		assertEquals("Declaração de variável objeto inicializada por construtor (Tipo)", "constructedObject", constructedObject.getVariableName());
