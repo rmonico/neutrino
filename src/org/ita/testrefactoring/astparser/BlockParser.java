@@ -141,6 +141,7 @@ class BlockParser {
 				
 				variableDeclaration.setInitializationExpression(cie);
 			} else {
+				// TODO: Instanciar um objeto Statement AST genérico
 				// TODO: Depois que estiver pronto, lançar a exceção
 //				throw new UnsupportedSintaxException();
 			}
