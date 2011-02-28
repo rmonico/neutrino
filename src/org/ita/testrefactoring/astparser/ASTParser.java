@@ -125,7 +125,7 @@ public class ASTParser extends AbstractParser {
 		}
 	}
 
-	private void parseAllCodeBlocksInWorkspace() {
+	private void parseAllCodeBlocksInWorkspace() throws ParserException {
 		List<ASTBlock> allCodeBlocksInWorkspace = new ArrayList<ASTBlock>();
 
 		for (ASTPackage pack : environment.getPackageList().values()) {
@@ -152,11 +152,7 @@ public class ASTParser extends AbstractParser {
 
 			parser.setBlock(block);
 
-			try {
-				parser.parse();
-			} catch (ParserException e) {
-				throw new Error(e);
-			}
+			parser.parse();
 		}
 	}
 
