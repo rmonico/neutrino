@@ -3,8 +3,10 @@ package org.ita.testrefactoring.astparser;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.ita.testrefactoring.metacode.ConstructorInvocationExpression;
 import org.ita.testrefactoring.metacode.Environment;
 import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.Package;
@@ -211,6 +213,15 @@ public class ASTEnvironment implements Environment, TypeListener {
 		String methodName = methodInvocation.getName().toString();
 		
 		return packageName + "." + className + "." + methodName + parameterList.toString();
+	}
+
+	static String getConstructorSignature(ClassInstanceCreation astNode) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	ConstructorInvocationExpression createConstructorInvocationExpression(String constructorSignatureString) {
+		return null;
 	}
 
 }
