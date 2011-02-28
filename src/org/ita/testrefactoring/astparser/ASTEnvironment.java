@@ -56,6 +56,13 @@ public class ASTEnvironment implements Environment, TypeListener {
 		return pack;
 	}
 
+	/**
+	 * Contém todas as classes do parsing.
+	 * 
+	 * Observação: a implementação dessa classe devolve a classe correspondente
+	 * a java.lang.Object para get(null)
+	 * 
+	 */
 	@Override
 	public Map<String, Type> getTypeCache() {
 		return typeCache;
@@ -168,7 +175,8 @@ public class ASTEnvironment implements Environment, TypeListener {
 	 * parâmetro.
 	 * 
 	 * Por exemplo:
-	 * org.ita.testrefactoring.astparser.ASTEnvironment.locateMethod(java.lang.String, packageName.SecondParameterClass);
+	 * org.ita.testrefactoring.astparser.ASTEnvironment.locateMethod
+	 * (java.lang.String, packageName.SecondParameterClass);
 	 * 
 	 * @param qualifiedMethodName
 	 * @return
@@ -228,9 +236,11 @@ public class ASTEnvironment implements Environment, TypeListener {
 	}
 
 	/**
-	 * Localiza um construtor no workspace baseado no seu nome qualificado. Por exemplo:
+	 * Localiza um construtor no workspace baseado no seu nome qualificado. Por
+	 * exemplo:
 	 * 
-	 * packagename.ClassName(param1package.Param1Class, param2package.Param2Class);
+	 * packagename.ClassName(param1package.Param1Class,
+	 * param2package.Param2Class);
 	 * 
 	 * @param constructorSignature
 	 * @return
@@ -270,7 +280,7 @@ public class ASTEnvironment implements Environment, TypeListener {
 		String packageName = extractPackageName(constructorInvocation.resolveConstructorBinding().getDeclaringClass().getQualifiedName());
 		String className = extractTypeName(constructorInvocation.resolveConstructorBinding().getDeclaringClass().getQualifiedName());
 		String methodName = "<constructor>";
-		
+
 		return packageName + "." + className + "." + methodName + parameterList.toString();
 	}
 }
