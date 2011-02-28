@@ -16,7 +16,7 @@ public class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
 	private Type parent;
 	private ASTMethodDeclarationNonAccessModifier nonAccessModifier = new ASTMethodDeclarationNonAccessModifier();
 	private MethodDeclaration astObject;
-	private ASTBlock body = createBlock();
+	private ASTBlock body;
 	
 	ASTBlock createBlock() {
 		ASTBlock methodBlock = new ASTBlock();
@@ -94,6 +94,14 @@ public class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
 	
 	@Override
 	public ASTBlock getBody() {
+		if (nonAccessModifier.isAbstract()) {
+			return null;
+		}
+		
+		if (body == null) {
+			body = createBlock();
+		}
+		
 		return body;
 	}
 
