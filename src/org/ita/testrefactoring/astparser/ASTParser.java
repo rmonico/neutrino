@@ -15,7 +15,13 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.ita.testrefactoring.metacode.AbstractParser;
+import org.ita.testrefactoring.metacode.Block;
+import org.ita.testrefactoring.metacode.Constructor;
+import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.ParserException;
+import org.ita.testrefactoring.metacode.SourceFile;
+import org.ita.testrefactoring.metacode.Type;
+import org.ita.testrefactoring.metacode.TypeKind;
 
 public class ASTParser extends AbstractParser {
 
@@ -54,6 +60,8 @@ public class ASTParser extends AbstractParser {
 		parseAllSourceFilesInWorkspace();
 
 		parseAllClassesInWorkspace();
+
+		parseAllCodeBlocksInWorkspace();
 	}
 
 	private void parseAllSourceFilesInWorkspace() {
@@ -118,6 +126,39 @@ public class ASTParser extends AbstractParser {
 		}
 	}
 
+	private void parseAllCodeBlocksInWorkspace() {
+		List<ASTBlock> allCodeBlocksInWorkspace = new ArrayList<ASTBlock>();
+
+		for (ASTPackage pack : environment.getPackageList().values()) {
+			for (SourceFile sourceFile : pack.getSourceFileList().values()) {
+				for (Type type : sourceFile.getTypeList().values()) {
+
+					if (type.getKind() != TypeKind.UNKNOWN) {
+						for (Constructor constructor : type.getConstructorList().values()) {
+							allCodeBlocksInWorkspace.add(((ASTConstructor) constructor).getBody());
+						}
+
+						for (Method method : type.getMethodList().values()) {
+							allCodeBlocksInWorkspace.add(method.getBody());
+						}
+					}
+				}
+			}
+		}
+
+		for (ASTBlock block : allCodeBlocksInWorkspace) {
+			BlockParser parser = new BlockParser();
+
+			parser.setBlock(block);
+
+			try {
+				parser.parse();
+			} catch (ParserException e) {
+				throw new Error(e);
+			}
+		}
+	}
+
 	/**
 	 * Popula a lista de packages do environment a partir da lista de packages
 	 * bruta fornecida pelo Eclipse. Devolve uma lista de compilation unit's do
@@ -170,7 +211,7 @@ public class ASTParser extends AbstractParser {
 				parsedPackage.setASTObject(pack);
 
 				String sourceFileName = jdtObject.getPath().toFile().getName();
-				
+
 				ASTSourceFile sourceFile = parsedPackage.createSourceFile(sourceFileName);
 
 				ASTSourceFile.ASTContainer container = sourceFile.new ASTContainer();

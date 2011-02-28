@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.ita.testrefactoring.metacode.Annotation;
 import org.ita.testrefactoring.metacode.Argument;
-import org.ita.testrefactoring.metacode.Block;
 import org.ita.testrefactoring.metacode.CheckedExceptionClass;
 import org.ita.testrefactoring.metacode.Constructor;
 import org.ita.testrefactoring.metacode.InnerElementAccessModifier;
@@ -53,7 +52,7 @@ public class ASTConstructor implements Constructor {
 	}
 
 	@Override
-	public Block getBody() {
+	public ASTBlock getBody() {
 		// TODO Auto-generated method stub
 		return null;
 	}

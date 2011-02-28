@@ -122,16 +122,6 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 				ASTBlock block = method.getBody();
 
 				block.setASTObject(methodDeclaration.getBody());
-
-				BlockParser parser = new BlockParser();
-
-				parser.setBlock(block);
-
-				try {
-					parser.parse();
-				} catch (ParserException e) {
-					throw new Error(e);
-				}
 			}
 
 			return false;
