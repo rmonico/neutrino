@@ -11,6 +11,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.ita.testrefactoring.metacode.Class;
 import org.ita.testrefactoring.metacode.ParserException;
 import org.ita.testrefactoring.metacode.Type;
+import org.ita.testrefactoring.metacode.TypeKind;
 
 class ClassParser implements ASTTypeParser<ASTClass> {
 
@@ -109,7 +110,7 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 				}
 			}
 
-			ASTMethod method = clazz.getOrCreateMethod(methodName);
+			ASTMethod method = (ASTMethod) clazz.getOrCreateMethod(methodName);
 
 			method.setASTObject(methodDeclaration);
 

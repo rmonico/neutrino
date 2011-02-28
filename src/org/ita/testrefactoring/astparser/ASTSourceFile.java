@@ -123,7 +123,7 @@ public class ASTSourceFile implements SourceFile,
 	private void setupType(ASTType type, String name) {
 		type.setName(name);
 		type.setPackage(getPackage());
-		type.setParent(this);
+		type.setSourceFile(this);
 		
 		getTypeList().put(name, type);
 		

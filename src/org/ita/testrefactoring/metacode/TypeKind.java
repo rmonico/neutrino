@@ -1,4 +1,4 @@
-package org.ita.testrefactoring.astparser;
+package org.ita.testrefactoring.metacode;
 
 /**
  * Possíveis "tipos de tipo".

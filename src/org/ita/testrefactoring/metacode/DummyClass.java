@@ -6,7 +6,7 @@ package org.ita.testrefactoring.metacode;
  * @author Rafael Monico
  * 
  */
-public class DummyClass extends DummyType implements Class {
+public abstract class DummyClass extends DummyType implements Class {
 
 	private NonAccessClassModifier nonAccessClassModifier;
 	private SuperClassListener superClassListener = new SuperClassListener();

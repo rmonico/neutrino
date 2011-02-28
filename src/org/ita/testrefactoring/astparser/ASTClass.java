@@ -3,6 +3,7 @@ package org.ita.testrefactoring.astparser;
 import org.ita.testrefactoring.metacode.Class;
 import org.ita.testrefactoring.metacode.NonAccessClassModifier;
 import org.ita.testrefactoring.metacode.Type;
+import org.ita.testrefactoring.metacode.TypeKind;
 import org.ita.testrefactoring.metacode.TypeListener;
 
 public class ASTClass extends ASTType implements Class {
@@ -47,39 +48,6 @@ public class ASTClass extends ASTType implements Class {
 	@Override
 	public TypeKind getKind() {
 		return TypeKind.CLASS;
-	}
-
-	ASTField createField(String name) {
-		ASTField field = new ASTField();
-		
-		field.setName(name);
-		field.setParentType(this);
-		
-		getFieldList().put(name, field);
-		
-		return field;
-	}
-
-	ASTMethod createMethod(String methodName) {
-		ASTMethod method = new ASTMethod();
-		
-		method.setName(methodName);
-		method.setParentType(this);
-
-		getMethodList().put(methodName, method);
-		
-		return method;
-	}
-
-	@Override
-	public ASTMethod getOrCreateMethod(String methodName) {
-		ASTMethod method = getMethodList().get(methodName);
-		
-		if (method == null) {
-			method = createMethod(methodName);
-		}
-		
-		return method;
 	}
 
 }

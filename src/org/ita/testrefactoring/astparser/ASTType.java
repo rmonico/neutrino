@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.ita.testrefactoring.metacode.Constructor;
+import org.ita.testrefactoring.metacode.Field;
 import org.ita.testrefactoring.metacode.Method;
 import org.ita.testrefactoring.metacode.SourceFile;
 import org.ita.testrefactoring.metacode.Type;
@@ -14,22 +16,24 @@ import org.ita.testrefactoring.metacode.TypeListener;
 
 public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 
-	private SourceFile parent;
+	private ASTTypeHandler handler = new ASTTypeHandler(this);
+	private SourceFile sourceFile;
 	private ASTPackage pack;
 	private String name;
 	private TypeAccessModifier accessModifier = new TypeAccessModifier();
-	private Map<String, ASTField> fieldList = new HashMap<String, ASTField>();
-	private Map<String, ASTMethod> methodList = new HashMap<String, ASTMethod>();
+	private Map<String, Field> fieldList = new HashMap<String, Field>();
+	private Map<String, Constructor> constructorList = new HashMap<String, Constructor>();
+	private Map<String, Method> methodList = new HashMap<String, Method>();
 	private TypeDeclaration astObject;
 	private List<TypeListener> listeners = new ArrayList<TypeListener>();
 
 	@Override
 	public SourceFile getSourceFile() {
-		return parent;
+		return sourceFile;
 	}
 
-	protected void setParent(SourceFile parent) {
-		this.parent = parent;
+	protected void setSourceFile(SourceFile sourceFile) {
+		this.sourceFile = sourceFile;
 	}
 
 	@Override
@@ -55,17 +59,18 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 		return accessModifier;
 	}
 
-	public String getQualifiedName() {
-		return getPackage().getName() + "." + getName();
-	}
-
 	@Override
-	public Map<String, ASTField> getFieldList() {
+	public Map<String, Field> getFieldList() {
 		return fieldList;
 	}
 
 	@Override
-	public Map<String, ASTMethod> getMethodList() {
+	public Map<String, Constructor> getConstructorList() {
+		return constructorList;
+	}
+
+	@Override
+	public Map<String, Method> getMethodList() {
 		return methodList;
 	}
 
@@ -79,10 +84,10 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 		this.astObject = astObject;
 	}
 	
-	@Override
 	/**
 	 * Apenas notifica os listeners sobre a promoção.
 	 */
+	@Override
 	public void promote(Type newType) {
 		assert this.getQualifiedName().equals(newType.getQualifiedName()) : "O tipo só pode ser promovido a um tipo de mesmo qualified name.";
 		
@@ -102,6 +107,11 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 	}
 	
 	@Override
+	public String getQualifiedName() {
+		return getPackage().getName() + "." + getName();
+	}
+
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 
@@ -109,7 +119,7 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 		sb.append("\n");
 		sb.append("Kind: " + getKind() + "\n");
 		sb.append("instanceof: " + getClass() + "\n");
-		sb.append("File: " + parent.getFileName() + "\n");
+		sb.append("File: " + sourceFile.getFileName() + "\n");
 		sb.append("Package: " + pack.getName() + "\n");
 		sb.append("Access: " + accessModifier.toString() + "\n");
 
@@ -130,7 +140,7 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 		sb.append("Field list:\n");
 
 		for (String key : fieldList.keySet()) {
-			ASTField field = fieldList.get(key);
+			Field field = fieldList.get(key);
 
 			sb.append(key + " --> " + field.getFieldType().getQualifiedName() + " " + field.getName() + ";\n");
 		}
@@ -147,4 +157,30 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 
 		return sb.toString();
 	}
+	
+	ASTField createField(String fieldName) {
+		return handler.createField(fieldName);
+	}
+
+	ASTMethod createMethod(String methodSignature) {
+		return handler.createMethod(methodSignature);
+	}
+
+	@Override
+	public ASTMethod getOrCreateMethod(String methodSignature) {
+		ASTMethod method = (ASTMethod) getMethodList().get(methodSignature);
+		
+		if (method == null) {
+			method = createMethod(methodSignature);
+		}
+		
+		return method;
+	}
+	
+	@Override
+	public Constructor getOrCreateConstructor(String constructorParams) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

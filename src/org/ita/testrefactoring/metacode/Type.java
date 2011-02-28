@@ -2,7 +2,6 @@ package org.ita.testrefactoring.metacode;
 
 import java.util.Map;
 
-import org.ita.testrefactoring.astparser.TypeKind;
 
 public interface Type {
 
@@ -37,14 +36,30 @@ public interface Type {
 	 * 
 	 * @return
 	 */
-	Map<String, ? extends Field> getFieldList();
+	Map<String, Field> getFieldList();
 
 	/**
-	 * Lista de métodos
+	 * Lista de construtores. A chave do Map é a string com os parâmetros
+	 * recebidos pelo construtor. Por exemplo:
+	 * (param1package.Param1Class, param2package.Param2Class)
 	 * 
 	 * @return
 	 */
-	Map<String, ? extends Method> getMethodList();
+	Map<String, Constructor> getConstructorList();
+
+	/**
+	 * Lista de métodos. A chave do Map é o nome do método, por exemplo: 
+	 * doSomethingMethod
+	 * 
+	 * TODO: mudar a chave do Map para o nome do método seguido de seus parâmetros, por exemplo:
+	 * 
+	 * doSomethingMethod(param1package.Param1Class, param2package.Param2Class);
+	 * 
+	 * Pois da forma que está não é possível localizar os overrides do método.
+	 * 
+	 * @return
+	 */
+	Map<String, Method> getMethodList();
 
 	/**
 	 * Kind do tipo, indica se é uma classe, etc
