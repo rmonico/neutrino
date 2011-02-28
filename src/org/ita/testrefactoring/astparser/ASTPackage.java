@@ -36,11 +36,13 @@ public class ASTPackage implements Package, ASTWrapper<PackageDeclaration> {
 		this.parent = parent;
 	}
 
-	ASTSourceFile createSourceFile(String name) {
+	ASTSourceFile createSourceFile(String fileName) {
 		ASTSourceFile sourceFile = new ASTSourceFile();
+		
+		sourceFile.setFileName(fileName);
 		sourceFile.setPackage(this);
 		
-		getSourceFileList().put(name, sourceFile);
+		getSourceFileList().put(fileName, sourceFile);
 
 		return sourceFile;
 	}
