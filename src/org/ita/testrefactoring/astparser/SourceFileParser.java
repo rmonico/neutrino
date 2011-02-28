@@ -47,7 +47,7 @@ class SourceFileParser {
 	 * @author Rafael Monico
 	 *
 	 */
-	public class TypeVisitor extends ASTVisitor {
+	private static class TypeVisitor extends ASTVisitor {
 
 		private ASTSourceFile sourceFile;
 
