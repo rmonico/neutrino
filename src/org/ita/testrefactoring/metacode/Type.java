@@ -83,4 +83,6 @@ public interface Type {
 	void removeListener(TypeListener listener);
 
 	Method getOrCreateMethod(String methodName);
+
+	Constructor getOrCreateConstructor(String constructorName);
 }
