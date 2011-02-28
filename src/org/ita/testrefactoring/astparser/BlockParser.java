@@ -7,6 +7,7 @@ import org.eclipse.jdt.core.dom.PrefixExpression;
 import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+import org.ita.testrefactoring.metacode.ConstructorInvocationExpression;
 import org.ita.testrefactoring.metacode.LiteralExpression;
 import org.ita.testrefactoring.metacode.MethodInvocationExpression;
 import org.ita.testrefactoring.metacode.ParserException;
@@ -127,10 +128,13 @@ class BlockParser {
 			} else if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.NullLiteral) {
 				variableDeclaration.setInitializationExpression(LiteralExpression.NULL_EXPRESSION);
 			} else if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.ClassInstanceCreation) {
-//				org.eclipse.jdt.core.dom.ClassInstanceCreation astNode = (org.eclipse.jdt.core.dom.ClassInstanceCreation) fragmentNodes.get(1);
-//				
-//				astNode.
+				org.eclipse.jdt.core.dom.ClassInstanceCreation astNode = (org.eclipse.jdt.core.dom.ClassInstanceCreation) fragmentNodes.get(1);
 				
+				String constructorSignatureString = ASTEnvironment.getConstructorSignature(astNode);
+				
+				ConstructorInvocationExpression cie = environment.createConstructorInvocationExpression(constructorSignatureString);
+				
+				variableDeclaration.setInitializationExpression(cie);
 			} else {
 				// TODO: Depois que estiver pronto, lançar a exceção
 //				throw new UnsupportedSintaxException();
