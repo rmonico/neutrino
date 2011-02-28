@@ -13,7 +13,7 @@ public class ASTField implements Field, ASTWrapper<FieldDeclaration> {
 	private FieldTypeListener fieldTypeListener = new FieldTypeListener(); 
 	private Type fieldType;
 	private ParentTypeListener parentTypeListener = new ParentTypeListener();
-	private ASTType parent;
+	private Type parent;
 	private NonAccessFieldModifier nonAccessModifier = new NonAccessFieldModifier();
 	private Expression initialization;
 	private ASTInnerElementAccessModifier accessModifier = new ASTInnerElementAccessModifier();
@@ -49,11 +49,11 @@ public class ASTField implements Field, ASTWrapper<FieldDeclaration> {
 	}
 
 	@Override
-	public ASTType getParentType() {
+	public Type getParentType() {
 		return parent;
 	}
 	
-	void setParentType(ASTType parent) {
+	void setParentType(Type parent) {
 		if (this.parent != null) {
 			this.parent.removeListener(parentTypeListener);
 		}
