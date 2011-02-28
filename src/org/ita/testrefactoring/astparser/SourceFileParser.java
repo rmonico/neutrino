@@ -27,9 +27,13 @@ class SourceFileParser {
 
 			ASTEnvironment environment = sourceFile.getPackage().getEnvironment();
 			
+			// Nesse caso, node.getName() já devolve o nome qualificado do tipo importado
+			
 			Type type = environment.getTypeCache().get(node.getName());
 				
 			_import.setType(type);
+			
+			_import.setASTObject(node);
 
 			// Nunca visita os nós filhos, isso será feito posteriormente
 			return false;
