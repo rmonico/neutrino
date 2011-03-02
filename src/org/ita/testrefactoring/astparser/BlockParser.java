@@ -156,10 +156,12 @@ class BlockParser {
 		return variableDeclaration;
 	}
 	
-	private Statement parseGenericStatement(org.eclipse.jdt.core.dom.Statement node) {
+	private ASTGenericStatement parseGenericStatement(org.eclipse.jdt.core.dom.Statement node) {
 		ASTGenericStatement genericStatement = block.createGenericStatement();
 
 		genericStatement.setASTObject(node);
+		
+		return genericStatement;
 	}
 
 	private ASTEnvironment getEnvironmentForBlock() {
