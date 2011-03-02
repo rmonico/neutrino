@@ -4,7 +4,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.ita.testrefactoring.metacode.Block;
 import org.ita.testrefactoring.metacode.Statement;
 
-public class AbstractASTStatement<T extends ASTNode> implements Statement, ASTWrapper<T> {
+public class ASTAbstractStatement<T extends ASTNode> implements Statement, ASTWrapper<T> {
 
 	private Block parentBlock;
 	private T astObject;

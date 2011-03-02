@@ -1,5 +1,7 @@
 package org.ita.testrefactoring.astparser;
 
-public class ASTGenericStatement extends AbstractASTStatement<ASTNode> {
+import org.eclipse.jdt.core.dom.ASTNode;
+
+public class ASTGenericStatement extends ASTAbstractStatement<ASTNode> {
 
 }

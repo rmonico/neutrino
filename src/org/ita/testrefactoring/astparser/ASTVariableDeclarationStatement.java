@@ -5,7 +5,7 @@ import org.ita.testrefactoring.metacode.Expression;
 import org.ita.testrefactoring.metacode.Type;
 import org.ita.testrefactoring.metacode.VariableDeclarationStatement;
 
-public class ASTVariableDeclarationStatement extends AbstractASTStatement<VariableDeclaration> implements VariableDeclarationStatement {
+public class ASTVariableDeclarationStatement extends ASTAbstractStatement<VariableDeclaration> implements VariableDeclarationStatement {
 
 	private Type variableType;
 	private String variableName;
