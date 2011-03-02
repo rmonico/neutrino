@@ -282,4 +282,10 @@ public class ASTEnvironment implements Environment, TypeListener {
 
 		return packageName + "." + className + "." + methodName + parameterList.toString();
 	}
+
+	public GenericExpression createGenericExpression() {
+		GenericExpression expression = new GenericExpression();
+		
+		return expression;
+	}
 }

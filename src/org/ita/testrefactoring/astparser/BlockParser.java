@@ -110,7 +110,7 @@ class BlockParser {
 				
 				ASTLiteralExpression literalExpression = environment.createLiteralExpression(astNode.toString());
 				
-				literalExpression.setASTObject((org.eclipse.jdt.core.dom.PrefixExpression) fragmentNodes.get(1));
+				literalExpression.setASTObject(astNode);
 				
 				variableDeclaration.setInitializationExpression(literalExpression);
 				
@@ -122,7 +122,7 @@ class BlockParser {
 
 				ASTMethodInvocationExpression mie = environment.createMethodInvocationExpression(methodSignatureString);
 				
-				mie.setASTObject((org.eclipse.jdt.core.dom.MethodInvocation) fragmentNodes.get(1));
+				mie.setASTObject(astNode);
 				
 				variableDeclaration.setInitializationExpression(mie);
 				
@@ -137,13 +137,19 @@ class BlockParser {
 				
 				ASTConstructorInvocationExpression cie = environment.createConstructorInvocationExpression(constructorSignatureString);
 				
-				cie.setASTObject((org.eclipse.jdt.core.dom.ClassInstanceCreation) fragmentNodes.get(1));
+				cie.setASTObject(astNode);
 				
 				variableDeclaration.setInitializationExpression(cie);
+			} else if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.Expression) {
+				org.eclipse.jdt.core.dom.Expression astNode = (org.eclipse.jdt.core.dom.Expression) fragmentNodes.get(1);
+				
+				GenericExpression genericExpression = environment.createGenericExpression();
+				
+				genericExpression.setASTObject(astNode);
+				
+				variableDeclaration.setInitializationExpression(genericExpression);
 			} else {
-				// TODO: Instanciar um objeto Statement AST genérico
-				// TODO: Depois que estiver pronto, lançar a exceção
-//				throw new UnsupportedSintaxException();
+				throw new UnsupportedSintaxException();
 			}
 		}
 		
