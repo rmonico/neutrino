@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.PrefixExpression;
-import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.ita.testrefactoring.metacode.LiteralExpression;
@@ -48,8 +47,8 @@ class BlockParser {
 
 		if (node instanceof org.eclipse.jdt.core.dom.VariableDeclarationStatement) {
 			statement = parseVariableDeclaration((org.eclipse.jdt.core.dom.VariableDeclarationStatement) node);
-		} else if (node instanceof ReturnStatement) {
-			statement = parseReturnStatement((ReturnStatement) node);
+		} else if (node instanceof org.eclipse.jdt.core.dom.Statement) {
+			statement = parseGenericStatement((org.eclipse.jdt.core.dom.Statement) node);
 		} else {
 //			throw new UnsupportedSintaxException();
 		}
@@ -157,8 +156,10 @@ class BlockParser {
 		return variableDeclaration;
 	}
 	
-	private Statement parseReturnStatement(ReturnStatement node) {
-		return null;
+	private Statement parseGenericStatement(org.eclipse.jdt.core.dom.Statement node) {
+		ASTGenericStatement genericStatement = block.createGenericStatement();
+
+		genericStatement.setASTObject(node);
 	}
 
 	private ASTEnvironment getEnvironmentForBlock() {
