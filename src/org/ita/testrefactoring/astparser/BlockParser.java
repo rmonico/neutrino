@@ -50,7 +50,7 @@ class BlockParser {
 		} else if (node instanceof org.eclipse.jdt.core.dom.Statement) {
 			statement = parseGenericStatement((org.eclipse.jdt.core.dom.Statement) node);
 		} else {
-//			throw new UnsupportedSintaxException();
+			throw new UnsupportedSintaxException();
 		}
 
 		block.getStatementList().add(statement);
