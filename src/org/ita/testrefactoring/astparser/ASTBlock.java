@@ -44,4 +44,12 @@ public class ASTBlock implements Block, ASTWrapper<org.eclipse.jdt.core.dom.Bloc
 		
 		return variableDeclaration;
 	}
+
+	public ASTGenericStatement createGenericStatement() {
+		ASTGenericStatement genericStatement = new ASTGenericStatement();
+		
+		genericStatement.setParent(this);
+		
+		return genericStatement;
+	}
 }
