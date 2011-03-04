@@ -30,13 +30,13 @@ public class AddExplanationRefactoring extends AbstractRefactoring {
 	
 	@Override
 	public InitialConditionNotMet checkInitialConditions() {
+		JUnitAssertion assertion;
+		
 		if (!(getTargetFragment() instanceof JUnitAssertion)) {
 			return new TargetIsNotJUnitAssertion();
 		} else {
-//			targetAssertion = (JUnitAssertion) getTargetFragment();
+			assertion = (JUnitAssertion) getTargetFragment();
 		}
-		
-		JUnitAssertion assertion = (JUnitAssertion) getTargetFragment();
 		
 		if (hasExplanation(assertion)) {
 			return new TargetAlreadyHaveExplanation();
