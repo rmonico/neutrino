@@ -24,7 +24,6 @@ public class JUnitTestMethod extends TestMethod {
 			return selectedFragment;
 		}
 		
-		
 		public boolean visit(MethodInvocation node) {
 			JUnitTestElement element;
 			

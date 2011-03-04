@@ -1,8 +1,5 @@
 package org.ita.testrefactoring.parser;
 
-import org.ita.testrefactoring.metacode.Expression;
-
-
 public class MethodParameter {
 	private String type;
 	private Expression expression;
