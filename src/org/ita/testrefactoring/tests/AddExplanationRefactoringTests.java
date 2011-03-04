@@ -14,18 +14,17 @@ import org.ita.testrefactoring.parser.TestBattery;
 import org.junit.Test;
 
 public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
-	
+
 	@Test
 	public void testAddExplanationToAssertionNewRefactoring() throws JavaModelException, RefactoringException {
-		
+
 		List<ICompilationUnit> compilationUnits = new ArrayList<ICompilationUnit>();
-		
+
 		StringBuilder beforeRefactoringSource = new StringBuilder();
 
 		beforeRefactoringSource.append("package tests.addexplanation;\n");
 		beforeRefactoringSource.append("\n");
-		beforeRefactoringSource
-				.append("import static org.junit.Assert.assertEquals;\n");
+		beforeRefactoringSource.append("import static org.junit.Assert.assertEquals;\n");
 		beforeRefactoringSource.append("\n");
 		beforeRefactoringSource.append("import org.junit.Test;\n");
 		beforeRefactoringSource.append("\n");
@@ -39,8 +38,7 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 		beforeRefactoringSource.append("        not.add(\"Pedro\", 7.0);\n");
 		beforeRefactoringSource.append("        not.add(\"Maria\", 9.0);\n");
 		beforeRefactoringSource.append("\n");
-		beforeRefactoringSource
-				.append("        assertEquals(not.avg(), 8.0, 0);\n");
+		beforeRefactoringSource.append("        assertEquals(not.avg(), 8.0, 0);\n");
 		beforeRefactoringSource.append("    }\n");
 		beforeRefactoringSource.append("}\n");
 
@@ -54,8 +52,7 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 		productionClassCode.append("\n");
 		productionClassCode.append("public class Notas {\n");
 		productionClassCode.append("\n");
-		productionClassCode
-				.append("    public void add(String aluno, double nota) {\n");
+		productionClassCode.append("    public void add(String aluno, double nota) {\n");
 		productionClassCode.append("    }\n");
 		productionClassCode.append("\n");
 		productionClassCode.append("    public double avg() {\n");
@@ -66,33 +63,31 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 
 		compilationUnits.add(createSourceFile("tests.addexplanation", "Notas.java", productionClassCode));
 
-		
 		// Invocação da refatoração
 		JUnitParser parser = new JUnitParser();
-		
+
 		parser.setActiveCompilationUnit(activeCompilationUnit);
 		parser.setCompilationUnits(compilationUnits);
-		
+
 		parser.getSelection().setSourceFile(activeCompilationUnit);
 		parser.getSelection().setSelectionStart(307);
 		parser.getSelection().setSelectionLength(12);
-		
+
 		parser.parse();
-		
+
 		TestBattery battery = parser.getBattery();
-		
+
 		AddExplanationRefactoring refactoring = new AddExplanationRefactoring();
-		
+
 		refactoring.setBattery(battery);
-		
+
 		refactoring.setExplanationString("Média da turma");
 
 		// Define em que arquivo fonte e local será feita a refatoração
 		refactoring.setTargetFragment(parser.getSelection().getSelectedFragment());
-		
+
 		refactoring.refactor();
-		
-		
+
 		// Verificação
 		String afterRefactoringSource = refactoringTarget.getSource();
 
@@ -114,8 +109,7 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 		expectedSource.append("        not.add(\"Pedro\", 7.0);\n");
 		expectedSource.append("        not.add(\"Maria\", 9.0);\n");
 		expectedSource.append("\n");
-		expectedSource
-				.append("        assertEquals(\"Média da turma\", not.avg(), 8.0, 0);\n");
+		expectedSource.append("        assertEquals(\"Média da turma\", not.avg(), 8.0, 0);\n");
 		expectedSource.append("    }\n");
 		expectedSource.append("}\n");
 
