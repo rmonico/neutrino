@@ -3,7 +3,7 @@ package org.ita.testrefactoring.addexplanation;
 import org.ita.testrefactoring.AbstractRefactoring;
 import org.ita.testrefactoring.InitialConditionNotMet;
 import org.ita.testrefactoring.RefactoringException;
-import org.ita.testrefactoring.junitparser.JUnitAssertion;
+import org.ita.testrefactoring.abstracttestparser.Assertion;
 
 public class AddExplanationRefactoring extends AbstractRefactoring {
 
@@ -30,12 +30,12 @@ public class AddExplanationRefactoring extends AbstractRefactoring {
 	
 	@Override
 	public InitialConditionNotMet checkInitialConditions() {
-		JUnitAssertion assertion;
+		Assertion assertion;
 		
-		if (!(getTargetFragment() instanceof JUnitAssertion)) {
+		if (!(getTargetFragment() instanceof Assertion)) {
 			return new TargetIsNotJUnitAssertion();
 		} else {
-			assertion = (JUnitAssertion) getTargetFragment();
+			assertion = (Assertion) getTargetFragment();
 		}
 		
 		if (hasExplanation(assertion)) {
@@ -45,7 +45,7 @@ public class AddExplanationRefactoring extends AbstractRefactoring {
 		return null;
 	}
 
-	private boolean hasExplanation(JUnitAssertion assertion) {
+	private boolean hasExplanation(Assertion assertion) {
 //		Testar se o primeiro parâmetro é java.lang.String
 //		assertion.getMethodInvocation().resolveMethodBinding().getTypeParameters().
 		
