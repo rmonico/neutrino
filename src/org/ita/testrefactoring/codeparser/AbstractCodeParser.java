@@ -1,6 +1,6 @@
 package org.ita.testrefactoring.codeparser;
 
-public abstract class AbstractParser {
+public abstract class AbstractCodeParser {
 	private Environment environment;
 
 	public abstract void parse() throws ParserException;
