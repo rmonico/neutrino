@@ -5,7 +5,8 @@ import org.ita.testrefactoring.abstracttestparser.TestSelection;
 import org.ita.testrefactoring.codeparser.CodeSelection;
 
 /**
- * Seleção com classes específicas para o Eclipse.
+ * Representa uma seleção no código fonte.
+ * 
  * @author Rafael Monico
  *
  */
