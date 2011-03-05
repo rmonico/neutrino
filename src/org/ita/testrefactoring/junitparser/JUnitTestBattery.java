@@ -13,10 +13,11 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.ita.testrefactoring.parser.TestBattery;
 import org.ita.testrefactoring.parser.TestFragment;
+import org.ita.testrefactoring.parser.TestSuite;
 
 public class JUnitTestBattery extends TestBattery {
 
-	private List<JUnitTestSuite> testSuiteList = new ArrayList<JUnitTestSuite>();
+	private List<TestSuite> testSuiteList = new ArrayList<TestSuite>();
 	private JUnitParser parser;
 	public TestFragment selectedFragment;
 
@@ -65,7 +66,7 @@ public class JUnitTestBattery extends TestBattery {
 	}
 
 	@Override
-	public List<JUnitTestSuite> getTestSuiteList() {
+	public List<TestSuite> getTestSuiteList() {
 		return testSuiteList;
 	}
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 public abstract class TestBattery implements TestFragment {
 
-	public abstract List<? extends TestSuite> getTestSuiteList();
+	public abstract List<TestSuite> getTestSuiteList();
 	
 	public abstract TestSuite createTestSuite();
 	

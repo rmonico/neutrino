@@ -14,7 +14,7 @@ import org.ita.testrefactoring.parser.TestSuite;
 public class JUnitTestSuite extends TestSuite {
 
 	private TypeDeclaration typeDeclaration;
-	private List<JUnitTestMethod> testMethodList = new ArrayList<JUnitTestMethod>();
+	private List<TestMethod> testMethodList = new ArrayList<TestMethod>();
 	private JUnitTestBattery parent;
 	private TestFragment selectedFragment;
 	
@@ -53,7 +53,7 @@ public class JUnitTestSuite extends TestSuite {
 	}
 	
 	@Override
-	public List<JUnitTestMethod> getTestMethodList() {
+	public List<TestMethod> getTestMethodList() {
 		return testMethodList;
 	}
 
@@ -67,7 +67,7 @@ public class JUnitTestSuite extends TestSuite {
 	}
 
 	@Override
-	public List<? extends Fixture> getFixtures() {
+	public List<Fixture> getFixtures() {
 		// TODO Auto-generated method stub
 		return null;
 	}
