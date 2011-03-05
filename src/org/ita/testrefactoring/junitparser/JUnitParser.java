@@ -6,12 +6,29 @@ import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.ita.testrefactoring.abstracttestparser.AbstractTestParser;
+import org.ita.testrefactoring.abstracttestparser.TestParserException;
+import org.ita.testrefactoring.codeparser.AbstractCodeParser;
+import org.ita.testrefactoring.codeparser.ParserException;
 
 public class JUnitParser extends AbstractTestParser {
 
 	private List<ICompilationUnit> compilationUnits;
 	private JUnitSelection selection = new JUnitSelection();
 	private ICompilationUnit activeCompilationUnit;
+	private AbstractCodeParser codeParser;
+
+	public JUnitParser(AbstractCodeParser parser) {
+		codeParser = parser;
+	}
+
+	@Override
+	protected JUnitTestBattery createTestBattery() {
+		JUnitTestBattery battery = new JUnitTestBattery();
+		
+		battery.setParser(this);
+		
+		return battery;
+	}
 
 	@Override
 	public JUnitTestBattery getBattery() {
@@ -19,7 +36,13 @@ public class JUnitParser extends AbstractTestParser {
 	}
 
 	@Override
-	public void parse() {
+	public void parse() throws TestParserException {
+		try {
+			codeParser.parse();
+		} catch (ParserException e) {
+			throw new TestParserException(e);
+		}
+		
 		if (compilationUnits.isEmpty()) {
 			return;
 		}
@@ -57,12 +80,4 @@ public class JUnitParser extends AbstractTestParser {
 		return selection;
 	}
 
-	@Override
-	protected JUnitTestBattery createTestBattery() {
-		JUnitTestBattery battery = new JUnitTestBattery();
-		
-		battery.setParser(this);
-		
-		return battery;
-	}
 }

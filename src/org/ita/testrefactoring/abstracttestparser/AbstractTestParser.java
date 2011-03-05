@@ -13,7 +13,7 @@ public abstract class AbstractTestParser {
 		return battery;
 	}
 	
-	public abstract void parse();
+	public abstract void parse() throws TestParserException;
 	
 	public abstract AbstractSelection getSelection();
 	
