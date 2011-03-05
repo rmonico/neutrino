@@ -7,9 +7,9 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.ita.testrefactoring.RefactoringUtils;
-import org.ita.testrefactoring.parser.TestElement;
-import org.ita.testrefactoring.parser.TestFragment;
-import org.ita.testrefactoring.parser.TestMethod;
+import org.ita.testrefactoring.abstracttestparser.TestElement;
+import org.ita.testrefactoring.abstracttestparser.TestFragment;
+import org.ita.testrefactoring.abstracttestparser.TestMethod;
 
 public class JUnitTestMethod extends TestMethod {
 	

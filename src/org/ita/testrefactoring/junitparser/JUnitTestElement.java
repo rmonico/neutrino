@@ -1,7 +1,7 @@
 package org.ita.testrefactoring.junitparser;
 
 import org.eclipse.jdt.core.dom.MethodInvocation;
-import org.ita.testrefactoring.parser.TestElement;
+import org.ita.testrefactoring.abstracttestparser.TestElement;
 
 public class JUnitTestElement implements TestElement {
 

@@ -6,10 +6,10 @@ import java.util.List;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.ita.testrefactoring.RefactoringUtils;
-import org.ita.testrefactoring.parser.Fixture;
-import org.ita.testrefactoring.parser.TestFragment;
-import org.ita.testrefactoring.parser.TestMethod;
-import org.ita.testrefactoring.parser.TestSuite;
+import org.ita.testrefactoring.abstracttestparser.Fixture;
+import org.ita.testrefactoring.abstracttestparser.TestFragment;
+import org.ita.testrefactoring.abstracttestparser.TestMethod;
+import org.ita.testrefactoring.abstracttestparser.TestSuite;
 
 public class JUnitTestSuite extends TestSuite {
 

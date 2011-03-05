@@ -1,8 +1,8 @@
 package org.ita.testrefactoring.junitparser;
 
 import org.eclipse.jdt.core.ICompilationUnit;
-import org.ita.testrefactoring.parser.AbstractSelection;
-import org.ita.testrefactoring.parser.TestFragment;
+import org.ita.testrefactoring.abstracttestparser.AbstractSelection;
+import org.ita.testrefactoring.abstracttestparser.TestFragment;
 
 /**
  * Seleção com classes específicas para o Eclipse.

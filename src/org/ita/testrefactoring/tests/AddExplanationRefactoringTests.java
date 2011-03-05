@@ -8,9 +8,9 @@ import java.util.List;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
 import org.ita.testrefactoring.RefactoringException;
+import org.ita.testrefactoring.abstracttestparser.TestBattery;
 import org.ita.testrefactoring.addexplanation.AddExplanationRefactoring;
 import org.ita.testrefactoring.junitparser.JUnitParser;
-import org.ita.testrefactoring.parser.TestBattery;
 import org.junit.Test;
 
 public class AddExplanationRefactoringTests extends RefactoringAbstractTests {

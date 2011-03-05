@@ -11,9 +11,9 @@ import org.eclipse.jdt.core.dom.ASTRequestor;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
-import org.ita.testrefactoring.parser.TestBattery;
-import org.ita.testrefactoring.parser.TestFragment;
-import org.ita.testrefactoring.parser.TestSuite;
+import org.ita.testrefactoring.abstracttestparser.TestBattery;
+import org.ita.testrefactoring.abstracttestparser.TestFragment;
+import org.ita.testrefactoring.abstracttestparser.TestSuite;
 
 public class JUnitTestBattery extends TestBattery {
 

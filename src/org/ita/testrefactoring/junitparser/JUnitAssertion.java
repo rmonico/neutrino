@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.MethodInvocation;
-import org.ita.testrefactoring.parser.Assertion;
-import org.ita.testrefactoring.parser.MethodParameter;
+import org.ita.testrefactoring.abstracttestparser.Assertion;
+import org.ita.testrefactoring.abstracttestparser.MethodParameter;
 
 public class JUnitAssertion extends JUnitTestElement implements Assertion {
 

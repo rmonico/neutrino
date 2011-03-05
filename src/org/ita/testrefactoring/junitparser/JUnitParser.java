@@ -5,7 +5,7 @@ import java.util.List;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
-import org.ita.testrefactoring.parser.AbstractParser;
+import org.ita.testrefactoring.abstracttestparser.AbstractParser;
 
 public class JUnitParser extends AbstractParser {
 

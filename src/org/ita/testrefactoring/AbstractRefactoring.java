@@ -1,7 +1,7 @@
 package org.ita.testrefactoring;
 
-import org.ita.testrefactoring.parser.TestBattery;
-import org.ita.testrefactoring.parser.TestFragment;
+import org.ita.testrefactoring.abstracttestparser.TestBattery;
+import org.ita.testrefactoring.abstracttestparser.TestFragment;
 
 public abstract class AbstractRefactoring {
 

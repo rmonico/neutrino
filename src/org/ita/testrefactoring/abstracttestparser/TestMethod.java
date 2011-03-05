@@ -1,4 +1,4 @@
-package org.ita.testrefactoring.parser;
+package org.ita.testrefactoring.abstracttestparser;
 
 import java.util.List;
 
