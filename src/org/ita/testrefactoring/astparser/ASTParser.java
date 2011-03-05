@@ -21,7 +21,6 @@ import org.ita.testrefactoring.codeparser.TypeKind;
 
 public class ASTParser extends AbstractCodeParser {
 
-	private ASTEnvironment environment;
 	private ICompilationUnit activeCompilationUnit;
 	private ICompilationUnit[] compilationUnits;
 	
@@ -94,7 +93,7 @@ public class ASTParser extends AbstractCodeParser {
 			public void acceptAST(ICompilationUnit jdtObject, CompilationUnit astObject) {
 				PackageDeclaration pack = astObject.getPackage();
 
-				ASTPackage parsedPackage = environment.createPackage(pack.getName().toString());
+				ASTPackage parsedPackage = getEnvironment().createPackage(pack.getName().toString());
 
 				parsedPackage.setASTObject(pack);
 
@@ -118,7 +117,7 @@ public class ASTParser extends AbstractCodeParser {
 	private void parseAllSourceFilesInWorkspace() {
 		List<ASTSourceFile> allSourceFiles = new ArrayList<ASTSourceFile>();
 
-		for (ASTPackage pack : environment.getPackageList().values()) {
+		for (ASTPackage pack : getEnvironment().getPackageList().values()) {
 			allSourceFiles.addAll(pack.getSourceFileList().values());
 		}
 
@@ -135,7 +134,7 @@ public class ASTParser extends AbstractCodeParser {
 	private void parseAllClassesInWorkspace() throws ParserException {
 		List<ASTSourceFile> allSourceFiles = new ArrayList<ASTSourceFile>();
 
-		for (ASTPackage pack : environment.getPackageList().values()) {
+		for (ASTPackage pack : getEnvironment().getPackageList().values()) {
 			allSourceFiles.addAll(pack.getSourceFileList().values());
 		}
 
@@ -180,7 +179,7 @@ public class ASTParser extends AbstractCodeParser {
 	private void parseAllCodeBlocksInWorkspace() throws ParserException {
 		List<ASTBlock> allCodeBlocksInWorkspace = new ArrayList<ASTBlock>();
 
-		for (ASTPackage pack : environment.getPackageList().values()) {
+		for (ASTPackage pack : getEnvironment().getPackageList().values()) {
 			for (SourceFile sourceFile : pack.getSourceFileList().values()) {
 				for (Type type : sourceFile.getTypeList().values()) {
 
