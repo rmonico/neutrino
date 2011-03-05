@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
 import org.ita.testrefactoring.astparser.ASTClass;
 import org.ita.testrefactoring.astparser.ASTEnvironment;
@@ -31,6 +32,8 @@ public class ASTParserTests extends RefactoringAbstractTests {
 	
 	@Test
 	public void testPackageParsing() throws ParserException, JavaModelException {
+		ICompilationUnit[] compilationUnits = new ICompilationUnit[2];
+		
 		// Crio os arquivos, pois só considero pacotes quando há arquivos dentro
 		StringBuilder pack1ClassSource = new StringBuilder();
 
@@ -40,7 +43,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		pack1ClassSource.append("\n");
 		pack1ClassSource.append("}\n");
 
-		createSourceFile("org.ita.testrefactoring.testfiles.pack1", "Pack1Class.java", pack1ClassSource);
+		compilationUnits[0] = createSourceFile("org.ita.testrefactoring.testfiles.pack1", "Pack1Class.java", pack1ClassSource);
 
 		StringBuilder pack2ClassSource = new StringBuilder();
 
@@ -50,9 +53,12 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		pack2ClassSource.append("\n");
 		pack2ClassSource.append("}\n");
 
-		createSourceFile("org.ita.testrefactoring.testfiles.pack2", "Pack2Class.java", pack2ClassSource);
+		compilationUnits[1] = createSourceFile("org.ita.testrefactoring.testfiles.pack2", "Pack2Class.java", pack2ClassSource);
 
 		ASTParser parser = new ASTParser();
+		
+		parser.setCompilationUnits(compilationUnits);
+		parser.setActiveCompilationUnit(compilationUnits[0]);
 
 		parser.parse();
 
@@ -82,6 +88,8 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 	@Test
 	public void testMinimalSourceFileParsing() throws ParserException, JavaModelException {
+		ICompilationUnit[] compilationUnits = new ICompilationUnit[1];
+		
 		StringBuilder testSourceFile = new StringBuilder();
 
 		testSourceFile.append("/**");
@@ -100,10 +108,13 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		testSourceFile.append("    }\n");
 		testSourceFile.append("}\n");
 
-		createSourceFile("org.ita.testrefactoring.testfiles", "MinimalSourceFile.java", testSourceFile);
+		compilationUnits[0] = createSourceFile("org.ita.testrefactoring.testfiles", "MinimalSourceFile.java", testSourceFile);
 
 		ASTParser parser = new ASTParser();
 
+		parser.setCompilationUnits(compilationUnits);
+		parser.setActiveCompilationUnit(compilationUnits[0]);
+		
 		parser.parse();
 
 		ASTEnvironment environment = parser.getEnvironment();
@@ -129,6 +140,8 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 	@Test
 	public void testCompleteSourceFileParsing() throws JavaModelException, ParserException {
+		ICompilationUnit[] compilationUnits = new ICompilationUnit[4];
+		
 		StringBuilder knownAnnotationSource = new StringBuilder();
 
 		knownAnnotationSource.append("package org.ita.testrefactoring.otherpackage;\n");
@@ -137,8 +150,9 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		knownAnnotationSource.append("\n");
 		knownAnnotationSource.append("}\n");
 
-		createSourceFile("org.ita.testrefactoring.otherpackage", "KnownAnnotation.java", knownAnnotationSource);
+		compilationUnits[0] = createSourceFile("org.ita.testrefactoring.otherpackage", "KnownAnnotation.java", knownAnnotationSource);
 
+		
 		StringBuilder knownClassSource = new StringBuilder();
 
 		knownClassSource.append("package org.ita.testrefactoring.otherpackage;\n");
@@ -147,8 +161,9 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		knownClassSource.append("\n");
 		knownClassSource.append("}\n");
 
-		createSourceFile("org.ita.testrefactoring.otherpackage", "KnownClass.java", knownClassSource);
+		compilationUnits[1] = createSourceFile("org.ita.testrefactoring.otherpackage", "KnownClass.java", knownClassSource);
 
+		
 		StringBuilder knownExceptionSource = new StringBuilder();
 
 		knownExceptionSource.append("package org.ita.testrefactoring.otherpackage;\n");
@@ -162,8 +177,9 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		knownExceptionSource.append("\n");
 		knownExceptionSource.append("}\n");
 
-		createSourceFile("org.ita.testrefactoring.otherpackage", "KnownException.java", knownExceptionSource);
+		compilationUnits[2] = createSourceFile("org.ita.testrefactoring.otherpackage", "KnownException.java", knownExceptionSource);
 
+		
 		StringBuilder publicClassSource = new StringBuilder();
 
 		publicClassSource.append("/**\n");
@@ -445,10 +461,14 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		publicClassSource.append("//    public int nonDummyAnnotated();\n");
 		publicClassSource.append("}\n");
 
-		createSourceFile("org.ita.testrefactoring.testfiles", "PublicClass.java", publicClassSource);
+		compilationUnits[3] = createSourceFile("org.ita.testrefactoring.testfiles", "PublicClass.java", publicClassSource);
 
+		
 		ASTParser parser = new ASTParser();
 
+		parser.setCompilationUnits(compilationUnits);
+		parser.setActiveCompilationUnit(compilationUnits[3]);
+		
 		parser.parse();
 
 		// Teste dos modificadores de acesso para classe
@@ -616,6 +636,9 @@ public class ASTParserTests extends RefactoringAbstractTests {
 	
 	@Test
 	public void testSupportedBlockSintax() throws JavaModelException, ParserException {
+		ICompilationUnit[] compilationUnits = new ICompilationUnit[1];
+		
+		
 		StringBuilder blockSupportedSource = new StringBuilder();
 
 		blockSupportedSource.append("package org.ita.testrefactoring.testfiles;\n");
@@ -748,10 +771,13 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		blockSupportedSource.append("    }\n");
 		blockSupportedSource.append("}\n");
 
-		createSourceFile("org.ita.testrefactoring.testfiles", "BlockSupportedSintax.java", blockSupportedSource);
+		compilationUnits[0] = createSourceFile("org.ita.testrefactoring.testfiles", "BlockSupportedSintax.java", blockSupportedSource);
 		
 		
 		ASTParser parser = new ASTParser();
+		
+		parser.setCompilationUnits(compilationUnits);
+		parser.setActiveCompilationUnit(compilationUnits[0]);
 		
 		parser.parse();
 		
@@ -804,7 +830,6 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		assertEquals("Declaração de variável objeto inicializada com null (Initialization)", "null", nullInitializedObject.getInitialization().toString());
 
 
-		// TODO: Fazer passar esses testes
 		VariableDeclarationStatement constructedObject = (VariableDeclarationStatement) block.getStatementList().get(5);
 		
 		assertEquals("Declaração de variável objeto inicializada por construtor (Tipo)", "constructedObject", constructedObject.getVariableName());
