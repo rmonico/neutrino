@@ -14,5 +14,5 @@ public abstract class TestBattery implements TestFragment {
 		return null;
 	}
 	
-	public abstract AbstractParser getParser();
+	public abstract AbstractTestParser getParser();
 }

@@ -1,7 +1,7 @@
 package org.ita.testrefactoring.abstracttestparser;
 
 
-public abstract class AbstractParser {
+public abstract class AbstractTestParser {
 	
 	private TestBattery battery;
 	

@@ -5,9 +5,9 @@ import java.util.List;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
-import org.ita.testrefactoring.abstracttestparser.AbstractParser;
+import org.ita.testrefactoring.abstracttestparser.AbstractTestParser;
 
-public class JUnitParser extends AbstractParser {
+public class JUnitParser extends AbstractTestParser {
 
 	private List<ICompilationUnit> compilationUnits;
 	private JUnitSelection selection = new JUnitSelection();
