@@ -15,7 +15,7 @@ public abstract class AbstractTestParser {
 	
 	public abstract void parse() throws TestParserException;
 	
-	public abstract AbstractSelection getSelection();
+	public abstract TestSelection getSelection();
 	
 	/**
 	 * Não crio a bateria de testes aqui pois a mesma é abstrata.

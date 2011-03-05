@@ -1,13 +1,13 @@
 package org.ita.testrefactoring.abstracttestparser;
 
 
-public abstract class AbstractSelection {
+public interface TestSelection {
 	
 	/**
 	 * Devolve o fragmento selecionado.
 	 * 
 	 * @return
 	 */
-	public abstract TestFragment getSelectedFragment();
+	TestFragment getSelectedFragment();
 
 }

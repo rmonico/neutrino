@@ -1,7 +1,7 @@
 package org.ita.testrefactoring.junitparser;
 
 import org.eclipse.jdt.core.ICompilationUnit;
-import org.ita.testrefactoring.abstracttestparser.AbstractSelection;
+import org.ita.testrefactoring.abstracttestparser.TestSelection;
 import org.ita.testrefactoring.abstracttestparser.TestFragment;
 
 /**
@@ -9,7 +9,7 @@ import org.ita.testrefactoring.abstracttestparser.TestFragment;
  * @author Rafael Monico
  *
  */
-public class JUnitSelection extends AbstractSelection {
+public class JUnitSelection implements TestSelection {
 
 	private ICompilationUnit sourceFile;
 	private int selectionStart;
