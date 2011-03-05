@@ -3,9 +3,9 @@ package org.ita.testrefactoring.astparser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ita.testrefactoring.metacode.Expression;
-import org.ita.testrefactoring.metacode.Method;
-import org.ita.testrefactoring.metacode.MethodInvocationExpression;
+import org.ita.testrefactoring.codeparser.Expression;
+import org.ita.testrefactoring.codeparser.Method;
+import org.ita.testrefactoring.codeparser.MethodInvocationExpression;
 
 public class ASTMethodInvocationExpression extends ASTAbstractExpression implements MethodInvocationExpression {
 

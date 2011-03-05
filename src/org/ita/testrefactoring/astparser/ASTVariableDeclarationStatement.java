@@ -1,9 +1,9 @@
 package org.ita.testrefactoring.astparser;
 
 import org.eclipse.jdt.core.dom.VariableDeclaration;
-import org.ita.testrefactoring.metacode.Expression;
-import org.ita.testrefactoring.metacode.Type;
-import org.ita.testrefactoring.metacode.VariableDeclarationStatement;
+import org.ita.testrefactoring.codeparser.Expression;
+import org.ita.testrefactoring.codeparser.Type;
+import org.ita.testrefactoring.codeparser.VariableDeclarationStatement;
 
 public class ASTVariableDeclarationStatement extends ASTAbstractStatement<VariableDeclaration> implements VariableDeclarationStatement {
 

@@ -1,6 +1,6 @@
 package org.ita.testrefactoring.astparser;
 
-import org.ita.testrefactoring.metacode.LiteralExpression;
+import org.ita.testrefactoring.codeparser.LiteralExpression;
 
 public class ASTLiteralExpression extends ASTAbstractExpression implements LiteralExpression {
 

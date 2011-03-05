@@ -6,11 +6,11 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.PrefixExpression;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
-import org.ita.testrefactoring.metacode.LiteralExpression;
-import org.ita.testrefactoring.metacode.ParserException;
-import org.ita.testrefactoring.metacode.Statement;
-import org.ita.testrefactoring.metacode.Type;
-import org.ita.testrefactoring.metacode.VariableDeclarationStatement;
+import org.ita.testrefactoring.codeparser.LiteralExpression;
+import org.ita.testrefactoring.codeparser.ParserException;
+import org.ita.testrefactoring.codeparser.Statement;
+import org.ita.testrefactoring.codeparser.Type;
+import org.ita.testrefactoring.codeparser.VariableDeclarationStatement;
 
 class BlockParser {
 

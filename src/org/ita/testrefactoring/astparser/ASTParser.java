@@ -14,13 +14,13 @@ import org.eclipse.jdt.core.dom.ASTRequestor;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
-import org.ita.testrefactoring.metacode.AbstractParser;
-import org.ita.testrefactoring.metacode.Constructor;
-import org.ita.testrefactoring.metacode.Method;
-import org.ita.testrefactoring.metacode.ParserException;
-import org.ita.testrefactoring.metacode.SourceFile;
-import org.ita.testrefactoring.metacode.Type;
-import org.ita.testrefactoring.metacode.TypeKind;
+import org.ita.testrefactoring.codeparser.AbstractParser;
+import org.ita.testrefactoring.codeparser.Constructor;
+import org.ita.testrefactoring.codeparser.Method;
+import org.ita.testrefactoring.codeparser.ParserException;
+import org.ita.testrefactoring.codeparser.SourceFile;
+import org.ita.testrefactoring.codeparser.Type;
+import org.ita.testrefactoring.codeparser.TypeKind;
 
 public class ASTParser extends AbstractParser {
 

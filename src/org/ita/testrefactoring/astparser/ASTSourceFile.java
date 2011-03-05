@@ -8,11 +8,11 @@ import java.util.Map;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
-import org.ita.testrefactoring.metacode.Annotation;
-import org.ita.testrefactoring.metacode.Enum;
-import org.ita.testrefactoring.metacode.SourceFile;
-import org.ita.testrefactoring.metacode.Type;
-import org.ita.testrefactoring.metacode.TypeListener;
+import org.ita.testrefactoring.codeparser.Annotation;
+import org.ita.testrefactoring.codeparser.Enum;
+import org.ita.testrefactoring.codeparser.SourceFile;
+import org.ita.testrefactoring.codeparser.Type;
+import org.ita.testrefactoring.codeparser.TypeListener;
 import org.zero.utils.IMapWrapper;
 import org.zero.utils.MapWrapper;
 

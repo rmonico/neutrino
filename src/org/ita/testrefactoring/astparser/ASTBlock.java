@@ -3,8 +3,8 @@ package org.ita.testrefactoring.astparser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ita.testrefactoring.metacode.Block;
-import org.ita.testrefactoring.metacode.Statement;
+import org.ita.testrefactoring.codeparser.Block;
+import org.ita.testrefactoring.codeparser.Statement;
 
 public class ASTBlock implements Block, ASTWrapper<org.eclipse.jdt.core.dom.Block> {
 	

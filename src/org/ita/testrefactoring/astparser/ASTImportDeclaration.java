@@ -1,8 +1,8 @@
 package org.ita.testrefactoring.astparser;
 
-import org.ita.testrefactoring.metacode.ImportDeclaration;
-import org.ita.testrefactoring.metacode.Type;
-import org.ita.testrefactoring.metacode.TypeListener;
+import org.ita.testrefactoring.codeparser.ImportDeclaration;
+import org.ita.testrefactoring.codeparser.Type;
+import org.ita.testrefactoring.codeparser.TypeListener;
 
 public class ASTImportDeclaration implements ImportDeclaration, ASTWrapper<org.eclipse.jdt.core.dom.ImportDeclaration> {
 

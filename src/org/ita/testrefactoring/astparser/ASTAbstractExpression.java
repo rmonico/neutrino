@@ -1,6 +1,6 @@
 package org.ita.testrefactoring.astparser;
 
-import org.ita.testrefactoring.metacode.Expression;
+import org.ita.testrefactoring.codeparser.Expression;
 
 public abstract class ASTAbstractExpression implements Expression, ASTWrapper<org.eclipse.jdt.core.dom.Expression> {
 

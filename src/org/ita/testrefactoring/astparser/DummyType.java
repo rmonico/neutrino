@@ -1,11 +1,11 @@
 package org.ita.testrefactoring.astparser;
 
-import org.ita.testrefactoring.metacode.Constructor;
-import org.ita.testrefactoring.metacode.Field;
-import org.ita.testrefactoring.metacode.Method;
-import org.ita.testrefactoring.metacode.Package;
+import org.ita.testrefactoring.codeparser.Constructor;
+import org.ita.testrefactoring.codeparser.Field;
+import org.ita.testrefactoring.codeparser.Method;
+import org.ita.testrefactoring.codeparser.Package;
 
-public class DummyType extends org.ita.testrefactoring.metacode.DummyType {
+public class DummyType extends org.ita.testrefactoring.codeparser.DummyType {
 
 	private ASTTypeHandler handler = new ASTTypeHandler(this);
 

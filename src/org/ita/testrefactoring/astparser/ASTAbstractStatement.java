@@ -1,8 +1,8 @@
 package org.ita.testrefactoring.astparser;
 
 import org.eclipse.jdt.core.dom.ASTNode;
-import org.ita.testrefactoring.metacode.Block;
-import org.ita.testrefactoring.metacode.Statement;
+import org.ita.testrefactoring.codeparser.Block;
+import org.ita.testrefactoring.codeparser.Statement;
 
 public class ASTAbstractStatement<T extends ASTNode> implements Statement, ASTWrapper<T> {
 

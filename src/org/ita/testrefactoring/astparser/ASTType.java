@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jdt.core.dom.TypeDeclaration;
-import org.ita.testrefactoring.metacode.Constructor;
-import org.ita.testrefactoring.metacode.Field;
-import org.ita.testrefactoring.metacode.Method;
-import org.ita.testrefactoring.metacode.SourceFile;
-import org.ita.testrefactoring.metacode.Type;
-import org.ita.testrefactoring.metacode.TypeAccessModifier;
-import org.ita.testrefactoring.metacode.TypeListener;
+import org.ita.testrefactoring.codeparser.Constructor;
+import org.ita.testrefactoring.codeparser.Field;
+import org.ita.testrefactoring.codeparser.Method;
+import org.ita.testrefactoring.codeparser.SourceFile;
+import org.ita.testrefactoring.codeparser.Type;
+import org.ita.testrefactoring.codeparser.TypeAccessModifier;
+import org.ita.testrefactoring.codeparser.TypeListener;
 
 public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jdt.core.dom.PackageDeclaration;
-import org.ita.testrefactoring.metacode.Package;
+import org.ita.testrefactoring.codeparser.Package;
 
 public class ASTPackage implements Package, ASTWrapper<PackageDeclaration> {
 

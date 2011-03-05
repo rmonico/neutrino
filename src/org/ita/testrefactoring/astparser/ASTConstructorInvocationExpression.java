@@ -3,9 +3,9 @@ package org.ita.testrefactoring.astparser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ita.testrefactoring.metacode.Constructor;
-import org.ita.testrefactoring.metacode.ConstructorInvocationExpression;
-import org.ita.testrefactoring.metacode.Expression;
+import org.ita.testrefactoring.codeparser.Constructor;
+import org.ita.testrefactoring.codeparser.ConstructorInvocationExpression;
+import org.ita.testrefactoring.codeparser.Expression;
 
 public class ASTConstructorInvocationExpression extends ASTAbstractExpression implements ConstructorInvocationExpression {
 

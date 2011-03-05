@@ -2,12 +2,12 @@ package org.ita.testrefactoring.astparser;
 
 import java.util.List;
 
-import org.ita.testrefactoring.metacode.Annotation;
-import org.ita.testrefactoring.metacode.Argument;
-import org.ita.testrefactoring.metacode.CheckedExceptionClass;
-import org.ita.testrefactoring.metacode.Constructor;
-import org.ita.testrefactoring.metacode.InnerElementAccessModifier;
-import org.ita.testrefactoring.metacode.Type;
+import org.ita.testrefactoring.codeparser.Annotation;
+import org.ita.testrefactoring.codeparser.Argument;
+import org.ita.testrefactoring.codeparser.CheckedExceptionClass;
+import org.ita.testrefactoring.codeparser.Constructor;
+import org.ita.testrefactoring.codeparser.InnerElementAccessModifier;
+import org.ita.testrefactoring.codeparser.Type;
 
 public class ASTConstructor implements Constructor {
 

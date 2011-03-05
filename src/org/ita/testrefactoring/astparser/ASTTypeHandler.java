@@ -1,6 +1,6 @@
 package org.ita.testrefactoring.astparser;
 
-import org.ita.testrefactoring.metacode.Type;
+import org.ita.testrefactoring.codeparser.Type;
 
 /**
  * Classe delegada de funcionalidades comuns de classes abstratas de diferentes

@@ -1,11 +1,11 @@
 package org.ita.testrefactoring.astparser;
 
 import org.eclipse.jdt.core.dom.FieldDeclaration;
-import org.ita.testrefactoring.metacode.Expression;
-import org.ita.testrefactoring.metacode.Field;
-import org.ita.testrefactoring.metacode.NonAccessFieldModifier;
-import org.ita.testrefactoring.metacode.Type;
-import org.ita.testrefactoring.metacode.TypeListener;
+import org.ita.testrefactoring.codeparser.Expression;
+import org.ita.testrefactoring.codeparser.Field;
+import org.ita.testrefactoring.codeparser.NonAccessFieldModifier;
+import org.ita.testrefactoring.codeparser.Type;
+import org.ita.testrefactoring.codeparser.TypeListener;
 
 public class ASTField implements Field, ASTWrapper<FieldDeclaration> {
 

@@ -8,10 +8,10 @@ import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
-import org.ita.testrefactoring.metacode.Class;
-import org.ita.testrefactoring.metacode.ParserException;
-import org.ita.testrefactoring.metacode.Type;
-import org.ita.testrefactoring.metacode.TypeKind;
+import org.ita.testrefactoring.codeparser.Class;
+import org.ita.testrefactoring.codeparser.ParserException;
+import org.ita.testrefactoring.codeparser.Type;
+import org.ita.testrefactoring.codeparser.TypeKind;
 
 class ClassParser implements ASTTypeParser<ASTClass> {
 

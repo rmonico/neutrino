@@ -6,12 +6,12 @@ import java.util.Map;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
-import org.ita.testrefactoring.metacode.Constructor;
-import org.ita.testrefactoring.metacode.Environment;
-import org.ita.testrefactoring.metacode.Method;
-import org.ita.testrefactoring.metacode.Package;
-import org.ita.testrefactoring.metacode.Type;
-import org.ita.testrefactoring.metacode.TypeListener;
+import org.ita.testrefactoring.codeparser.Constructor;
+import org.ita.testrefactoring.codeparser.Environment;
+import org.ita.testrefactoring.codeparser.Method;
+import org.ita.testrefactoring.codeparser.Package;
+import org.ita.testrefactoring.codeparser.Type;
+import org.ita.testrefactoring.codeparser.TypeListener;
 import org.zero.utils.IMapWrapper;
 import org.zero.utils.MapWrapper;
 

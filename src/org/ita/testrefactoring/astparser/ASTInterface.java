@@ -1,9 +1,9 @@
 package org.ita.testrefactoring.astparser;
 
-import org.ita.testrefactoring.metacode.Interface;
-import org.ita.testrefactoring.metacode.Type;
-import org.ita.testrefactoring.metacode.TypeKind;
-import org.ita.testrefactoring.metacode.TypeListener;
+import org.ita.testrefactoring.codeparser.Interface;
+import org.ita.testrefactoring.codeparser.Type;
+import org.ita.testrefactoring.codeparser.TypeKind;
+import org.ita.testrefactoring.codeparser.TypeListener;
 
 public class ASTInterface extends ASTType implements Interface {
 

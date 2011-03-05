@@ -1,6 +1,6 @@
 package org.ita.testrefactoring.astparser;
 
-import org.ita.testrefactoring.metacode.InnerElementAccessModifier;
+import org.ita.testrefactoring.codeparser.InnerElementAccessModifier;
 
 public class ASTInnerElementAccessModifier extends InnerElementAccessModifier {
 	

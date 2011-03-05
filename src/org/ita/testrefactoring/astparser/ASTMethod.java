@@ -3,11 +3,11 @@ package org.ita.testrefactoring.astparser;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.ita.testrefactoring.metacode.Annotation;
-import org.ita.testrefactoring.metacode.Argument;
-import org.ita.testrefactoring.metacode.CheckedExceptionClass;
-import org.ita.testrefactoring.metacode.Method;
-import org.ita.testrefactoring.metacode.Type;
+import org.ita.testrefactoring.codeparser.Annotation;
+import org.ita.testrefactoring.codeparser.Argument;
+import org.ita.testrefactoring.codeparser.CheckedExceptionClass;
+import org.ita.testrefactoring.codeparser.Method;
+import org.ita.testrefactoring.codeparser.Type;
 
 public class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
 

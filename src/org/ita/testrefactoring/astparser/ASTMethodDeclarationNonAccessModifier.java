@@ -1,6 +1,6 @@
 package org.ita.testrefactoring.astparser;
 
-import org.ita.testrefactoring.metacode.MethodDeclarationNonAccessModifier;
+import org.ita.testrefactoring.codeparser.MethodDeclarationNonAccessModifier;
 
 public class ASTMethodDeclarationNonAccessModifier extends MethodDeclarationNonAccessModifier {
 

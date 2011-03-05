@@ -1,6 +1,6 @@
 package org.ita.testrefactoring.astparser;
 
-import org.ita.testrefactoring.metacode.ParserException;
+import org.ita.testrefactoring.codeparser.ParserException;
 
 interface ASTTypeParser<T extends ASTType> {
 

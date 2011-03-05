@@ -1,10 +1,10 @@
 package org.ita.testrefactoring.astparser;
 
-import org.ita.testrefactoring.metacode.Constructor;
-import org.ita.testrefactoring.metacode.Field;
-import org.ita.testrefactoring.metacode.Method;
-import org.ita.testrefactoring.metacode.Package;
-import org.ita.testrefactoring.metacode.TypeKind;
+import org.ita.testrefactoring.codeparser.Constructor;
+import org.ita.testrefactoring.codeparser.Field;
+import org.ita.testrefactoring.codeparser.Method;
+import org.ita.testrefactoring.codeparser.Package;
+import org.ita.testrefactoring.codeparser.TypeKind;
 
 /**
  * Representa um tipo que é uma classe, mas sem código fonte disponível.
@@ -12,7 +12,7 @@ import org.ita.testrefactoring.metacode.TypeKind;
  * @author Rafael Monico
  *
  */
-public class DummyClass extends org.ita.testrefactoring.metacode.DummyClass {
+public class DummyClass extends org.ita.testrefactoring.codeparser.DummyClass {
 
 	private ASTTypeHandler handler = new ASTTypeHandler(this);
 

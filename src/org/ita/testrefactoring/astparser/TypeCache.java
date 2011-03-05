@@ -2,7 +2,7 @@ package org.ita.testrefactoring.astparser;
 
 import java.util.HashMap;
 
-import org.ita.testrefactoring.metacode.Type;
+import org.ita.testrefactoring.codeparser.Type;
 
 public class TypeCache extends HashMap<String, Type> {
 	
