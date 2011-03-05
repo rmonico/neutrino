@@ -39,9 +39,7 @@ public class ASTParser extends AbstractCodeParser {
 	 */
 	@Override
 	public void parse() throws ParserException {
-		environment = new ASTEnvironment();
-
-		setEnvironment(environment);
+		setEnvironment(new ASTEnvironment());
 
 		List<ICompilationUnit> compilationUnitList = Arrays.asList(compilationUnits);
 
