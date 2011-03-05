@@ -33,6 +33,11 @@ public class ASTParser extends AbstractCodeParser {
 		this.compilationUnits = compilationUnits;
 	}
 
+	@Override
+	public ASTEnvironment getEnvironment() {
+		return (ASTEnvironment) super.getEnvironment();
+	}
+
 	/**
 	 * Parser master, chama os demais parsers. Popula a lista de packages do
 	 * environment e chama os parsers para os source files encontrados.
@@ -41,21 +46,73 @@ public class ASTParser extends AbstractCodeParser {
 	public void parse() throws ParserException {
 		setEnvironment(new ASTEnvironment());
 
-		List<ICompilationUnit> compilationUnitList = Arrays.asList(compilationUnits);
-
 		// Significa que não há nenhuma compilation unit no projeto, não será
 		// necessário continuar o parsing
-		if (compilationUnitList.size() == 0) {
+		if (compilationUnits.length == 0) {
 			return;
 		}
+		
+		if (activeCompilationUnit == null) {
+			throw new ParserException("Active compilation unit not specified.");
+		}
+		
+		List<ICompilationUnit> compilationUnitList = Arrays.asList(compilationUnits);
+		
+		if (!compilationUnitList.contains(activeCompilationUnit)) {
+			throw new ParserException("Active compilation unit not in compilation unit list.");
+		}
 
-		doASTParsing(compilationUnitList, activeCompilationUnit);
+		doASTParsing();
 
 		parseAllSourceFilesInWorkspace();
 
 		parseAllClassesInWorkspace();
 
 		parseAllCodeBlocksInWorkspace();
+	}
+
+
+	/**
+	 * Chama o parsing do AST e popula as listas de source file de cada package.
+	 * Roda uma vez para cada compilation unit parseada. Uso para popular as
+	 * listas de source file existentes em cada pacote.
+	 * 
+	 * @param compilationUnitList
+	 * @param activeCompilationUnit
+	 */
+	private void doASTParsing() {
+		org.eclipse.jdt.core.dom.ASTParser parser = org.eclipse.jdt.core.dom.ASTParser.newParser(AST.JLS3);
+		parser.setKind(org.eclipse.jdt.core.dom.ASTParser.K_COMPILATION_UNIT);
+		parser.setSource(activeCompilationUnit);
+		parser.setResolveBindings(true);
+
+		// Projeto java que será usado para resolver os bindings
+		parser.setProject(activeCompilationUnit.getJavaProject());
+
+		parser.createASTs(compilationUnits, new String[0], new ASTRequestor() {
+			@Override
+			public void acceptAST(ICompilationUnit jdtObject, CompilationUnit astObject) {
+				PackageDeclaration pack = astObject.getPackage();
+
+				ASTPackage parsedPackage = environment.createPackage(pack.getName().toString());
+
+				parsedPackage.setASTObject(pack);
+
+				String sourceFileName = jdtObject.getPath().toFile().getName();
+
+				ASTSourceFile sourceFile = parsedPackage.createSourceFile(sourceFileName);
+
+				ASTSourceFile.ASTContainer container = sourceFile.new ASTContainer();
+
+				container.setICompilationUnit(jdtObject);
+				container.setCompilationUnit(astObject);
+				container.setRewrite(ASTRewrite.create(astObject.getAST()));
+
+				sourceFile.setASTObject(container);
+
+				super.acceptAST(jdtObject, astObject);
+			}
+		}, new NullProgressMonitor());
 	}
 
 	private void parseAllSourceFilesInWorkspace() {
@@ -152,53 +209,5 @@ public class ASTParser extends AbstractCodeParser {
 
 			parser.parse();
 		}
-	}
-
-	/**
-	 * Chama o parsing do AST e popula as listas de source file de cada package.
-	 * Roda uma vez para cada compilation unit parseada. Uso para popular as
-	 * listas de source file existentes em cada pacote.
-	 * 
-	 * @param compilationUnitList
-	 * @param activeCompilationUnit
-	 */
-	private void doASTParsing(List<ICompilationUnit> compilationUnitList, ICompilationUnit activeCompilationUnit) {
-		org.eclipse.jdt.core.dom.ASTParser parser = org.eclipse.jdt.core.dom.ASTParser.newParser(AST.JLS3);
-		parser.setKind(org.eclipse.jdt.core.dom.ASTParser.K_COMPILATION_UNIT);
-		parser.setSource(activeCompilationUnit);
-		parser.setResolveBindings(true);
-
-		// Projeto java que será usado para resolver os bindings
-		parser.setProject(activeCompilationUnit.getJavaProject());
-
-		parser.createASTs(compilationUnitList.toArray(new ICompilationUnit[0]), new String[0], new ASTRequestor() {
-			@Override
-			public void acceptAST(ICompilationUnit jdtObject, CompilationUnit astObject) {
-				PackageDeclaration pack = astObject.getPackage();
-
-				ASTPackage parsedPackage = environment.createPackage(pack.getName().toString());
-
-				parsedPackage.setASTObject(pack);
-
-				String sourceFileName = jdtObject.getPath().toFile().getName();
-
-				ASTSourceFile sourceFile = parsedPackage.createSourceFile(sourceFileName);
-
-				ASTSourceFile.ASTContainer container = sourceFile.new ASTContainer();
-
-				container.setICompilationUnit(jdtObject);
-				container.setCompilationUnit(astObject);
-				container.setRewrite(ASTRewrite.create(astObject.getAST()));
-
-				sourceFile.setASTObject(container);
-
-				super.acceptAST(jdtObject, astObject);
-			}
-		}, new NullProgressMonitor());
-	}
-
-	@Override
-	public ASTEnvironment getEnvironment() {
-		return (ASTEnvironment) super.getEnvironment();
 	}
 }
