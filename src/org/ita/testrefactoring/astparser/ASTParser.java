@@ -12,6 +12,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.ita.testrefactoring.codeparser.AbstractCodeParser;
+import org.ita.testrefactoring.codeparser.CodeSelection;
 import org.ita.testrefactoring.codeparser.Constructor;
 import org.ita.testrefactoring.codeparser.Method;
 import org.ita.testrefactoring.codeparser.ParserException;
@@ -23,6 +24,7 @@ public class ASTParser extends AbstractCodeParser {
 
 	private ICompilationUnit activeCompilationUnit;
 	private ICompilationUnit[] compilationUnits;
+	private CodeSelection selection = new ASTSelection();
 	
 	public void setActiveCompilationUnit(ICompilationUnit activeCompilationUnit) {
 		this.activeCompilationUnit = activeCompilationUnit;
@@ -208,5 +210,10 @@ public class ASTParser extends AbstractCodeParser {
 
 			parser.parse();
 		}
+	}
+
+	@Override
+	public CodeSelection getSelection() {
+		return selection;
 	}
 }
