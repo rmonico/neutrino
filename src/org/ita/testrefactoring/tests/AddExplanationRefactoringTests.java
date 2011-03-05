@@ -9,14 +9,16 @@ import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
 import org.ita.testrefactoring.RefactoringException;
 import org.ita.testrefactoring.abstracttestparser.TestBattery;
+import org.ita.testrefactoring.abstracttestparser.TestParserException;
 import org.ita.testrefactoring.addexplanation.AddExplanationRefactoring;
+import org.ita.testrefactoring.astparser.ASTParser;
 import org.ita.testrefactoring.junitparser.JUnitParser;
 import org.junit.Test;
 
 public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 
 	@Test
-	public void testAddExplanationToAssertionNewRefactoring() throws JavaModelException, RefactoringException {
+	public void testAddExplanationToAssertionNewRefactoring() throws JavaModelException, RefactoringException, TestParserException {
 
 		List<ICompilationUnit> compilationUnits = new ArrayList<ICompilationUnit>();
 
@@ -63,19 +65,21 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 
 		compilationUnits.add(createSourceFile("tests.addexplanation", "Notas.java", productionClassCode));
 
-		// Invocação da refatoração
-		JUnitParser parser = new JUnitParser();
+		// Faz o parsing
+		JUnitParser testParser = new JUnitParser(new ASTParser());
+		
+		testParser.setActiveCompilationUnit(activeCompilationUnit);
+		testParser.setCompilationUnits(compilationUnits);
 
-		parser.setActiveCompilationUnit(activeCompilationUnit);
-		parser.setCompilationUnits(compilationUnits);
+		testParser.getSelection().setSourceFile(activeCompilationUnit);
+		testParser.getSelection().setSelectionStart(307);
+		testParser.getSelection().setSelectionLength(12);
 
-		parser.getSelection().setSourceFile(activeCompilationUnit);
-		parser.getSelection().setSelectionStart(307);
-		parser.getSelection().setSelectionLength(12);
+		testParser.parse();
 
-		parser.parse();
-
-		TestBattery battery = parser.getBattery();
+		
+		// Aplica a refatoração na bateria de testes
+		TestBattery battery = testParser.getBattery();
 
 		AddExplanationRefactoring refactoring = new AddExplanationRefactoring();
 
@@ -84,7 +88,7 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 		refactoring.setExplanationString("Média da turma");
 
 		// Define em que arquivo fonte e local será feita a refatoração
-		refactoring.setTargetFragment(parser.getSelection().getSelectedFragment());
+		refactoring.setTargetFragment(testParser.getSelection().getSelectedFragment());
 
 		refactoring.refactor();
 
