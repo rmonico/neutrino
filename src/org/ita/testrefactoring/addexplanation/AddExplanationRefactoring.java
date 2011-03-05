@@ -38,18 +38,11 @@ public class AddExplanationRefactoring extends AbstractRefactoring {
 			assertion = (Assertion) getTargetFragment();
 		}
 		
-		if (hasExplanation(assertion)) {
+		if (assertion.isExplained()) {
 			return new TargetAlreadyHaveExplanation();
 		}
 		
 		return null;
-	}
-
-	private boolean hasExplanation(Assertion assertion) {
-//		Testar se o primeiro parâmetro é java.lang.String
-//		assertion.getMethodInvocation().resolveMethodBinding().getTypeParameters().
-		
-		return false;
 	}
 
 	@Override

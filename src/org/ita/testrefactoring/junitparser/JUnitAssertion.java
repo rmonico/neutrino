@@ -56,5 +56,10 @@ public class JUnitAssertion extends JUnitTestElement implements Assertion {
 		
 		
 	}
+
+	@Override
+	public boolean isExplained() {
+		return false;
+	}
 	
 }
