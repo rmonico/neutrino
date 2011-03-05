@@ -1,7 +1,9 @@
 package org.ita.testrefactoring.abstracttestparser;
 
+import org.ita.testrefactoring.codeparser.CodeSelection;
 
-public interface TestSelection {
+
+public interface TestSelection extends CodeSelection {
 	
 	/**
 	 * Devolve o fragmento selecionado.
@@ -9,5 +11,5 @@ public interface TestSelection {
 	 * @return
 	 */
 	TestFragment getSelectedFragment();
-
+	void setSelectedFragment(TestFragment fragment);
 }

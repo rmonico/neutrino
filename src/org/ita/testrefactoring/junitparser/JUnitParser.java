@@ -13,12 +13,13 @@ import org.ita.testrefactoring.codeparser.ParserException;
 public class JUnitParser extends AbstractTestParser {
 
 	private List<ICompilationUnit> compilationUnits;
-	private JUnitSelection selection = new JUnitSelection();
+	private JUnitSelection selection;
 	private ICompilationUnit activeCompilationUnit;
 	private AbstractCodeParser codeParser;
 
 	public JUnitParser(AbstractCodeParser parser) {
 		codeParser = parser;
+		selection = new JUnitSelection(codeParser.getSelection());
 	}
 
 	@Override

@@ -12,4 +12,9 @@ public abstract class AbstractCodeParser {
 	public Environment getEnvironment() {
 		return environment;
 	}
+
+	public CodeSelection getSelection() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

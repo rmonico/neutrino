@@ -1,8 +1,8 @@
 package org.ita.testrefactoring.junitparser;
 
-import org.eclipse.jdt.core.ICompilationUnit;
-import org.ita.testrefactoring.abstracttestparser.TestSelection;
 import org.ita.testrefactoring.abstracttestparser.TestFragment;
+import org.ita.testrefactoring.abstracttestparser.TestSelection;
+import org.ita.testrefactoring.codeparser.CodeSelection;
 
 /**
  * Seleção com classes específicas para o Eclipse.
@@ -11,17 +11,22 @@ import org.ita.testrefactoring.abstracttestparser.TestFragment;
  */
 public class JUnitSelection implements TestSelection {
 
-	private ICompilationUnit sourceFile;
-	private int selectionStart;
-	private int selectionLength;
+	private CodeSelection codeSelection;
 	private TestFragment selectedFragment;
 	
-	public void setSourceFile(ICompilationUnit sourceFile) {
-		this.sourceFile = sourceFile;
+	
+	public JUnitSelection(CodeSelection codeSelection) {
+		this.codeSelection = codeSelection;
 	}
 	
-	public ICompilationUnit getSourceFile() {
-		return sourceFile;
+	@Override
+	public void setSourceFile(Object sourceFile) {
+		codeSelection.setSourceFile(sourceFile);
+	}
+
+	@Override
+	public Object getSourceFile() {
+		return codeSelection.getSourceFile();
 	}
 	
 	/**
@@ -29,19 +34,19 @@ public class JUnitSelection implements TestSelection {
 	 * @param i
 	 */
 	public void setSelectionStart(int i) {
-		selectionStart = i;
+		codeSelection.setSelectionStart(i);
 	}
 	
 	public int getSelectionStart() {
-		return selectionStart;
+		return codeSelection.getSelectionStart();
 	}
 
 	public void setSelectionLength(int i) {
-		selectionLength = i;
+		codeSelection.setSelectionLength(i);
 	}
 	
 	public int getSelectionLength() {
-		return selectionLength;
+		return codeSelection.getSelectionLength();
 	}
 
 	@Override
