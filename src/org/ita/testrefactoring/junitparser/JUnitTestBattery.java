@@ -18,7 +18,6 @@ import org.ita.testrefactoring.abstracttestparser.TestSuite;
 public class JUnitTestBattery extends TestBattery {
 
 	private List<TestSuite> testSuiteList = new ArrayList<TestSuite>();
-	private JUnitParser parser;
 	public TestElement selectedFragment;
 
 	private class LocateTestSuitesVisitor extends ASTVisitor {
@@ -68,15 +67,6 @@ public class JUnitTestBattery extends TestBattery {
 	@Override
 	public List<TestSuite> getTestSuiteList() {
 		return testSuiteList;
-	}
-
-	void setParser(JUnitParser parser) {
-		this.parser = parser;
-	}
-
-	@Override
-	public JUnitParser getParser() {
-		return parser;
 	}
 
 	void parse(ASTParser parser, List<ICompilationUnit> compilationUnits,

@@ -13,6 +13,4 @@ public abstract class TestBattery implements TestElement {
 		// A bateria não possui parent
 		return null;
 	}
-	
-	public abstract AbstractTestParser getParser();
 }
