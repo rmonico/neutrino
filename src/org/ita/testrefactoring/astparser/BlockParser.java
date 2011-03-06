@@ -6,6 +6,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.PrefixExpression;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+import org.ita.testrefactoring.codeparser.Invokable;
 import org.ita.testrefactoring.codeparser.LiteralExpression;
 import org.ita.testrefactoring.codeparser.Package;
 import org.ita.testrefactoring.codeparser.ParserException;
@@ -173,8 +174,8 @@ class BlockParser {
 	}
 
 	private ASTEnvironment getEnvironment() {
-		ASTMethod method = block.getParentMethod();
-		Type type = method.getParent();
+		Invokable invokable = block.getParentInvokable();
+		Type type = invokable.getParent();
 		SourceFile sourceFile = type.getParent();
 		Package pack = sourceFile.getParent();
 		

@@ -30,7 +30,7 @@ public class ASTBlock implements Block, ASTWrapper<org.eclipse.jdt.core.dom.Bloc
 	}
 
 	@Override
-	public ASTMethod getParentMethod() {
+	public Invokable getParentInvokable() {
 
 		CodeElement e = parent;
 
@@ -40,7 +40,7 @@ public class ASTBlock implements Block, ASTWrapper<org.eclipse.jdt.core.dom.Bloc
 			;
 
 		assert false : "A Block should always be contained by a Invokable.";
-		return null;
+		return (Invokable) e;
 	}
 
 	@Override

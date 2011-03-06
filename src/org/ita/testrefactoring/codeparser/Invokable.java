@@ -13,5 +13,7 @@ public interface Invokable extends CodeElement {
 	List<CheckedExceptionClass> getThrownExceptions();
 
 	Block getBody();
+	
+	Type getParent();
 
 }
