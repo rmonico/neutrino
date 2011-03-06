@@ -2,7 +2,7 @@ package org.ita.testrefactoring.codeparser;
 
 import java.util.List;
 
-public interface Invokable {
+public interface Invokable extends CodeElement {
 	
 	List<Annotation> getAnnotations();
 	
