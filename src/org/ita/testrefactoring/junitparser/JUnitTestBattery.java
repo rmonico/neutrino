@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.ita.testrefactoring.abstracttestparser.TestBattery;
 import org.ita.testrefactoring.abstracttestparser.TestSuite;
+import org.ita.testrefactoring.codeparser.Type;
 
 public class JUnitTestBattery extends TestBattery {
 
@@ -18,11 +19,13 @@ public class JUnitTestBattery extends TestBattery {
 		return testSuiteList;
 	}
 
-	JUnitTestSuite createSuite() {
+	JUnitTestSuite createSuite(Type type) {
 		JUnitTestSuite suite = new JUnitTestSuite();
-		
+
 		suite.setParent(this);
 		
+		suite.setCodeElement(type);
+
 		return suite;
 	}
 
