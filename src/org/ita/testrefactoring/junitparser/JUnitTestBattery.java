@@ -18,4 +18,12 @@ public class JUnitTestBattery extends TestBattery {
 		return testSuiteList;
 	}
 
+	JUnitTestSuite createSuite() {
+		JUnitTestSuite suite = new JUnitTestSuite();
+		
+		suite.setParent(this);
+		
+		return suite;
+	}
+
 }
