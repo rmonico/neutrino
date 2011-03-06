@@ -122,4 +122,9 @@ public class JUnitTestMethod extends TestMethod {
 	public Method getCodeElement() {
 		return element;
 	}
+
+	@Override
+	public String getName() {
+		return null;
+	}
 }

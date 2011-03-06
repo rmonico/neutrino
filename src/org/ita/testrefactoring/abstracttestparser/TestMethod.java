@@ -11,4 +11,6 @@ public abstract class TestMethod implements TestElement, CodeElementWrapper<Meth
 	public abstract Action createAction();
 
 	public abstract Assertion createAssertion();
+
+	public abstract String getName();
 }
