@@ -1,6 +1,6 @@
 package org.ita.testrefactoring.abstracttestparser;
 
-public interface Assertion extends TestElement {
+public interface Assertion extends TestStatement {
 
 	boolean isExplained();
 

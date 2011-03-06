@@ -44,6 +44,8 @@ public class JUnitParser extends AbstractTestParser {
 			throw new TestParserException(e);
 		}
 		
+		selection.setSelectedFragment(null);
+		
 		if (compilationUnits.isEmpty()) {
 			return;
 		}

@@ -55,7 +55,7 @@ public class JUnitSelection implements TestSelection {
 		return selectedFragment;
 	}
 
-	public void setSelectedFragment(TestFragment selectedFragment) {
+	void setSelectedFragment(TestFragment selectedFragment) {
 		this.selectedFragment = selectedFragment;
 	}
 

@@ -1,9 +1,9 @@
 package org.ita.testrefactoring.junitparser;
 
 import org.eclipse.jdt.core.dom.MethodInvocation;
-import org.ita.testrefactoring.abstracttestparser.TestElement;
+import org.ita.testrefactoring.abstracttestparser.TestStatement;
 
-public class JUnitTestElement implements TestElement {
+public class JUnitTestElement implements TestStatement {
 
 	private JUnitTestMethod parent;
 	private MethodInvocation methodInvocation;

@@ -12,7 +12,7 @@ public interface TestSelection extends Selection {
 	 */
 	TestFragment getSelectedFragment();
 	
-	void setSelectedFragment(TestFragment fragment);
+//	void setSelectedFragment(TestFragment fragment);
 
 	void setSourceFile(Object sourceFile);
 
