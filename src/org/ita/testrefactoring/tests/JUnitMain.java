@@ -55,6 +55,7 @@ public class JUnitMain implements IAction {
 		classesToTest.add(ListenerTests.class);
 		
 		classesToTest.add(ASTParserTests.class);
+		classesToTest.add(JUnitParserTests.class);
 //		classesToTest.add(AddExplanationRefactoringTests.class);
 //		classesToTest.add(ExtractInitializationMethodTests.class);
 //		classesToTest.add(CreateModelTestTests.class);
