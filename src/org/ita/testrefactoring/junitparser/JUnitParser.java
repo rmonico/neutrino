@@ -7,7 +7,7 @@ import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.ita.testrefactoring.abstracttestparser.AbstractTestParser;
 import org.ita.testrefactoring.abstracttestparser.TestParserException;
-import org.ita.testrefactoring.codeparser.AbstractCodeParser;
+import org.ita.testrefactoring.codeparser.CodeParser;
 import org.ita.testrefactoring.codeparser.ParserException;
 
 public class JUnitParser extends AbstractTestParser {
@@ -15,9 +15,9 @@ public class JUnitParser extends AbstractTestParser {
 	private List<ICompilationUnit> compilationUnits;
 	private JUnitSelection selection;
 	private ICompilationUnit activeCompilationUnit;
-	private AbstractCodeParser codeParser;
+	private CodeParser codeParser;
 
-	public JUnitParser(AbstractCodeParser parser) {
+	public JUnitParser(CodeParser parser) {
 		codeParser = parser;
 		selection = new JUnitSelection(codeParser.getSelection());
 	}

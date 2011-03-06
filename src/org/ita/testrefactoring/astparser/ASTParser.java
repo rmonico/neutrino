@@ -11,7 +11,7 @@ import org.eclipse.jdt.core.dom.ASTRequestor;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
-import org.ita.testrefactoring.codeparser.AbstractCodeParser;
+import org.ita.testrefactoring.codeparser.CodeParser;
 import org.ita.testrefactoring.codeparser.CodeSelection;
 import org.ita.testrefactoring.codeparser.Constructor;
 import org.ita.testrefactoring.codeparser.Method;
@@ -20,7 +20,7 @@ import org.ita.testrefactoring.codeparser.SourceFile;
 import org.ita.testrefactoring.codeparser.Type;
 import org.ita.testrefactoring.codeparser.TypeKind;
 
-public class ASTParser extends AbstractCodeParser {
+public class ASTParser extends CodeParser {
 
 	private ICompilationUnit activeCompilationUnit;
 	private ICompilationUnit[] compilationUnits;
