@@ -10,6 +10,9 @@ public interface Environment extends CodeElement {
 	CodeElement getSelectedElement();
 
 	/**
-	 * No caso dessa interface, getParent sempre deveria devolver null.
+	 * No caso dessa interface, getParent sempre deverá devolver null.
 	 */
+	CodeElement getParent();
+
+	CodeSelection getSelection();
 }
