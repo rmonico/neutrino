@@ -20,7 +20,7 @@ import org.ita.testrefactoring.codeparser.SourceFile;
 import org.ita.testrefactoring.codeparser.Type;
 import org.ita.testrefactoring.codeparser.TypeKind;
 
-public class ASTParser extends CodeParser {
+public class ASTParser implements CodeParser {
 
 	private ICompilationUnit activeCompilationUnit;
 	private ICompilationUnit[] compilationUnits;
