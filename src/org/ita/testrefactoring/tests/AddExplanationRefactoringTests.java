@@ -12,13 +12,15 @@ import org.ita.testrefactoring.abstracttestparser.TestBattery;
 import org.ita.testrefactoring.abstracttestparser.TestParserException;
 import org.ita.testrefactoring.addexplanation.AddExplanationRefactoring;
 import org.ita.testrefactoring.astparser.ASTParser;
+import org.ita.testrefactoring.codeparser.CodeSelection;
+import org.ita.testrefactoring.codeparser.ParserException;
 import org.ita.testrefactoring.junitparser.JUnitParser;
 import org.junit.Test;
 
 public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 
 	@Test
-	public void testAddExplanationToAssertionNewRefactoring() throws JavaModelException, RefactoringException, TestParserException {
+	public void testAddExplanationToAssertionNewRefactoring() throws JavaModelException, RefactoringException, TestParserException, ParserException {
 
 		List<ICompilationUnit> compilationUnits = new ArrayList<ICompilationUnit>();
 
@@ -66,15 +68,23 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 		compilationUnits.add(createSourceFile("tests.addexplanation", "Notas.java", productionClassCode));
 
 		// Faz o parsing
-		JUnitParser testParser = new JUnitParser(new ASTParser());
+		ASTParser codeParser = new ASTParser();
 		
-		testParser.setActiveCompilationUnit(activeCompilationUnit);
-		testParser.setCompilationUnits(compilationUnits);
-
-		testParser.getSelection().setSourceFile(activeCompilationUnit);
-		testParser.getSelection().setSelectionStart(307);
-		testParser.getSelection().setSelectionLength(12);
-
+		codeParser.setActiveCompilationUnit(activeCompilationUnit);
+		codeParser.setCompilationUnits(compilationUnits.toArray(new ICompilationUnit[0]));
+		
+		CodeSelection selection = codeParser.getSelection();
+		
+		selection.setSourceFile(activeCompilationUnit);
+		selection.setSelectionStart(307);
+		selection.setSelectionLength(12);
+		
+		codeParser.parse();
+		
+		JUnitParser testParser = new JUnitParser();
+		
+		testParser.setEnvironment(codeParser.getEnvironment());
+		
 		testParser.parse();
 
 		
