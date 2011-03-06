@@ -11,4 +11,9 @@ public class JUnitFixture implements Fixture {
 		return null;
 	}
 
+	@Override
+	public String getName() {
+		return null;
+	}
+
 }
