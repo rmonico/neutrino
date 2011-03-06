@@ -3,54 +3,56 @@ package org.ita.testrefactoring.junitparser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
-import org.ita.testrefactoring.RefactoringUtils;
 import org.ita.testrefactoring.abstracttestparser.Fixture;
 import org.ita.testrefactoring.abstracttestparser.TestElement;
 import org.ita.testrefactoring.abstracttestparser.TestMethod;
 import org.ita.testrefactoring.abstracttestparser.TestSuite;
+import org.ita.testrefactoring.codeparser.Method;
 import org.ita.testrefactoring.codeparser.Type;
 
 public class JUnitTestSuite extends TestSuite {
 
-	private TypeDeclaration typeDeclaration;
+//	private TypeDeclaration typeDeclaration;
 	private List<TestMethod> testMethodList = new ArrayList<TestMethod>();
 	private JUnitTestBattery parent;
 	private TestElement selectedFragment;
+	private Type codeElement;
 	
 	JUnitTestSuite() {
 	}
 
 	public void parse() {
-		List<MethodDeclaration> testMethods = RefactoringUtils.getTestMethods(typeDeclaration);
-		
-		for (MethodDeclaration methodDeclaration : testMethods) {
-			JUnitTestMethod testMethod = createTestMethod();
-			
-			testMethod.setMethodDeclaration(methodDeclaration);
-			
-			getTestMethodList().add(testMethod);
-			
-			testMethod.parse();
-			
-			// assert: Só vai ter um fragmento selecionado por Suite
-			if (testMethod.getSelectedFragment() != null) {
-				selectedFragment = testMethod.getSelectedFragment();
-			}
-		}
+//		List<MethodDeclaration> testMethods = RefactoringUtils.getTestMethods(typeDeclaration);
+//		
+//		for (MethodDeclaration methodDeclaration : testMethods) {
+//			JUnitTestMethod testMethod = createTestMethod();
+//			
+//			testMethod.setMethodDeclaration(methodDeclaration);
+//			
+//			getTestMethodList().add(testMethod);
+//			
+//			testMethod.parse();
+//			
+//			// assert: Só vai ter um fragmento selecionado por Suite
+//			if (testMethod.getSelectedFragment() != null) {
+//				selectedFragment = testMethod.getSelectedFragment();
+//			}
+//		}
 	}
 
-	@Override
-	public JUnitTestMethod createTestMethod() {
+	JUnitTestMethod createTestMethod(Method element) {
 		JUnitTestMethod method = new JUnitTestMethod();
+		
 		method.setParent(this);
+		
+		method.setCodeElement(element);
 		
 		return method;
 	}
 
 	public void setTypeDeclaration(TypeDeclaration methodDeclaration) {
-		this.typeDeclaration = methodDeclaration;
+//		this.typeDeclaration = methodDeclaration;
 	}
 	
 	@Override
@@ -89,13 +91,18 @@ public class JUnitTestSuite extends TestSuite {
 		return selectedFragment;
 	}
 
-	public void setCodeElement(Type type) {
-		// TODO Auto-generated method stub
+	void setCodeElement(Type type) {
+		codeElement = type;
 	}
 
 	@Override
 	public Type getCodeElement() {
-		// TODO Auto-generated method stub
-		return null;
+		return codeElement;
+	}
+
+	JUnitTestMethod createBeforeMethod(Method element) {
+		JUnitTestMethod method = createTestMethod(element); 
+		
+		return method;
 	}
 }
