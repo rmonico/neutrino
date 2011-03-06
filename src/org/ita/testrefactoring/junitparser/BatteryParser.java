@@ -2,7 +2,7 @@ package org.ita.testrefactoring.junitparser;
 
 import org.ita.testrefactoring.codeparser.Environment;
 
-public class BatteryParser {
+class BatteryParser {
 
 	public void setEnvironment(Environment environment) {
 		// TODO Auto-generated method stub
