@@ -61,7 +61,8 @@ public class JUnitTestMethod extends TestMethod {
 	}
 
 	public JUnitParser getParser() {
-		return getParent().getParent().getParser();
+//		return getParent().getParent().getParser();
+		return null;
 	}
 
 	private JUnitSelection getSelection() {
