@@ -6,8 +6,6 @@ public abstract class TestBattery implements TestElement {
 
 	public abstract List<TestSuite> getTestSuiteList();
 	
-	public abstract TestSuite createTestSuite();
-	
 	@Override
 	public TestElement getParent() {
 		// A bateria não possui parent
