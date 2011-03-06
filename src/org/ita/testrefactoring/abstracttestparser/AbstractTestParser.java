@@ -1,25 +1,16 @@
 package org.ita.testrefactoring.abstracttestparser;
 
+import org.ita.testrefactoring.codeparser.Environment;
+
 
 public abstract class AbstractTestParser {
 	
-	private TestBattery battery;
-	
-	public TestBattery getBattery() {
-		if (battery == null) {
-			battery = createTestBattery();
-		}
-		
-		return battery;
-	}
-	
-	public abstract void parse() throws TestParserException;
+	public abstract void setEnvironment(Environment environment);
 	
 	public abstract TestSelection getSelection();
 	
-	/**
-	 * Não crio a bateria de testes aqui pois a mesma é abstrata.
-	 * @return
-	 */
-	protected abstract TestBattery createTestBattery();
+	public abstract void parse() throws TestParserException;
+	
+	public abstract TestBattery getBattery();
+	
 }
