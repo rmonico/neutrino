@@ -9,6 +9,11 @@ public class BatteryParser {
 		
 	}
 
+	public void setBattery(JUnitTestBattery battery) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void parse() {
 		// TODO Auto-generated method stub
 		

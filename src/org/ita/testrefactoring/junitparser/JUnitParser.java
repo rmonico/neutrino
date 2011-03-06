@@ -15,14 +15,6 @@ public class JUnitParser extends AbstractTestParser {
 		this.environment = environment;
 	}
 
-//	private JUnitTestBattery createTestBattery() {
-//		JUnitTestBattery battery = new JUnitTestBattery();
-//		
-//		battery.setParser(this);
-//		
-//		return battery;
-//	}
-
 	@Override
 	public void parse() throws TestParserException {
 		selection = new JUnitSelection(environment.getSelection());
@@ -34,6 +26,10 @@ public class JUnitParser extends AbstractTestParser {
 		BatteryParser batteryParser = new BatteryParser();
 		
 		batteryParser.setEnvironment(environment);
+		
+		battery = new JUnitTestBattery();
+		
+		batteryParser.setBattery(battery);
 		
 		batteryParser.parse();
 	}
