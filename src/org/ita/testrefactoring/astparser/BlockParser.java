@@ -165,7 +165,7 @@ class BlockParser {
 	}
 
 	private ASTEnvironment getEnvironmentForBlock() {
-		ASTMethod correspondingMethod = block.getParentMethod();
+		ASTMethod correspondingMethod = block.getParent();
 
 		return (ASTEnvironment) correspondingMethod.getParent().getParent().getParent().getParent();
 	}

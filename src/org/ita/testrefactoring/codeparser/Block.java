@@ -2,7 +2,7 @@ package org.ita.testrefactoring.codeparser;
 
 import java.util.List;
 
-public interface Block {
+public interface Block extends CodeElement {
 
 	public List<? extends Statement> getStatementList();
 
@@ -11,5 +11,5 @@ public interface Block {
 	 * 
 	 * @return
 	 */
-	Method getParentMethod();
+	Method getParent();
 }
