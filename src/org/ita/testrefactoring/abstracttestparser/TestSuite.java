@@ -14,8 +14,6 @@ public abstract class TestSuite implements TestElement, CodeElementWrapper<Type>
 	
 	public abstract TestMethod getTeardown();
 
-	public abstract TestMethod createTestMethod();
-	
 	@Override
 	public abstract TestBattery getParent();
 }
