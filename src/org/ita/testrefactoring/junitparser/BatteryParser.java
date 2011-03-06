@@ -51,6 +51,10 @@ class BatteryParser {
 				
 				if (methodKind == TestMethodKind.BEFORE_METHOD) {
 					suite.createBeforeMethod(m);
+				} else if (methodKind == TestMethodKind.TEST_METHOD) {
+					suite.createTestMethod(m);
+				} else if (methodKind == TestMethodKind.AFTER_METHOD) {
+					suite.createAfterMethod(m);
 				}
 			}
 		}
