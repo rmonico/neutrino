@@ -12,9 +12,16 @@ import org.ita.testrefactoring.codeparser.ParserException;
 import org.ita.testrefactoring.junitparser.JUnitParser;
 import org.ita.testrefactoring.junitparser.JUnitTestBattery;
 import org.ita.testrefactoring.junitparser.JUnitTestSuite;
+import org.junit.Before;
 import org.junit.Test;
 
 public class JUnitParserTests extends RefactoringAbstractTests {
+	
+	@Before
+	public void setup() {
+		// Não apaga o projeto de testes após rodar cada teste.
+		setAlwaysDeleteTestProject(true);
+	}
 	
 	@Test
 	public void testSomething() throws TestParserException, ParserException, JavaModelException {
@@ -104,5 +111,7 @@ public class JUnitParserTests extends RefactoringAbstractTests {
 		
 		assertEquals("Suite: test method 0", "testNothing0", suite.getTestMethodList().get(0).getName());
 		assertEquals("Suite: test method 1", "testNothing1", suite.getTestMethodList().get(1).getName());
+		
+		setTestsOk();
 	}
 }
