@@ -6,6 +6,5 @@ public interface Field extends TypeElement, CodeElement {
 	
 	Expression getInitialization();
 
-	Type getParent();
-
+	Type getFieldType();
 }

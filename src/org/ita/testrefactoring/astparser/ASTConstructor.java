@@ -24,7 +24,7 @@ public class ASTConstructor implements Constructor {
 	}
 
 	@Override
-	public Type getParentType() {
+	public Type getParent() {
 		// TODO Auto-generated method stub
 		return null;
 	}

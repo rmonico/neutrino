@@ -6,7 +6,7 @@ package org.ita.testrefactoring.codeparser;
  * @author Rafael Monico
  *
  */
-public interface TypeElement {
+public interface TypeElement extends CodeElement {
 	
 	InnerElementAccessModifier getAccessModifier();
 	
@@ -16,5 +16,5 @@ public interface TypeElement {
 	 * Container do element.
 	 * @return
 	 */
-	Type getParentType();
+	Type getParent();
 }

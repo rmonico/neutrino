@@ -49,7 +49,7 @@ public class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
 	}
 	
 	@Override
-	public Type getParentType() {
+	public Type getParent() {
 		return parent;
 	}
 

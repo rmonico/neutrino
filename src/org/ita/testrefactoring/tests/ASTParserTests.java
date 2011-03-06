@@ -512,7 +512,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		// Field defaultField = fullClass.getFieldList().get("defaultField");
 		// Field publicField = fullClass.getFieldList().get("publicField");
 
-		assertEquals("Tipo parent", fullClass, privateField.getParentType());
+		assertEquals("Tipo parent", fullClass, privateField.getParent());
 
 		assertEquals("Tipo do field", environment.getTypeCache().get(".int"), privateField.getParent());
 
