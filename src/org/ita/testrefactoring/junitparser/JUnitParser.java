@@ -28,8 +28,6 @@ public class JUnitParser extends AbstractTestParser {
 		selection = new JUnitSelection(environment.getSelection());
 		
 		doBatteryParse();
-		
-//		doSelectionParse();
 	}
 
 	private void doBatteryParse() {
@@ -38,35 +36,6 @@ public class JUnitParser extends AbstractTestParser {
 		batteryParser.setEnvironment(environment);
 		
 		batteryParser.parse();
-//		
-//		
-// TODO: Depois tirar o código abaixo, é código antigo		
-//		
-//		selection.setSelectedFragment(null);
-//		
-//		if (compilationUnits.isEmpty()) {
-//			return;
-//		}
-//
-//		ASTParser parser = ASTParser.newParser(AST.JLS3);
-//		parser.setKind(ASTParser.K_COMPILATION_UNIT);
-//		parser.setSource(activeCompilationUnit); // Fonte para ser parseado,
-//													// considero o primeiro
-//													// arquivo
-//													// da lista como sendo o
-//													// principal
-//		parser.setResolveBindings(true);
-//
-//		// Projeto java que será usado para resolver os bindings
-//		parser.setProject(activeCompilationUnit.getJavaProject());
-//
-//		// final IProgressMonitor monitor = new ProgressMonitorPart(new
-//		// Composite(null, -1), null);
-//		
-//		getBattery().parse(parser, compilationUnits, activeCompilationUnit);
-//		
-//		getSelection().setSelectedFragment(getBattery().getSelectedFragment());
-		
 	}
 
 	@Override
