@@ -28,7 +28,7 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 	private List<TypeListener> listeners = new ArrayList<TypeListener>();
 
 	@Override
-	public SourceFile getSourceFile() {
+	public SourceFile getParent() {
 		return sourceFile;
 	}
 

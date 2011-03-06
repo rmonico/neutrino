@@ -23,7 +23,7 @@ public abstract class DummyType implements Type {
 	private List<TypeListener> listeners = new ArrayList<TypeListener>();
 
 	@Override
-	public SourceFile getSourceFile() {
+	public SourceFile getParent() {
 		return sourceFile;
 	}
 

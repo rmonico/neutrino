@@ -3,14 +3,14 @@ package org.ita.testrefactoring.codeparser;
 import java.util.Map;
 
 
-public interface Type {
+public interface Type extends CodeElement {
 
 	/**
 	 * Source file parent.
 	 * 
 	 * @return
 	 */
-	SourceFile getSourceFile();
+	SourceFile getParent();
 
 	/**
 	 * Package ao qual pertence o Type
