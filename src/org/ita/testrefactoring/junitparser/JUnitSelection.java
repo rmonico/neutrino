@@ -1,6 +1,6 @@
 package org.ita.testrefactoring.junitparser;
 
-import org.ita.testrefactoring.abstracttestparser.TestFragment;
+import org.ita.testrefactoring.abstracttestparser.TestElement;
 import org.ita.testrefactoring.abstracttestparser.TestSelection;
 import org.ita.testrefactoring.codeparser.CodeSelection;
 
@@ -13,7 +13,7 @@ import org.ita.testrefactoring.codeparser.CodeSelection;
 public class JUnitSelection implements TestSelection {
 
 	private CodeSelection codeSelection;
-	private TestFragment selectedFragment;
+	private TestElement selectedFragment;
 	
 	
 	public JUnitSelection(CodeSelection codeSelection) {
@@ -51,11 +51,11 @@ public class JUnitSelection implements TestSelection {
 	}
 
 	@Override
-	public TestFragment getSelectedFragment() {
+	public TestElement getSelectedFragment() {
 		return selectedFragment;
 	}
 
-	void setSelectedFragment(TestFragment selectedFragment) {
+	void setSelectedFragment(TestElement selectedFragment) {
 		this.selectedFragment = selectedFragment;
 	}
 

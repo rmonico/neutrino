@@ -1,12 +1,12 @@
 package org.ita.testrefactoring;
 
 import org.ita.testrefactoring.abstracttestparser.TestBattery;
-import org.ita.testrefactoring.abstracttestparser.TestFragment;
+import org.ita.testrefactoring.abstracttestparser.TestElement;
 
 public abstract class AbstractRefactoring {
 
 	private TestBattery battery;
-	private TestFragment fragment;
+	private TestElement fragment;
 
 	public void setBattery(TestBattery battery) {
 		this.battery = battery;
@@ -30,11 +30,11 @@ public abstract class AbstractRefactoring {
 
 	protected abstract void doRefactor() throws RefactoringException;
 
-	public void setTargetFragment(TestFragment fragment) {
+	public void setTargetFragment(TestElement fragment) {
 		this.fragment = fragment;
 	}
 
-	public TestFragment getTargetFragment() {
+	public TestElement getTargetFragment() {
 		return fragment;
 	}
 }

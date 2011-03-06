@@ -8,7 +8,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.ita.testrefactoring.RefactoringUtils;
 import org.ita.testrefactoring.abstracttestparser.TestStatement;
-import org.ita.testrefactoring.abstracttestparser.TestFragment;
+import org.ita.testrefactoring.abstracttestparser.TestElement;
 import org.ita.testrefactoring.abstracttestparser.TestMethod;
 
 public class JUnitTestMethod extends TestMethod {
@@ -19,9 +19,9 @@ public class JUnitTestMethod extends TestMethod {
 
 	private class LocateTestElementVisitor extends ASTVisitor {
 		
-		private TestFragment selectedFragment;
+		private TestElement selectedFragment;
 		
-		public TestFragment getSelectedFragment() {
+		public TestElement getSelectedFragment() {
 			return selectedFragment;
 		}
 		
@@ -53,7 +53,7 @@ public class JUnitTestMethod extends TestMethod {
 	private MethodDeclaration methodDeclaration;
 	private JUnitTestSuite parent;
 	private List<TestStatement> elementList = new ArrayList<TestStatement>();
-	private TestFragment selectedFragment;
+	private TestElement selectedFragment;
 
 	public void setMethodDeclaration(MethodDeclaration methodDeclaration) {
 		this.methodDeclaration = methodDeclaration;
@@ -108,7 +108,7 @@ public class JUnitTestMethod extends TestMethod {
 		return parent;
 	}
 	
-	TestFragment getSelectedFragment() {
+	TestElement getSelectedFragment() {
 		return selectedFragment;
 	}
 }

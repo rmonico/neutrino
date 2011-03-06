@@ -1,5 +1,5 @@
 package org.ita.testrefactoring.abstracttestparser;
 
-public interface TestStatement extends TestFragment {
+public interface TestStatement extends TestElement {
 	
 }

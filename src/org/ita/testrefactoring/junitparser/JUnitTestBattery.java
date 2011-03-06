@@ -12,18 +12,18 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.ita.testrefactoring.abstracttestparser.TestBattery;
-import org.ita.testrefactoring.abstracttestparser.TestFragment;
+import org.ita.testrefactoring.abstracttestparser.TestElement;
 import org.ita.testrefactoring.abstracttestparser.TestSuite;
 
 public class JUnitTestBattery extends TestBattery {
 
 	private List<TestSuite> testSuiteList = new ArrayList<TestSuite>();
 	private JUnitParser parser;
-	public TestFragment selectedFragment;
+	public TestElement selectedFragment;
 
 	private class LocateTestSuitesVisitor extends ASTVisitor {
 
-		private TestFragment selectedFragment;
+		private TestElement selectedFragment;
 
 		public boolean visit(TypeDeclaration node) {
 			JUnitTestSuite suite = createTestSuite();
@@ -48,7 +48,7 @@ public class JUnitTestBattery extends TestBattery {
 			return true;
 		}
 
-		public TestFragment getSelectedFragment() {
+		public TestElement getSelectedFragment() {
 			return selectedFragment;
 		}
 	}
@@ -111,7 +111,7 @@ public class JUnitTestBattery extends TestBattery {
 		monitor.done();
 	}
 
-	TestFragment getSelectedFragment() {
+	TestElement getSelectedFragment() {
 		return selectedFragment;
 	}
 }

@@ -7,7 +7,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.ita.testrefactoring.RefactoringUtils;
 import org.ita.testrefactoring.abstracttestparser.Fixture;
-import org.ita.testrefactoring.abstracttestparser.TestFragment;
+import org.ita.testrefactoring.abstracttestparser.TestElement;
 import org.ita.testrefactoring.abstracttestparser.TestMethod;
 import org.ita.testrefactoring.abstracttestparser.TestSuite;
 
@@ -16,7 +16,7 @@ public class JUnitTestSuite extends TestSuite {
 	private TypeDeclaration typeDeclaration;
 	private List<TestMethod> testMethodList = new ArrayList<TestMethod>();
 	private JUnitTestBattery parent;
-	private TestFragment selectedFragment;
+	private TestElement selectedFragment;
 	
 	JUnitTestSuite() {
 	}
@@ -84,7 +84,7 @@ public class JUnitTestSuite extends TestSuite {
 		return null;
 	}
 	
-	TestFragment getSelectedFragment() {
+	TestElement getSelectedFragment() {
 		return selectedFragment;
 	}
 }

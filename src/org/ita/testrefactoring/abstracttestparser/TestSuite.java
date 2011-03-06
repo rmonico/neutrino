@@ -2,7 +2,7 @@ package org.ita.testrefactoring.abstracttestparser;
 
 import java.util.List;
 
-public abstract class TestSuite implements TestFragment {
+public abstract class TestSuite implements TestElement {
 	
 	public abstract List<Fixture> getFixtures();
 	
