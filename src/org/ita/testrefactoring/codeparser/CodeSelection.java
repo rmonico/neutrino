@@ -11,5 +11,7 @@ public interface CodeSelection extends Selection {
 	Object getSourceFile();
 
 	void setSourceFile(Object sourceFile);
+	
+	CodeElement getSelectedElement();
 
 }

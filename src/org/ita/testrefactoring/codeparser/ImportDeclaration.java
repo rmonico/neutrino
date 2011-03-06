@@ -1,6 +1,6 @@
 package org.ita.testrefactoring.codeparser;
 
-public interface ImportDeclaration {
+public interface ImportDeclaration extends CodeElement {
 	
 	boolean isStatic();
 	

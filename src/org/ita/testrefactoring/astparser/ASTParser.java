@@ -24,7 +24,8 @@ public class ASTParser extends AbstractCodeParser {
 
 	private ICompilationUnit activeCompilationUnit;
 	private ICompilationUnit[] compilationUnits;
-	private CodeSelection selection = new ASTSelection();
+	private ASTSelection selection = new ASTSelection();
+	private ASTEnvironment environment;
 	
 	public void setActiveCompilationUnit(ICompilationUnit activeCompilationUnit) {
 		this.activeCompilationUnit = activeCompilationUnit;
@@ -36,7 +37,7 @@ public class ASTParser extends AbstractCodeParser {
 
 	@Override
 	public ASTEnvironment getEnvironment() {
-		return (ASTEnvironment) super.getEnvironment();
+		return environment;
 	}
 
 	/**
@@ -45,7 +46,9 @@ public class ASTParser extends AbstractCodeParser {
 	 */
 	@Override
 	public void parse() throws ParserException {
-		setEnvironment(new ASTEnvironment());
+		environment = new ASTEnvironment();
+		
+		environment.setSelection(selection);
 
 		// Significa que não há nenhuma compilation unit no projeto, não será
 		// necessário continuar o parsing

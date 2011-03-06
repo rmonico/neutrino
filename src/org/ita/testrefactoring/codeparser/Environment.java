@@ -6,4 +6,6 @@ public interface Environment {
 	public abstract Map<String, ? extends Package> getPackageList();
 	
 	public abstract Map<String, ? extends Type> getTypeCache();
+
+	CodeElement getSelectedElement();
 }

@@ -3,6 +3,7 @@ package org.ita.testrefactoring.astparser;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
+import org.eclipse.jdt.core.dom.ImportDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.ita.testrefactoring.codeparser.Type;
 
@@ -22,7 +23,7 @@ class SourceFileParser {
 		}
 
 		@Override
-		public boolean visit(org.eclipse.jdt.core.dom.ImportDeclaration node) {
+		public boolean visit(ImportDeclaration node) {
 			ASTImportDeclaration _import = sourceFile.createImportDeclaration();
 
 			ASTEnvironment environment = sourceFile.getPackage().getEnvironment();
@@ -34,6 +35,12 @@ class SourceFileParser {
 			_import.setType(type);
 			
 			_import.setASTObject(node);
+			
+			ASTSelection selection = environment.getSelection();
+			
+			if (selection.isOverNode(node)) {
+				selection.setSelectedElement(_import);
+			}
 
 			// Nunca visita os nós filhos, isso será feito posteriormente
 			return false;

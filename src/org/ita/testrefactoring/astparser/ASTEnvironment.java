@@ -6,6 +6,7 @@ import java.util.Map;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.ita.testrefactoring.codeparser.CodeElement;
 import org.ita.testrefactoring.codeparser.Constructor;
 import org.ita.testrefactoring.codeparser.Environment;
 import org.ita.testrefactoring.codeparser.Method;
@@ -21,6 +22,7 @@ public class ASTEnvironment implements Environment, TypeListener {
 	private Map<String, ASTPackage> packageList = new HashMap<String, ASTPackage>();
 	private IMapWrapper<String, Type> wrapper;
 	private Map<String, Type> typeCache;
+	private ASTSelection selection;
 
 	// Construtor restrito ao pacote
 	ASTEnvironment() {
@@ -287,5 +289,18 @@ public class ASTEnvironment implements Environment, TypeListener {
 		GenericExpression expression = new GenericExpression();
 		
 		return expression;
+	}
+
+	public ASTSelection getSelection() {
+		return selection;
+	}
+	
+	void setSelection(ASTSelection selection) {
+		this.selection = selection;
+	}
+
+	@Override
+	public CodeElement getSelectedElement() {
+		return getSelection().getSelectedElement();
 	}
 }
