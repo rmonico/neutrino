@@ -24,11 +24,6 @@ public class JUnitParser extends AbstractTestParser {
 //	}
 
 	@Override
-	public JUnitTestBattery getBattery() {
-		return battery;
-	}
-
-	@Override
 	public void parse() throws TestParserException {
 		selection = new JUnitSelection(environment.getSelection());
 		
@@ -72,6 +67,11 @@ public class JUnitParser extends AbstractTestParser {
 //		
 //		getSelection().setSelectedFragment(getBattery().getSelectedFragment());
 		
+	}
+
+	@Override
+	public JUnitTestBattery getBattery() {
+		return battery;
 	}
 
 	@Override
