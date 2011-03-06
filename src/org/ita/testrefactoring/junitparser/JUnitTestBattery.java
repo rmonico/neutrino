@@ -4,19 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ita.testrefactoring.abstracttestparser.TestBattery;
-import org.ita.testrefactoring.abstracttestparser.TestSuite;
 import org.ita.testrefactoring.codeparser.Type;
 
 public class JUnitTestBattery extends TestBattery {
 
-	private List<TestSuite> testSuiteList = new ArrayList<TestSuite>();
+	private List<JUnitTestSuite> suiteList = new ArrayList<JUnitTestSuite>();
 
 	JUnitTestBattery() {
 	}
 
 	@Override
-	public List<TestSuite> getSuiteList() {
-		return testSuiteList;
+	public List<JUnitTestSuite> getSuiteList() {
+		return suiteList;
 	}
 
 	JUnitTestSuite createSuite(Type type) {
@@ -25,6 +24,8 @@ public class JUnitTestBattery extends TestBattery {
 		suite.setParent(this);
 		
 		suite.setCodeElement(type);
+		
+		suiteList.add(suite);
 
 		return suite;
 	}
