@@ -10,6 +10,7 @@ import org.ita.testrefactoring.abstracttestparser.Fixture;
 import org.ita.testrefactoring.abstracttestparser.TestElement;
 import org.ita.testrefactoring.abstracttestparser.TestMethod;
 import org.ita.testrefactoring.abstracttestparser.TestSuite;
+import org.ita.testrefactoring.codeparser.Type;
 
 public class JUnitTestSuite extends TestSuite {
 
@@ -86,5 +87,15 @@ public class JUnitTestSuite extends TestSuite {
 	
 	TestElement getSelectedFragment() {
 		return selectedFragment;
+	}
+
+	public void setCodeElement(Type type) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public Type getCodeElement() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

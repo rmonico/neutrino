@@ -2,7 +2,9 @@ package org.ita.testrefactoring.abstracttestparser;
 
 import java.util.List;
 
-public abstract class TestSuite implements TestElement {
+import org.ita.testrefactoring.codeparser.Type;
+
+public abstract class TestSuite implements TestElement, CodeElementWrapper<Type> {
 	
 	public abstract List<Fixture> getFixtures();
 	
