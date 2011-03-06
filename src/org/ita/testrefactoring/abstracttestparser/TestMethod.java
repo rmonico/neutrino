@@ -2,7 +2,9 @@ package org.ita.testrefactoring.abstracttestparser;
 
 import java.util.List;
 
-public abstract class TestMethod implements TestElement {
+import org.ita.testrefactoring.codeparser.Method;
+
+public abstract class TestMethod implements TestElement, CodeElementWrapper<Method> {
 
 	public abstract List<TestStatement> getElements();
 
