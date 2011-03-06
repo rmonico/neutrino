@@ -47,7 +47,7 @@ public class ASTImportDeclaration implements ImportDeclaration, ASTWrapper<org.e
 	}
 
 	@Override
-	public ASTSourceFile getSourceFile() {
+	public ASTSourceFile getParent() {
 		return parent;
 	}
 

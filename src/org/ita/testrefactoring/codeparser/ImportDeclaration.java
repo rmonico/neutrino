@@ -6,5 +6,5 @@ public interface ImportDeclaration extends CodeElement {
 	
 	Type getType();
 	
-	SourceFile getSourceFile();
+	SourceFile getParent();
 }
