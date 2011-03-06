@@ -29,11 +29,11 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		// Não apaga o projeto de testes após rodar cada teste.
 		setAlwaysDeleteTestProject(true);
 	}
-	
+
 	@Test
 	public void testPackageParsing() throws ParserException, JavaModelException {
 		ICompilationUnit[] compilationUnits = new ICompilationUnit[2];
-		
+
 		// Crio os arquivos, pois só considero pacotes quando há arquivos dentro
 		StringBuilder pack1ClassSource = new StringBuilder();
 
@@ -56,7 +56,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		compilationUnits[1] = createSourceFile("org.ita.testrefactoring.testfiles.pack2", "Pack2Class.java", pack2ClassSource);
 
 		ASTParser parser = new ASTParser();
-		
+
 		parser.setCompilationUnits(compilationUnits);
 		parser.setActiveCompilationUnit(compilationUnits[0]);
 
@@ -89,7 +89,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 	@Test
 	public void testMinimalSourceFileParsing() throws ParserException, JavaModelException {
 		ICompilationUnit[] compilationUnits = new ICompilationUnit[1];
-		
+
 		StringBuilder testSourceFile = new StringBuilder();
 
 		testSourceFile.append("/**");
@@ -114,7 +114,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		parser.setCompilationUnits(compilationUnits);
 		parser.setActiveCompilationUnit(compilationUnits[0]);
-		
+
 		parser.parse();
 
 		ASTEnvironment environment = parser.getEnvironment();
@@ -141,7 +141,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 	@Test
 	public void testCompleteSourceFileParsing() throws JavaModelException, ParserException {
 		ICompilationUnit[] compilationUnits = new ICompilationUnit[4];
-		
+
 		StringBuilder knownAnnotationSource = new StringBuilder();
 
 		knownAnnotationSource.append("package org.ita.testrefactoring.otherpackage;\n");
@@ -152,7 +152,6 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		compilationUnits[0] = createSourceFile("org.ita.testrefactoring.otherpackage", "KnownAnnotation.java", knownAnnotationSource);
 
-		
 		StringBuilder knownClassSource = new StringBuilder();
 
 		knownClassSource.append("package org.ita.testrefactoring.otherpackage;\n");
@@ -163,7 +162,6 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		compilationUnits[1] = createSourceFile("org.ita.testrefactoring.otherpackage", "KnownClass.java", knownClassSource);
 
-		
 		StringBuilder knownExceptionSource = new StringBuilder();
 
 		knownExceptionSource.append("package org.ita.testrefactoring.otherpackage;\n");
@@ -179,7 +177,6 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		compilationUnits[2] = createSourceFile("org.ita.testrefactoring.otherpackage", "KnownException.java", knownExceptionSource);
 
-		
 		StringBuilder publicClassSource = new StringBuilder();
 
 		publicClassSource.append("/**\n");
@@ -463,12 +460,11 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		compilationUnits[3] = createSourceFile("org.ita.testrefactoring.testfiles", "PublicClass.java", publicClassSource);
 
-		
 		ASTParser parser = new ASTParser();
 
 		parser.setCompilationUnits(compilationUnits);
 		parser.setActiveCompilationUnit(compilationUnits[3]);
-		
+
 		parser.parse();
 
 		// Teste dos modificadores de acesso para classe
@@ -613,32 +609,23 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		Method getFieldInitializationMethod = (Method) methodList.get("getFieldInitialization");
 		assertTrue("Existência do bloco do método", getFieldInitializationMethod.getBody() != null);
 
-		// Method dummyAnnotatted = methodList.get("dummyAnnotatted");
-		// assertNotSame("Lista de anotações: existência", null,
-		// dummyAnnotatted.getAnnotations());
-		// assertEquals("Lista de anotações: tamanho", 1,
-		// dummyAnnotatted.getAnnotations().size());
-		// assertEquals("Lista de anotações: conteúdo",
-		// environment.getTypeCache().get("java.lang.Deprecated"),
-		// dummyAnnotatted.getAnnotations().get(0));
+		Method dummyAnnotatted = methodList.get("dummyAnnotatted");
+		assertTrue("Lista de anotações: existência", dummyAnnotatted.getAnnotations() != null);
+		assertEquals("Lista de anotações: tamanho", 1, dummyAnnotatted.getAnnotations().size());
+		assertEquals("Lista de anotações: conteúdo", environment.getTypeCache().get("java.lang.Deprecated"), dummyAnnotatted.getAnnotations().get(0));
 
-		// Method nonDummyAnnotated = methodList.get("nonDummyAnnotated");
-		// assertNotSame("Lista de anotações: existência", null,
-		// nonDummyAnnotated.getAnnotations());
-		// assertEquals("Lista de anotações: tamanho", 1,
-		// nonDummyAnnotated.getAnnotations().size());
-		// assertEquals("Lista de anotações: conteúdo",
-		// environment.getTypeCache().get("org.ita.testrefactoring.otherpackage.KnownAnnotation"),
-		// dummyAnnotatted.getAnnotations().get(0));
+		Method nonDummyAnnotated = methodList.get("nonDummyAnnotated");
+		assertTrue("Lista de anotações: existência", nonDummyAnnotated.getAnnotations() != null);
+		assertEquals("Lista de anotações: tamanho", 1, nonDummyAnnotated.getAnnotations().size());
+		assertEquals("Lista de anotações: conteúdo", environment.getTypeCache().get("org.ita.testrefactoring.otherpackage.KnownAnnotation"), dummyAnnotatted.getAnnotations().get(0));
 
 		setTestsOk();
 	}
-	
+
 	@Test
 	public void testSupportedBlockSintax() throws JavaModelException, ParserException {
 		ICompilationUnit[] compilationUnits = new ICompilationUnit[1];
-		
-		
+
 		StringBuilder blockSupportedSource = new StringBuilder();
 
 		blockSupportedSource.append("package org.ita.testrefactoring.testfiles;\n");
@@ -772,71 +759,62 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		blockSupportedSource.append("}\n");
 
 		compilationUnits[0] = createSourceFile("org.ita.testrefactoring.testfiles", "BlockSupportedSintax.java", blockSupportedSource);
-		
-		
+
 		ASTParser parser = new ASTParser();
-		
+
 		parser.setCompilationUnits(compilationUnits);
 		parser.setActiveCompilationUnit(compilationUnits[0]);
-		
+
 		parser.parse();
-		
-		
+
 		ASTEnvironment environment = parser.getEnvironment();
-		
+
 		Type clazz = environment.getTypeCache().get("org.ita.testrefactoring.testfiles.BlockSupportedSintax");
-		
+
 		Method method = (Method) clazz.getMethodList().get("variableDeclaration");
-		
+
 		Block block = method.getBody();
-		
+
 		assertEquals("Lista de statements (size)", 6, block.getStatementList().size());
 
 		assertTrue("Tipo do statement", block.getStatementList().get(0) instanceof VariableDeclarationStatement);
-		
-		
+
 		VariableDeclarationStatement nonInitializedVariable = (VariableDeclarationStatement) block.getStatementList().get(0);
 
 		assertEquals("Declaração de variável sem inicialização (Name)", "nonInitializedVariable", nonInitializedVariable.getVariableName());
 		assertEquals("Declaração de variável sem inicialização (Type)", "<primitive type package>.int", nonInitializedVariable.getVariableType().getQualifiedName());
 		assertEquals("Declaração de variável sem inicialização (Initialization)", null, nonInitializedVariable.getInitialization());
 
-		
 		VariableDeclarationStatement initializedVariable = (VariableDeclarationStatement) block.getStatementList().get(1);
-		
+
 		assertEquals("Declaração de variável com inicialização literal (Name)", "initializedVariable", initializedVariable.getVariableName());
 		assertEquals("Declaração de variável com inicialização literal (Type)", "<primitive type package>.int", initializedVariable.getVariableType().getQualifiedName());
 		assertEquals("Declaração de variável com inicialização literal (Initialization)", "-1", initializedVariable.getInitialization().toString());
-		
-		
+
 		VariableDeclarationStatement methodInitializedVariable = (VariableDeclarationStatement) block.getStatementList().get(2);
-		
+
 		assertEquals("Declaração de variável inicializada por método (Tipo)", "methodInitializedVariable", methodInitializedVariable.getVariableName());
 		assertEquals("Declaração de variável inicializada por método (Type)", "<primitive type package>.int", methodInitializedVariable.getVariableType().getQualifiedName());
 		assertEquals("Declaração de variável inicializada por método (Initialization)", clazz.getMethodList().get("returnStatement"), ((MethodInvocationExpression) methodInitializedVariable.getInitialization()).getCalledMethod());
-		
-		
+
 		VariableDeclarationStatement nonInitializedObject = (VariableDeclarationStatement) block.getStatementList().get(3);
-		
+
 		assertEquals("Declaração de variável objeto não inicializada (Tipo)", "nonInitializedObject", nonInitializedObject.getVariableName());
 		assertEquals("Declaração de variável objeto não inicializada (Type)", "java.lang.Integer", nonInitializedObject.getVariableType().getQualifiedName());
 		assertEquals("Declaração de variável objeto não inicializada (Initialization)", null, nonInitializedObject.getInitialization());
 
-		
 		VariableDeclarationStatement nullInitializedObject = (VariableDeclarationStatement) block.getStatementList().get(4);
-		
+
 		assertEquals("Declaração de variável objeto inicializada com null (Tipo)", "nullInitializedObject", nullInitializedObject.getVariableName());
 		assertEquals("Declaração de variável objeto inicializada com null (Type)", "java.lang.Integer", nullInitializedObject.getVariableType().getQualifiedName());
 		assertEquals("Declaração de variável objeto inicializada com null (Initialization)", "null", nullInitializedObject.getInitialization().toString());
 
-
 		VariableDeclarationStatement constructedObject = (VariableDeclarationStatement) block.getStatementList().get(5);
-		
+
 		assertEquals("Declaração de variável objeto inicializada por construtor (Tipo)", "constructedObject", constructedObject.getVariableName());
 		assertEquals("Declaração de variável objeto inicializada por construtor (Type)", "java.lang.Integer", constructedObject.getVariableType().getQualifiedName());
 		assertEquals("Declaração de variável objeto inicializada por construtor (Initialization)", "new Integer(99)", constructedObject.getInitialization().toString());
 
-		
 		setTestsOk();
 	}
 }
