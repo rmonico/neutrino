@@ -10,6 +10,7 @@ import org.ita.testrefactoring.RefactoringUtils;
 import org.ita.testrefactoring.abstracttestparser.TestStatement;
 import org.ita.testrefactoring.abstracttestparser.TestElement;
 import org.ita.testrefactoring.abstracttestparser.TestMethod;
+import org.ita.testrefactoring.codeparser.Method;
 
 public class JUnitTestMethod extends TestMethod {
 	
@@ -54,6 +55,7 @@ public class JUnitTestMethod extends TestMethod {
 	private JUnitTestSuite parent;
 	private List<TestStatement> elementList = new ArrayList<TestStatement>();
 	private TestElement selectedFragment;
+	private Method element;
 
 	public void setMethodDeclaration(MethodDeclaration methodDeclaration) {
 		this.methodDeclaration = methodDeclaration;
@@ -111,5 +113,13 @@ public class JUnitTestMethod extends TestMethod {
 	
 	TestElement getSelectedFragment() {
 		return selectedFragment;
+	}
+
+	void setCodeElement(Method element) {
+		this.element = element;
+	}
+	@Override
+	public Method getCodeElement() {
+		return element;
 	}
 }
