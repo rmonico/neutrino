@@ -3,9 +3,7 @@ package org.ita.testrefactoring.junitparser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ita.testrefactoring.abstracttestparser.Fixture;
 import org.ita.testrefactoring.abstracttestparser.TestElement;
-import org.ita.testrefactoring.abstracttestparser.TestMethod;
 import org.ita.testrefactoring.abstracttestparser.TestSuite;
 import org.ita.testrefactoring.codeparser.Method;
 import org.ita.testrefactoring.codeparser.Type;
@@ -14,7 +12,7 @@ public class JUnitTestSuite extends TestSuite {
 
 //	private TypeDeclaration typeDeclaration;
 	private JUnitTestMethod beforeMethod;
-	private List<TestMethod> testMethodList = new ArrayList<TestMethod>();
+	private List<JUnitTestMethod> testMethodList = new ArrayList<JUnitTestMethod>();
 	private JUnitTestMethod afterMethod;
 
 	private JUnitTestBattery parent;
@@ -75,7 +73,7 @@ public class JUnitTestSuite extends TestSuite {
 	}
 
 	@Override
-	public List<TestMethod> getTestMethodList() {
+	public List<JUnitTestMethod> getTestMethodList() {
 		return testMethodList;
 	}
 
@@ -94,7 +92,7 @@ public class JUnitTestSuite extends TestSuite {
 	}
 
 	@Override
-	public List<Fixture> getFixtures() {
+	public List<JUnitFixture> getFixtures() {
 		// TODO Auto-generated method stub
 		return null;
 	}
