@@ -116,7 +116,7 @@ public abstract class DummyType implements Type {
 		for (String key : fieldList.keySet()) {
 			Field field = fieldList.get(key);
 
-			sb.append(key + " --> " + field.getFieldType().getQualifiedName() + " " + field.getName() + ";\n");
+			sb.append(key + " --> " + field.getParent().getQualifiedName() + " " + field.getName() + ";\n");
 		}
 
 		sb.append("\n");

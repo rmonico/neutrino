@@ -66,7 +66,7 @@ public class ASTField implements Field, ASTWrapper<FieldDeclaration> {
 	}
 
 	@Override
-	public Type getFieldType() {
+	public Type getParent() {
 		return fieldType;
 	}
 	

@@ -514,7 +514,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		assertEquals("Tipo parent", fullClass, privateField.getParentType());
 
-		assertEquals("Tipo do field", environment.getTypeCache().get(".int"), privateField.getFieldType());
+		assertEquals("Tipo do field", environment.getTypeCache().get(".int"), privateField.getParent());
 
 		// assertTrue("Modificador de acesso private para campo",
 		// privateField.getAccessModifier().isPrivate());
