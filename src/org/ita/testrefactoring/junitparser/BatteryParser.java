@@ -3,6 +3,7 @@ package org.ita.testrefactoring.junitparser;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ita.testrefactoring.codeparser.Annotation;
 import org.ita.testrefactoring.codeparser.Environment;
 import org.ita.testrefactoring.codeparser.Method;
 import org.ita.testrefactoring.codeparser.Type;
@@ -17,7 +18,17 @@ import org.ita.testrefactoring.codeparser.TypeKind;
 class BatteryParser {
 
 	private enum TestMethodKind {
-		NOT_TEST_METHOD, BEFORE_METHOD, TEST_METHOD, AFTER_METHOD
+		NOT_TEST_METHOD(null), BEFORE_METHOD("org.junit.Before"), TEST_METHOD("org.junit.Test"), AFTER_METHOD("org.junit.After");
+		
+		private String annotationName;
+
+		private TestMethodKind(String qualifiedAnnotationName) {
+			annotationName = qualifiedAnnotationName;
+		}
+		
+		String getAnnotationName() {
+			return annotationName;
+		}
 	}
 
 	private Environment environment;
@@ -40,7 +51,8 @@ class BatteryParser {
 			JUnitTestSuite suite = null;
 			
 			for (Method m : t.getMethodList().values()) {
-				TestMethodKind methodKind = getTestMethodKind(m); 
+				TestMethodKind methodKind = getTestMethodKind(m);
+				
 				if (methodKind == TestMethodKind.NOT_TEST_METHOD) {
 					continue;
 				}
@@ -56,6 +68,10 @@ class BatteryParser {
 				} else if (methodKind == TestMethodKind.AFTER_METHOD) {
 					suite.createAfterMethod(m);
 				}
+			}
+			
+			if (suite != null) {
+				battery.getSuiteList().add(suite);
 			}
 		}
 	}
@@ -73,6 +89,14 @@ class BatteryParser {
 	}
 	
 	private TestMethodKind getTestMethodKind(Method method) {
+		for (Annotation a : method.getAnnotations()) {
+			for (TestMethodKind kind : TestMethodKind.values()) {
+				if (a.getQualifiedName().equals(kind.getAnnotationName())) {
+					return kind;
+				}
+			}
+		}
+		
 		return TestMethodKind.NOT_TEST_METHOD;
 	}
 
