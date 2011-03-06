@@ -5,7 +5,7 @@ package org.ita.testrefactoring.codeparser;
  * @author Rafael Monico
  *
  */
-public interface Statement {
+public interface Statement extends CodeElement {
 	
 	Block getParent();
 }
