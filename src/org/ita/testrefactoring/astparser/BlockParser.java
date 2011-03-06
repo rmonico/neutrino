@@ -7,7 +7,9 @@ import org.eclipse.jdt.core.dom.PrefixExpression;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.ita.testrefactoring.codeparser.LiteralExpression;
+import org.ita.testrefactoring.codeparser.Package;
 import org.ita.testrefactoring.codeparser.ParserException;
+import org.ita.testrefactoring.codeparser.SourceFile;
 import org.ita.testrefactoring.codeparser.Statement;
 import org.ita.testrefactoring.codeparser.Type;
 import org.ita.testrefactoring.codeparser.VariableDeclarationStatement;
@@ -27,9 +29,11 @@ class BlockParser {
 
 	private ASTBlock block;
 	QuickVisitor quickVisitor = new QuickVisitor();
+	private ASTEnvironment environment;
 
 	public void setBlock(ASTBlock block) {
 		this.block = block;
+		environment = getEnvironment();
 	}
 
 	public void parse() throws ParserException {
@@ -54,6 +58,12 @@ class BlockParser {
 		}
 
 		block.getStatementList().add(statement);
+		
+		ASTSelection selection = environment.getSelection();
+		
+		if (selection.isOverNode(node)) {
+			selection.setSelectedElement(statement);
+		}
 	}
 
 	/**
@@ -87,8 +97,6 @@ class BlockParser {
 		
 		SimpleName variableNameNode = (SimpleName) fragmentNodes.get(0);
 		
-		ASTEnvironment environment = getEnvironmentForBlock();
-
 		Type variableType = environment.getTypeCache().get(variableTypeNode.resolveBinding().getQualifiedName());
 
 		String variableName = variableNameNode.getIdentifier();
@@ -164,10 +172,13 @@ class BlockParser {
 		return genericStatement;
 	}
 
-	private ASTEnvironment getEnvironmentForBlock() {
-		ASTMethod correspondingMethod = block.getParentMethod();
-
-		return (ASTEnvironment) correspondingMethod.getParent().getParent().getParent().getParent();
+	private ASTEnvironment getEnvironment() {
+		ASTMethod method = block.getParentMethod();
+		Type type = method.getParent();
+		SourceFile sourceFile = type.getParent();
+		Package pack = sourceFile.getParent();
+		
+		return (ASTEnvironment) pack.getParent();
 	}
 
 }
