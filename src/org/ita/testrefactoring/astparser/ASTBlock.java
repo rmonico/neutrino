@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ita.testrefactoring.codeparser.Block;
+import org.ita.testrefactoring.codeparser.CodeElement;
+import org.ita.testrefactoring.codeparser.Invokable;
 import org.ita.testrefactoring.codeparser.Statement;
 
 public class ASTBlock implements Block, ASTWrapper<org.eclipse.jdt.core.dom.Block> {
-	
+
 	private List<Statement> statementList = new ArrayList<Statement>();
 	private org.eclipse.jdt.core.dom.Block astObject;
-	private ASTMethod method;
-	
+	private CodeElement parent;
+
 	@Override
 	public List<Statement> getStatementList() {
 		return statementList;
@@ -21,35 +23,49 @@ public class ASTBlock implements Block, ASTWrapper<org.eclipse.jdt.core.dom.Bloc
 	public void setASTObject(org.eclipse.jdt.core.dom.Block astObject) {
 		this.astObject = astObject;
 	}
-	
+
 	@Override
 	public org.eclipse.jdt.core.dom.Block getASTObject() {
 		return astObject;
 	}
 
 	@Override
-	public ASTMethod getParent() {
-		return method;
+	public ASTMethod getParentMethod() {
+
+		CodeElement e = parent;
+
+		// A segunda condição existe para impedir loops infinitos em função de
+		// blocos mal-criados
+		while (!(e instanceof Invokable) && (e != null))
+			;
+
+		assert false : "A Block should always be contained by a Invokable.";
+		return null;
 	}
-	
-	protected void setParentMethod(ASTMethod method) {
-		this.method = method;
+
+	@Override
+	public CodeElement getParent() {
+		return parent;
+	}
+
+	protected void setParent(CodeElement parent) {
+		this.parent = parent;
 	}
 
 	protected ASTVariableDeclarationStatement createVariableDeclaration(String variableName) {
 		ASTVariableDeclarationStatement variableDeclaration = new ASTVariableDeclarationStatement();
-		
+
 		variableDeclaration.setParent(this);
 		variableDeclaration.setVariableName(variableName);
-		
+
 		return variableDeclaration;
 	}
 
 	public ASTGenericStatement createGenericStatement() {
 		ASTGenericStatement genericStatement = new ASTGenericStatement();
-		
+
 		genericStatement.setParent(this);
-		
+
 		return genericStatement;
 	}
 }

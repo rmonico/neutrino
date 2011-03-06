@@ -11,5 +11,5 @@ public interface Block extends CodeElement {
 	 * 
 	 * @return
 	 */
-	Method getParent();
+	Method getParentMethod();
 }

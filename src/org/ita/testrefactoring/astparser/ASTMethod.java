@@ -21,7 +21,7 @@ public class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
 	ASTBlock createBlock() {
 		ASTBlock methodBlock = new ASTBlock();
 		
-		methodBlock.setParentMethod(this);
+		methodBlock.setParent(this);
 		
 		return methodBlock;
 	}
