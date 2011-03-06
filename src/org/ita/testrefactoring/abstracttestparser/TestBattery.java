@@ -4,7 +4,7 @@ import java.util.List;
 
 public abstract class TestBattery implements TestElement {
 
-	public abstract List<TestSuite> getTestSuiteList();
+	public abstract List<TestSuite> getSuiteList();
 	
 	@Override
 	public TestElement getParent() {

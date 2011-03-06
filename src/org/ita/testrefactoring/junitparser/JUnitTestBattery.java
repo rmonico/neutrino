@@ -15,7 +15,7 @@ public class JUnitTestBattery extends TestBattery {
 	}
 
 	@Override
-	public List<TestSuite> getTestSuiteList() {
+	public List<TestSuite> getSuiteList() {
 		return testSuiteList;
 	}
 
