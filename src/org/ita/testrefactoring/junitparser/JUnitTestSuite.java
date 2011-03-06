@@ -3,7 +3,6 @@ package org.ita.testrefactoring.junitparser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.ita.testrefactoring.abstracttestparser.Fixture;
 import org.ita.testrefactoring.abstracttestparser.TestElement;
 import org.ita.testrefactoring.abstracttestparser.TestMethod;
@@ -14,7 +13,10 @@ import org.ita.testrefactoring.codeparser.Type;
 public class JUnitTestSuite extends TestSuite {
 
 //	private TypeDeclaration typeDeclaration;
+	private JUnitTestMethod beforeMethod;
 	private List<TestMethod> testMethodList = new ArrayList<TestMethod>();
+	private JUnitTestMethod afterMethod;
+
 	private JUnitTestBattery parent;
 	private TestElement selectedFragment;
 	private Type codeElement;
@@ -41,6 +43,14 @@ public class JUnitTestSuite extends TestSuite {
 //		}
 	}
 
+	JUnitTestMethod createBeforeMethod(Method element) {
+		JUnitTestMethod method = createTestMethod(element); 
+		
+		beforeMethod = method;
+		
+		return method;
+	}
+
 	JUnitTestMethod createTestMethod(Method element) {
 		JUnitTestMethod method = new JUnitTestMethod();
 		
@@ -51,15 +61,29 @@ public class JUnitTestSuite extends TestSuite {
 		return method;
 	}
 
-	public void setTypeDeclaration(TypeDeclaration methodDeclaration) {
-//		this.typeDeclaration = methodDeclaration;
+	JUnitTestMethod createAfterMethod(Method element) {
+		JUnitTestMethod method = createTestMethod(element); 
+		
+		afterMethod = method;
+		
+		return method;
 	}
 	
+	@Override
+	public JUnitTestMethod getBeforeMethod() {
+		return beforeMethod;
+	}
+
 	@Override
 	public List<TestMethod> getTestMethodList() {
 		return testMethodList;
 	}
 
+	@Override
+	public JUnitTestMethod getAfterMethod() {
+		return afterMethod;
+	}
+	
 	@Override
 	public JUnitTestBattery getParent() {
 		return parent;
@@ -75,18 +99,6 @@ public class JUnitTestSuite extends TestSuite {
 		return null;
 	}
 
-	@Override
-	public TestMethod getSetup() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public TestMethod getTeardown() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	TestElement getSelectedFragment() {
 		return selectedFragment;
 	}
@@ -100,9 +112,4 @@ public class JUnitTestSuite extends TestSuite {
 		return codeElement;
 	}
 
-	JUnitTestMethod createBeforeMethod(Method element) {
-		JUnitTestMethod method = createTestMethod(element); 
-		
-		return method;
-	}
 }
