@@ -3,7 +3,7 @@ package org.ita.testrefactoring.codeparser;
 import java.util.List;
 import java.util.Map;
 
-public interface SourceFile {
+public interface SourceFile extends CodeElement {
 	
 	public String getFileName();
 	
@@ -16,5 +16,5 @@ public interface SourceFile {
 	 */
 	public Map<String, ? extends Type> getTypeList();
 	
-	Package getPackage();
+	Package getParent();
 }

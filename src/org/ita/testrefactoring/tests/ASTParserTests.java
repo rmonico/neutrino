@@ -70,17 +70,17 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		ASTPackage pack1 = (ASTPackage) environment.getPackageList().get("org.ita.testrefactoring.testfiles.pack1");
 
-		assertEquals("Validade do ambiente do pacote 1", parser.getEnvironment(), pack1.getEnvironment());
+		assertEquals("Validade do ambiente do pacote 1", parser.getEnvironment(), pack1.getParent());
 		assertEquals("Nome do pacote 1", "org.ita.testrefactoring.testfiles.pack1", pack1.getName());
 
 		ASTPackage pack2 = (ASTPackage) environment.getPackageList().get("org.ita.testrefactoring.testfiles.pack2");
 
-		assertEquals("Validade do ambiente do pacote 2", parser.getEnvironment(), pack2.getEnvironment());
+		assertEquals("Validade do ambiente do pacote 2", parser.getEnvironment(), pack2.getParent());
 		assertEquals("Nome do pacote 2", "org.ita.testrefactoring.testfiles.pack2", pack2.getName());
 
 		ASTPackage pack3 = (ASTPackage) environment.getPackageList().get("java.lang");
 
-		assertEquals("Validade do ambiente do pacote 3", parser.getEnvironment(), pack3.getEnvironment());
+		assertEquals("Validade do ambiente do pacote 3", parser.getEnvironment(), pack3.getParent());
 		assertEquals("Nome do pacote 3", "java.lang", pack3.getName());
 
 		setTestsOk();
@@ -125,7 +125,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 
 		ASTSourceFile sourceFile = testPackage.getSourceFileList().get("MinimalSourceFile.java");
 
-		assertEquals("Validade do pacote parent", testPackage, sourceFile.getPackage());
+		assertEquals("Validade do pacote parent", testPackage, sourceFile.getParent());
 
 		assertEquals("Nome do arquivo", "MinimalSourceFile.java", sourceFile.getFileName());
 

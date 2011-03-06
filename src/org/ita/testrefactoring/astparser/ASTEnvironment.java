@@ -303,4 +303,12 @@ public class ASTEnvironment implements Environment, TypeListener {
 	public CodeElement getSelectedElement() {
 		return getSelection().getSelectedElement();
 	}
+
+	/**
+	 * Nesse caso, não há elemento parent.
+	 */
+	@Override
+	public CodeElement getParent() {
+		return null;
+	}
 }

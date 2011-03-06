@@ -49,7 +49,7 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 				fieldTypeQualifiedName = "." + fieldTypeQualifiedName;
 			}
 
-			ASTEnvironment environment = clazz.getPackage().getEnvironment();
+			ASTEnvironment environment = clazz.getPackage().getParent();
 			Type fieldType = environment.getTypeCache().get(fieldTypeQualifiedName);
 
 			if (fieldType == null) {
@@ -152,7 +152,7 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 			superClassName = superclassNode.resolveBinding().getQualifiedName();
 		}
 
-		ASTEnvironment environment = clazz.getPackage().getEnvironment();
+		ASTEnvironment environment = clazz.getPackage().getParent();
 		Type superClass = environment.getTypeCache().get(superClassName);
 
 		if (superClass.getKind() == TypeKind.UNKNOWN) {

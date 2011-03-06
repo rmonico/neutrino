@@ -26,7 +26,7 @@ class SourceFileParser {
 		public boolean visit(ImportDeclaration node) {
 			ASTImportDeclaration _import = sourceFile.createImportDeclaration();
 
-			ASTEnvironment environment = sourceFile.getPackage().getEnvironment();
+			ASTEnvironment environment = sourceFile.getParent().getParent();
 			
 			// Nesse caso, node.getName() já devolve o nome qualificado do tipo importado
 			

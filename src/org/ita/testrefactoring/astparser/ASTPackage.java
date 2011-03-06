@@ -28,7 +28,7 @@ public class ASTPackage implements Package, ASTWrapper<PackageDeclaration> {
 	}
 	
 	@Override
-	public ASTEnvironment getEnvironment() {
+	public ASTEnvironment getParent() {
 		return parent;
 	}
 

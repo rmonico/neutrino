@@ -73,7 +73,7 @@ public class ASTSourceFile implements SourceFile,
 	}
 
 	@Override
-	public ASTPackage getPackage() {
+	public ASTPackage getParent() {
 		return parent;
 	}
 
@@ -117,12 +117,12 @@ public class ASTSourceFile implements SourceFile,
 	}
 
 	private ASTEnvironment getEnvironment() {
-		return getPackage().getEnvironment();
+		return getParent().getParent();
 	}
 	
 	private void setupType(ASTType type, String name) {
 		type.setName(name);
-		type.setPackage(getPackage());
+		type.setPackage(getParent());
 		type.setSourceFile(this);
 		
 		getTypeList().put(name, type);
