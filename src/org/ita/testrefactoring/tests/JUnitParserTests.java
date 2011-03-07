@@ -17,14 +17,15 @@ import org.junit.Test;
 
 public class JUnitParserTests extends RefactoringAbstractTests {
 	
+	private ASTParser codeParser;
+
 	@Before
 	public void setup() {
 		// Não apaga o projeto de testes após rodar cada teste.
 		setAlwaysDeleteTestProject(true);
 	}
 	
-	@Test
-	public void testSomething() throws TestParserException, ParserException, JavaModelException {
+	private void prepareTests() throws JavaModelException, ParserException {
 		StringBuilder mockClassCode = new StringBuilder();
 
 		mockClassCode.append("package org.ita.testrefactoring.testfiles.junitparsertests;\n");
@@ -71,47 +72,67 @@ public class JUnitParserTests extends RefactoringAbstractTests {
 		mockClassCode.append("    }\n");
 		mockClassCode.append("}\n");
 
-		ICompilationUnit mockCompilationUnit = createSourceFile("org.ita.testrefactoring.testfiles.junitparsertests", "MockClass.java", mockClassCode); 
+		ICompilationUnit mockCompilationUnit = createSourceFile("org.ita.testrefactoring.testfiles.junitparsertests", "MockClass.java", mockClassCode);
 		
-		
-		ASTParser codeParser = new ASTParser();
+		codeParser = new ASTParser();
 		
 		codeParser.setActiveCompilationUnit(mockCompilationUnit);
 		codeParser.setCompilationUnits(new ICompilationUnit[] {mockCompilationUnit});
 		
 		codeParser.parse();
-		
+	}
+	
+	@Test
+	public void testTestParser() throws TestParserException, ParserException, JavaModelException {
+		prepareTests(); 
 		
 		JUnitParser testParser = new JUnitParser();
 		
 		testParser.setEnvironment(codeParser.getEnvironment());
 		
 		testParser.parse();
-
+		
 		JUnitTestBattery battery = testParser.getBattery();
 		
-		assertNull("Bateria de testes: Parent", battery.getParent());
-		assertEquals("Bateria de testes: Size of suite list", 1, battery.getSuiteList().size());
+		testBatteryParser(battery);
 		
 		JUnitTestSuite suite = battery.getSuiteList().get(0);
 		
+		testSuiteParser(battery, suite);
+
+		testSuiteFixtureParser(suite);
+		
+		testSuiteMethodParser(suite);
+		
+		setTestsOk();
+	}
+
+	private void testBatteryParser(JUnitTestBattery battery) {
+		assertNull("Bateria de testes: Parent", battery.getParent());
+		assertEquals("Bateria de testes: Size of suite list", 1, battery.getSuiteList().size());
+	}
+
+	private void testSuiteParser(JUnitTestBattery battery, JUnitTestSuite suite) {
 		assertEquals("Suite: parent", battery, suite.getParent());
 		
 		CodeElement expectedSuiteCodeElement = codeParser.getEnvironment().getTypeCache().get("org.ita.testrefactoring.testfiles.junitparsertests.MockClass");
 		
 		assertEquals("Suite: code element", expectedSuiteCodeElement, suite.getCodeElement());
+	}
 
+	private void testSuiteFixtureParser(JUnitTestSuite suite) {
 		assertEquals("Suite: fixture list (size)", 2, suite.getFixtures().size());
 		assertEquals("Suite: fixture 0", "fixture0", suite.getFixtures().get(0).getName());
 		assertEquals("Suite: fixture 1", "fixture1", suite.getFixtures().get(1).getName());
-		
+	}
+
+	private void testSuiteMethodParser(JUnitTestSuite suite) {
 		assertEquals("Suite: before method", "setup", suite.getBeforeMethod().getName());
 		assertEquals("Suite: after method", "teardown", suite.getAfterMethod().getName());
 		assertEquals("Suite: test method list (size)", 2, suite.getTestMethodList().size());
 		
 		assertEquals("Suite: test method 0", "testNothing0", suite.getTestMethodList().get(0).getName());
 		assertEquals("Suite: test method 1", "testNothing1", suite.getTestMethodList().get(1).getName());
-		
-		setTestsOk();
 	}
+
 }
