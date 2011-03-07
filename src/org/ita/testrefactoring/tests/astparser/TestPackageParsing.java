@@ -13,9 +13,10 @@ import org.junit.Test;
 
 public class TestPackageParsing extends RefactoringAbstractTests {
 	
-	@Test
-	public void testPackageParsing() throws ParserException, JavaModelException {
-		ICompilationUnit[] compilationUnits = new ICompilationUnit[2];
+	private ICompilationUnit[] compilationUnits;
+	
+	private void prepareTests() throws JavaModelException {
+		compilationUnits = new ICompilationUnit[2];
 
 		// Crio os arquivos, pois só considero pacotes quando há arquivos dentro
 		StringBuilder pack1ClassSource = new StringBuilder();
@@ -37,6 +38,11 @@ public class TestPackageParsing extends RefactoringAbstractTests {
 		pack2ClassSource.append("}\n");
 
 		compilationUnits[1] = createSourceFile("org.ita.testrefactoring.testfiles.pack2", "Pack2Class.java", pack2ClassSource);
+	}
+
+	@Test
+	public void testPackageParsing() throws ParserException, JavaModelException {
+		prepareTests();
 
 		ASTParser parser = new ASTParser();
 
@@ -68,4 +74,5 @@ public class TestPackageParsing extends RefactoringAbstractTests {
 
 		setTestsOk();
 	}
+
 }
