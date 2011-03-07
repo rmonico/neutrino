@@ -8,6 +8,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.ita.testrefactoring.eclipseaction.ActionException;
 import org.ita.testrefactoring.eclipseaction.IAction;
 import org.ita.testrefactoring.tests.astparser.ASTParserTests;
+import org.ita.testrefactoring.tests.astparser.TestPackageParsing;
 import org.ita.testrefactoring.tests.junitparser.JUnitParserTests;
 import org.junit.runner.JUnitCore;
 import org.zero.utils.tests.JUnitUtilsTests;
@@ -57,6 +58,7 @@ public class JUnitMain implements IAction {
 		classesToTest.add(ListenerTests.class);
 		
 		classesToTest.add(ASTParserTests.class);
+		classesToTest.add(TestPackageParsing.class);
 		classesToTest.add(JUnitParserTests.class);
 //		classesToTest.add(AddExplanationRefactoringTests.class);
 //		classesToTest.add(ExtractInitializationMethodTests.class);
