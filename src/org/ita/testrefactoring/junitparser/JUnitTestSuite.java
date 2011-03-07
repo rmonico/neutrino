@@ -52,6 +52,10 @@ public class JUnitTestSuite extends TestSuite {
 	JUnitFixture createFixture(Field field) {
 		JUnitFixture fixture = new JUnitFixture();
 		
+		fixture.setParent(this);
+		
+		fixture.setCodeElement(field);
+		
 		return fixture;
 	}
 
