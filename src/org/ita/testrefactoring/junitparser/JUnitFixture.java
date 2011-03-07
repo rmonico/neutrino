@@ -1,22 +1,21 @@
 package org.ita.testrefactoring.junitparser;
 
 import org.ita.testrefactoring.abstracttestparser.Fixture;
-import org.ita.testrefactoring.abstracttestparser.TestElement;
 
 public class JUnitFixture implements Fixture {
 
-	private TestElement parent;
+	private JUnitTestSuite parent;
 	private String name;
 
 	JUnitFixture() {
 	}
 	
 	@Override
-	public TestElement getParent() {
+	public JUnitTestSuite getParent() {
 		return parent;
 	}
 	
-	void setParent(TestElement parent) {
+	void setParent(JUnitTestSuite parent) {
 		this.parent = parent;
 	}
 
