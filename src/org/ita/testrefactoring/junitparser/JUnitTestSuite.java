@@ -56,6 +56,8 @@ public class JUnitTestSuite extends TestSuite {
 		
 		fixture.setCodeElement(field);
 		
+		fixtures.add(fixture);
+		
 		return fixture;
 	}
 
