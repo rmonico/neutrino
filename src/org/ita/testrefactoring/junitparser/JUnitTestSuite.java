@@ -23,15 +23,7 @@ public class JUnitTestSuite extends TestSuite {
 	JUnitTestSuite() {
 	}
 
-	JUnitTestMethod createBeforeMethod(Method element) {
-		JUnitTestMethod method = createTestMethod(element);
-
-		beforeMethod = method;
-
-		return method;
-	}
-
-	JUnitTestMethod createTestMethod(Method element) {
+	private JUnitTestMethod internalCreateTestMethod(Method element) {
 		JUnitTestMethod method = new JUnitTestMethod();
 
 		method.setParent(this);
@@ -41,8 +33,24 @@ public class JUnitTestSuite extends TestSuite {
 		return method;
 	}
 
+	JUnitTestMethod createBeforeMethod(Method element) {
+		JUnitTestMethod method = internalCreateTestMethod(element);
+
+		beforeMethod = method;
+
+		return method;
+	}
+
+	JUnitTestMethod createTestMethod(Method element) {
+		JUnitTestMethod method = internalCreateTestMethod(element);
+		
+		testMethodList.add(method);
+		
+		return method;
+	}
+
 	JUnitTestMethod createAfterMethod(Method element) {
-		JUnitTestMethod method = createTestMethod(element);
+		JUnitTestMethod method = internalCreateTestMethod(element);
 
 		afterMethod = method;
 
