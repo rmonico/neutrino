@@ -1,4 +1,4 @@
-package org.ita.testrefactoring.tests;
+package org.ita.testrefactoring.tests.junitparser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -12,6 +12,7 @@ import org.ita.testrefactoring.codeparser.ParserException;
 import org.ita.testrefactoring.junitparser.JUnitParser;
 import org.ita.testrefactoring.junitparser.JUnitTestBattery;
 import org.ita.testrefactoring.junitparser.JUnitTestSuite;
+import org.ita.testrefactoring.tests.RefactoringAbstractTests;
 import org.junit.Before;
 import org.junit.Test;
 

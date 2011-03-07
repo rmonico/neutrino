@@ -1,4 +1,4 @@
-package org.ita.testrefactoring.tests;
+package org.ita.testrefactoring.tests.astparser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -19,6 +19,7 @@ import org.ita.testrefactoring.codeparser.MethodInvocationExpression;
 import org.ita.testrefactoring.codeparser.ParserException;
 import org.ita.testrefactoring.codeparser.Type;
 import org.ita.testrefactoring.codeparser.VariableDeclarationStatement;
+import org.ita.testrefactoring.tests.RefactoringAbstractTests;
 import org.junit.Before;
 import org.junit.Test;
 

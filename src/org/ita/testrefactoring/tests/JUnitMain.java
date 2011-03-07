@@ -7,6 +7,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.ita.testrefactoring.eclipseaction.ActionException;
 import org.ita.testrefactoring.eclipseaction.IAction;
+import org.ita.testrefactoring.tests.astparser.ASTParserTests;
+import org.ita.testrefactoring.tests.junitparser.JUnitParserTests;
 import org.junit.runner.JUnitCore;
 import org.zero.utils.tests.JUnitUtilsTests;
 import org.zero.utils.tests.ListenerTests;

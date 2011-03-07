@@ -1,4 +1,4 @@
-package org.ita.testrefactoring.tests;
+package org.ita.testrefactoring.tests.addexplanation;
 
 import static org.zero.utils.JUnitUtils.assertBlockEquals;
 
@@ -15,6 +15,7 @@ import org.ita.testrefactoring.astparser.ASTParser;
 import org.ita.testrefactoring.codeparser.CodeSelection;
 import org.ita.testrefactoring.codeparser.ParserException;
 import org.ita.testrefactoring.junitparser.JUnitParser;
+import org.ita.testrefactoring.tests.RefactoringAbstractTests;
 import org.junit.Test;
 
 public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
