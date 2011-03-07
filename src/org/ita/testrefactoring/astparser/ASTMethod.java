@@ -106,5 +106,10 @@ public class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
 		
 		return body;
 	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 
 }
