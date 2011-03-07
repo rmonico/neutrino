@@ -125,6 +125,6 @@ public class JUnitTestMethod extends TestMethod {
 
 	@Override
 	public String getName() {
-		return null;
+		return element.getName();
 	}
 }
