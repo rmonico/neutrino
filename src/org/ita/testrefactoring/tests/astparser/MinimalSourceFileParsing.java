@@ -14,10 +14,9 @@ import org.junit.Test;
 
 public class MinimalSourceFileParsing extends RefactoringAbstractTests {
 	
-	@Test
-	public void testMinimalSourceFileParsing() throws ParserException, JavaModelException {
-		ICompilationUnit[] compilationUnits = new ICompilationUnit[1];
+	private ICompilationUnit compilationUnit;
 
+	private void prepareTest() throws JavaModelException {
 		StringBuilder testSourceFile = new StringBuilder();
 
 		testSourceFile.append("/**");
@@ -36,12 +35,17 @@ public class MinimalSourceFileParsing extends RefactoringAbstractTests {
 		testSourceFile.append("    }\n");
 		testSourceFile.append("}\n");
 
-		compilationUnits[0] = createSourceFile("org.ita.testrefactoring.testfiles", "MinimalSourceFile.java", testSourceFile);
+		compilationUnit = createSourceFile("org.ita.testrefactoring.testfiles", "MinimalSourceFile.java", testSourceFile);
+	}
+
+	@Test
+	public void testMinimalSourceFileParsing() throws ParserException, JavaModelException {
+		prepareTest();
 
 		ASTParser parser = new ASTParser();
 
-		parser.setCompilationUnits(compilationUnits);
-		parser.setActiveCompilationUnit(compilationUnits[0]);
+		parser.setActiveCompilationUnit(compilationUnit);
+		parser.setCompilationUnits(new ICompilationUnit[] {compilationUnit});
 
 		parser.parse();
 
