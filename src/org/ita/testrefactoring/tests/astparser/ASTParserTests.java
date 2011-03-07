@@ -25,12 +25,6 @@ import org.junit.Test;
 
 public class ASTParserTests extends RefactoringAbstractTests {
 
-	@Before
-	public void setup() {
-		// Não apaga o projeto de testes após rodar cada teste.
-		setAlwaysDeleteTestProject(true);
-	}
-
 	@Test
 	public void testPackageParsing() throws ParserException, JavaModelException {
 		ICompilationUnit[] compilationUnits = new ICompilationUnit[2];

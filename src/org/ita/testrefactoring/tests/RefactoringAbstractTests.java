@@ -89,6 +89,9 @@ public class RefactoringAbstractTests {
 
 		// Os testes não estão ok até que alguém diga que estão
 		testsOk = false;
+		
+		// Não apaga o projeto de testes após rodar cada teste.
+		setAlwaysDeleteTestProject(true);
 	}
 
 	@After
