@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.ita.testrefactoring.codeparser.Annotation;
 import org.ita.testrefactoring.codeparser.Environment;
+import org.ita.testrefactoring.codeparser.Field;
 import org.ita.testrefactoring.codeparser.Method;
 import org.ita.testrefactoring.codeparser.Type;
 import org.ita.testrefactoring.codeparser.TypeKind;
@@ -44,8 +45,14 @@ class BatteryParser {
 	}
 
 	public void parse() {
-		List<Type> knownTypes = getKnownTypesList();
+		populateMethodList();
 		
+		populateFixtureList();
+	}
+
+	private void populateMethodList() {
+		List<Type> knownTypes = getKnownTypesList();
+
 		for (Type t : knownTypes) {
 			// Não sei se a classe será uma suite de teste nesse momento
 			JUnitTestSuite suite = null;
@@ -70,6 +77,14 @@ class BatteryParser {
 				}
 			}
 			
+		}
+	}
+
+	private void populateFixtureList() {
+		for (JUnitTestSuite suite : battery.getSuiteList()) {
+			for (Field field : suite.getCodeElement().getFieldList().values()) {
+				suite.createFixture(field);
+			}
 		}
 	}
 
