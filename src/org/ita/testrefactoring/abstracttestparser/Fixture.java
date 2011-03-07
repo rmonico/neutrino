@@ -1,6 +1,8 @@
 package org.ita.testrefactoring.abstracttestparser;
 
-public interface Fixture extends TestElement {
+import org.ita.testrefactoring.codeparser.Field;
+
+public interface Fixture extends TestElement, CodeElementWrapper<Field> {
 
 	TestSuite getParent();
 
