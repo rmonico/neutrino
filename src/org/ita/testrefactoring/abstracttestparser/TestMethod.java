@@ -6,6 +6,8 @@ import org.ita.testrefactoring.codeparser.Method;
 
 public abstract class TestMethod implements TestElement, CodeElementWrapper<Method> {
 
+	public abstract TestSuite getParent();
+
 	public abstract List<TestStatement> getElements();
 
 	public abstract Action createAction();
