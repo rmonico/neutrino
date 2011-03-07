@@ -6,7 +6,6 @@ import org.ita.testrefactoring.codeparser.Field;
 public class JUnitFixture implements Fixture {
 
 	private JUnitTestSuite parent;
-	private String name;
 	private Field element;
 
 	JUnitFixture() {
@@ -23,13 +22,9 @@ public class JUnitFixture implements Fixture {
 
 	@Override
 	public String getName() {
-		return name;
+		return element.getName();
 	}
 	
-	void setName(String name) {
-		this.name = name;
-	}
-
 	@Override
 	public Field getCodeElement() {
 		return element;
