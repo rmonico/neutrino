@@ -3,80 +3,18 @@ package org.ita.testrefactoring.junitparser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.core.dom.ASTVisitor;
-import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.eclipse.jdt.core.dom.MethodInvocation;
-import org.ita.testrefactoring.RefactoringUtils;
-import org.ita.testrefactoring.abstracttestparser.TestStatement;
-import org.ita.testrefactoring.abstracttestparser.TestElement;
 import org.ita.testrefactoring.abstracttestparser.TestMethod;
+import org.ita.testrefactoring.abstracttestparser.TestStatement;
 import org.ita.testrefactoring.codeparser.Method;
 
 public class JUnitTestMethod extends TestMethod {
+
+	private JUnitTestSuite parent;
+	private List<TestStatement> elementList = new ArrayList<TestStatement>();
+	private Method element;
 	
 	JUnitTestMethod() {
 		
-	}
-
-	private class LocateTestElementVisitor extends ASTVisitor {
-		
-		private TestElement selectedFragment;
-		
-		public TestElement getSelectedFragment() {
-			return selectedFragment;
-		}
-		
-		public boolean visit(MethodInvocation node) {
-			JUnitTestElement element;
-			
-			if (RefactoringUtils.isAssertion(node)) {
-				element = createAssertion();
-				
-			} else {
-				element = createAction();
-			}
-				
-			element.setMethodInvocation(node);
-			
-			elementList.add(element);
-			
-			JUnitSelection selection = getSelection();
-			
-			if (RefactoringUtils.isNodeOverSelection(node, selection.getSelectionStart(), selection.getSelectionLength())) {
-				selectedFragment = element;
-			}
-
-			return false;
-		}
-
-	}
-
-	private MethodDeclaration methodDeclaration;
-	private JUnitTestSuite parent;
-	private List<TestStatement> elementList = new ArrayList<TestStatement>();
-	private TestElement selectedFragment;
-	private Method element;
-
-	public void setMethodDeclaration(MethodDeclaration methodDeclaration) {
-		this.methodDeclaration = methodDeclaration;
-
-	}
-
-	public JUnitParser getParser() {
-//		return getParent().getParent().getParser();
-		return null;
-	}
-
-	private JUnitSelection getSelection() {
-		return getParser().getSelection();
-	}
-
-	public void parse() {
-		LocateTestElementVisitor visitor = new LocateTestElementVisitor();
-
-		methodDeclaration.accept(visitor);
-		
-		selectedFragment = visitor.getSelectedFragment();
 	}
 
 	@Override
@@ -102,29 +40,31 @@ public class JUnitTestMethod extends TestMethod {
 		return elementList;
 	}
 
-	void setParent(JUnitTestSuite parent) {
-		this.parent = parent;
-	}
-
 	@Override
 	public JUnitTestSuite getParent() {
 		return parent;
 	}
 	
-	TestElement getSelectedFragment() {
-		return selectedFragment;
+	void setParent(JUnitTestSuite parent) {
+		this.parent = parent;
 	}
 
-	void setCodeElement(Method element) {
-		this.element = element;
-	}
 	@Override
 	public Method getCodeElement() {
 		return element;
 	}
 
+	void setCodeElement(Method element) {
+		this.element = element;
+	}
+
 	@Override
 	public String getName() {
 		return element.getName();
+	}
+	
+	@Override
+	public String toString() {
+		return getName();
 	}
 }
