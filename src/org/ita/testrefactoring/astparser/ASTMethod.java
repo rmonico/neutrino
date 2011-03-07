@@ -1,5 +1,6 @@
 package org.ita.testrefactoring.astparser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.MethodDeclaration;
@@ -17,6 +18,7 @@ public class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
 	private ASTMethodDeclarationNonAccessModifier nonAccessModifier = new ASTMethodDeclarationNonAccessModifier();
 	private MethodDeclaration astObject;
 	private ASTBlock body;
+	private List<Annotation> annotationList = new ArrayList<Annotation>();
 	
 	ASTBlock createBlock() {
 		ASTBlock methodBlock = new ASTBlock();
@@ -55,7 +57,7 @@ public class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
 
 	@Override
 	public List<Annotation> getAnnotations() {
-		return null;
+		return annotationList;
 	}
 
 	@Override

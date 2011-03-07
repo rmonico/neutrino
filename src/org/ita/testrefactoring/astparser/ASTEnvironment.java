@@ -87,13 +87,8 @@ public class ASTEnvironment implements Environment, TypeListener {
 	public DummyClass createDummyClass(String qualifiedName) {
 		DummyClass dummy = new DummyClass();
 
-		int lastDot = qualifiedName.lastIndexOf('.');
-		if (lastDot == -1) {
-			lastDot = 0;
-		}
-
-		String packageName = qualifiedName.substring(0, lastDot);
-		String className = qualifiedName.substring(qualifiedName.lastIndexOf('.') + 1, qualifiedName.length());
+		String packageName = extractPackageName(qualifiedName);
+		String className = extractTypeName(qualifiedName);
 
 		Package pack = getPackageList().get(packageName);
 
@@ -108,6 +103,27 @@ public class ASTEnvironment implements Environment, TypeListener {
 
 		return dummy;
 	}
+	
+	public DummyAnnotation createDummyAnnotation(String qualifiedName) {
+		DummyAnnotation dummy = new DummyAnnotation();
+
+		String packageName = extractPackageName(qualifiedName);
+		String className = extractTypeName(qualifiedName);
+
+		Package pack = getPackageList().get(packageName);
+
+		if (pack == null) {
+			pack = createPackage(packageName);
+		}
+
+		dummy.setName(className);
+		dummy.setPackage(pack);
+
+		registerType(dummy);
+
+		return dummy;
+	}
+
 
 	@Override
 	public String toString() {
@@ -312,4 +328,5 @@ public class ASTEnvironment implements Environment, TypeListener {
 	public CodeElement getParent() {
 		return null;
 	}
+
 }

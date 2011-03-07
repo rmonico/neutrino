@@ -5,9 +5,11 @@ import java.util.List;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
+import org.eclipse.jdt.core.dom.IAnnotationBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+import org.ita.testrefactoring.codeparser.Annotation;
 import org.ita.testrefactoring.codeparser.Class;
 import org.ita.testrefactoring.codeparser.ParserException;
 import org.ita.testrefactoring.codeparser.Type;
@@ -117,12 +119,40 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 			method.setAccessModifier(accessModifier);
 
 			method.setNonAccessModifier(nonAccessModifier);
-
+			
 			if (!method.getNonAccessModifier().isAbstract()) {
 				ASTBlock block = method.getBody();
 
 				block.setASTObject(methodDeclaration.getBody());
 			}
+			
+			for (IAnnotationBinding ab : methodDeclaration.resolveBinding().getAnnotations()) {
+				ASTEnvironment environment = (ASTEnvironment) clazz.getParent().getParent().getParent();
+
+				String annotationQualifiedName = ab.getAnnotationType().getQualifiedName();
+				Type type = environment.getTypeCache().get(annotationQualifiedName);
+				Annotation annotation = null;
+				
+				if (type.getKind() == TypeKind.UNKNOWN) {
+					DummyAnnotation dummyAnnotation = environment.createDummyAnnotation(annotationQualifiedName);
+					
+					type.promote(dummyAnnotation);
+					
+					annotation = dummyAnnotation;
+				} else if (type.getKind() == TypeKind.ANNOTATION) {
+					annotation = (Annotation) type;
+				} else {
+					try {
+						throw new ParserException("Should never happen...");
+					} catch (ParserException e) {
+						throw new Error(e);
+					}
+				}
+				
+				method.getAnnotations().add(annotation);
+			}
+
+
 
 			return false;
 		}

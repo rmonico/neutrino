@@ -617,7 +617,7 @@ public class ASTParserTests extends RefactoringAbstractTests {
 		Method nonDummyAnnotated = methodList.get("nonDummyAnnotated");
 		assertTrue("Lista de anotações: existência", nonDummyAnnotated.getAnnotations() != null);
 		assertEquals("Lista de anotações: tamanho", 1, nonDummyAnnotated.getAnnotations().size());
-		assertEquals("Lista de anotações: conteúdo", environment.getTypeCache().get("org.ita.testrefactoring.otherpackage.KnownAnnotation"), dummyAnnotatted.getAnnotations().get(0));
+		assertEquals("Lista de anotações: conteúdo", environment.getTypeCache().get("org.ita.testrefactoring.otherpackage.KnownAnnotation"), nonDummyAnnotated.getAnnotations().get(0));
 
 		setTestsOk();
 	}
