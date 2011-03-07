@@ -70,9 +70,6 @@ class BatteryParser {
 				}
 			}
 			
-			if (suite != null) {
-				battery.getSuiteList().add(suite);
-			}
 		}
 	}
 
@@ -80,7 +77,7 @@ class BatteryParser {
 		List<Type> knownTypes = new ArrayList<Type>();
 		
 		for (Type t : environment.getTypeCache().values()) {
-			if (t.getKind() != TypeKind.UNKNOWN) {
+			if ((t.getKind() != TypeKind.UNKNOWN) && (t.getParent() != null)) {
 				knownTypes.add(t);
 			}
 		}
