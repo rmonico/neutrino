@@ -18,10 +18,9 @@ import org.junit.Test;
 
 public class TestSupportedBlockSintax extends RefactoringAbstractTests {
 
-	@Test
-	public void testSupportedBlockSintax() throws JavaModelException, ParserException {
-		ICompilationUnit[] compilationUnits = new ICompilationUnit[1];
+	private ICompilationUnit blockSupportedSintax;
 
+	private void prepareTests() throws JavaModelException {
 		StringBuilder blockSupportedSource = new StringBuilder();
 
 		blockSupportedSource.append("package org.ita.testrefactoring.testfiles;\n");
@@ -154,12 +153,17 @@ public class TestSupportedBlockSintax extends RefactoringAbstractTests {
 		blockSupportedSource.append("    }\n");
 		blockSupportedSource.append("}\n");
 
-		compilationUnits[0] = createSourceFile("org.ita.testrefactoring.testfiles", "BlockSupportedSintax.java", blockSupportedSource);
+		blockSupportedSintax = createSourceFile("org.ita.testrefactoring.testfiles", "BlockSupportedSintax.java", blockSupportedSource);
+	}
+
+	@Test
+	public void testSupportedBlockSintax() throws JavaModelException, ParserException {
+		prepareTests();
 
 		ASTParser parser = new ASTParser();
 
-		parser.setCompilationUnits(compilationUnits);
-		parser.setActiveCompilationUnit(compilationUnits[0]);
+		parser.setCompilationUnits(new ICompilationUnit[] {blockSupportedSintax});
+		parser.setActiveCompilationUnit(blockSupportedSintax);
 
 		parser.parse();
 
@@ -213,4 +217,5 @@ public class TestSupportedBlockSintax extends RefactoringAbstractTests {
 
 		setTestsOk();
 	}
+
 }
