@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ita.testrefactoring.codeparser.Annotation;
-import org.ita.testrefactoring.codeparser.Block;
 import org.ita.testrefactoring.codeparser.Environment;
 import org.ita.testrefactoring.codeparser.Field;
 import org.ita.testrefactoring.codeparser.Method;
@@ -92,37 +91,12 @@ class BatteryParser {
 	}
 
 	private void doBlocksParse() {
-		List<Block> allBlocks = new ArrayList<Block>();
-
-		for (JUnitTestSuite suite : battery.getSuiteList()) {
-			// cp = codeParser
-			for (JUnitTestMethod tpBeforeMethod : suite.getBeforeMethodList()) {
-				Method cpBeforeMethod = tpBeforeMethod.getCodeElement();
-				
-				if (!cpBeforeMethod.getNonAccessModifier().isAbstract()) {
-					allBlocks.add(cpBeforeMethod.getBody());
-				}
-			}
-
-			// tp = testParser
-			for (JUnitTestMethod tpTestMethod : suite.getTestMethodList()) {
-				Method cpTestMethod = tpTestMethod.getCodeElement();
-				
-				if (cpTestMethod.getNonAccessModifier().isAbstract()) {
-					allBlocks.add(cpTestMethod.getBody());
-				}
-			}
-
-			for (JUnitTestMethod tpAfterMethod : suite.getAfterMethodList()) {
-				Method cpAfterMethod = tpAfterMethod.getCodeElement();
-				
-				if (!cpAfterMethod.getNonAccessModifier().isAbstract()) {
-					allBlocks.add(cpAfterMethod.getBody());
-				}
-
-			}
-		}
-
+		BlocksParser parser = new BlocksParser();
+		
+		parser.setBattery(battery);
+		
+		parser.parse();
+		
 	}
 
 	private List<Type> getKnownTypesList() {
