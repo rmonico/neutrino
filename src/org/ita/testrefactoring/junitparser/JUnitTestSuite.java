@@ -129,4 +129,19 @@ public class JUnitTestSuite extends TestSuite {
 		return getName();
 	}
 
+	@Override
+	public JUnitTestMethod getMethodByName(String methodName) {
+		if (methodName == null) {
+			return null;
+		}
+		
+		for (JUnitTestMethod method : getTestMethodList()) {
+			if (methodName.equals(method.getName())) {
+				return method;
+			}
+		}
+		
+		return null;
+	}
+
 }

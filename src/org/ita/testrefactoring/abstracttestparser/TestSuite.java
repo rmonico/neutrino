@@ -18,4 +18,6 @@ public abstract class TestSuite implements TestElement, CodeElementWrapper<Type>
 
 	@Override
 	public abstract TestBattery getParent();
+
+	public abstract TestMethod getMethodByName(String methodName);
 }
