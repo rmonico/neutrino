@@ -3,15 +3,20 @@ package org.ita.testrefactoring.tests.junitparser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.util.List;
+
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
 import org.ita.testrefactoring.abstracttestparser.TestParserException;
 import org.ita.testrefactoring.astparser.ASTParser;
 import org.ita.testrefactoring.codeparser.CodeElement;
 import org.ita.testrefactoring.codeparser.ParserException;
+import org.ita.testrefactoring.junitparser.JUnitAction;
+import org.ita.testrefactoring.junitparser.JUnitAssertion;
 import org.ita.testrefactoring.junitparser.JUnitParser;
 import org.ita.testrefactoring.junitparser.JUnitTestBattery;
 import org.ita.testrefactoring.junitparser.JUnitTestMethod;
+import org.ita.testrefactoring.junitparser.JUnitTestStatement;
 import org.ita.testrefactoring.junitparser.JUnitTestSuite;
 import org.ita.testrefactoring.tests.RefactoringAbstractTests;
 import org.junit.Before;
@@ -142,7 +147,26 @@ public class JUnitParserTests extends RefactoringAbstractTests {
 	}
 
 	private void testBlockElementsParser() {
-		JUnitTestMethod method0 = suite.getMethodByName("testNothing0");
+		JUnitTestMethod testNothing0 = suite.getMethodByName("testNothing0");
+		
+		List<JUnitTestStatement> statementList = testNothing0.getStatements();
+		
+		assertEquals("StatementList: size", 2, statementList.size());
+		
+		
+		assertEquals("Action: classe", statementList.get(0).getClass(), JUnitAction.class);
+		
+		JUnitAction action = (JUnitAction) statementList.get(0);
+		
+		assertEquals("Action: valor", "action()", action.toString());
+		
+		
+		assertEquals("Action: classe", statementList.get(1).getClass(), JUnitAssertion.class);
+		
+		JUnitAssertion assertion  = (JUnitAssertion) statementList.get(1);
+		
+		assertEquals("Action: valor", "assertTrue(\"Comment\", true)", assertion.toString());
+		
 	}
 
 }
