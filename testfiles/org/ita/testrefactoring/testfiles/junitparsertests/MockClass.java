@@ -8,7 +8,9 @@ import org.junit.Test;
 
 public class MockClass {
 
+	@SuppressWarnings("unused")
 	private Object fixture0 = new Object();
+	@SuppressWarnings("unused")
 	private Object fixture1 = new Object();
 	
 	@Before
