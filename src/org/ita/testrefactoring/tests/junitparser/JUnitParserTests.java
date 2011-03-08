@@ -19,6 +19,8 @@ import org.junit.Test;
 public class JUnitParserTests extends RefactoringAbstractTests {
 	
 	private ASTParser codeParser;
+	private JUnitTestBattery battery;
+	private JUnitTestSuite suite;
 
 	@Before
 	public void setup() {
@@ -93,27 +95,29 @@ public class JUnitParserTests extends RefactoringAbstractTests {
 		
 		testParser.parse();
 		
-		JUnitTestBattery battery = testParser.getBattery();
+		battery = testParser.getBattery();
 		
-		testBatteryParser(battery);
+		testBatteryParser();
 		
-		JUnitTestSuite suite = battery.getSuiteList().get(0);
+		suite = battery.getSuiteList().get(0);
 		
-		testSuiteParser(battery, suite);
+		testSuiteParser();
 
-		testSuiteFixtureParser(suite);
+		testSuiteFixtureParser();
 		
-		testSuiteMethodParser(suite);
+		testSuiteMethodParser();
+		
+		testBlockElementsParser();
 		
 		setTestsOk();
 	}
 
-	private void testBatteryParser(JUnitTestBattery battery) {
+	private void testBatteryParser() {
 		assertNull("Bateria de testes: Parent", battery.getParent());
 		assertEquals("Bateria de testes: Size of suite list", 1, battery.getSuiteList().size());
 	}
 
-	private void testSuiteParser(JUnitTestBattery battery, JUnitTestSuite suite) {
+	private void testSuiteParser() {
 		assertEquals("Suite: parent", battery, suite.getParent());
 		
 		CodeElement expectedSuiteCodeElement = codeParser.getEnvironment().getTypeCache().get("org.ita.testrefactoring.testfiles.junitparsertests.MockClass");
@@ -121,19 +125,23 @@ public class JUnitParserTests extends RefactoringAbstractTests {
 		assertEquals("Suite: code element", expectedSuiteCodeElement, suite.getCodeElement());
 	}
 
-	private void testSuiteFixtureParser(JUnitTestSuite suite) {
+	private void testSuiteFixtureParser() {
 		assertEquals("Suite: fixture list (size)", 2, suite.getFixtures().size());
 		assertEquals("Suite: fixture 0", "fixture0", suite.getFixtures().get(0).getName());
 		assertEquals("Suite: fixture 1", "fixture1", suite.getFixtures().get(1).getName());
 	}
 
-	private void testSuiteMethodParser(JUnitTestSuite suite) {
+	private void testSuiteMethodParser() {
 		assertEquals("Suite: before method", "setup", suite.getBeforeMethod().getName());
 		assertEquals("Suite: after method", "teardown", suite.getAfterMethod().getName());
 		assertEquals("Suite: test method list (size)", 2, suite.getTestMethodList().size());
 		
 		assertEquals("Suite: test method 0", "testNothing0", suite.getTestMethodList().get(0).getName());
 		assertEquals("Suite: test method 1", "testNothing1", suite.getTestMethodList().get(1).getName());
+	}
+
+	private void testBlockElementsParser() {
+		
 	}
 
 }
