@@ -7,7 +7,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.ita.testrefactoring.eclipseaction.ActionException;
 import org.ita.testrefactoring.eclipseaction.IAction;
-import org.ita.testrefactoring.tests.astparser.ASTParserTests;
+import org.ita.testrefactoring.tests.astparser.TestSupportedBlockSintax;
 import org.ita.testrefactoring.tests.astparser.TestPackageParsing;
 import org.ita.testrefactoring.tests.junitparser.JUnitParserTests;
 import org.junit.runner.JUnitCore;
@@ -57,7 +57,7 @@ public class JUnitMain implements IAction {
 		classesToTest.add(StringUtilsTests.class);
 		classesToTest.add(ListenerTests.class);
 		
-		classesToTest.add(ASTParserTests.class);
+		classesToTest.add(TestSupportedBlockSintax.class);
 		classesToTest.add(TestPackageParsing.class);
 		classesToTest.add(JUnitParserTests.class);
 //		classesToTest.add(AddExplanationRefactoringTests.class);

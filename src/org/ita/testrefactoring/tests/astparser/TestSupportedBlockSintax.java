@@ -16,7 +16,7 @@ import org.ita.testrefactoring.codeparser.VariableDeclarationStatement;
 import org.ita.testrefactoring.tests.RefactoringAbstractTests;
 import org.junit.Test;
 
-public class ASTParserTests extends RefactoringAbstractTests {
+public class TestSupportedBlockSintax extends RefactoringAbstractTests {
 
 	@Test
 	public void testSupportedBlockSintax() throws JavaModelException, ParserException {
