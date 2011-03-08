@@ -8,7 +8,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.ita.testrefactoring.abstracttestparser.Assertion;
 import org.ita.testrefactoring.abstracttestparser.MethodParameter;
 
-public class JUnitAssertion extends JUnitTestElement implements Assertion {
+public class JUnitAssertion extends JUnitTestStatement implements Assertion {
 
 	private List<MethodParameter> parameterList;
 	
