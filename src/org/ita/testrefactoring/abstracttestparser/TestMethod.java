@@ -8,7 +8,7 @@ public abstract class TestMethod implements TestElement, CodeElementWrapper<Meth
 
 	public abstract TestSuite getParent();
 
-	public abstract List<TestStatement> getStatements();
+	public abstract List<? extends TestStatement> getStatements();
 
 	public abstract Action createAction();
 
