@@ -12,9 +12,9 @@ public abstract class TestSuite implements TestElement, CodeElementWrapper<Type>
 	
 	public abstract List<? extends TestMethod> getTestMethodList();
 	
-	public abstract TestMethod getBeforeMethod();
+	public abstract List<? extends TestMethod> getBeforeMethodList();
 	
-	public abstract TestMethod getAfterMethod();
+	public abstract List<? extends TestMethod> getAfterMethodList();
 
 	@Override
 	public abstract TestBattery getParent();
