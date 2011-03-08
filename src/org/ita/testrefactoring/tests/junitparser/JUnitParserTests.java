@@ -138,8 +138,14 @@ public class JUnitParserTests extends RefactoringAbstractTests {
 	}
 
 	private void testSuiteMethodParser() {
-		assertEquals("Suite: before method", "setup", suite.getBeforeMethod().getName());
-		assertEquals("Suite: after method", "teardown", suite.getAfterMethod().getName());
+		assertEquals("Suite: before method list (size)", 1, suite.getBeforeMethodList().size());
+		assertEquals("Suite: before method 0", "setup", suite.getBeforeMethodList().get(0).getName());
+		
+		
+		assertEquals("Suite: after method list (size)", 1, suite.getAfterMethodList().size());
+		assertEquals("Suite: after method 0", "teardown", suite.getAfterMethodList().get(0).getName());
+		
+		
 		assertEquals("Suite: test method list (size)", 2, suite.getTestMethodList().size());
 		
 		assertEquals("Suite: test method 0", "testNothing0", suite.getTestMethodList().get(0).getName());
