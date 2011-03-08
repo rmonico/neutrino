@@ -95,27 +95,31 @@ class BatteryParser {
 		List<Block> allBlocks = new ArrayList<Block>();
 
 		for (JUnitTestSuite suite : battery.getSuiteList()) {
-			{
-				// cp = codeParser
-				Method cpBeforeMethod = suite.getBeforeMethodList().getCodeElement();
+			// cp = codeParser
+			for (JUnitTestMethod tpBeforeMethod : suite.getBeforeMethodList()) {
+				Method cpBeforeMethod = tpBeforeMethod.getCodeElement();
+				
 				if (!cpBeforeMethod.getNonAccessModifier().isAbstract()) {
 					allBlocks.add(cpBeforeMethod.getBody());
 				}
 			}
 
 			// tp = testParser
-			for (JUnitTestMethod tpMethod : suite.getTestMethodList()) {
-				Method cpMethod = tpMethod.getCodeElement();
-				if (cpMethod.getNonAccessModifier().isAbstract()) {
-					allBlocks.add(cpMethod.getBody());
+			for (JUnitTestMethod tpTestMethod : suite.getTestMethodList()) {
+				Method cpTestMethod = tpTestMethod.getCodeElement();
+				
+				if (cpTestMethod.getNonAccessModifier().isAbstract()) {
+					allBlocks.add(cpTestMethod.getBody());
 				}
 			}
 
-			{
-				Method cpAfterMethod = suite.getAfterMethodList().getCodeElement();
+			for (JUnitTestMethod tpAfterMethod : suite.getAfterMethodList()) {
+				Method cpAfterMethod = tpAfterMethod.getCodeElement();
+				
 				if (!cpAfterMethod.getNonAccessModifier().isAbstract()) {
 					allBlocks.add(cpAfterMethod.getBody());
 				}
+
 			}
 		}
 
