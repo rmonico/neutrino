@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ita.testrefactoring.codeparser.Annotation;
+import org.ita.testrefactoring.codeparser.Block;
 import org.ita.testrefactoring.codeparser.Environment;
 import org.ita.testrefactoring.codeparser.Field;
 import org.ita.testrefactoring.codeparser.Method;
@@ -20,13 +21,13 @@ class BatteryParser {
 
 	private enum TestMethodKind {
 		NOT_TEST_METHOD(null), BEFORE_METHOD("org.junit.Before"), TEST_METHOD("org.junit.Test"), AFTER_METHOD("org.junit.After");
-		
+
 		private String annotationName;
 
 		private TestMethodKind(String qualifiedAnnotationName) {
 			annotationName = qualifiedAnnotationName;
 		}
-		
+
 		String getAnnotationName() {
 			return annotationName;
 		}
@@ -46,8 +47,10 @@ class BatteryParser {
 
 	public void parse() {
 		populateMethodList();
-		
+
 		populateFixtureList();
+
+		doBlocksParse();
 	}
 
 	private void populateMethodList() {
@@ -56,18 +59,18 @@ class BatteryParser {
 		for (Type t : knownTypes) {
 			// Não sei se a classe será uma suite de teste nesse momento
 			JUnitTestSuite suite = null;
-			
+
 			for (Method m : t.getMethodList().values()) {
 				TestMethodKind methodKind = getTestMethodKind(m);
-				
+
 				if (methodKind == TestMethodKind.NOT_TEST_METHOD) {
 					continue;
 				}
-				
+
 				if (suite == null) {
 					suite = battery.createSuite(t);
 				}
-				
+
 				if (methodKind == TestMethodKind.BEFORE_METHOD) {
 					suite.createBeforeMethod(m);
 				} else if (methodKind == TestMethodKind.TEST_METHOD) {
@@ -76,7 +79,7 @@ class BatteryParser {
 					suite.createAfterMethod(m);
 				}
 			}
-			
+
 		}
 	}
 
@@ -88,18 +91,48 @@ class BatteryParser {
 		}
 	}
 
+	private void doBlocksParse() {
+		List<Block> allBlocks = new ArrayList<Block>();
+
+		for (JUnitTestSuite suite : battery.getSuiteList()) {
+			{
+				// cp = codeParser
+				Method cpBeforeMethod = suite.getBeforeMethod().getCodeElement();
+				if (!cpBeforeMethod.getNonAccessModifier().isAbstract()) {
+					allBlocks.add(cpBeforeMethod.getBody());
+				}
+			}
+
+			// tp = testParser
+			for (JUnitTestMethod tpMethod : suite.getTestMethodList()) {
+				Method cpMethod = tpMethod.getCodeElement();
+				if (cpMethod.getNonAccessModifier().isAbstract()) {
+					allBlocks.add(cpMethod.getBody());
+				}
+			}
+
+			{
+				Method cpAfterMethod = suite.getAfterMethod().getCodeElement();
+				if (!cpAfterMethod.getNonAccessModifier().isAbstract()) {
+					allBlocks.add(cpAfterMethod.getBody());
+				}
+			}
+		}
+
+	}
+
 	private List<Type> getKnownTypesList() {
 		List<Type> knownTypes = new ArrayList<Type>();
-		
+
 		for (Type t : environment.getTypeCache().values()) {
 			if ((t.getKind() != TypeKind.UNKNOWN) && (t.getParent() != null)) {
 				knownTypes.add(t);
 			}
 		}
-		
+
 		return knownTypes;
 	}
-	
+
 	private TestMethodKind getTestMethodKind(Method method) {
 		for (Annotation a : method.getAnnotations()) {
 			for (TestMethodKind kind : TestMethodKind.values()) {
@@ -108,7 +141,7 @@ class BatteryParser {
 				}
 			}
 		}
-		
+
 		return TestMethodKind.NOT_TEST_METHOD;
 	}
 
