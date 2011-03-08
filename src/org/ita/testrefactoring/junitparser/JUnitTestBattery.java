@@ -17,6 +17,20 @@ public class JUnitTestBattery extends TestBattery {
 	public List<JUnitTestSuite> getSuiteList() {
 		return suiteList;
 	}
+	
+	public JUnitTestSuite getSuiteByName(String suiteName) {
+		if (suiteName == null) {
+			return null;
+		}
+		
+		for (JUnitTestSuite suite : suiteList) {
+			if (suiteName.equals(suite.getName())) {
+				return suite;
+			}
+		}
+		
+		return null;
+	}
 
 	JUnitTestSuite createSuite(Type type) {
 		JUnitTestSuite suite = new JUnitTestSuite();
