@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ita.testrefactoring.abstracttestparser.TestMethod;
-import org.ita.testrefactoring.abstracttestparser.TestStatement;
 import org.ita.testrefactoring.codeparser.Method;
 
 public class JUnitTestMethod extends TestMethod {
 
 	private JUnitTestSuite parent;
-	private List<TestStatement> statementList = new ArrayList<TestStatement>();
+	private List<JUnitTestStatement> statementList = new ArrayList<JUnitTestStatement>();
 	private Method element;
 	
 	JUnitTestMethod() {
@@ -36,7 +35,7 @@ public class JUnitTestMethod extends TestMethod {
 	}
 	
 	@Override
-	public List<TestStatement> getStatements() {
+	public List<JUnitTestStatement> getStatements() {
 		return statementList;
 	}
 
