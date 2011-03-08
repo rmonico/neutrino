@@ -11,9 +11,9 @@ import org.ita.testrefactoring.codeparser.Type;
 
 public class JUnitTestSuite extends TestSuite {
 
-	private JUnitTestMethod beforeMethod;
+	private List<JUnitTestMethod> beforeMethodList = new ArrayList<JUnitTestMethod>();
 	private List<JUnitTestMethod> testMethodList = new ArrayList<JUnitTestMethod>();
-	private JUnitTestMethod afterMethod;
+	private List<JUnitTestMethod> afterMethodList = new ArrayList<JUnitTestMethod>();
 
 	private JUnitTestBattery parent;
 	private TestElement selectedFragment;
@@ -28,38 +28,28 @@ public class JUnitTestSuite extends TestSuite {
 		return getCodeElement().getName();
 	}
 
-	private JUnitTestMethod internalCreateTestMethod(Method element) {
+	private JUnitTestMethod internalCreateTestMethod(Method element, List<JUnitTestMethod> destList) {
 		JUnitTestMethod method = new JUnitTestMethod();
 
 		method.setParent(this);
 
 		method.setCodeElement(element);
+		
+		destList.add(method);
 
 		return method;
 	}
 
 	JUnitTestMethod createBeforeMethod(Method element) {
-		JUnitTestMethod method = internalCreateTestMethod(element);
-
-		beforeMethod = method;
-
-		return method;
+		return internalCreateTestMethod(element, beforeMethodList);
 	}
 
 	JUnitTestMethod createTestMethod(Method element) {
-		JUnitTestMethod method = internalCreateTestMethod(element);
-		
-		testMethodList.add(method);
-		
-		return method;
+		return internalCreateTestMethod(element, testMethodList);
 	}
 
 	JUnitTestMethod createAfterMethod(Method element) {
-		JUnitTestMethod method = internalCreateTestMethod(element);
-
-		afterMethod = method;
-
-		return method;
+		return internalCreateTestMethod(element, afterMethodList);
 	}
 
 	JUnitFixture createFixture(Field field) {
@@ -79,8 +69,8 @@ public class JUnitTestSuite extends TestSuite {
 	 * pois o createBeforeMethod já faz isso.
 	 */
 	@Override
-	public JUnitTestMethod getBeforeMethod() {
-		return beforeMethod;
+	public List<JUnitTestMethod> getBeforeMethodList() {
+		return beforeMethodList;
 	}
 
 	@Override
@@ -93,8 +83,8 @@ public class JUnitTestSuite extends TestSuite {
 	 * pois o createAfterMethod já faz isso.
 	 */
 	@Override
-	public JUnitTestMethod getAfterMethod() {
-		return afterMethod;
+	public List<JUnitTestMethod> getAfterMethodList() {
+		return afterMethodList;
 	}
 
 	@Override
