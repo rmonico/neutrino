@@ -11,6 +11,7 @@ import org.ita.testrefactoring.codeparser.CodeElement;
 import org.ita.testrefactoring.codeparser.ParserException;
 import org.ita.testrefactoring.junitparser.JUnitParser;
 import org.ita.testrefactoring.junitparser.JUnitTestBattery;
+import org.ita.testrefactoring.junitparser.JUnitTestMethod;
 import org.ita.testrefactoring.junitparser.JUnitTestSuite;
 import org.ita.testrefactoring.tests.RefactoringAbstractTests;
 import org.junit.Before;
@@ -99,7 +100,7 @@ public class JUnitParserTests extends RefactoringAbstractTests {
 		
 		testBatteryParser();
 		
-		suite = battery.getSuiteList().get(0);
+		suite = battery.getSuiteByName("MockClass");
 		
 		testSuiteParser();
 
@@ -141,7 +142,7 @@ public class JUnitParserTests extends RefactoringAbstractTests {
 	}
 
 	private void testBlockElementsParser() {
-		
+		JUnitTestMethod method0 = suite.getMethodByName("testNothing0");
 	}
 
 }
