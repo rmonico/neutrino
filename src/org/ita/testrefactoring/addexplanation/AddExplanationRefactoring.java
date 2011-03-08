@@ -3,7 +3,6 @@ package org.ita.testrefactoring.addexplanation;
 import org.ita.testrefactoring.AbstractRefactoring;
 import org.ita.testrefactoring.InitialConditionNotMet;
 import org.ita.testrefactoring.RefactoringException;
-import org.ita.testrefactoring.abstracttestparser.Assertion;
 
 public class AddExplanationRefactoring extends AbstractRefactoring {
 
@@ -30,17 +29,17 @@ public class AddExplanationRefactoring extends AbstractRefactoring {
 	
 	@Override
 	public InitialConditionNotMet checkInitialConditions() {
-		Assertion assertion;
-		
-		if (!(getTargetFragment() instanceof Assertion)) {
-			return new TargetIsNotJUnitAssertion();
-		} else {
-			assertion = (Assertion) getTargetFragment();
-		}
-		
-		if (assertion.isExplained()) {
-			return new TargetAlreadyHaveExplanation();
-		}
+//		Assertion assertion;
+//		
+//		if (!(getTargetFragment() instanceof Assertion)) {
+//			return new TargetIsNotJUnitAssertion();
+//		} else {
+//			assertion = (Assertion) getTargetFragment();
+//		}
+//		
+//		if (assertion.isExplained()) {
+//			return new TargetAlreadyHaveExplanation();
+//		}
 		
 		return null;
 	}
