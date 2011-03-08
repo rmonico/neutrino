@@ -1,8 +1,13 @@
 package org.ita.testrefactoring.junitparser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.ita.testrefactoring.abstracttestparser.AbstractTestParser;
 import org.ita.testrefactoring.abstracttestparser.TestParserException;
+import org.ita.testrefactoring.codeparser.Block;
 import org.ita.testrefactoring.codeparser.Environment;
+import org.junit.runners.Suite;
 
 public class JUnitParser extends AbstractTestParser {
 
