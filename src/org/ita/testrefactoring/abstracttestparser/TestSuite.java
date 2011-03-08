@@ -6,6 +6,8 @@ import org.ita.testrefactoring.codeparser.Type;
 
 public abstract class TestSuite implements TestElement, CodeElementWrapper<Type> {
 	
+	public abstract String getName();
+	
 	public abstract List<? extends Fixture> getFixtures();
 	
 	public abstract List<? extends TestMethod> getTestMethodList();

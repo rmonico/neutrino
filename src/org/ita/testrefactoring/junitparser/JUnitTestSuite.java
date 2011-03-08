@@ -22,6 +22,11 @@ public class JUnitTestSuite extends TestSuite {
 
 	JUnitTestSuite() {
 	}
+	
+	@Override
+	public String getName() {
+		return getCodeElement().getName();
+	}
 
 	private JUnitTestMethod internalCreateTestMethod(Method element) {
 		JUnitTestMethod method = new JUnitTestMethod();
@@ -117,6 +122,11 @@ public class JUnitTestSuite extends TestSuite {
 
 	void setCodeElement(Type type) {
 		codeElement = type;
+	}
+	
+	@Override
+	public String toString() {
+		return getName();
 	}
 
 }
