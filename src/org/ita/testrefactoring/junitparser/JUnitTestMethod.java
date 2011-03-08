@@ -10,7 +10,7 @@ import org.ita.testrefactoring.codeparser.Method;
 public class JUnitTestMethod extends TestMethod {
 
 	private JUnitTestSuite parent;
-	private List<TestStatement> elementList = new ArrayList<TestStatement>();
+	private List<TestStatement> statementList = new ArrayList<TestStatement>();
 	private Method element;
 	
 	JUnitTestMethod() {
@@ -36,8 +36,8 @@ public class JUnitTestMethod extends TestMethod {
 	}
 	
 	@Override
-	public List<TestStatement> getElements() {
-		return elementList;
+	public List<TestStatement> getStatements() {
+		return statementList;
 	}
 
 	@Override
