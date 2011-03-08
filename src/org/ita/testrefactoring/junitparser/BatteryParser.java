@@ -97,7 +97,7 @@ class BatteryParser {
 		for (JUnitTestSuite suite : battery.getSuiteList()) {
 			{
 				// cp = codeParser
-				Method cpBeforeMethod = suite.getBeforeMethod().getCodeElement();
+				Method cpBeforeMethod = suite.getBeforeMethodList().getCodeElement();
 				if (!cpBeforeMethod.getNonAccessModifier().isAbstract()) {
 					allBlocks.add(cpBeforeMethod.getBody());
 				}
@@ -112,7 +112,7 @@ class BatteryParser {
 			}
 
 			{
-				Method cpAfterMethod = suite.getAfterMethod().getCodeElement();
+				Method cpAfterMethod = suite.getAfterMethodList().getCodeElement();
 				if (!cpAfterMethod.getNonAccessModifier().isAbstract()) {
 					allBlocks.add(cpAfterMethod.getBody());
 				}
