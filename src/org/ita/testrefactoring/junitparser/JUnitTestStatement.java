@@ -3,10 +3,10 @@ package org.ita.testrefactoring.junitparser;
 import org.ita.testrefactoring.abstracttestparser.TestStatement;
 import org.ita.testrefactoring.codeparser.Statement;
 
-public abstract class JUnitTestStatement implements TestStatement {
+public abstract class JUnitTestStatement<T extends Statement> implements TestStatement<T> {
 
 	private JUnitTestMethod parent;
-	private Statement element;
+	private T element;
 	
 	void setParent(JUnitTestMethod parent) {
 		this.parent = parent;
@@ -18,11 +18,11 @@ public abstract class JUnitTestStatement implements TestStatement {
 	}
 	
 	@Override
-	public Statement getCodeElement() {
+	public T getCodeElement() {
 		return element;
 	}
 	
-	void setElement(Statement element) {
+	void setElement(T element) {
 		this.element = element;
 	}
 }
