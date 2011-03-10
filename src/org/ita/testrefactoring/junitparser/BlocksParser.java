@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.ita.testrefactoring.codeparser.Method;
 import org.ita.testrefactoring.codeparser.MethodInvocation;
+import org.ita.testrefactoring.codeparser.MethodInvocationStatement;
 import org.ita.testrefactoring.codeparser.Statement;
 import org.ita.testrefactoring.codeparser.Type;
 
@@ -66,11 +67,11 @@ class BlocksParser {
 	}
 
 	private void parseStatement(JUnitTestMethod method, Statement statement) {
-		if (statement instanceof MethodInvocation) {
-			MethodInvocation methodInvocation = (MethodInvocation) statement;
+		if (statement instanceof MethodInvocationStatement) {
+			MethodInvocationStatement methodInvocation = (MethodInvocationStatement) statement;
 
 			if (isAssertion(methodInvocation)) {
-				method.createAssertion(statement);
+				method.createAssertion(methodInvocation);
 			}
 		}
 	}
