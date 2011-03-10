@@ -1,5 +1,8 @@
 package org.ita.testrefactoring.abstracttestparser;
 
-public interface Action extends TestStatement {
+import org.ita.testrefactoring.codeparser.MethodInvocationStatement;
+
+
+public interface Action extends TestStatement<MethodInvocationStatement> {
 	
 }
