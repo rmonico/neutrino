@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.ita.testrefactoring.abstracttestparser.TestMethod;
 import org.ita.testrefactoring.codeparser.Method;
+import org.ita.testrefactoring.codeparser.MethodInvocation;
+import org.ita.testrefactoring.codeparser.Statement;
 
 public class JUnitTestMethod extends TestMethod {
 
@@ -16,17 +18,17 @@ public class JUnitTestMethod extends TestMethod {
 		
 	}
 
-	@Override
-	public JUnitAction createAction() {
+	JUnitAction createAction(Statement statement) {
 		JUnitAction action = new JUnitAction();
 		
 		action.setParent(this);
 		
+		action.setStatement(statement);
+		
 		return action;
 	}
 
-	@Override
-	public JUnitAssertion createAssertion() {
+	JUnitAssertion createAssertion(MethodInvocation methodInvocation) {
 		JUnitAssertion assertion = new JUnitAssertion();
 		
 		assertion.setParent(this);

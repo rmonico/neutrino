@@ -3,7 +3,6 @@ package org.ita.testrefactoring.junitparser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ita.testrefactoring.codeparser.Block;
 import org.ita.testrefactoring.codeparser.Method;
 import org.ita.testrefactoring.codeparser.MethodInvocation;
 import org.ita.testrefactoring.codeparser.Statement;
@@ -12,22 +11,22 @@ import org.ita.testrefactoring.codeparser.Type;
 class BlocksParser {
 
 	private JUnitTestBattery battery;
-	private List<Block> allBlocks;
+	private List<JUnitTestMethod> concreteMethodList;
 
 	public void setBattery(JUnitTestBattery battery) {
 		this.battery = battery;
 	}
 
 	public void parse() {
-		locateAllBlocks();
+		getAllConcreteMethods();
 
-		for (Block block : allBlocks) {
-			parseBlock(block);
+		for (JUnitTestMethod method : concreteMethodList) {
+			parseBlock(method);
 		}
 	}
 
-	private void locateAllBlocks() {
-		allBlocks = new ArrayList<Block>();
+	private void getAllConcreteMethods() {
+		concreteMethodList = new ArrayList<JUnitTestMethod>();
 
 		for (JUnitTestSuite suite : battery.getSuiteList()) {
 			// cp = codeParser
@@ -35,7 +34,7 @@ class BlocksParser {
 				Method cpBeforeMethod = tpBeforeMethod.getCodeElement();
 
 				if (!cpBeforeMethod.getNonAccessModifier().isAbstract()) {
-					allBlocks.add(cpBeforeMethod.getBody());
+					concreteMethodList.add(tpBeforeMethod);
 				}
 			}
 
@@ -44,7 +43,7 @@ class BlocksParser {
 				Method cpTestMethod = tpTestMethod.getCodeElement();
 
 				if (cpTestMethod.getNonAccessModifier().isAbstract()) {
-					allBlocks.add(cpTestMethod.getBody());
+					concreteMethodList.add(tpTestMethod);
 				}
 			}
 
@@ -52,7 +51,7 @@ class BlocksParser {
 				Method cpAfterMethod = tpAfterMethod.getCodeElement();
 
 				if (!cpAfterMethod.getNonAccessModifier().isAbstract()) {
-					allBlocks.add(cpAfterMethod.getBody());
+					concreteMethodList.add(tpAfterMethod);
 				}
 
 			}
@@ -60,18 +59,18 @@ class BlocksParser {
 
 	}
 
-	private void parseBlock(Block block) {
-		for (Statement statement : block.getStatementList()) {
-			parseStatement(statement);
+	private void parseBlock(JUnitTestMethod method) {
+		for (Statement statement : method.getCodeElement().getBody().getStatementList()) {
+			parseStatement(method, statement);
 		}
 	}
 
-	private void parseStatement(Statement statement) {
+	private void parseStatement(JUnitTestMethod method, Statement statement) {
 		if (statement instanceof MethodInvocation) {
 			MethodInvocation methodInvocation = (MethodInvocation) statement;
 
 			if (isAssertion(methodInvocation)) {
-
+				method.createAssertion(statement);
 			}
 		}
 	}
