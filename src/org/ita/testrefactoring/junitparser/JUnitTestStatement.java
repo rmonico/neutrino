@@ -22,7 +22,7 @@ public abstract class JUnitTestStatement<T extends Statement> implements TestSta
 		return element;
 	}
 	
-	void setElement(T element) {
+	void setCodeElement(T element) {
 		this.element = element;
 	}
 }
