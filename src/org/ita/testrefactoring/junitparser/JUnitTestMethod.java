@@ -11,7 +11,7 @@ import org.ita.testrefactoring.codeparser.Statement;
 public class JUnitTestMethod extends TestMethod {
 
 	private JUnitTestSuite parent;
-	private List<JUnitTestStatement> statementList = new ArrayList<JUnitTestStatement>();
+	private List<JUnitTestStatement<Statement>> statementList = new ArrayList<JUnitTestStatement<Statement>>();
 	private Method element;
 	
 	JUnitTestMethod() {
@@ -23,7 +23,7 @@ public class JUnitTestMethod extends TestMethod {
 		
 		action.setParent(this);
 		
-		action.setStatement(statement);
+		action.setCodeElement(statement);
 		
 		return action;
 	}
@@ -37,7 +37,7 @@ public class JUnitTestMethod extends TestMethod {
 	}
 	
 	@Override
-	public List<JUnitTestStatement> getStatements() {
+	public List<JUnitTestStatement<Statement>> getStatements() {
 		return statementList;
 	}
 
