@@ -72,6 +72,8 @@ class BlocksParser {
 
 			if (isAssertion(methodInvocation)) {
 				method.createAssertion(methodInvocation);
+			} else {
+				method.createAction(statement);
 			}
 		}
 	}
