@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.ita.testrefactoring.abstracttestparser.TestMethod;
 import org.ita.testrefactoring.codeparser.Method;
-import org.ita.testrefactoring.codeparser.MethodInvocation;
+import org.ita.testrefactoring.codeparser.MethodInvocationStatement;
 import org.ita.testrefactoring.codeparser.Statement;
 
 public class JUnitTestMethod extends TestMethod {
@@ -30,10 +30,12 @@ public class JUnitTestMethod extends TestMethod {
 		return action;
 	}
 
-	JUnitAssertion createAssertion(MethodInvocation methodInvocation) {
+	JUnitAssertion createAssertion(MethodInvocationStatement methodInvocation) {
 		JUnitAssertion assertion = new JUnitAssertion();
 
 		assertion.setParent(this);
+		
+		assertion.setCodeElement(methodInvocation);
 		
 		statementList.add(assertion);
 
