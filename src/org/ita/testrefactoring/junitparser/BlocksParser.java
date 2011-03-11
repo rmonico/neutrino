@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ita.testrefactoring.codeparser.Method;
-import org.ita.testrefactoring.codeparser.MethodInvocation;
 import org.ita.testrefactoring.codeparser.MethodInvocationStatement;
 import org.ita.testrefactoring.codeparser.Statement;
 import org.ita.testrefactoring.codeparser.Type;
@@ -43,7 +42,7 @@ class BlocksParser {
 			for (JUnitTestMethod tpTestMethod : suite.getTestMethodList()) {
 				Method cpTestMethod = tpTestMethod.getCodeElement();
 
-				if (cpTestMethod.getNonAccessModifier().isAbstract()) {
+				if (!cpTestMethod.getNonAccessModifier().isAbstract()) {
 					concreteMethodList.add(tpTestMethod);
 				}
 			}
@@ -78,28 +77,28 @@ class BlocksParser {
 		}
 	}
 
-	private boolean isAssertion(MethodInvocation methodInvocation) {
+	private boolean isAssertion(MethodInvocationStatement methodInvocation) {
 		
 		Type methodType = methodInvocation.getCalledMethod().getParent();
 		String fullName = methodType.getQualifiedName() + "." + methodInvocation.getCalledMethod().getName();
 
-		if (fullName.equals("org.junit.Assert.assertArrayEquals()")
-				|| fullName.equals("org.junit.Assert.assertEquals()")
-				|| fullName.equals("org.junit.Assert.assertTrue()")
-				|| fullName.equals("org.junit.Assert.assertFalse()")
-				|| fullName.equals("org.junit.Assert.assertNull()")
-				|| fullName.equals("org.junit.Assert.assertNotNull()")
-				|| fullName.equals("org.junit.Assert.assertSame()")
-				|| fullName.equals("org.junit.Assert.assertNotSame()")
-				|| fullName.equals("org.junit.Assert.assertThat()")
+		if (fullName.equals("org.junit.Assert.assertArrayEquals")
+				|| fullName.equals("org.junit.Assert.assertEquals")
+				|| fullName.equals("org.junit.Assert.assertTrue")
+				|| fullName.equals("org.junit.Assert.assertFalse")
+				|| fullName.equals("org.junit.Assert.assertNull")
+				|| fullName.equals("org.junit.Assert.assertNotNull")
+				|| fullName.equals("org.junit.Assert.assertSame")
+				|| fullName.equals("org.junit.Assert.assertNotSame")
+				|| fullName.equals("org.junit.Assert.assertThat")
 
-				|| fullName.equals("junit.framework.Assert.assertEquals()")
-				|| fullName.equals("junit.framework.Assert.assertTrue()")
-				|| fullName.equals("junit.framework.Assert.assertFalse()")
-				|| fullName.equals("junit.framework.Assert.assertNull()")
-				|| fullName.equals("junit.framework.Assert.assertNotNull()")
-				|| fullName.equals("junit.framework.Assert.assertSame()")
-				|| fullName.equals("junit.framework.Assert.assertNotSame()")) {
+				|| fullName.equals("junit.framework.Assert.assertEquals")
+				|| fullName.equals("junit.framework.Assert.assertTrue")
+				|| fullName.equals("junit.framework.Assert.assertFalse")
+				|| fullName.equals("junit.framework.Assert.assertNull")
+				|| fullName.equals("junit.framework.Assert.assertNotNull")
+				|| fullName.equals("junit.framework.Assert.assertSame")
+				|| fullName.equals("junit.framework.Assert.assertNotSame")) {
 			return true;
 		} else {
 			return false;
