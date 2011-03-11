@@ -8,4 +8,6 @@ package org.ita.testrefactoring.codeparser;
  */
 public interface Statement extends CodeElement {
 	
+	@Override
+	public Block getParent();
 }
