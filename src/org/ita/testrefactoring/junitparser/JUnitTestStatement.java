@@ -14,4 +14,9 @@ public abstract class JUnitTestStatement implements TestStatement {
 	public JUnitTestMethod getParent() {
 		return parent;
 	}
+	
+	@Override
+	public String toString() {
+		return getCodeElement().toString();
+	}
 }
