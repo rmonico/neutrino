@@ -68,4 +68,12 @@ public class ASTBlock implements Block, ASTWrapper<org.eclipse.jdt.core.dom.Bloc
 
 		return genericStatement;
 	}
+
+	ASTMethodInvocationStatement createMethodInvocationStatement() {
+		ASTMethodInvocationStatement methodInvocationStatement = new ASTMethodInvocationStatement();
+
+		methodInvocationStatement.setParent(this);
+
+		return methodInvocationStatement;
+	}
 }

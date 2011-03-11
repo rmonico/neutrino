@@ -24,6 +24,8 @@ public class JUnitTestMethod extends TestMethod {
 		action.setParent(this);
 
 		action.setCodeElement(statement);
+		
+		statementList.add(action);
 
 		return action;
 	}
@@ -32,6 +34,8 @@ public class JUnitTestMethod extends TestMethod {
 		JUnitAssertion assertion = new JUnitAssertion();
 
 		assertion.setParent(this);
+		
+		statementList.add(assertion);
 
 		return assertion;
 	}
