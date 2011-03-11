@@ -93,7 +93,7 @@ class BlockParser {
 			
 			Type type = environment.getTypeCache().get(methodTypeQualifiedName);
 			
-			Method method = type.getMethodList().get(methodName);
+			Method method = type.getOrCreateMethod(methodName);
 			
 			methodInvocation.setCalledMethod(method);
 			
