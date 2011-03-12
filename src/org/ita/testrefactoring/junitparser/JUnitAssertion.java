@@ -16,4 +16,10 @@ public class JUnitAssertion extends JUnitTestStatement implements Assertion {
 		this.element = element;
 	}
 
+	@Override
+	public int getExplanationIndex() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
