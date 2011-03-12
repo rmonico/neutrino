@@ -5,8 +5,6 @@ public interface LiteralExpression extends Expression {
 
 	public static final LiteralExpression NULL_EXPRESSION = new NullLiteralExpression();
 
-	public String getValue();
-
 }
 
 class NullLiteralExpression implements LiteralExpression {
@@ -19,7 +17,12 @@ class NullLiteralExpression implements LiteralExpression {
 	@Override
 	public String toString() {
 		return getValue();
-	};
-	
+	}
+
+	@Override
+	public Type getType() {
+		return null;
+	}
+
 }
 
