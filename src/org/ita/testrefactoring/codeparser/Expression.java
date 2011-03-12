@@ -7,5 +7,18 @@ package org.ita.testrefactoring.codeparser;
  *
  */
 public interface Expression {
-
+	
+	/**
+	 * Indica o type resultante da expressão.
+	 * 
+	 * @return
+	 */
+	Type getType();
+	
+	/**
+	 * Devolve o valor da expressão em código, por exemplo: methodInvocationExpression()
+	 * 
+	 * @return
+	 */
+	String getValue();
 }
