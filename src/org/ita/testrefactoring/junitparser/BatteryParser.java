@@ -35,13 +35,9 @@ class BatteryParser {
 	private Environment environment;
 	private JUnitTestBattery battery;
 
-	public void setEnvironment(Environment environment) {
-		this.environment = environment;
-
-	}
-
 	public void setBattery(JUnitTestBattery battery) {
 		this.battery = battery;
+		environment = battery.getCodeElement();
 	}
 
 	public void parse() {
@@ -70,12 +66,18 @@ class BatteryParser {
 					suite = battery.createSuite(t);
 				}
 
+				JUnitTestMethod testMethod = null; 
+					
 				if (methodKind == TestMethodKind.BEFORE_METHOD) {
-					suite.createBeforeMethod(m);
+					testMethod = suite.createBeforeMethod(m);
 				} else if (methodKind == TestMethodKind.TEST_METHOD) {
-					suite.createTestMethod(m);
+					testMethod = suite.createTestMethod(m);
 				} else if (methodKind == TestMethodKind.AFTER_METHOD) {
-					suite.createAfterMethod(m);
+					testMethod = suite.createAfterMethod(m);
+				}
+				
+				if (m == environment.getSelectedElement()) {
+					battery.getSelection().setSelectedFragment(testMethod);
 				}
 			}
 
