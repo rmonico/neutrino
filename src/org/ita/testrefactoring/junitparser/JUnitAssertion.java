@@ -53,48 +53,10 @@ public class JUnitAssertion extends JUnitTestStatement implements Assertion {
 		} else if (methodName.equals("assertThat")) {
 			// Não suporta explicação
 			return -1;
-		}
-		
-		int parameterListSize = parameterList.size();
-
-		switch (parameterListSize) {
-
-		case 1: {
+		} else {
+			// Asserção desconhecida
 			return -1;
 		}
-		case 2: {
-			if (parameterList.get(0).getType().getQualifiedName().equals("java.lang.String")) {
-				if (!parameterList.get(1).getType().getQualifiedName().equals("java.lang.String")) {
-					// O primeiro parâmetro é String, mas o segundo não, logo o
-					// primeiro é explicação
-					return 0;
-				} else {
-					// O primeiro e o segundo parâmetros são string, não há
-					// explicação
-
-					return -1;
-				}
-			} else {
-				// O primeiro parâmetro não é string, logo não há explicação
-				return -1;
-			}
-		}
-		case 3: {
-			if (parameterList.get(0).getType().getQualifiedName().equals("java.lang.String")) {
-				// Tem três parâmetros onde o primeiro é string, logo a
-				// explicação é o primeiro parâmetro
-				return 0;
-			} else {
-
-				return -1;
-			}
-		}
-		default: {
-
-		}
-		}
-
-		return 0;
 	}
 
 }
