@@ -87,7 +87,11 @@ class BatteryParser {
 	private void populateFixtureList() {
 		for (JUnitTestSuite suite : battery.getSuiteList()) {
 			for (Field field : suite.getCodeElement().getFieldList().values()) {
-				suite.createFixture(field);
+				JUnitFixture fixture = suite.createFixture(field);
+				
+				if (environment.getSelection().getSelectedElement() == field) {
+					battery.getSelection().setSelectedFragment(fixture);
+				}
 			}
 		}
 	}
