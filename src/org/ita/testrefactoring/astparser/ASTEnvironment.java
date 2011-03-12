@@ -9,6 +9,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.ita.testrefactoring.codeparser.CodeElement;
 import org.ita.testrefactoring.codeparser.Constructor;
 import org.ita.testrefactoring.codeparser.Environment;
+import org.ita.testrefactoring.codeparser.ExpressionFactory;
 import org.ita.testrefactoring.codeparser.Method;
 import org.ita.testrefactoring.codeparser.Package;
 import org.ita.testrefactoring.codeparser.Type;
@@ -23,6 +24,7 @@ public class ASTEnvironment implements Environment, TypeListener {
 	private IMapWrapper<String, Type> wrapper;
 	private Map<String, Type> typeCache;
 	private ASTSelection selection;
+	private ExpressionFactory expressionFactory = new ASTExpressionFactory();
 
 	// Construtor restrito ao pacote
 	ASTEnvironment() {
@@ -327,6 +329,11 @@ public class ASTEnvironment implements Environment, TypeListener {
 	@Override
 	public CodeElement getParent() {
 		return null;
+	}
+
+	@Override
+	public ExpressionFactory getExpressionFactory() {
+		return expressionFactory ;
 	}
 
 }
