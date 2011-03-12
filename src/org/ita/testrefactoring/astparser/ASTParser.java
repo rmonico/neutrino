@@ -12,7 +12,6 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.ita.testrefactoring.codeparser.CodeParser;
-import org.ita.testrefactoring.codeparser.CodeSelection;
 import org.ita.testrefactoring.codeparser.Constructor;
 import org.ita.testrefactoring.codeparser.Method;
 import org.ita.testrefactoring.codeparser.ParserException;
@@ -216,7 +215,7 @@ public class ASTParser implements CodeParser {
 	}
 
 	@Override
-	public CodeSelection getSelection() {
+	public ASTSelection getSelection() {
 		return selection;
 	}
 }
