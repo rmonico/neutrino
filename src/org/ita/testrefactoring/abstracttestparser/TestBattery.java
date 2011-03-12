@@ -2,7 +2,9 @@ package org.ita.testrefactoring.abstracttestparser;
 
 import java.util.List;
 
-public abstract class TestBattery implements TestElement {
+import org.ita.testrefactoring.codeparser.Environment;
+
+public abstract class TestBattery implements TestElement, CodeElementWrapper<Environment> {
 
 	public abstract List<? extends TestSuite> getSuiteList();
 
@@ -18,4 +20,8 @@ public abstract class TestBattery implements TestElement {
 		// A bateria não possui parent
 		return null;
 	}
+	
+	@Override
+	public abstract Environment getCodeElement();
+	
 }

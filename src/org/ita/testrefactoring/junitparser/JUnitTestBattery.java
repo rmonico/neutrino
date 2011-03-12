@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ita.testrefactoring.abstracttestparser.TestBattery;
+import org.ita.testrefactoring.codeparser.Environment;
 import org.ita.testrefactoring.codeparser.Type;
 
 public class JUnitTestBattery extends TestBattery {
 
 	private List<JUnitTestSuite> suiteList = new ArrayList<JUnitTestSuite>();
+	private Environment environment;
 
 	JUnitTestBattery() {
 	}
@@ -42,6 +44,15 @@ public class JUnitTestBattery extends TestBattery {
 		suiteList.add(suite);
 
 		return suite;
+	}
+
+	@Override
+	public Environment getCodeElement() {
+		return environment;
+	}
+	
+	void setCodeElement(Environment environment) {
+		this.environment = environment;
 	}
 
 }
