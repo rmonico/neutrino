@@ -13,6 +13,11 @@ public class ASTSelection implements CodeSelection {
 	private ICompilationUnit sourceFile;
 	private CodeElement selectedElement;
 
+	// Construtor restrito ao pacote
+	ASTSelection() {
+		
+	}
+
 	@Override
 	public int getSelectionStart() {
 		return selectionStart;
