@@ -69,10 +69,16 @@ class BlocksParser {
 		if (statement instanceof MethodInvocationStatement) {
 			MethodInvocationStatement methodInvocation = (MethodInvocationStatement) statement;
 
+			JUnitTestStatement testStatement = null;
+			
 			if (isAssertion(methodInvocation)) {
-				method.createAssertion(methodInvocation);
+				testStatement = method.createAssertion(methodInvocation);
 			} else {
-				method.createAction(statement);
+				testStatement = method.createAction(statement);
+			}
+			
+			if (battery.getCodeElement().getSelection().getSelectedElement() == statement) {
+				battery.getSelection().setSelectedFragment(testStatement);
 			}
 		}
 	}
