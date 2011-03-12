@@ -21,6 +21,8 @@ public class JUnitParser extends AbstractTestParser {
 		
 		battery = new JUnitTestBattery();
 		
+		battery.setCodeElement(environment);
+		
 		doBatteryParse();
 	}
 
