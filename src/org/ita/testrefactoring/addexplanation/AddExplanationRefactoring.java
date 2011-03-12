@@ -1,9 +1,12 @@
 package org.ita.testrefactoring.addexplanation;
 
-import org.ita.testrefactoring.AbstractRefactoring;
-import org.ita.testrefactoring.InitialConditionNotMet;
-import org.ita.testrefactoring.RefactoringException;
+import org.ita.testrefactoring.abstracrefactoring.AbstractRefactoring;
+import org.ita.testrefactoring.abstracrefactoring.InitialConditionNotMet;
+import org.ita.testrefactoring.abstracrefactoring.RefactoringException;
 import org.ita.testrefactoring.abstracttestparser.Assertion;
+import org.ita.testrefactoring.codeparser.Environment;
+import org.ita.testrefactoring.codeparser.Expression;
+import org.ita.testrefactoring.codeparser.Type;
 
 public class AddExplanationRefactoring extends AbstractRefactoring {
 
@@ -25,20 +28,18 @@ public class AddExplanationRefactoring extends AbstractRefactoring {
 		
 	}
 
-//	private String explanationString;
-//	private JUnitAssertion targetAssertion;
+	private String explanationString;
+	private Assertion targetAssertion;
 	
 	@Override
 	public InitialConditionNotMet checkInitialConditions() {
-		Assertion assertion;
-		
 		if (!(getTargetFragment() instanceof Assertion)) {
 			return new TargetIsNotJUnitAssertion();
 		} else {
-			assertion = (Assertion) getTargetFragment();
+			targetAssertion = (Assertion) getTargetFragment();
 		}
 		
-		if (assertion.getExplanationIndex() != -1) {
+		if (targetAssertion.getExplanationIndex() != -1) {
 			return new TargetAlreadyHaveExplanation();
 		}
 		
@@ -47,6 +48,13 @@ public class AddExplanationRefactoring extends AbstractRefactoring {
 
 	@Override
 	protected void doRefactor() throws RefactoringException {
+		Environment environment = getBattery().getCodeElement();
+		
+		Type javaLangStringType = environment.getTypeCache().get("java.lang.String"); 
+		
+		Expression explanationExpression = environment.getExpressionFactory().createLiteralExpression(javaLangStringType, explanationString);
+		
+		targetAssertion.getCodeElement().getParameterList().add(0, explanationExpression);
 //		MethodParameter explanationParameter = new MethodParameter();
 //		
 //		LiteralExpression explanationStringExpression = new LiteralExpression();
@@ -60,7 +68,7 @@ public class AddExplanationRefactoring extends AbstractRefactoring {
 	}
 
 	public void setExplanationString(String explanationString) {
-//		this.explanationString = explanationString;
+		this.explanationString = explanationString;
 	}
 
 }
