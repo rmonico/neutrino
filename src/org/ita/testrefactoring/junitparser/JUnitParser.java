@@ -6,7 +6,6 @@ import org.ita.testrefactoring.codeparser.Environment;
 
 public class JUnitParser extends AbstractTestParser {
 
-	private JUnitSelection selection;
 	private Environment environment;
 	private JUnitTestBattery battery;
 
@@ -17,9 +16,7 @@ public class JUnitParser extends AbstractTestParser {
 
 	@Override
 	public void parse() throws TestParserException {
-		selection = new JUnitSelection(environment.getSelection());
-		
-		battery = new JUnitTestBattery();
+		battery = new JUnitTestBattery(environment.getSelection());
 		
 		battery.setCodeElement(environment);
 		
@@ -29,8 +26,6 @@ public class JUnitParser extends AbstractTestParser {
 	private void doBatteryParse() {
 		BatteryParser batteryParser = new BatteryParser();
 		
-		batteryParser.setEnvironment(environment);
-		
 		batteryParser.setBattery(battery);
 		
 		batteryParser.parse();
@@ -39,11 +34,6 @@ public class JUnitParser extends AbstractTestParser {
 	@Override
 	public JUnitTestBattery getBattery() {
 		return battery;
-	}
-
-	@Override
-	public JUnitSelection getSelection() {
-		return selection;
 	}
 
 }
