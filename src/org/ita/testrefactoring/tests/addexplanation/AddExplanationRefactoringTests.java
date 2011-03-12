@@ -20,9 +20,10 @@ import org.junit.Test;
 
 public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 
-	@Test
-	public void testAddExplanationToAssertionNewRefactoring() throws JavaModelException, RefactoringException, TestParserException, ParserException {
-
+	private ICompilationUnit refactoredCompilationUnit;
+	private JUnitParser testParser;
+	
+	private void prepareTests() throws JavaModelException, ParserException, TestParserException {
 		List<ICompilationUnit> compilationUnits = new ArrayList<ICompilationUnit>();
 
 		StringBuilder beforeRefactoringSource = new StringBuilder();
@@ -47,9 +48,8 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 		beforeRefactoringSource.append("    }\n");
 		beforeRefactoringSource.append("}\n");
 
-		ICompilationUnit activeCompilationUnit = createSourceFile("tests.addexplanation", "TestNotas.java", beforeRefactoringSource);
-		ICompilationUnit refactoringTarget = activeCompilationUnit;
-		compilationUnits.add(activeCompilationUnit);
+		refactoredCompilationUnit = createSourceFile("tests.addexplanation", "TestNotas.java", beforeRefactoringSource);
+		compilationUnits.add(refactoredCompilationUnit);
 
 		StringBuilder productionClassCode = new StringBuilder();
 
@@ -68,45 +68,29 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 
 		compilationUnits.add(createSourceFile("tests.addexplanation", "Notas.java", productionClassCode));
 
-		// Faz o parsing
 		ASTParser codeParser = new ASTParser();
 		
-		codeParser.setActiveCompilationUnit(activeCompilationUnit);
+		codeParser.setActiveCompilationUnit(refactoredCompilationUnit);
 		codeParser.setCompilationUnits(compilationUnits.toArray(new ICompilationUnit[0]));
 		
 		CodeSelection selection = codeParser.getSelection();
 		
-		selection.setSourceFile(activeCompilationUnit);
+		selection.setSourceFile(refactoredCompilationUnit);
 		selection.setSelectionStart(307);
 		selection.setSelectionLength(12);
 		
 		codeParser.parse();
-		
-		JUnitParser testParser = new JUnitParser();
+
+		testParser = new JUnitParser();
 		
 		testParser.setEnvironment(codeParser.getEnvironment());
 		
 		testParser.parse();
 
-		
-		// Aplica a refatoração na bateria de testes
-		TestBattery battery = testParser.getBattery();
+	}
 
-		AddExplanationRefactoring refactoring = new AddExplanationRefactoring();
-
-		refactoring.setBattery(battery);
-
-		refactoring.setExplanationString("Média da turma");
-
-		// Define em que arquivo fonte e local será feita a refatoração
-		refactoring.setTargetFragment(testParser.getSelection().getSelectedFragment());
-
-		refactoring.refactor();
-
-		// Verificação
-		String afterRefactoringSource = refactoringTarget.getSource();
-
-		StringBuffer expectedSource = new StringBuffer();
+	private StringBuilder getExpectedSource() {
+		StringBuilder expectedSource = new StringBuilder();
 
 		expectedSource.append("package tests.addexplanation;\n");
 		expectedSource.append("\n");
@@ -127,6 +111,33 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 		expectedSource.append("        assertEquals(\"Média da turma\", not.avg(), 8.0, 0);\n");
 		expectedSource.append("    }\n");
 		expectedSource.append("}\n");
+		
+		return expectedSource;
+	}
+
+	@Test
+	public void testAddExplanationToAssertionNewRefactoring() throws JavaModelException, RefactoringException, TestParserException, ParserException {
+
+		prepareTests();
+		
+		// Aplica a refatoração na bateria de testes
+		TestBattery battery = testParser.getBattery();
+
+		AddExplanationRefactoring refactoring = new AddExplanationRefactoring();
+
+		refactoring.setBattery(battery);
+
+		refactoring.setExplanationString("Média da turma");
+
+		// Define em que arquivo fonte e local será feita a refatoração
+		refactoring.setTargetFragment(testParser.getSelection().getSelectedFragment());
+
+		refactoring.refactor();
+
+		// Verificação
+		String afterRefactoringSource = refactoredCompilationUnit.getSource();
+
+		StringBuilder expectedSource = getExpectedSource();
 
 		assertBlockEquals("Adicionar explicação a asserção", expectedSource.toString(), afterRefactoringSource);
 	}
