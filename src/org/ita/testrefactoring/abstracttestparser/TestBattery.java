@@ -21,6 +21,8 @@ public abstract class TestBattery implements TestElement, CodeElementWrapper<Env
 		return null;
 	}
 	
+	public abstract TestSelection getSelection();
+	
 	@Override
 	public abstract Environment getCodeElement();
 	

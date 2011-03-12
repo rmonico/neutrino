@@ -130,7 +130,7 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 		refactoring.setExplanationString("Média da turma");
 
 		// Define em que arquivo fonte e local será feita a refatoração
-		refactoring.setTargetFragment(testParser.getSelection().getSelectedFragment());
+		refactoring.setTargetFragment(testParser.getBattery().getSelection().getSelectedFragment());
 
 		refactoring.refactor();
 

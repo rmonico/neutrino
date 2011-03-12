@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ita.testrefactoring.abstracttestparser.TestBattery;
+import org.ita.testrefactoring.codeparser.CodeSelection;
 import org.ita.testrefactoring.codeparser.Environment;
 import org.ita.testrefactoring.codeparser.Type;
 
@@ -11,8 +12,10 @@ public class JUnitTestBattery extends TestBattery {
 
 	private List<JUnitTestSuite> suiteList = new ArrayList<JUnitTestSuite>();
 	private Environment environment;
+	private JUnitSelection selection;
 
-	JUnitTestBattery() {
+	JUnitTestBattery(CodeSelection codeSelection) {
+		selection = new JUnitSelection(codeSelection);
 	}
 
 	@Override
@@ -53,6 +56,11 @@ public class JUnitTestBattery extends TestBattery {
 	
 	void setCodeElement(Environment environment) {
 		this.environment = environment;
+	}
+
+	@Override
+	public JUnitSelection getSelection() {
+		return selection;
 	}
 
 }
