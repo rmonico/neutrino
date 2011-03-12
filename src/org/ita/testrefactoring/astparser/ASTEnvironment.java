@@ -9,7 +9,6 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.ita.testrefactoring.codeparser.CodeElement;
 import org.ita.testrefactoring.codeparser.Constructor;
 import org.ita.testrefactoring.codeparser.Environment;
-import org.ita.testrefactoring.codeparser.ExpressionFactory;
 import org.ita.testrefactoring.codeparser.Method;
 import org.ita.testrefactoring.codeparser.Package;
 import org.ita.testrefactoring.codeparser.Type;
@@ -24,7 +23,7 @@ public class ASTEnvironment implements Environment, TypeListener {
 	private IMapWrapper<String, Type> wrapper;
 	private Map<String, Type> typeCache;
 	private ASTSelection selection;
-	private ExpressionFactory expressionFactory = new ASTExpressionFactory();
+	private ASTExpressionFactory expressionFactory = new ASTExpressionFactory();
 
 	// Construtor restrito ao pacote
 	ASTEnvironment() {
@@ -169,14 +168,6 @@ public class ASTEnvironment implements Environment, TypeListener {
 
 	public static String extractTypeName(String typeFullQualifiedName) {
 		return typeFullQualifiedName.substring(typeFullQualifiedName.lastIndexOf('.') + 1, typeFullQualifiedName.length());
-	}
-
-	public ASTLiteralExpression createLiteralExpression(String value) {
-		ASTLiteralExpression expression = new ASTLiteralExpression();
-
-		expression.setValue(value);
-
-		return expression;
 	}
 
 	public ASTMethodInvocationExpression createMethodInvocationExpression(String methodSignature) {
@@ -332,8 +323,8 @@ public class ASTEnvironment implements Environment, TypeListener {
 	}
 
 	@Override
-	public ExpressionFactory getExpressionFactory() {
-		return expressionFactory ;
+	public ASTExpressionFactory getExpressionFactory() {
+		return expressionFactory;
 	}
 
 }

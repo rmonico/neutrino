@@ -148,11 +148,13 @@ class BlockParser {
 		// Inicialização da variável
 		if (fragmentNodes.size() > 1) {
 
-			// Expressão listeral
+			// Expressão literal
 			if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.PrefixExpression) {
 				org.eclipse.jdt.core.dom.PrefixExpression astNode = (PrefixExpression) fragmentNodes.get(1);
 
-				ASTLiteralExpression literalExpression = environment.createLiteralExpression(astNode.toString());
+				Type nodeType = environment.getTypeCache().get(astNode.resolveTypeBinding().getQualifiedName());
+				
+				ASTLiteralExpression literalExpression = environment.getExpressionFactory().createLiteralExpression(nodeType, astNode.toString());
 
 				literalExpression.setASTObject(astNode);
 

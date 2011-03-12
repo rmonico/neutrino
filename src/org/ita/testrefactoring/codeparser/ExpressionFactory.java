@@ -2,6 +2,6 @@ package org.ita.testrefactoring.codeparser;
 
 public interface ExpressionFactory {
 
-	Expression createStringLiteralExpression(String explanationString);
+	LiteralExpression createLiteralExpression(Type type, String value);
 
 }
