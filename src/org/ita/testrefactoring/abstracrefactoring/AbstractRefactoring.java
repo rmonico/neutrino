@@ -1,4 +1,4 @@
-package org.ita.testrefactoring;
+package org.ita.testrefactoring.abstracrefactoring;
 
 import org.ita.testrefactoring.abstracttestparser.TestBattery;
 import org.ita.testrefactoring.abstracttestparser.TestElement;
@@ -12,7 +12,7 @@ public abstract class AbstractRefactoring {
 		this.battery = battery;
 	}
 
-	protected TestBattery getTestBattery() {
+	protected TestBattery getBattery() {
 		return battery;
 	}
 

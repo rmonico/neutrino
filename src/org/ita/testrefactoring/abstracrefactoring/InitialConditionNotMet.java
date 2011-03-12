@@ -1,4 +1,4 @@
-package org.ita.testrefactoring;
+package org.ita.testrefactoring.abstracrefactoring;
 
 public class InitialConditionNotMet extends Exception {
 
