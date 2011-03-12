@@ -38,7 +38,7 @@ public class AddExplanationRefactoring extends AbstractRefactoring {
 			assertion = (Assertion) getTargetFragment();
 		}
 		
-		if (assertion.getExplanation() != null) {
+		if (assertion.getExplanationIndex() != -1) {
 			return new TargetAlreadyHaveExplanation();
 		}
 		
