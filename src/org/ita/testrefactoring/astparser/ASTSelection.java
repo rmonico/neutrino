@@ -2,7 +2,7 @@ package org.ita.testrefactoring.astparser;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.dom.ASTNode;
-import org.ita.testrefactoring.RefactoringUtils;
+import org.ita.testrefactoring.abstracrefactoring.RefactoringUtils;
 import org.ita.testrefactoring.codeparser.CodeElement;
 import org.ita.testrefactoring.codeparser.CodeSelection;
 

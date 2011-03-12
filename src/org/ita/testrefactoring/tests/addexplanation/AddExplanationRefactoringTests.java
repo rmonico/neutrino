@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
-import org.ita.testrefactoring.RefactoringException;
+import org.ita.testrefactoring.abstracrefactoring.RefactoringException;
 import org.ita.testrefactoring.abstracttestparser.TestBattery;
 import org.ita.testrefactoring.abstracttestparser.TestParserException;
 import org.ita.testrefactoring.addexplanation.AddExplanationRefactoring;
