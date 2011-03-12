@@ -33,4 +33,9 @@ public class ASTMethodInvocationExpression extends ASTAbstractExpression impleme
 	public String toString() {
 		return getCalledMethod().getName();
 	}
+
+	@Override
+	public String getValue() {
+		return null;
+	}
 }

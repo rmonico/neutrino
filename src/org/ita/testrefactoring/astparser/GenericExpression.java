@@ -8,4 +8,9 @@ public class GenericExpression extends ASTAbstractExpression {
 	 */
 	GenericExpression() {
 	}
+
+	@Override
+	public String getValue() {
+		return null;
+	}
 }

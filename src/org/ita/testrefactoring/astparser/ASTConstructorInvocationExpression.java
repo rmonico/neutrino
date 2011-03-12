@@ -25,5 +25,10 @@ public class ASTConstructorInvocationExpression extends ASTAbstractExpression im
 	public List<Expression> getParameterList() {
 		return parameterList;
 	}
+
+	@Override
+	public String getValue() {
+		return null;
+	}
 	
 }
