@@ -97,7 +97,7 @@ public class ASTParser implements CodeParser {
 			public void acceptAST(ICompilationUnit jdtObject, CompilationUnit astObject) {
 				PackageDeclaration pack = astObject.getPackage();
 
-				ASTPackage parsedPackage = getEnvironment().createPackage(pack.getName().toString());
+				ASTPackage parsedPackage = getEnvironment().getOrCreatePackage(pack.getName().toString());
 
 				parsedPackage.setASTObject(pack);
 

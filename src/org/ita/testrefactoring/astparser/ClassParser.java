@@ -60,7 +60,7 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 				ASTPackage pack = environment.getPackageList().get(packageName);
 
 				if (pack == null) {
-					pack = environment.createPackage(packageName);
+					pack = environment.getOrCreatePackage(packageName);
 				}
 
 				String typeName = ASTEnvironment.extractTypeName(fieldTypeQualifiedName);

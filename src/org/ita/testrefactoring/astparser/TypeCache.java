@@ -34,7 +34,7 @@ public class TypeCache extends HashMap<String, Type> {
 			ASTPackage pack = environment.getPackageList().get(packageName);
 			
 			if (pack == null) {
-				pack = environment.createPackage(packageName);
+				pack = environment.getOrCreatePackage(packageName);
 			}
 			
 			Type newType = environment.createDummyType(typeName, pack);
