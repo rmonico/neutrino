@@ -28,16 +28,17 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 
 		StringBuilder beforeRefactoringSource = new StringBuilder();
 
-		beforeRefactoringSource.append("package tests.addexplanation;\n");
+		beforeRefactoringSource.append("package org.ita.testrefactoring.addexplanationrefactoring;\n");
 		beforeRefactoringSource.append("\n");
 		beforeRefactoringSource.append("import static org.junit.Assert.assertEquals;\n");
 		beforeRefactoringSource.append("\n");
 		beforeRefactoringSource.append("import org.junit.Test;\n");
 		beforeRefactoringSource.append("\n");
 		beforeRefactoringSource.append("public class TestNotas {\n");
-		beforeRefactoringSource.append("\n");
+		beforeRefactoringSource.append("    \n");
+		beforeRefactoringSource.append("    @SuppressWarnings(\"unused\")\n");
 		beforeRefactoringSource.append("    @Test\n");
-		beforeRefactoringSource.append("    public void testNotasTurma() {\n");
+		beforeRefactoringSource.append("    private void testNotasTurma() {\n");
 		beforeRefactoringSource.append("        Notas not = new Notas();\n");
 		beforeRefactoringSource.append("\n");
 		beforeRefactoringSource.append("        not.add(\"João\", 8.0);\n");
@@ -48,25 +49,25 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 		beforeRefactoringSource.append("    }\n");
 		beforeRefactoringSource.append("}\n");
 
-		refactoredCompilationUnit = createSourceFile("tests.addexplanation", "TestNotas.java", beforeRefactoringSource);
+		refactoredCompilationUnit = createSourceFile("org.ita.testrefactoring.addexplanationrefactoring", "TestNotas.java", beforeRefactoringSource);
 		compilationUnits.add(refactoredCompilationUnit);
 
 		StringBuilder productionClassCode = new StringBuilder();
 
-		productionClassCode.append("package tests.addexplanation;\n");
+		productionClassCode.append("package org.ita.testrefactoring.addexplanationrefactoring;\n");
 		productionClassCode.append("\n");
 		productionClassCode.append("public class Notas {\n");
-		productionClassCode.append("\n");
 		productionClassCode.append("    public void add(String aluno, double nota) {\n");
+		productionClassCode.append("        \n");
 		productionClassCode.append("    }\n");
-		productionClassCode.append("\n");
+		productionClassCode.append("    \n");
 		productionClassCode.append("    public double avg() {\n");
 		productionClassCode.append("        return 8.0;\n");
 		productionClassCode.append("    }\n");
 		productionClassCode.append("\n");
 		productionClassCode.append("}\n");
 
-		compilationUnits.add(createSourceFile("tests.addexplanation", "Notas.java", productionClassCode));
+		compilationUnits.add(createSourceFile("org.ita.testrefactoring.addexplanationrefactoring", "Notas.java", productionClassCode));
 
 		ASTParser codeParser = new ASTParser();
 		
@@ -76,7 +77,7 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 		CodeSelection selection = codeParser.getSelection();
 		
 		selection.setSourceFile(refactoredCompilationUnit);
-		selection.setSelectionStart(307);
+		selection.setSelectionStart(375);
 		selection.setSelectionLength(12);
 		
 		codeParser.parse();
