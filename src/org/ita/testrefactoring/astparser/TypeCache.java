@@ -31,11 +31,7 @@ public class TypeCache extends HashMap<String, Type> {
 			String packageName = ASTEnvironment.extractPackageName(fullQualifiedName);
 			String typeName = ASTEnvironment.extractTypeName(fullQualifiedName);
 
-			ASTPackage pack = environment.getPackageList().get(packageName);
-			
-			if (pack == null) {
-				pack = environment.getOrCreatePackage(packageName);
-			}
+			ASTPackage pack = environment.getOrCreatePackage(packageName);
 			
 			Type newType = environment.createDummyType(typeName, pack);
 			

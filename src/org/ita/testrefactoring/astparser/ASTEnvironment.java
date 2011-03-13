@@ -95,11 +95,7 @@ public class ASTEnvironment implements Environment, TypeListener {
 		String packageName = extractPackageName(qualifiedName);
 		String className = extractTypeName(qualifiedName);
 
-		Package pack = getPackageList().get(packageName);
-
-		if (pack == null) {
-			pack = getOrCreatePackage(packageName);
-		}
+		Package pack = getOrCreatePackage(packageName);
 
 		dummy.setName(className);
 		dummy.setPackage(pack);
@@ -115,11 +111,7 @@ public class ASTEnvironment implements Environment, TypeListener {
 		String packageName = extractPackageName(qualifiedName);
 		String className = extractTypeName(qualifiedName);
 
-		Package pack = getPackageList().get(packageName);
-
-		if (pack == null) {
-			pack = getOrCreatePackage(packageName);
-		}
+		Package pack = getOrCreatePackage(packageName);
 
 		dummy.setName(className);
 		dummy.setPackage(pack);
