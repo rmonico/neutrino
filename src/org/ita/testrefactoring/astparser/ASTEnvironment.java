@@ -47,14 +47,18 @@ public class ASTEnvironment implements Environment, TypeListener {
 	 * @param packageName
 	 * @return
 	 */
-	ASTPackage createPackage(String packageName) {
-		ASTPackage pack = new ASTPackage();
+	ASTPackage getOrCreatePackage(String packageName) {
+		ASTPackage pack = getPackageList().get(packageName);
+		
+		if (pack == null) {
+			pack = new ASTPackage();
+			
+			pack.setEnvironment(this);
+			pack.setName(packageName);
 
-		pack.setEnvironment(this);
-		pack.setName(packageName);
-
-		packageList.put(packageName, pack);
-
+			packageList.put(packageName, pack);
+		}
+		
 		return pack;
 	}
 
@@ -94,7 +98,7 @@ public class ASTEnvironment implements Environment, TypeListener {
 		Package pack = getPackageList().get(packageName);
 
 		if (pack == null) {
-			pack = createPackage(packageName);
+			pack = getOrCreatePackage(packageName);
 		}
 
 		dummy.setName(className);
@@ -114,7 +118,7 @@ public class ASTEnvironment implements Environment, TypeListener {
 		Package pack = getPackageList().get(packageName);
 
 		if (pack == null) {
-			pack = createPackage(packageName);
+			pack = getOrCreatePackage(packageName);
 		}
 
 		dummy.setName(className);
