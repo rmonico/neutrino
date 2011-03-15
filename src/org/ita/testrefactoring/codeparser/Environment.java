@@ -17,4 +17,6 @@ public interface Environment extends CodeElement {
 	CodeSelection getSelection();
 	
 	ExpressionFactory getExpressionFactory();
+
+	void applyChanges();
 }
