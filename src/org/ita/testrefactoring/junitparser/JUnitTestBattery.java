@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ita.testrefactoring.abstracttestparser.TestBattery;
+import org.ita.testrefactoring.abstracttestparser.TestParserException;
 import org.ita.testrefactoring.codeparser.CodeSelection;
 import org.ita.testrefactoring.codeparser.Environment;
+import org.ita.testrefactoring.codeparser.ParserException;
 import org.ita.testrefactoring.codeparser.Type;
 
 public class JUnitTestBattery extends TestBattery {
@@ -64,8 +66,12 @@ public class JUnitTestBattery extends TestBattery {
 	}
 
 	@Override
-	public void applyChanges() {
-		environment.applyChanges();
+	public void applyChanges() throws TestParserException {
+		try {
+			environment.applyChanges();
+		} catch (ParserException e) {
+			throw new TestParserException(e);
+		}
 	}
 
 }
