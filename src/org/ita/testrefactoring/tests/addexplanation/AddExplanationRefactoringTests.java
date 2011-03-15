@@ -35,10 +35,10 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 		beforeRefactoringSource.append("import org.junit.Test;\n");
 		beforeRefactoringSource.append("\n");
 		beforeRefactoringSource.append("public class TestNotas {\n");
-		beforeRefactoringSource.append("    \n");
+		beforeRefactoringSource.append("\n");
 		beforeRefactoringSource.append("    @SuppressWarnings(\"unused\")\n");
 		beforeRefactoringSource.append("    @Test\n");
-		beforeRefactoringSource.append("    private void testNotasTurma() {\n");
+		beforeRefactoringSource.append("    public void testNotasTurma() {\n");
 		beforeRefactoringSource.append("        Notas not = new Notas();\n");
 		beforeRefactoringSource.append("\n");
 		beforeRefactoringSource.append("        not.add(\"João\", 8.0);\n");
@@ -93,7 +93,7 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 	private StringBuilder getExpectedSource() {
 		StringBuilder expectedSource = new StringBuilder();
 
-		expectedSource.append("package tests.addexplanation;\n");
+		expectedSource.append("package org.ita.testrefactoring.addexplanationrefactoring;\n");
 		expectedSource.append("\n");
 		expectedSource.append("import static org.junit.Assert.assertEquals;\n");
 		expectedSource.append("\n");
@@ -101,6 +101,7 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 		expectedSource.append("\n");
 		expectedSource.append("public class TestNotas {\n");
 		expectedSource.append("\n");
+		expectedSource.append("    @SuppressWarnings(\"unused\")\n");
 		expectedSource.append("    @Test\n");
 		expectedSource.append("    public void testNotasTurma() {\n");
 		expectedSource.append("        Notas not = new Notas();\n");
