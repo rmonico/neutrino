@@ -63,4 +63,9 @@ public class JUnitTestBattery extends TestBattery {
 		return selection;
 	}
 
+	@Override
+	public void applyChanges() {
+		environment.applyChanges();
+	}
+
 }
