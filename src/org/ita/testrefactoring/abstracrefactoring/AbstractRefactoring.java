@@ -2,6 +2,7 @@ package org.ita.testrefactoring.abstracrefactoring;
 
 import org.ita.testrefactoring.abstracttestparser.TestBattery;
 import org.ita.testrefactoring.abstracttestparser.TestElement;
+import org.ita.testrefactoring.abstracttestparser.TestParserException;
 
 public abstract class AbstractRefactoring {
 
@@ -40,7 +41,11 @@ public abstract class AbstractRefactoring {
 		return fragment;
 	}
 
-	private void applyChanges() {
-		battery.applyChanges();
+	private void applyChanges() throws RefactoringException {
+		try {
+			battery.applyChanges();
+		} catch (TestParserException e) {
+			throw new RefactoringException(e);
+		}
 	}
 }
