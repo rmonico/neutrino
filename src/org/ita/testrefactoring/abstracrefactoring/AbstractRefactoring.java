@@ -24,6 +24,8 @@ public abstract class AbstractRefactoring {
 		}
 
 		doRefactor();
+		
+		applyChanges();
 	}
 
 	public abstract InitialConditionNotMet checkInitialConditions();
@@ -36,5 +38,9 @@ public abstract class AbstractRefactoring {
 
 	public TestElement getTargetFragment() {
 		return fragment;
+	}
+
+	private void applyChanges() {
+		battery.applyChanges();
 	}
 }
