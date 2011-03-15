@@ -34,7 +34,16 @@ class MethodInvocationHandler implements MethodInvocation {
 	}
 
 	private void parameterListItemAdded(int index, Expression element) {
-		
+//		MethodParameter explanationParameter = new MethodParameter();
+//		
+//		LiteralExpression explanationStringExpression = new LiteralExpression();
+//		
+//		explanationStringExpression.setValue(explanationString);
+//		
+//		explanationParameter.setType("java.lang.String");
+//		explanationParameter.setExpression(explanationStringExpression);
+//		
+//		targetAssertion.getParameters().add(0, explanationParameter);
 	}
 	
 	@Override

@@ -55,16 +55,6 @@ public class AddExplanationRefactoring extends AbstractRefactoring {
 		Expression explanationExpression = environment.getExpressionFactory().createLiteralExpression(javaLangStringType, explanationString);
 		
 		targetAssertion.getCodeElement().getParameterList().add(0, explanationExpression);
-//		MethodParameter explanationParameter = new MethodParameter();
-//		
-//		LiteralExpression explanationStringExpression = new LiteralExpression();
-//		
-//		explanationStringExpression.setValue(explanationString);
-//		
-//		explanationParameter.setType("java.lang.String");
-//		explanationParameter.setExpression(explanationStringExpression);
-//		
-//		targetAssertion.getParameters().add(0, explanationParameter);
 	}
 
 	public void setExplanationString(String explanationString) {
