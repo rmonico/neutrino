@@ -88,6 +88,7 @@ class BlockParser {
 
 			methodInvocation.setASTObject(astMethodInvocation);
 			
+			populateParameterList(methodInvocation.getParameterList(), astMethodInvocation.arguments());
 			String methodTypeQualifiedName = astMethodInvocation.resolveMethodBinding().getDeclaringClass().getQualifiedName();
 			String methodName = astMethodInvocation.getName().getIdentifier();
 			
@@ -170,6 +171,8 @@ class BlockParser {
 
 				mie.setASTObject(astNode);
 
+				populateParameterList(mie.getParameterList(), astNode.arguments());
+				
 				variableDeclaration.setInitializationExpression(mie);
 
 				// Variável inicializada com null
@@ -200,6 +203,11 @@ class BlockParser {
 		}
 
 		return variableDeclaration;
+	}
+
+	private void populateParameterList(List<org.ita.testrefactoring.codeparser.Expression> parameterList, @SuppressWarnings("rawtypes") List arguments) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private ASTGenericStatement parseGenericStatement(org.eclipse.jdt.core.dom.Statement node) {
