@@ -18,5 +18,5 @@ public interface Environment extends CodeElement {
 	
 	ExpressionFactory getExpressionFactory();
 
-	void applyChanges();
+	void applyChanges() throws ParserException;
 }

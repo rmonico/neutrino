@@ -3,6 +3,8 @@ package org.ita.testrefactoring.astparser;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
@@ -11,6 +13,7 @@ import org.ita.testrefactoring.codeparser.Constructor;
 import org.ita.testrefactoring.codeparser.Environment;
 import org.ita.testrefactoring.codeparser.Method;
 import org.ita.testrefactoring.codeparser.Package;
+import org.ita.testrefactoring.codeparser.ParserException;
 import org.ita.testrefactoring.codeparser.Type;
 import org.ita.testrefactoring.codeparser.TypeListener;
 import org.zero.utils.IMapWrapper;
@@ -321,6 +324,21 @@ public class ASTEnvironment implements Environment, TypeListener {
 	@Override
 	public ASTExpressionFactory getExpressionFactory() {
 		return expressionFactory;
+	}
+
+	@Override
+	public void applyChanges() throws ParserException {
+		for (ASTPackage pack : packageList.values()) {
+			for (ASTSourceFile sourceFile : pack.getSourceFileList().values()) {
+				try {
+					sourceFile.getASTObject().getICompilationUnit().applyTextEdit(sourceFile.getASTObject().getRewrite().rewriteAST(), new NullProgressMonitor());
+				} catch (JavaModelException e) {
+					throw new ParserException(e);
+				} catch (IllegalArgumentException e) {
+					throw new ParserException(e);
+				}
+			}
+		}
 	}
 
 }
