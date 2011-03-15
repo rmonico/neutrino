@@ -89,6 +89,7 @@ class BlockParser {
 			methodInvocation.setASTObject(astMethodInvocation);
 			
 			populateParameterList(methodInvocation.getParameterList(), astMethodInvocation.arguments());
+			
 			String methodTypeQualifiedName = astMethodInvocation.resolveMethodBinding().getDeclaringClass().getQualifiedName();
 			String methodName = astMethodInvocation.getName().getIdentifier();
 			
@@ -190,11 +191,7 @@ class BlockParser {
 
 				variableDeclaration.setInitializationExpression(cie);
 			} else if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.Expression) {
-				org.eclipse.jdt.core.dom.Expression astNode = (org.eclipse.jdt.core.dom.Expression) fragmentNodes.get(1);
-
-				GenericExpression genericExpression = environment.createGenericExpression();
-
-				genericExpression.setASTObject(astNode);
+				GenericExpression genericExpression = parseExpression((org.eclipse.jdt.core.dom.Expression) fragmentNodes.get(1));
 
 				variableDeclaration.setInitializationExpression(genericExpression);
 			} else {
@@ -205,8 +202,30 @@ class BlockParser {
 		return variableDeclaration;
 	}
 
+	private GenericExpression parseExpression(org.eclipse.jdt.core.dom.Expression astNode) {
+		GenericExpression genericExpression = environment.createGenericExpression();
+
+		genericExpression.setASTObject(astNode);
+		
+		String typeQualifiedName = astNode.resolveTypeBinding().getQualifiedName();
+		
+		Type type = environment.getTypeCache().get(typeQualifiedName);
+		
+		genericExpression.setType(type);
+		
+		return genericExpression;
+	}
+
 	private void populateParameterList(List<org.ita.testrefactoring.codeparser.Expression> parameterList, @SuppressWarnings("rawtypes") List arguments) {
-		// TODO Auto-generated method stub
+		for (Object argument : arguments) {
+			if (argument instanceof org.eclipse.jdt.core.dom.Expression) {
+				org.eclipse.jdt.core.dom.Expression expression = (org.eclipse.jdt.core.dom.Expression) argument;
+				
+				GenericExpression genericExpression = parseExpression(expression);
+				
+				parameterList.add(genericExpression);
+			}
+		}
 		
 	}
 
