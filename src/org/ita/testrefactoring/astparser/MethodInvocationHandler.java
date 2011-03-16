@@ -11,48 +11,68 @@ import org.zero.utils.ListWrapper;
 
 class MethodInvocationHandler implements MethodInvocation {
 
+	private MethodInvocation delegator;
 	private Method calledMethod;
 	private List<Expression> parameterList;
-	
-	public MethodInvocationHandler() {
+	private org.eclipse.jdt.core.dom.MethodInvocation astObject;
+
+	public MethodInvocationHandler(MethodInvocation delegator) {
+		this.delegator = delegator;
+
 		ListWrapper<Expression> wrapper = new ListWrapper<Expression>(new ArrayList<Expression>());
-		
+
 		wrapper.addListener(new AbstractListListener<Expression>() {
 			@Override
 			public void add(int index, Expression element) {
 				parameterListItemAdded(index, element);
 			}
-
 		});
-		
+
 		parameterList = wrapper;
 	}
-	
+
 	@Override
 	public Method getCalledMethod() {
 		return calledMethod;
 	}
 
-	private void parameterListItemAdded(int index, Expression element) {
-//		MethodParameter explanationParameter = new MethodParameter();
-//		
-//		LiteralExpression explanationStringExpression = new LiteralExpression();
-//		
-//		explanationStringExpression.setValue(explanationString);
-//		
-//		explanationParameter.setType("java.lang.String");
-//		explanationParameter.setExpression(explanationStringExpression);
-//		
-//		targetAssertion.getParameters().add(0, explanationParameter);
-	}
-	
 	@Override
 	public List<Expression> getParameterList() {
 		return parameterList;
+	}
+
+	private void parameterListItemAdded(int index, Expression element) {
+		// delegator.getCodeElement(); --> Será necessário que MethodInvocation
+		// extends
+		// ASTWrapper<org.eclipse.jdt.core.dom.MethodInvocation>
+		//
+		// CompilationUnit compilationUnit =
+		// getServices().getSourceFiles().getCompilationUnit(0); --> Só serve
+		// para localizar a asserção onde será aplicada a refatoração, nesse
+		// caso será delegator
+		//
+		// ASTRewrite rewrite = getServices().getSourceFiles().getRewrite(0);
+		//
+		// MethodInvocation assertInvocation =
+		// locateAssertInvocation(compilationUnit); --> astObject
+		//
+		// ListRewrite assertArgumentListRewrite =
+		// rewrite.getListRewrite(assertInvocation,
+		// MethodInvocation.ARGUMENTS_PROPERTY);
+		//
+		// StringLiteral explanationArgument =
+		// compilationUnit.getAST().newStringLiteral();
+		//
+		// explanationArgument.setLiteralValue(explanationString);
+		//
+		// assertArgumentListRewrite.insertFirst(explanationArgument, null);
 	}
 
 	public void setCalledMethod(Method calledMethod) {
 		this.calledMethod = calledMethod;
 	}
 
+	public void setASTObject(org.eclipse.jdt.core.dom.MethodInvocation astObject) {
+		this.astObject = astObject;
+	}
 }
