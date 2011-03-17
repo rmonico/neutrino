@@ -3,6 +3,15 @@ package org.ita.testrefactoring.abstracrefactoring;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.IAnnotationBinding;
@@ -63,28 +72,6 @@ public class RefactoringUtils {
 //			// Já consegui o que queria, não preciso ver os filhos desse nó
 //			return false;
 //		}
-//
-//	}
-//
-//	private static ICompilationUnit getActiveICompilationUnit() {
-//		IWorkbench workbench = Activator.getDefault().getWorkbench();
-//
-//		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
-//
-//		IWorkbenchPage page = workbenchWindow.getActivePage();
-//
-//		IEditorPart editorPart = page.getActiveEditor();
-//
-//		if (editorPart == null) {
-//			// Nenhuma janela de edição ativa
-//			return null;
-//		}
-//
-//		IEditorInput editorInput = editorPart.getEditorInput();
-//
-//		ITypeRoot typeRoot = JavaUI.getEditorInputTypeRoot(editorInput);
-//
-//		return (ICompilationUnit) typeRoot;
 //
 //	}
 
@@ -403,41 +390,41 @@ public class RefactoringUtils {
 //		return diffs;
 //	}
 //
-//	public static List<ICompilationUnit> getAllWorkspaceCompilationUnits(
-//			ICompilationUnit ignoredClass) throws CoreException {
-//
-//		List<ICompilationUnit> resultingList = new ArrayList<ICompilationUnit>();
-//
-//		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-//		IWorkspaceRoot root = workspace.getRoot();
-//		IProject[] projects = root.getProjects();
-//
-//		for (IProject project : projects) {
-//			if (!project.isOpen()) {
-//				continue;
-//			}
-//
-//			if (!project.isNatureEnabled("org.eclipse.jdt.core.javanature")) {
-//				continue;
-//			}
-//
-//			IPackageFragment[] packages = JavaCore.create(project)
-//					.getPackageFragments();
-//
-//			for (IPackageFragment mypackage : packages) {
-//				if (mypackage.getKind() != IPackageFragmentRoot.K_SOURCE) {
-//					continue;
-//				}
-//
-//				for (ICompilationUnit unit : mypackage.getCompilationUnits()) {
-//					if (unit != ignoredClass) {
-//						resultingList.add(unit);
-//					}
-//				}
-//			}
-//		}
-//
-//		return resultingList;
-//	}
+	public static List<ICompilationUnit> getAllWorkspaceCompilationUnits(
+			ICompilationUnit ignoredClass) throws CoreException {
+
+		List<ICompilationUnit> resultingList = new ArrayList<ICompilationUnit>();
+
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceRoot root = workspace.getRoot();
+		IProject[] projects = root.getProjects();
+
+		for (IProject project : projects) {
+			if (!project.isOpen()) {
+				continue;
+			}
+
+			if (!project.isNatureEnabled("org.eclipse.jdt.core.javanature")) {
+				continue;
+			}
+
+			IPackageFragment[] packages = JavaCore.create(project)
+					.getPackageFragments();
+
+			for (IPackageFragment mypackage : packages) {
+				if (mypackage.getKind() != IPackageFragmentRoot.K_SOURCE) {
+					continue;
+				}
+
+				for (ICompilationUnit unit : mypackage.getCompilationUnits()) {
+					if (unit != ignoredClass) {
+						resultingList.add(unit);
+					}
+				}
+			}
+		}
+
+		return resultingList;
+	}
 
 }
