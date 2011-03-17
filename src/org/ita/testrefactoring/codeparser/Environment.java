@@ -5,7 +5,8 @@ import java.util.Map;
 /**
  * Representa o nível mais alto da representação abstrata de código fonte. Notar
  * que para as classes que implementam essa interface o método getParent
- * definido por CodeElement deverá sempre devolver null.
+ * definido por CodeElement deverá sempre devolver null. A interface só é
+ * implementada para ser possível devolvê-la através de getParent
  * 
  * @author Rafael Monico
  * 
@@ -48,13 +49,31 @@ public interface Environment extends CodeElement {
 	CodeElement getSelectedElement();
 
 	/**
-	 * No caso dessa interface, getParent sempre deverá devolver null.
+	 * No caso dessa interface, getParent sempre deverá devolver null. Ver
+	 * javadoc da classe.
 	 */
 	CodeElement getParent();
 
+	/**
+	 * Devolve um objeto de seleção com as mesmas propriedades de
+	 * CodeParser.getSelection. Método criado apenas por conveniência.
+	 * 
+	 * @return
+	 */
 	CodeSelection getSelection();
 
+	/**
+	 * Devolve a factory de expressões.
+	 * 
+	 * @return
+	 */
 	ExpressionFactory getExpressionFactory();
 
+	/**
+	 * Aplica as alterações em todos os source files descobertos no processo de
+	 * parsing.
+	 * 
+	 * @throws ParserException
+	 */
 	void applyChanges() throws ParserException;
 }
