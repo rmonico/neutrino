@@ -11,4 +11,8 @@ public class ActionException extends Exception {
 		super(e);
 	}
 
+	public ActionException(String message) {
+		super(message);
+	}
+
 }

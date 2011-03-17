@@ -1,26 +1,55 @@
 package org.ita.testrefactoring.addexplanation;
 
-import org.eclipse.jface.viewers.ISelection;
-import org.ita.testrefactoring.eclipseaction.ActionException;
-import org.ita.testrefactoring.eclipseaction.IAction;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AddExplanationAction implements IAction {
+import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.text.ITextSelection;
+import org.ita.testrefactoring.abstracrefactoring.AbstractEclipseRefactoringAction;
+import org.ita.testrefactoring.abstracrefactoring.AbstractRefactoring;
+
+public class AddExplanationAction extends AbstractEclipseRefactoringAction {
+
+	private String explanationString;
+	private AddExplanationRefactoring refactoring;
 
 	@Override
-	public ISelection getSelection() {
-		// TODO Auto-generated method stub
-		return null;
+	protected List<String> checkPreConditions() {
+		List<String> problems = new ArrayList<String>();
+		if (!(getSelection() instanceof ITextSelection)) {
+			problems.add("Select some assertion to refactor.");
+		}
+
+		return problems;
 	}
 
 	@Override
-	public void setSelection(ISelection selection) {
-		// TODO Auto-generated method stub
-
+	protected AbstractRefactoring createRefactoringObject() {
+		refactoring = new AddExplanationRefactoring();
+		
+		return refactoring;
 	}
-
+	
 	@Override
-	public void run() throws ActionException {
-		System.out.println("Running ==> org.ita.testrefactoring.addexplanation.AddExplanationAction");
+	protected boolean prepareRefactoringObject() {
+		super.prepareRefactoringObject();
+		
+		InputDialog id = new InputDialog(null, "Add explanation to assertion", "Type the explanation string", "explanation string", null);
+
+		if (id.open() == InputDialog.CANCEL) {
+			return false;
+		}
+
+		explanationString = id.getValue();
+		
+		refactoring.setExplanationString(explanationString);
+		
+		return true;
+	}
+	
+	@Override
+	protected String getRefactoringName() {
+		return "Add explanation to assertion";
 	}
 
 }
