@@ -1,5 +1,11 @@
 package org.ita.testrefactoring.codeparser;
 
+/**
+ * Interface que representa um parsing de código fonte.
+ * 
+ * @author Rafael Monico
+ * 
+ */
 public interface CodeParser {
 
 	/**
