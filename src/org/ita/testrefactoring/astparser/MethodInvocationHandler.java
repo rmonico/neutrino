@@ -27,12 +27,14 @@ class MethodInvocationHandler implements ASTMethodInvocation, ASTWritableElement
 
 		ListWrapper<Expression> wrapper = new ListWrapper<Expression>(new ArrayList<Expression>());
 
-		wrapper.addListener(new AbstractListListener<Expression>() {
+		AbstractListListener<Expression> listener = new AbstractListListener<Expression>() {
 			@Override
 			public void add(int index, Expression element) {
 				parameterListItemAdded(index, element);
 			}
-		});
+		};
+		
+		wrapper.addListener(listener);
 
 		parameterList = wrapper;
 	}
@@ -61,7 +63,7 @@ class MethodInvocationHandler implements ASTMethodInvocation, ASTWritableElement
 		org.eclipse.jdt.core.dom.MethodInvocation assertInvocation = delegator.getASTObject();
 
 		ASTContainer container = locateASTContainerOfDelegator();
-		
+
 		ASTRewrite rewrite = container.getRewrite();
 
 		ListRewrite assertArgumentListRewrite = rewrite.getListRewrite(assertInvocation, MethodInvocation.ARGUMENTS_PROPERTY);
@@ -106,7 +108,7 @@ class MethodInvocationHandler implements ASTMethodInvocation, ASTWritableElement
 	@Override
 	public void parseFinished() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -16,6 +16,7 @@ import org.ita.testrefactoring.codeparser.Constructor;
 import org.ita.testrefactoring.codeparser.Method;
 import org.ita.testrefactoring.codeparser.ParserException;
 import org.ita.testrefactoring.codeparser.SourceFile;
+import org.ita.testrefactoring.codeparser.Statement;
 import org.ita.testrefactoring.codeparser.Type;
 import org.ita.testrefactoring.codeparser.TypeKind;
 
@@ -72,6 +73,8 @@ public class ASTParser implements CodeParser {
 		parseAllClassesInWorkspace();
 
 		parseAllCodeBlocksInWorkspace();
+		
+		notifyWritableElements();
 	}
 
 
@@ -211,6 +214,24 @@ public class ASTParser implements CodeParser {
 			parser.setBlock(block);
 
 			parser.parse();
+		}
+	}
+
+	private void notifyWritableElements() {
+		for (ASTPackage pack : environment.getPackageList().values()) {
+			for (ASTSourceFile sourceFile : pack.getSourceFileList().values()) {
+				for (ASTType type : sourceFile.getTypeList().values()) {
+					for (Method method : type.getMethodList().values()) {
+						for (Statement statement : method.getBody().getStatementList()) {
+							if (statement instanceof ASTWritableElement) {
+								ASTWritableElement writable = (ASTWritableElement) statement;
+								
+								writable.parseFinished();
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
