@@ -20,22 +20,22 @@ class MethodInvocationHandler implements ASTMethodInvocation, ASTWritableElement
 	private MethodInvocationDelegator delegator;
 	private Method calledMethod;
 	private List<Expression> parameterList;
+	private ListWrapper<Expression> wrapper;
+	private AbstractListListener<Expression> listener;
 	private org.eclipse.jdt.core.dom.MethodInvocation astObject;
 
 	public MethodInvocationHandler(MethodInvocationDelegator delegator) {
 		this.delegator = delegator;
 
-		ListWrapper<Expression> wrapper = new ListWrapper<Expression>(new ArrayList<Expression>());
+		wrapper = new ListWrapper<Expression>(new ArrayList<Expression>());
 
-		AbstractListListener<Expression> listener = new AbstractListListener<Expression>() {
+		listener = new AbstractListListener<Expression>() {
 			@Override
 			public void add(int index, Expression element) {
 				parameterListItemAdded(index, element);
 			}
 		};
 		
-		wrapper.addListener(listener);
-
 		parameterList = wrapper;
 	}
 
@@ -107,8 +107,7 @@ class MethodInvocationHandler implements ASTMethodInvocation, ASTWritableElement
 
 	@Override
 	public void parseFinished() {
-		// TODO Auto-generated method stub
-
+		wrapper.addListener(listener);
 	}
 
 }
