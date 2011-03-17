@@ -29,6 +29,8 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 	private ISelection selection;
 	private TestBattery battery;
 	private AbstractRefactoring refactoringObject;
+	private JUnitParser testParser;
+	private ASTParser codeParser;
 
 	@Override
 	public ISelection getSelection() {
@@ -40,11 +42,63 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 		this.selection = selection;
 	}
 
+	/**
+	 * Deve devolver um nome amigável para a refatoração, esse valor será utilizado nos diálogos com o usuário.
+	 * 
+	 * @return
+	 */
+	protected abstract String getRefactoringName();
+
 	@Override
 	public void run() throws ActionException {
 		verifyPreConditions();
 
-		ASTParser codeParser = new ASTParser();
+		doCodeParsing();
+
+		doTestParsing();
+
+		battery = testParser.getBattery();
+
+		refactoringObject = createRefactoringObject();
+
+		refactoringObject.setBattery(getBattery());
+		refactoringObject.setTargetFragment(getBattery().getSelection().getSelectedFragment());
+
+		verifyInitialConditions();
+
+		if (!prepareRefactoringObject()) {
+			return;
+		}
+
+		try {
+			refactoringObject.refactor();
+		} catch (RefactoringException e) {
+			throw new ActionException(e);
+		}
+	}
+
+	private void verifyPreConditions() throws ActionException {
+		List<String> problems = checkPreConditions();
+
+		if (problems.size() > 0) {
+			String message = RefactoringException.getMessageForProblemList(problems);
+
+			MessageDialog.openWarning(null, getRefactoringName(), message);
+
+			throw new ActionException(message);
+		}
+	}
+
+	/**
+	 * Permite fazer uma checagem prévia das condições no Eclipse antes de fazer
+	 * qualquer outra coisa.
+	 * 
+	 * @return
+	 */
+	protected abstract List<String> checkPreConditions();
+
+	private void doCodeParsing() throws ActionException {
+		codeParser = new ASTParser();
 
 		try {
 			codeParser.setCompilationUnits(RefactoringUtils.getAllWorkspaceCompilationUnits(null).toArray(new ICompilationUnit[0]));
@@ -67,7 +121,11 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 			throw new ActionException(e);
 		}
 
-		JUnitParser testParser = new JUnitParser();
+		return;
+	}
+
+	private void doTestParsing() throws ActionException {
+		testParser = new JUnitParser();
 
 		testParser.setEnvironment(codeParser.getEnvironment());
 
@@ -76,52 +134,36 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 		} catch (TestParserException e) {
 			throw new ActionException(e);
 		}
-
-		battery = testParser.getBattery();
-
-		refactoringObject = createRefactoringObject();
-
-		refactoringObject.setBattery(getBattery());
-		refactoringObject.setTargetFragment(getBattery().getSelection().getSelectedFragment());
-
-		List<String> errors = refactoringObject.checkInitialConditions();
-		
-		if (errors.size() > 0) {
-			MessageDialog.openWarning(null, getRefactoringName(), RefactoringException.getMessageForProblemList(errors));
-			
-			return;
-		}
-		
-		if (!prepareRefactoringObject()) {
-			return;
-		}
-		
-		try {
-			refactoringObject.refactor();
-		} catch (RefactoringException e) {
-			throw new ActionException(e);
-		}
 	}
 
-	private void verifyPreConditions() throws ActionException {
-		List<String> problems = checkPreConditions();
+	/**
+	 * Deve instanciar e devolver o objeto de refatoração.
+	 * 
+	 * @return
+	 */
+	protected abstract AbstractRefactoring createRefactoringObject();
 
-		if (problems.size() > 0) {
-			String message = RefactoringException.getMessageForProblemList(problems);
-			
+	private void verifyInitialConditions() throws ActionException {
+		List<String> errors = refactoringObject.checkInitialConditions();
+
+		if (errors.size() > 0) {
+			String message = RefactoringException.getMessageForProblemList(errors);
+
 			MessageDialog.openWarning(null, getRefactoringName(), message);
 
 			throw new ActionException(message);
 		}
 	}
 
-	protected abstract AbstractRefactoring createRefactoringObject();
-	
+	/**
+	 * Preparação final do objeto de refatoração. Deve devolver true caso a
+	 * refatoração deva continuar. Se devolver false, nenhuma exceção é lançada.
+	 * 
+	 * @return
+	 */
 	protected boolean prepareRefactoringObject() {
 		return true;
 	}
-	
-	protected abstract String getRefactoringName();
 
 	private ICompilationUnit getActiveCompilationUnit() {
 		IWorkbench workbench = Activator.getDefault().getWorkbench();
@@ -143,8 +185,6 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 
 		return (ICompilationUnit) typeRoot;
 	}
-
-	protected abstract List<String> checkPreConditions();
 
 	protected TestBattery getBattery() {
 		return battery;

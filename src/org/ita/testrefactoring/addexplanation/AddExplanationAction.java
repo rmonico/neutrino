@@ -14,6 +14,11 @@ public class AddExplanationAction extends AbstractEclipseRefactoringAction {
 	private AddExplanationRefactoring refactoring;
 
 	@Override
+	protected String getRefactoringName() {
+		return "Add explanation to assertion";
+	}
+
+	@Override
 	protected List<String> checkPreConditions() {
 		List<String> problems = new ArrayList<String>();
 		if (!(getSelection() instanceof ITextSelection)) {
@@ -25,16 +30,14 @@ public class AddExplanationAction extends AbstractEclipseRefactoringAction {
 
 	@Override
 	protected AbstractRefactoring createRefactoringObject() {
-		refactoring = new AddExplanationRefactoring();
-		
-		return refactoring;
+		return refactoring = new AddExplanationRefactoring();
 	}
 	
 	@Override
 	protected boolean prepareRefactoringObject() {
 		super.prepareRefactoringObject();
 		
-		InputDialog id = new InputDialog(null, "Add explanation to assertion", "Type the explanation string", "explanation string", null);
+		InputDialog id = new InputDialog(null, "Add explanation to assertion", "Enter a explanation string", "explanation string", null);
 
 		if (id.open() == InputDialog.CANCEL) {
 			return false;
@@ -47,9 +50,4 @@ public class AddExplanationAction extends AbstractEclipseRefactoringAction {
 		return true;
 	}
 	
-	@Override
-	protected String getRefactoringName() {
-		return "Add explanation to assertion";
-	}
-
 }
