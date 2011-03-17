@@ -15,7 +15,7 @@ import org.ita.testrefactoring.codeparser.SourceFile;
 import org.zero.utils.AbstractListListener;
 import org.zero.utils.ListWrapper;
 
-class MethodInvocationHandler implements ASTMethodInvocation {
+class MethodInvocationHandler implements ASTMethodInvocation, ASTWritableElement {
 
 	private MethodInvocationDelegator delegator;
 	private Method calledMethod;
@@ -70,7 +70,7 @@ class MethodInvocationHandler implements ASTMethodInvocation {
 
 		explanationArgument.setLiteralValue(element.getValue());
 
-		assertArgumentListRewrite.insertFirst(explanationArgument, null);
+		assertArgumentListRewrite.insertAt(explanationArgument, index, null);
 	}
 
 	private ASTContainer locateASTContainerOfDelegator() {
@@ -101,6 +101,12 @@ class MethodInvocationHandler implements ASTMethodInvocation {
 	@Override
 	public void setASTObject(org.eclipse.jdt.core.dom.MethodInvocation astObject) {
 		this.astObject = astObject;
+	}
+
+	@Override
+	public void parseFinished() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
