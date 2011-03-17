@@ -3,13 +3,15 @@ package org.ita.testrefactoring.astparser;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.ita.testrefactoring.codeparser.CodeElement;
 import org.ita.testrefactoring.codeparser.Expression;
 import org.ita.testrefactoring.codeparser.Method;
 import org.ita.testrefactoring.codeparser.MethodInvocationExpression;
 
-public class ASTMethodInvocationExpression extends ASTAbstractExpression<org.eclipse.jdt.core.dom.MethodInvocation> implements MethodInvocationExpression, ASTMethodInvocation {
+public class ASTMethodInvocationExpression extends ASTAbstractExpression<org.eclipse.jdt.core.dom.MethodInvocation> implements MethodInvocationExpression, MethodInvocationDelegator {
 
 	private MethodInvocationHandler mih = new MethodInvocationHandler(this);
+	private CodeElement parent;
 
 	public ASTMethodInvocationExpression() {
 	}
@@ -46,5 +48,14 @@ public class ASTMethodInvocationExpression extends ASTAbstractExpression<org.ecl
 	@Override
 	public MethodInvocation getASTObject() {
 		return mih.getASTObject();
+	}
+
+	@Override
+	public CodeElement getParent() {
+		return parent;
+	}
+	
+	protected void setParent(CodeElement parent) {
+		this.parent = parent;
 	}
 }
