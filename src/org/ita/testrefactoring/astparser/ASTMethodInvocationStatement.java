@@ -7,7 +7,7 @@ import org.ita.testrefactoring.codeparser.Expression;
 import org.ita.testrefactoring.codeparser.Method;
 import org.ita.testrefactoring.codeparser.MethodInvocationStatement;
 
-public class ASTMethodInvocationStatement extends ASTAbstractStatement<org.eclipse.jdt.core.dom.MethodInvocation> implements MethodInvocationStatement, MethodInvocationDelegator {
+public class ASTMethodInvocationStatement extends ASTAbstractStatement<org.eclipse.jdt.core.dom.MethodInvocation> implements MethodInvocationStatement, MethodInvocationDelegator, ASTWritableElement {
 
 	private MethodInvocationHandler mih = new MethodInvocationHandler(this);
 
@@ -33,5 +33,10 @@ public class ASTMethodInvocationStatement extends ASTAbstractStatement<org.eclip
 	@Override
 	public MethodInvocation getASTObject() {
 		return mih.getASTObject();
+	}
+
+	@Override
+	public void parseFinished() {
+		mih.parseFinished();
 	}
 }

@@ -8,7 +8,7 @@ import org.ita.testrefactoring.codeparser.Expression;
 import org.ita.testrefactoring.codeparser.Method;
 import org.ita.testrefactoring.codeparser.MethodInvocationExpression;
 
-public class ASTMethodInvocationExpression extends ASTAbstractExpression<org.eclipse.jdt.core.dom.MethodInvocation> implements MethodInvocationExpression, MethodInvocationDelegator {
+public class ASTMethodInvocationExpression extends ASTAbstractExpression<org.eclipse.jdt.core.dom.MethodInvocation> implements MethodInvocationExpression, MethodInvocationDelegator, ASTWritableElement {
 
 	private MethodInvocationHandler mih = new MethodInvocationHandler(this);
 	private CodeElement parent;
@@ -57,5 +57,10 @@ public class ASTMethodInvocationExpression extends ASTAbstractExpression<org.ecl
 	
 	protected void setParent(CodeElement parent) {
 		this.parent = parent;
+	}
+
+	@Override
+	public void parseFinished() {
+		mih.parseFinished();
 	}
 }
