@@ -1,5 +1,7 @@
 package org.ita.testrefactoring.abstracrefactoring;
 
+import java.util.List;
+
 import org.ita.testrefactoring.abstracttestparser.TestBattery;
 import org.ita.testrefactoring.abstracttestparser.TestElement;
 import org.ita.testrefactoring.abstracttestparser.TestParserException;
@@ -18,10 +20,10 @@ public abstract class AbstractRefactoring {
 	}
 
 	public void refactor() throws RefactoringException {
-		InitialConditionNotMet error = checkInitialConditions();
+		List<String> problems = checkInitialConditions();
 
-		if (error != null) {
-			throw new RefactoringException(error);
+		if (problems.size() > 0) {
+			throw new RefactoringException(problems);
 		}
 
 		doRefactor();
@@ -29,7 +31,7 @@ public abstract class AbstractRefactoring {
 		applyChanges();
 	}
 
-	public abstract InitialConditionNotMet checkInitialConditions();
+	public abstract List<String> checkInitialConditions();
 
 	protected abstract void doRefactor() throws RefactoringException;
 

@@ -1,7 +1,9 @@
 package org.ita.testrefactoring.addexplanation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.ita.testrefactoring.abstracrefactoring.AbstractRefactoring;
-import org.ita.testrefactoring.abstracrefactoring.InitialConditionNotMet;
 import org.ita.testrefactoring.abstracrefactoring.RefactoringException;
 import org.ita.testrefactoring.abstracttestparser.Assertion;
 import org.ita.testrefactoring.codeparser.Environment;
@@ -9,41 +11,26 @@ import org.ita.testrefactoring.codeparser.Expression;
 import org.ita.testrefactoring.codeparser.Type;
 
 public class AddExplanationRefactoring extends AbstractRefactoring {
-
-	public static class TargetIsNotJUnitAssertion extends InitialConditionNotMet {
-
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 60958052848660209L;
 	
-	}
-	
-	public static class TargetAlreadyHaveExplanation extends InitialConditionNotMet {
-
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = -4078931382602215899L;
-		
-	}
-
 	private String explanationString;
 	private Assertion targetAssertion;
 	
 	@Override
-	public InitialConditionNotMet checkInitialConditions() {
-		if (!(getTargetFragment() instanceof Assertion)) {
-			return new TargetIsNotJUnitAssertion();
+	public List<String> checkInitialConditions() {
+		List<String> problems = new ArrayList<String>();
+		
+		if ((!(getTargetFragment() instanceof Assertion)) || (getTargetFragment() == null)) {
+			problems.add("Target is not a JUnit 4 valid assertion.");
 		} else {
 			targetAssertion = (Assertion) getTargetFragment();
+
+			if (targetAssertion.getExplanationIndex() != -1) {
+				problems.add("Target assertion still have a explanation.");
+			}
 		}
 		
-		if (targetAssertion.getExplanationIndex() != -1) {
-			return new TargetAlreadyHaveExplanation();
-		}
 		
-		return null;
+		return problems;
 	}
 
 	@Override
