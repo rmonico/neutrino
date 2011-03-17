@@ -18,6 +18,7 @@ import org.ita.testrefactoring.abstracttestparser.TestBattery;
 import org.ita.testrefactoring.abstracttestparser.TestParserException;
 import org.ita.testrefactoring.astparser.ASTParser;
 import org.ita.testrefactoring.astparser.ASTSelection;
+import org.ita.testrefactoring.codeparser.Environment;
 import org.ita.testrefactoring.codeparser.ParserException;
 import org.ita.testrefactoring.eclipseaction.ActionException;
 import org.ita.testrefactoring.eclipseaction.Activator;
@@ -27,10 +28,7 @@ import org.ita.testrefactoring.junitparser.JUnitParser;
 public abstract class AbstractEclipseRefactoringAction implements IAction {
 
 	private ISelection selection;
-	private TestBattery battery;
 	private AbstractRefactoring refactoringObject;
-	private JUnitParser testParser;
-	private ASTParser codeParser;
 
 	@Override
 	public ISelection getSelection() {
@@ -53,16 +51,14 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 	public void run() throws ActionException {
 		verifyPreConditions();
 
-		doCodeParsing();
+		Environment environment = doCodeParsing();
 
-		doTestParsing();
-
-		battery = testParser.getBattery();
+		TestBattery battery = doTestParsing(environment);;
 
 		refactoringObject = createRefactoringObject();
 
-		refactoringObject.setBattery(getBattery());
-		refactoringObject.setTargetFragment(getBattery().getSelection().getSelectedFragment());
+		refactoringObject.setBattery(battery);
+		refactoringObject.setTargetFragment(battery.getSelection().getSelectedFragment());
 
 		verifyInitialConditions();
 
@@ -97,8 +93,8 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 	 */
 	protected abstract List<String> checkPreConditions();
 
-	private void doCodeParsing() throws ActionException {
-		codeParser = new ASTParser();
+	private Environment doCodeParsing() throws ActionException {
+		ASTParser codeParser = new ASTParser();
 
 		try {
 			codeParser.setCompilationUnits(RefactoringUtils.getAllWorkspaceCompilationUnits(null).toArray(new ICompilationUnit[0]));
@@ -121,19 +117,21 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 			throw new ActionException(e);
 		}
 
-		return;
+		return codeParser.getEnvironment();
 	}
 
-	private void doTestParsing() throws ActionException {
-		testParser = new JUnitParser();
+	private TestBattery doTestParsing(Environment environment) throws ActionException {
+		JUnitParser testParser = new JUnitParser();
 
-		testParser.setEnvironment(codeParser.getEnvironment());
+		testParser.setEnvironment(environment);
 
 		try {
 			testParser.parse();
 		} catch (TestParserException e) {
 			throw new ActionException(e);
 		}
+		
+		return testParser.getBattery();
 	}
 
 	/**
@@ -184,10 +182,6 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 		ITypeRoot typeRoot = JavaUI.getEditorInputTypeRoot(editorInput);
 
 		return (ICompilationUnit) typeRoot;
-	}
-
-	protected TestBattery getBattery() {
-		return battery;
 	}
 
 }
