@@ -31,6 +31,6 @@ public class ASTAbstractStatement<T extends ASTNode> implements Statement, ASTWr
 
 	@Override
 	public String toString() {
-		return astObject.toString();
+		return getASTObject().toString();
 	}
 }
