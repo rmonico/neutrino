@@ -2,6 +2,7 @@ package org.ita.testrefactoring.astparser;
 
 import java.util.List;
 
+import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.ita.testrefactoring.codeparser.Expression;
 import org.ita.testrefactoring.codeparser.Method;
 import org.ita.testrefactoring.codeparser.MethodInvocationExpression;
@@ -40,5 +41,10 @@ public class ASTMethodInvocationExpression extends ASTAbstractExpression<org.ecl
 	@Override
 	public void setASTObject(org.eclipse.jdt.core.dom.MethodInvocation astObject) {
 		mih.setASTObject(astObject);
+	}
+	
+	@Override
+	public MethodInvocation getASTObject() {
+		return mih.getASTObject();
 	}
 }

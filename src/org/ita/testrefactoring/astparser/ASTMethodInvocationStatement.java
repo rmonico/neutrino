@@ -27,10 +27,11 @@ public class ASTMethodInvocationStatement extends ASTAbstractStatement<org.eclip
 
 	@Override
 	public void setASTObject(MethodInvocation astObject) {
-		assert astObject instanceof org.eclipse.jdt.core.dom.MethodInvocation;
-		
-		mih.setASTObject((org.eclipse.jdt.core.dom.MethodInvocation) astObject);
-		
-		super.setASTObject(astObject);
+		mih.setASTObject(astObject);
+	}
+	
+	@Override
+	public MethodInvocation getASTObject() {
+		return mih.getASTObject();
 	}
 }
