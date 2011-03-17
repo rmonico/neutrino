@@ -7,7 +7,7 @@ import org.ita.testrefactoring.codeparser.Constructor;
 import org.ita.testrefactoring.codeparser.ConstructorInvocationExpression;
 import org.ita.testrefactoring.codeparser.Expression;
 
-public class ASTConstructorInvocationExpression extends ASTAbstractExpression implements ConstructorInvocationExpression {
+public class ASTConstructorInvocationExpression extends ASTAbstractExpression<org.eclipse.jdt.core.dom.ClassInstanceCreation> implements ConstructorInvocationExpression {
 
 	private Constructor constructor;
 	private List<Expression> parameterList = new ArrayList<Expression>();
@@ -30,5 +30,5 @@ public class ASTConstructorInvocationExpression extends ASTAbstractExpression im
 	public String getValue() {
 		return null;
 	}
-	
+
 }

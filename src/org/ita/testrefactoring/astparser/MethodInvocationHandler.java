@@ -5,18 +5,17 @@ import java.util.List;
 
 import org.ita.testrefactoring.codeparser.Expression;
 import org.ita.testrefactoring.codeparser.Method;
-import org.ita.testrefactoring.codeparser.MethodInvocation;
 import org.zero.utils.AbstractListListener;
 import org.zero.utils.ListWrapper;
 
-class MethodInvocationHandler implements MethodInvocation {
+class MethodInvocationHandler implements ASTMethodInvocation {
 
-	private MethodInvocation delegator;
+	private ASTMethodInvocation delegator;
 	private Method calledMethod;
 	private List<Expression> parameterList;
 	private org.eclipse.jdt.core.dom.MethodInvocation astObject;
 
-	public MethodInvocationHandler(MethodInvocation delegator) {
+	public MethodInvocationHandler(ASTMethodInvocation delegator) {
 		this.delegator = delegator;
 
 		ListWrapper<Expression> wrapper = new ListWrapper<Expression>(new ArrayList<Expression>());
@@ -41,10 +40,18 @@ class MethodInvocationHandler implements MethodInvocation {
 		return parameterList;
 	}
 
+	/**
+	 * Adiciona um item a lista de parametros de delegator.
+	 * 
+	 * @param index
+	 *            Local na lista de parâmetros onde o item será adicionado.
+	 * 
+	 * @param element
+	 *            Elemento que será adicionado na lista.
+	 * 
+	 */
 	private void parameterListItemAdded(int index, Expression element) {
-		// delegator.getCodeElement(); --> Será necessário que MethodInvocation
-		// extends
-		// ASTWrapper<org.eclipse.jdt.core.dom.MethodInvocation>
+		delegator.getASTObject();
 		//
 		// CompilationUnit compilationUnit =
 		// getServices().getSourceFiles().getCompilationUnit(0); --> Só serve
@@ -72,7 +79,14 @@ class MethodInvocationHandler implements MethodInvocation {
 		this.calledMethod = calledMethod;
 	}
 
+	@Override
+	public org.eclipse.jdt.core.dom.MethodInvocation getASTObject() {
+		return astObject;
+	}
+
+	@Override
 	public void setASTObject(org.eclipse.jdt.core.dom.MethodInvocation astObject) {
 		this.astObject = astObject;
 	}
+
 }

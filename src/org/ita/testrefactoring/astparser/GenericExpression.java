@@ -1,7 +1,7 @@
 package org.ita.testrefactoring.astparser;
 
 
-public class GenericExpression extends ASTAbstractExpression {
+public class GenericExpression extends ASTAbstractExpression<org.eclipse.jdt.core.dom.Expression> {
 
 	/**
 	 * Construtor restrito ao pacote.

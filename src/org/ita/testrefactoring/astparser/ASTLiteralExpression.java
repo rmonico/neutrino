@@ -2,7 +2,7 @@ package org.ita.testrefactoring.astparser;
 
 import org.ita.testrefactoring.codeparser.LiteralExpression;
 
-public class ASTLiteralExpression extends ASTAbstractExpression implements LiteralExpression {
+public class ASTLiteralExpression extends ASTAbstractExpression<org.eclipse.jdt.core.dom.PrefixExpression> implements LiteralExpression {
 
 	private String value;
 

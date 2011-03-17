@@ -6,7 +6,7 @@ import org.ita.testrefactoring.codeparser.Expression;
 import org.ita.testrefactoring.codeparser.Method;
 import org.ita.testrefactoring.codeparser.MethodInvocationExpression;
 
-public class ASTMethodInvocationExpression extends ASTAbstractExpression implements MethodInvocationExpression {
+public class ASTMethodInvocationExpression extends ASTAbstractExpression<org.eclipse.jdt.core.dom.MethodInvocation> implements MethodInvocationExpression, ASTMethodInvocation {
 
 	private MethodInvocationHandler mih = new MethodInvocationHandler(this);
 
@@ -38,11 +38,7 @@ public class ASTMethodInvocationExpression extends ASTAbstractExpression impleme
 	}
 	
 	@Override
-	public void setASTObject(org.eclipse.jdt.core.dom.Expression astObject) {
-		assert astObject instanceof org.eclipse.jdt.core.dom.MethodInvocation;
-		
-		mih.setASTObject((org.eclipse.jdt.core.dom.MethodInvocation) astObject);
-		
-		super.setASTObject(astObject);
+	public void setASTObject(org.eclipse.jdt.core.dom.MethodInvocation astObject) {
+		mih.setASTObject(astObject);
 	}
 }

@@ -3,18 +3,18 @@ package org.ita.testrefactoring.astparser;
 import org.ita.testrefactoring.codeparser.Expression;
 import org.ita.testrefactoring.codeparser.Type;
 
-public abstract class ASTAbstractExpression implements Expression, ASTWrapper<org.eclipse.jdt.core.dom.Expression> {
+public abstract class ASTAbstractExpression<T extends org.eclipse.jdt.core.dom.Expression> implements Expression, ASTWrapper<T> {
 
-	private org.eclipse.jdt.core.dom.Expression astObject;
+	private T astObject;
 	private Type type;
 	
 	@Override
-	public void setASTObject(org.eclipse.jdt.core.dom.Expression astObject) {
+	public void setASTObject(T astObject) {
 		this.astObject = astObject;
 	}
 
 	@Override
-	public org.eclipse.jdt.core.dom.Expression getASTObject() {
+	public T getASTObject() {
 		return astObject;
 	}
 
