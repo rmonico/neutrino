@@ -7,10 +7,10 @@
             label="Action Set Label"
             description="Action Set Description"
             visible="true"
-            id="org.ita.testrefactoring.actionset.id">
+            id="org.ita.neutrino.actionset.id">
             <menu
 				label="Test Refactorings"
-				id="org.ita.testrefactoring.menu">
+				id="org.ita.neutrino.menu">
 				<separator
 					name="mainGroup1">
 				</separator>
@@ -21,22 +21,22 @@
 
          <action
                label="Add explanation to assertion"
-               menubarPath="org.ita.testrefactoring.menu/mainGroup1"
-               class="org.ita.testrefactoring.eclipseaction.ActionController"
-               id="org.ita.testrefactoring.addexplanation.AddExplanationAction">
+               menubarPath="org.ita.neutrino.menu/mainGroup1"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.addexplanation.AddExplanationAction">
          </action>
          <!-- Fazer depois
          <action
                label="Extract initialization method"
-               menubarPath="org.ita.testrefactoring.menu/mainGroup1"
-               class="org.ita.testrefactoring.eclipseaction.ActionController"
-               id="org.ita.testrefactoring.extractinitializationmethod.Action">
+               menubarPath="org.ita.neutrino.menu/mainGroup1"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.extractinitializationmethod.Action">
          </action-->
          <action
                label="Run JUnits"
-               menubarPath="org.ita.testrefactoring.menu/testGroup1"
-               class="org.ita.testrefactoring.eclipseaction.ActionController"
-               id="org.ita.testrefactoring.tests.JUnitMain">
+               menubarPath="org.ita.neutrino.menu/testGroup1"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.tests.JUnitMain">
          </action>
       </actionSet>
    </extension>

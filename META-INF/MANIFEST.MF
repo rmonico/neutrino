@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Test refactorings
-Bundle-SymbolicName: org.ita.testrefactoring;singleton:=true
+Bundle-SymbolicName: org.ita.neutrino;singleton:=true
 Bundle-Version: 1.0.0
-Bundle-Activator: org.ita.testrefactoring.eclipseaction.Activator
+Bundle-Activator: org.ita.neutrino.eclipseaction.Activator
 Bundle-Vendor: Rafael Monico
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt,
