@@ -49,7 +49,7 @@ public class ASTPackage implements Package, ASTWrapper<PackageDeclaration> {
 
 	@Override
 	/**
-	 * Não deveria ser public, mas a interface e igiu
+	 * Não deveria ser public, mas a interface exigiu
 	 */
 	public void setASTObject(PackageDeclaration astObject) {
 		this.astObject = astObject;
