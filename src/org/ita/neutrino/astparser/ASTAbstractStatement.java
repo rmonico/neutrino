@@ -4,7 +4,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.ita.neutrino.codeparser.Block;
 import org.ita.neutrino.codeparser.Statement;
 
-public class ASTAbstractStatement<T extends ASTNode> implements Statement, ASTWrapper<T> {
+class ASTAbstractStatement<T extends ASTNode> implements Statement, ASTWrapper<T> {
 
 	private Block parentBlock;
 	private T astObject;
