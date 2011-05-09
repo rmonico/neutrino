@@ -37,7 +37,7 @@ public class JUnit4ParserTests extends RefactoringAbstractTests {
 	private void prepareTests() throws JavaModelException, ParserException {
 		StringBuilder mockClassCode = new StringBuilder();
 
-		mockClassCode.append("package org.ita.neutrino.testfiles.junitparsertests;\n");
+		mockClassCode.append("package org.ita.neutrino.testfiles.junit4parsertests;\n");
 		mockClassCode.append("\n");
 		mockClassCode.append("import static org.junit.Assert.assertTrue;\n");
 		mockClassCode.append("\n");
@@ -81,7 +81,7 @@ public class JUnit4ParserTests extends RefactoringAbstractTests {
 		mockClassCode.append("    }\n");
 		mockClassCode.append("}\n");
 
-		ICompilationUnit mockCompilationUnit = createSourceFile("org.ita.neutrino.testfiles.junitparsertests", "MockClass.java", mockClassCode);
+		ICompilationUnit mockCompilationUnit = createSourceFile("org.ita.neutrino.testfiles.junit4parsertests", "MockClass.java", mockClassCode);
 		
 		codeParser = new ASTParser();
 		
@@ -126,7 +126,7 @@ public class JUnit4ParserTests extends RefactoringAbstractTests {
 	private void testSuiteParser() {
 		assertEquals("Suite: parent", battery, suite.getParent());
 		
-		CodeElement expectedSuiteCodeElement = codeParser.getEnvironment().getTypeCache().get("org.ita.neutrino.testfiles.junitparsertests.MockClass");
+		CodeElement expectedSuiteCodeElement = codeParser.getEnvironment().getTypeCache().get("org.ita.neutrino.testfiles.junit4parsertests.MockClass");
 		
 		assertEquals("Suite: code element", expectedSuiteCodeElement, suite.getCodeElement());
 	}

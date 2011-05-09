@@ -1,4 +1,4 @@
-package org.ita.neutrino.testfiles.junitparsertests;
+package org.ita.neutrino.testfiles.junit4parsertests;
 
 import static org.junit.Assert.assertTrue;
 
