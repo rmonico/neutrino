@@ -3,7 +3,6 @@ package org.ita.neutrino.junit3parser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ita.neutrino.codeparser.Annotation;
 import org.ita.neutrino.codeparser.Environment;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.Method;
@@ -19,17 +18,9 @@ import org.ita.neutrino.codeparser.TypeKind;
 class BatteryParser {
 
 	private enum TestMethodKind {
-		NOT_TEST_METHOD(null), BEFORE_METHOD("org.junit.Before"), TEST_METHOD("org.junit.Test"), AFTER_METHOD("org.junit.After");
+		// *** Diferença em relação ao JUnit 4.
+		NOT_TEST_METHOD, BEFORE_METHOD, TEST_METHOD, AFTER_METHOD;
 
-		private String annotationName;
-
-		private TestMethodKind(String qualifiedAnnotationName) {
-			annotationName = qualifiedAnnotationName;
-		}
-
-		String getAnnotationName() {
-			return annotationName;
-		}
 	}
 
 	private Environment environment;
@@ -118,15 +109,16 @@ class BatteryParser {
 	}
 
 	private TestMethodKind getTestMethodKind(Method method) {
-		for (Annotation a : method.getAnnotations()) {
-			for (TestMethodKind kind : TestMethodKind.values()) {
-				if (a.getQualifiedName().equals(kind.getAnnotationName())) {
-					return kind;
-				}
-			}
+		// *** Diferença em relação ao JUnit 4
+		if (method.getName().equals("setUp")) {
+			return TestMethodKind.BEFORE_METHOD;
+		} else if (method.getName().equals("tearDown"))  {
+			return TestMethodKind.AFTER_METHOD;
+		} else if (method.getName().startsWith("test")) {
+			return TestMethodKind.TEST_METHOD;
+		} else {
+			return TestMethodKind.NOT_TEST_METHOD;
 		}
-
-		return TestMethodKind.NOT_TEST_METHOD;
 	}
 
 }
