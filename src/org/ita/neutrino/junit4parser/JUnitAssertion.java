@@ -1,4 +1,4 @@
-package org.ita.neutrino.junitparser;
+package org.ita.neutrino.junit4parser;
 
 import java.util.List;
 

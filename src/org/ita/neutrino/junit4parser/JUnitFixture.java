@@ -1,4 +1,4 @@
-package org.ita.neutrino.junitparser;
+package org.ita.neutrino.junit4parser;
 
 import org.ita.neutrino.abstracttestparser.Fixture;
 import org.ita.neutrino.codeparser.Field;

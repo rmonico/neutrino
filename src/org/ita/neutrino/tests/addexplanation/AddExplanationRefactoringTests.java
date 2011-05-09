@@ -14,7 +14,7 @@ import org.ita.neutrino.addexplanation.AddExplanationRefactoring;
 import org.ita.neutrino.astparser.ASTParser;
 import org.ita.neutrino.codeparser.CodeSelection;
 import org.ita.neutrino.codeparser.ParserException;
-import org.ita.neutrino.junitparser.JUnitParser;
+import org.ita.neutrino.junit4parser.JUnitParser;
 import org.ita.neutrino.tests.RefactoringAbstractTests;
 import org.junit.Test;
 

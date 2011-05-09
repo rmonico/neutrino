@@ -23,7 +23,7 @@ import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.eclipseaction.ActionException;
 import org.ita.neutrino.eclipseaction.Activator;
 import org.ita.neutrino.eclipseaction.IAction;
-import org.ita.neutrino.junitparser.JUnitParser;
+import org.ita.neutrino.junit4parser.JUnitParser;
 
 public abstract class AbstractEclipseRefactoringAction implements IAction {
 
