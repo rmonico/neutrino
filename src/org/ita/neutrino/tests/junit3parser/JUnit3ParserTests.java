@@ -1,4 +1,4 @@
-package org.ita.neutrino.tests.junit4parser;
+package org.ita.neutrino.tests.junit3parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -22,7 +22,7 @@ import org.ita.neutrino.tests.RefactoringAbstractTests;
 import org.junit.Before;
 import org.junit.Test;
 
-public class JUnitParserTests extends RefactoringAbstractTests {
+public class JUnit3ParserTests extends RefactoringAbstractTests {
 	
 	private ASTParser codeParser;
 	private JUnitTestBattery battery;
