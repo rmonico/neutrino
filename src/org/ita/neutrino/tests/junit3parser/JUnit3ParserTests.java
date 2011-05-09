@@ -131,12 +131,12 @@ public class JUnit3ParserTests extends RefactoringAbstractTests {
 	}
 
 	private void testSuiteMethodParser() {
+		// Nesse caso sempre haverá apenas um método de setUp e tearDown.
 		assertEquals("Suite: before method list (size)", 1, suite.getBeforeMethodList().size());
-		assertEquals("Suite: before method 0", "setup", suite.getBeforeMethodList().get(0).getName());
-		
+		assertEquals("Suite: before method 0", "setUp", suite.getBeforeMethodList().get(0).getName());
 		
 		assertEquals("Suite: after method list (size)", 1, suite.getAfterMethodList().size());
-		assertEquals("Suite: after method 0", "teardown", suite.getAfterMethodList().get(0).getName());
+		assertEquals("Suite: after method 0", "tearDown", suite.getAfterMethodList().get(0).getName());
 		
 		
 		assertEquals("Suite: test method list (size)", 2, suite.getTestMethodList().size());
