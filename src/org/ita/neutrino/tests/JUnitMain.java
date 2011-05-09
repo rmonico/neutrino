@@ -10,6 +10,7 @@ import org.ita.neutrino.eclipseaction.IAction;
 import org.ita.neutrino.tests.addexplanation.AddExplanationRefactoringTests;
 import org.ita.neutrino.tests.astparser.TestPackageParsing;
 import org.ita.neutrino.tests.astparser.TestSupportedBlockSintax;
+import org.ita.neutrino.tests.junit3parser.JUnit3ParserTests;
 import org.ita.neutrino.tests.junit4parser.JUnit4ParserTests;
 import org.junit.runner.JUnitCore;
 import org.zero.utils.tests.JUnitUtilsTests;
@@ -60,6 +61,7 @@ public class JUnitMain implements IAction {
 		
 		classesToTest.add(TestSupportedBlockSintax.class);
 		classesToTest.add(TestPackageParsing.class);
+		classesToTest.add(JUnit3ParserTests.class);
 		classesToTest.add(JUnit4ParserTests.class);
 		classesToTest.add(AddExplanationRefactoringTests.class);
 //		classesToTest.add(ExtractInitializationMethodTests.class);
