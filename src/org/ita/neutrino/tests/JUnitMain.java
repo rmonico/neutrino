@@ -10,7 +10,7 @@ import org.ita.neutrino.eclipseaction.IAction;
 import org.ita.neutrino.tests.addexplanation.AddExplanationRefactoringTests;
 import org.ita.neutrino.tests.astparser.TestPackageParsing;
 import org.ita.neutrino.tests.astparser.TestSupportedBlockSintax;
-import org.ita.neutrino.tests.junitparser.JUnitParserTests;
+import org.ita.neutrino.tests.junit4parser.JUnitParserTests;
 import org.junit.runner.JUnitCore;
 import org.zero.utils.tests.JUnitUtilsTests;
 import org.zero.utils.tests.ListenerTests;

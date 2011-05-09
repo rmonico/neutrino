@@ -1,4 +1,4 @@
-package org.ita.neutrino.tests.junitparser;
+package org.ita.neutrino.tests.junit4parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
