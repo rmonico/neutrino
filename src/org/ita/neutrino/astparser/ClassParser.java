@@ -76,6 +76,7 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 			ASTInnerElementAccessModifier accessModifier = new ASTInnerElementAccessModifier();
 			ASTMethodDeclarationNonAccessModifier nonAccessModifier = new ASTMethodDeclarationNonAccessModifier();
 
+			// Processa os modificadores do método
 			for (Object m : methodDeclaration.modifiers()) {
 				// Se é alguma coisa que não foi prevista, ignora
 				if (!(m instanceof Modifier)) {
@@ -116,12 +117,14 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 
 			method.setNonAccessModifier(nonAccessModifier);
 			
+			// Se o método não for abstrato, processa seu bloco
 			if (!method.getNonAccessModifier().isAbstract()) {
 				ASTBlock block = method.getBody();
 
 				block.setASTObject(methodDeclaration.getBody());
 			}
 			
+			// Processa as anotações do método
 			for (IAnnotationBinding ab : methodDeclaration.resolveBinding().getAnnotations()) {
 				ASTEnvironment environment = (ASTEnvironment) clazz.getParent().getParent().getParent();
 
