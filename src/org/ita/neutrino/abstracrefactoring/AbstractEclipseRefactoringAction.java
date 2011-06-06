@@ -76,7 +76,7 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 	private void verifyPreConditions() throws ActionException {
 		List<String> problems = checkPreConditions();
 
-		if (problems.size() > 0) {
+		if ((problems != null) && (problems.size() > 0)) {
 			String message = RefactoringException.getMessageForProblemList(problems);
 
 			MessageDialog.openWarning(null, getRefactoringName(), message);
