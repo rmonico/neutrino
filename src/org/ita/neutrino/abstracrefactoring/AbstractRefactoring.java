@@ -22,7 +22,7 @@ public abstract class AbstractRefactoring {
 	public void refactor() throws RefactoringException {
 		List<String> problems = checkInitialConditions();
 
-		if (problems.size() > 0) {
+		if ((problems!= null) && (problems.size() > 0)) {
 			throw new RefactoringException(problems);
 		}
 
