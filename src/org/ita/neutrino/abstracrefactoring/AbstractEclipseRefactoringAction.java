@@ -97,6 +97,7 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 		ASTParser codeParser = new ASTParser();
 
 		try {
+			// Retorna todo o código fonte existente no projeto e o passo para o objeto codeParser
 			codeParser.setCompilationUnits(RefactoringUtils.getAllWorkspaceCompilationUnits(null).toArray(new ICompilationUnit[0]));
 		} catch (CoreException e) {
 			throw new ActionException(e);
