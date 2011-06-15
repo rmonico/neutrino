@@ -26,11 +26,11 @@ public class ASTParser implements CodeParser {
 	private ICompilationUnit[] compilationUnits;
 	private ASTSelection selection = new ASTSelection();
 	private ASTEnvironment environment;
-	
+
 	public void setActiveCompilationUnit(ICompilationUnit activeCompilationUnit) {
 		this.activeCompilationUnit = activeCompilationUnit;
 	}
-	
+
 	public void setCompilationUnits(ICompilationUnit[] compilationUnits) {
 		this.compilationUnits = compilationUnits;
 	}
@@ -47,7 +47,7 @@ public class ASTParser implements CodeParser {
 	@Override
 	public void parse() throws ParserException {
 		environment = new ASTEnvironment();
-		
+
 		environment.setSelection(selection);
 
 		// Significa que não há nenhuma compilation unit no projeto, não será
@@ -55,13 +55,13 @@ public class ASTParser implements CodeParser {
 		if (compilationUnits.length == 0) {
 			return;
 		}
-		
+
 		if (activeCompilationUnit == null) {
 			throw new ParserException("Active compilation unit not specified.");
 		}
-		
+
 		List<ICompilationUnit> compilationUnitList = Arrays.asList(compilationUnits);
-		
+
 		if (!compilationUnitList.contains(activeCompilationUnit)) {
 			throw new ParserException("Active compilation unit not in compilation unit list.");
 		}
@@ -73,10 +73,9 @@ public class ASTParser implements CodeParser {
 		parseAllClassesInWorkspace();
 
 		parseAllCodeBlocksInWorkspace();
-		
+
 		notifyWritableElements();
 	}
-
 
 	/**
 	 * Chama o parsing do AST e popula as listas de source file de cada package.
@@ -100,7 +99,15 @@ public class ASTParser implements CodeParser {
 			public void acceptAST(ICompilationUnit jdtObject, CompilationUnit astObject) {
 				PackageDeclaration pack = astObject.getPackage();
 
-				ASTPackage parsedPackage = getEnvironment().getOrCreatePackage(pack.getName().toString());
+				String packageName;
+
+				if (pack == null) {
+					packageName = null;
+				} else {
+					packageName = pack.getName().toString();
+				}
+
+				ASTPackage parsedPackage = getEnvironment().getOrCreatePackage(packageName);
 
 				parsedPackage.setASTObject(pack);
 
@@ -198,7 +205,7 @@ public class ASTParser implements CodeParser {
 
 						for (Method method : type.getMethodList().values()) {
 							ASTMethod astMethod = (ASTMethod) method;
-							
+
 							if (!astMethod.getNonAccessModifier().isAbstract()) {
 								allCodeBlocksInWorkspace.add(astMethod.getBody());
 							}
@@ -225,7 +232,7 @@ public class ASTParser implements CodeParser {
 						for (Statement statement : method.getBody().getStatementList()) {
 							if (statement instanceof ASTWritableElement) {
 								ASTWritableElement writable = (ASTWritableElement) statement;
-								
+
 								writable.parseFinished();
 							}
 						}
