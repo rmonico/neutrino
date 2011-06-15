@@ -107,6 +107,7 @@ class MethodInvocationHandler implements ASTMethodInvocation, ASTWritableElement
 
 	@Override
 	public void parseFinished() {
+		// Habilita alterações aos objetos manipulados
 		wrapper.addListener(listener);
 	}
 
