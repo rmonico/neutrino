@@ -36,8 +36,9 @@ class MethodInvocationHandler implements ASTMethodInvocation, ASTWritableElement
 			}
 		};
 
-		// A adição do listener ao wrapper será feita apenas após o parser ser
-		// feito, no método parseFinished()
+		// O listener instanciado acima será registrado junto ao wrapper apenas
+		// após o processo de parsing ser concluído. Isso é feito no método
+		// parseFinished()
 
 		parameterList = wrapper;
 	}
