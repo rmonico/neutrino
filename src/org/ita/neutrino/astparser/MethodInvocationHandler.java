@@ -35,7 +35,10 @@ class MethodInvocationHandler implements ASTMethodInvocation, ASTWritableElement
 				parameterListItemAdded(index, element);
 			}
 		};
-		
+
+		// A adição do listener ao wrapper será feita apenas após o parser ser
+		// feito, no método parseFinished()
+
 		parameterList = wrapper;
 	}
 
