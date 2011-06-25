@@ -53,7 +53,7 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 
 		Environment environment = doCodeParsing();
 
-		TestBattery battery = doTestParsing(environment);;
+		TestBattery battery = doTestParsing(environment);
 
 		refactoringObject = createRefactoringObject();
 
