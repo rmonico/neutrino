@@ -173,6 +173,8 @@ public class JUnit4ParserTests extends RefactoringAbstractTests {
 		
 		assertEquals("Assertion: valor", "assertTrue(\"Comment\",true)", assertion.toString());
 		
+		assertEquals("Assertion: comentário", "Comment", assertion.getExplanation());
+		
 	}
 
 }

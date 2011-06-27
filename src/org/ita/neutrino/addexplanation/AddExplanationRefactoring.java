@@ -24,7 +24,7 @@ public class AddExplanationRefactoring extends AbstractRefactoring {
 		} else {
 			targetAssertion = (Assertion) getTargetFragment();
 
-			if (targetAssertion.getExplanationIndex() != -1) {
+			if (targetAssertion.getExplanation() != null) {
 				problems.add("Target assertion still have a explanation.");
 			}
 		}

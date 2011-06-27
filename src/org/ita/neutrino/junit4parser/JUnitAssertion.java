@@ -19,44 +19,63 @@ public class JUnitAssertion extends JUnitTestStatement implements Assertion {
 		this.element = element;
 	}
 
-	@Override
-	public int getExplanationIndex() {
+	private Expression getExplanationExpression() {
 		List<Expression> parameterList = getCodeElement().getParameterList();
 
 		String methodName = getCodeElement().getCalledMethod().getName();
+		
+		if (parameterList.size() == 0) {
+			// Não há parâmetro de explicação
+			return null;
+		}
+		
+		Expression candidateExpression = parameterList.get(0);
+		
 		if (methodName.equals("assertArrayEquals")) {
-			if (parameterList.get(0).getType().getQualifiedName().equals("java.lang.String")) {
-				return 0;
+			
+			if (candidateExpression.getType().getQualifiedName().equals("java.lang.String")) {
+				return candidateExpression;
 			} else {
-				return -1;
+				return null;
 			}
 		} else if (methodName.equals("assertEquals") || methodName.equals("assertNotSame") || methodName.equals("assertSame")) {
 			// Asserção de dois parâmetros
-			if (!parameterList.get(0).getType().getQualifiedName().equals("java.lang.String")) {
-				return -1;
+			if (!candidateExpression.getType().getQualifiedName().equals("java.lang.String")) {
+				return null;
 			} else {
 				if (parameterList.size() == 2) {
 					// Override assertEquals(Object, Object), está comparando
-					// uma string com outra, não há explicação
-					return -1;
+					// uma string com outra, não há parâmetro de explicação
+					return null;
 				} else {
-					return 0;
+					return candidateExpression;
 				}
 			}
 		} else if ((methodName.equals("assertFalse")) || (methodName.equals("assertNotNull")) || (methodName.equals("assertNull")) || (methodName.equals("assertTrue"))) {
 			// Asserções de um parâmetro
 			if (parameterList.size() == 1) {
-				return -1;
+				return null;
 			} else {
-				return 0;
+				return candidateExpression;
 			}
 		} else if (methodName.equals("assertThat")) {
 			// Não suporta explicação
-			return -1;
+			return null;
 		} else {
 			// Asserção desconhecida
-			return -1;
+			return null;
 		}
+	}
+
+	@Override
+	public String getExplanation() {
+		Expression explanation = getExplanationExpression();
+		
+		if (explanation != null) {
+			return explanation.getValue();
+		}
+		
+		return null;
 	}
 
 }
