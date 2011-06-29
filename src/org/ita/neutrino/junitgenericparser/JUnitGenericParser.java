@@ -4,7 +4,7 @@ import org.ita.neutrino.abstracttestparser.AbstractTestParser;
 import org.ita.neutrino.abstracttestparser.TestParserException;
 import org.ita.neutrino.codeparser.Environment;
 
-public class JUnit4Parser extends AbstractTestParser {
+public class JUnitGenericParser extends AbstractTestParser {
 
 	private Environment environment;
 	private JUnitTestBattery battery;
