@@ -1,6 +1,5 @@
 package org.ita.neutrino.junitgenericparser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.ita.neutrino.abstracttestparser.TestBattery;
@@ -10,18 +9,20 @@ import org.ita.neutrino.codeparser.Environment;
 import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.codeparser.Type;
 
-public class JUnitTestBattery extends TestBattery {
+public abstract class JUnitTestBattery extends TestBattery {
 
-	private List<JUnitTestSuite> suiteList = new ArrayList<JUnitTestSuite>();
+	protected abstract List<? extends JUnitTestSuite> instantiateSuiteList();
+	
+	private List<? extends JUnitTestSuite> suiteList = instantiateSuiteList();
 	private Environment environment;
 	private JUnitSelection selection;
 
-	JUnitTestBattery(CodeSelection codeSelection) {
+	protected JUnitTestBattery(CodeSelection codeSelection) {
 		selection = new JUnitSelection(codeSelection);
 	}
 
 	@Override
-	public List<JUnitTestSuite> getSuiteList() {
+	public List<? extends JUnitTestSuite> getSuiteList() {
 		return suiteList;
 	}
 	
@@ -39,14 +40,17 @@ public class JUnitTestBattery extends TestBattery {
 		return null;
 	}
 
+	protected abstract JUnitTestSuite instantiateSuite();
+	
+	@SuppressWarnings("unchecked")
 	JUnitTestSuite createSuite(Type type) {
-		JUnitTestSuite suite = new JUnitTestSuite();
+		JUnitTestSuite suite = instantiateSuite();
 
 		suite.setParent(this);
 		
 		suite.setCodeElement(type);
 		
-		suiteList.add(suite);
+		((List<JUnitTestSuite>)suiteList).add(suite);
 
 		return suite;
 	}

@@ -3,135 +3,74 @@ package org.ita.neutrino.junit3parser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ita.neutrino.abstracttestparser.TestElement;
-import org.ita.neutrino.abstracttestparser.TestSuite;
-import org.ita.neutrino.codeparser.Field;
-import org.ita.neutrino.codeparser.Method;
-import org.ita.neutrino.codeparser.Type;
+public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTestSuite {
 
-public class JUnitTestSuite extends TestSuite {
-
-	private List<JUnitTestMethod> beforeMethodList = new ArrayList<JUnitTestMethod>();
-	private List<JUnitTestMethod> testMethodList = new ArrayList<JUnitTestMethod>();
-	private List<JUnitTestMethod> afterMethodList = new ArrayList<JUnitTestMethod>();
-
-	private JUnitTestBattery parent;
-	private TestElement selectedFragment;
-	private Type codeElement;
-	private List<JUnitFixture> fixtures = new ArrayList<JUnitFixture>();
-
-	JUnitTestSuite() {
+	protected JUnitTestSuite() {
+		super();
 	}
 	
 	@Override
-	public String getName() {
-		return getCodeElement().getName();
+	protected JUnitTestMethod instantiateTestMethod() {
+		return new JUnitTestMethod();
 	}
 
-	private JUnitTestMethod internalCreateTestMethod(Method element, List<JUnitTestMethod> destList) {
-		JUnitTestMethod method = new JUnitTestMethod();
-
-		method.setParent(this);
-
-		method.setCodeElement(element);
-		
-		destList.add(method);
-
-		return method;
+	@Override
+	protected List<JUnitTestMethod> instantiateMethodList() {
+		return new ArrayList<JUnitTestMethod>();
 	}
 
-	JUnitTestMethod createBeforeMethod(Method element) {
-		return internalCreateTestMethod(element, beforeMethodList);
-	}
-
-	JUnitTestMethod createTestMethod(Method element) {
-		return internalCreateTestMethod(element, testMethodList);
-	}
-
-	JUnitTestMethod createAfterMethod(Method element) {
-		return internalCreateTestMethod(element, afterMethodList);
-	}
-
-	JUnitFixture createFixture(Field field) {
-		JUnitFixture fixture = new JUnitFixture();
-		
-		fixture.setParent(this);
-		
-		fixture.setCodeElement(field);
-		
-		fixtures.add(fixture);
-		
-		return fixture;
+	protected JUnitFixture instantiateFixture() {
+		return new JUnitFixture();
+	};
+	
+	@Override
+	protected List<JUnitFixture> instantiateFixtureList() {
+		return new ArrayList<JUnitFixture>();
 	}
 
 	/**
 	 * Devolve o método executado antes dos testes. Não há setter correspondente
 	 * pois o createBeforeMethod já faz isso.
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<JUnitTestMethod> getBeforeMethodList() {
-		return beforeMethodList;
+		return (List<JUnitTestMethod>) super.getBeforeMethodList();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<JUnitTestMethod> getTestMethodList() {
-		return testMethodList;
+		return (List<JUnitTestMethod>) super.getTestMethodList();
 	}
 
 	/**
 	 * Devolve o método executado após os testes. Não há setter correspondente
 	 * pois o createAfterMethod já faz isso.
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<JUnitTestMethod> getAfterMethodList() {
-		return afterMethodList;
+		return (List<JUnitTestMethod>) super.getAfterMethodList();
 	}
 
 	@Override
 	public JUnitTestBattery getParent() {
-		return parent;
+		return (JUnitTestBattery) super.getParent();
 	}
 
-	void setParent(JUnitTestBattery parent) {
-		this.parent = parent;
+	protected void setParent(JUnitTestBattery parent) {
+		super.setParent(parent);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<JUnitFixture> getFixtures() {
-		return fixtures;
-	}
-
-	TestElement getSelectedFragment() {
-		return selectedFragment;
-	}
-
-	@Override
-	public Type getCodeElement() {
-		return codeElement;
-	}
-
-	void setCodeElement(Type type) {
-		codeElement = type;
-	}
-	
-	@Override
-	public String toString() {
-		return getName();
+		return (List<JUnitFixture>) super.getFixtures();
 	}
 
 	@Override
 	public JUnitTestMethod getMethodByName(String methodName) {
-		if (methodName == null) {
-			return null;
-		}
-		
-		for (JUnitTestMethod method : getTestMethodList()) {
-			if (methodName.equals(method.getName())) {
-				return method;
-			}
-		}
-		
-		return null;
+		return (JUnitTestMethod) super.getMethodByName(methodName);
 	}
-
 }

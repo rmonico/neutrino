@@ -1,6 +1,5 @@
 package org.ita.neutrino.junitgenericparser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.ita.neutrino.abstracttestparser.TestElement;
@@ -9,18 +8,24 @@ import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.Type;
 
-public class JUnitTestSuite extends TestSuite {
+public abstract class JUnitTestSuite extends TestSuite {
 
-	private List<JUnitTestMethod> beforeMethodList = new ArrayList<JUnitTestMethod>();
-	private List<JUnitTestMethod> testMethodList = new ArrayList<JUnitTestMethod>();
-	private List<JUnitTestMethod> afterMethodList = new ArrayList<JUnitTestMethod>();
+	protected abstract List<? extends JUnitTestMethod> instantiateMethodList();
+	
+	private List<? extends JUnitTestMethod> beforeMethodList = instantiateMethodList();
+	private List<? extends JUnitTestMethod> testMethodList = instantiateMethodList();
+	private List<? extends JUnitTestMethod> afterMethodList = instantiateMethodList();
 
 	private JUnitTestBattery parent;
 	private TestElement selectedFragment;
 	private Type codeElement;
-	private List<JUnitFixture> fixtures = new ArrayList<JUnitFixture>();
 
-	JUnitTestSuite() {
+	
+	protected abstract List<? extends JUnitFixture> instantiateFixtureList();
+
+	private List<? extends JUnitFixture> fixtures = instantiateFixtureList();
+
+	protected JUnitTestSuite() {
 	}
 	
 	@Override
@@ -28,14 +33,17 @@ public class JUnitTestSuite extends TestSuite {
 		return getCodeElement().getName();
 	}
 
-	private JUnitTestMethod internalCreateTestMethod(Method element, List<JUnitTestMethod> destList) {
-		JUnitTestMethod method = new JUnitTestMethod();
+	protected abstract JUnitTestMethod instantiateTestMethod();
+	
+	@SuppressWarnings("unchecked")
+	private JUnitTestMethod internalCreateTestMethod(Method element, List<? extends JUnitTestMethod> destList) {
+		JUnitTestMethod method = instantiateTestMethod();
 
 		method.setParent(this);
 
 		method.setCodeElement(element);
 		
-		destList.add(method);
+		((List<JUnitTestMethod>) destList).add(method);
 
 		return method;
 	}
@@ -51,15 +59,18 @@ public class JUnitTestSuite extends TestSuite {
 	JUnitTestMethod createAfterMethod(Method element) {
 		return internalCreateTestMethod(element, afterMethodList);
 	}
+	
+	protected abstract JUnitFixture instantiateFixture();
 
+	@SuppressWarnings("unchecked")
 	JUnitFixture createFixture(Field field) {
-		JUnitFixture fixture = new JUnitFixture();
+		JUnitFixture fixture = instantiateFixture();
 		
 		fixture.setParent(this);
 		
 		fixture.setCodeElement(field);
 		
-		fixtures.add(fixture);
+		((List<JUnitFixture>)fixtures).add(fixture);
 		
 		return fixture;
 	}
@@ -69,12 +80,12 @@ public class JUnitTestSuite extends TestSuite {
 	 * pois o createBeforeMethod já faz isso.
 	 */
 	@Override
-	public List<JUnitTestMethod> getBeforeMethodList() {
+	public List<? extends JUnitTestMethod> getBeforeMethodList() {
 		return beforeMethodList;
 	}
 
 	@Override
-	public List<JUnitTestMethod> getTestMethodList() {
+	public List<? extends JUnitTestMethod> getTestMethodList() {
 		return testMethodList;
 	}
 
@@ -83,7 +94,7 @@ public class JUnitTestSuite extends TestSuite {
 	 * pois o createAfterMethod já faz isso.
 	 */
 	@Override
-	public List<JUnitTestMethod> getAfterMethodList() {
+	public List<? extends JUnitTestMethod> getAfterMethodList() {
 		return afterMethodList;
 	}
 
@@ -92,16 +103,16 @@ public class JUnitTestSuite extends TestSuite {
 		return parent;
 	}
 
-	void setParent(JUnitTestBattery parent) {
+	protected void setParent(JUnitTestBattery parent) {
 		this.parent = parent;
 	}
 
 	@Override
-	public List<JUnitFixture> getFixtures() {
+	public List<? extends JUnitFixture> getFixtures() {
 		return fixtures;
 	}
 
-	TestElement getSelectedFragment() {
+	protected TestElement getSelectedFragment() {
 		return selectedFragment;
 	}
 
@@ -110,7 +121,7 @@ public class JUnitTestSuite extends TestSuite {
 		return codeElement;
 	}
 
-	void setCodeElement(Type type) {
+	protected void setCodeElement(Type type) {
 		codeElement = type;
 	}
 	

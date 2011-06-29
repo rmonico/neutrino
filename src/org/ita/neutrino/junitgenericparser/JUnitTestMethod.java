@@ -1,6 +1,5 @@
 package org.ita.neutrino.junitgenericparser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.ita.neutrino.abstracttestparser.TestMethod;
@@ -8,42 +7,50 @@ import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.MethodInvocationStatement;
 import org.ita.neutrino.codeparser.Statement;
 
-public class JUnitTestMethod extends TestMethod {
+public abstract class JUnitTestMethod extends TestMethod {
 
+	protected abstract List<? extends JUnitTestStatement> instantiateStatementList();
+	
 	private JUnitTestSuite parent;
-	private List<JUnitTestStatement> statementList = new ArrayList<JUnitTestStatement>();
+	private List<? extends JUnitTestStatement> statementList = instantiateStatementList();
 	private Method element;
 
-	JUnitTestMethod() {
+	protected JUnitTestMethod() {
 
 	}
 
+	protected abstract JUnitAction instantiateAction();
+	
+	@SuppressWarnings("unchecked")
 	JUnitAction createAction(Statement statement) {
-		JUnitAction action = new JUnitAction();
+		JUnitAction action = instantiateAction();
 
 		action.setParent(this);
 
 		action.setCodeElement(statement);
 		
-		statementList.add(action);
-
+		((List<JUnitAction>)statementList).add(action);
+		
 		return action;
 	}
 
+	protected abstract JUnitAssertion instantiateAssertion();
+	
+	@SuppressWarnings("unchecked")
 	JUnitAssertion createAssertion(MethodInvocationStatement methodInvocation) {
-		JUnitAssertion assertion = new JUnitAssertion();
+		JUnitAssertion assertion = instantiateAssertion();
 
 		assertion.setParent(this);
 		
 		assertion.setCodeElement(methodInvocation);
 		
-		statementList.add(assertion);
-
+		((List<JUnitAssertion>)statementList).add(assertion);
+		
 		return assertion;
 	}
 
 	@Override
-	public List<JUnitTestStatement> getStatements() {
+	public List<? extends JUnitTestStatement> getStatements() {
 		return statementList;
 	}
 
@@ -52,7 +59,7 @@ public class JUnitTestMethod extends TestMethod {
 		return parent;
 	}
 
-	void setParent(JUnitTestSuite parent) {
+	protected void setParent(JUnitTestSuite parent) {
 		this.parent = parent;
 	}
 

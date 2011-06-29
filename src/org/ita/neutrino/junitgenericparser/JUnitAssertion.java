@@ -23,7 +23,6 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 		this.parent = parent;
 	}
 
-
 	@Override
 	public JUnitTestMethod getParent() {
 		return parent;
@@ -98,6 +97,14 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 	}
 
 
+	private Environment getEnvironment() {
+		JUnitTestMethod method = getParent();
+		JUnitTestSuite suite = method.getParent();
+		JUnitTestBattery battery = suite.getParent();
+		
+		return battery.getCodeElement();
+	}
+
 	@Override
 	public void setExplanation(String explanation) {
 		Environment environment = getEnvironment();
@@ -107,14 +114,6 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 		Expression explanationExpression = environment.getExpressionFactory().createLiteralExpression(javaLangStringType, explanation);
 		
 		getCodeElement().getParameterList().add(0, explanationExpression);
-	}
-
-	private Environment getEnvironment() {
-		JUnitTestMethod method = getParent();
-		JUnitTestSuite suite = method.getParent();
-		JUnitTestBattery battery = suite.getParent();
-		
-		return battery.getCodeElement();
 	}
 
 	@Override

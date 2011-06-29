@@ -9,9 +9,14 @@ public abstract class JUnitAction implements JUnitTestStatement, Action {
 	private JUnitTestMethod parent;
 
 	protected JUnitAction() {
-		
+		super();
 	}
 
+	/**
+	 * Usuários externos: método publicado por exigência da interface
+	 * JUnitTestStatement. Utilizar a versão correspondente do parser
+	 * específico! Não chamar esse método!
+	 */
 	@Override
 	public void setParent(JUnitTestMethod parent) {
 		this.parent = parent;
@@ -26,7 +31,7 @@ public abstract class JUnitAction implements JUnitTestStatement, Action {
 	public Statement getCodeElement() {
 		return element;
 	}
-	
+
 	void setCodeElement(Statement element) {
 		this.element = element;
 	}

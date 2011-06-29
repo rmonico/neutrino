@@ -8,7 +8,7 @@ public class JUnitFixture implements Fixture {
 	private JUnitTestSuite parent;
 	private Field element;
 
-	JUnitFixture() {
+	protected JUnitFixture() {
 	}
 	
 	@Override
