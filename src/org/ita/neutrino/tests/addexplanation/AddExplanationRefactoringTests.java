@@ -14,14 +14,14 @@ import org.ita.neutrino.addexplanation.AddExplanationRefactoring;
 import org.ita.neutrino.astparser.ASTParser;
 import org.ita.neutrino.codeparser.CodeSelection;
 import org.ita.neutrino.codeparser.ParserException;
-import org.ita.neutrino.junit4parser.JUnitParser;
+import org.ita.neutrino.junit4parser.JUnit4Parser;
 import org.ita.neutrino.tests.RefactoringAbstractTests;
 import org.junit.Test;
 
 public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 
 	private ICompilationUnit refactoredCompilationUnit;
-	private JUnitParser testParser;
+	private JUnit4Parser testParser;
 	
 	private void prepareTests() throws JavaModelException, ParserException, TestParserException {
 		List<ICompilationUnit> compilationUnits = new ArrayList<ICompilationUnit>();
@@ -82,7 +82,7 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 		
 		codeParser.parse();
 
-		testParser = new JUnitParser();
+		testParser = new JUnit4Parser();
 		
 		testParser.setEnvironment(codeParser.getEnvironment());
 		

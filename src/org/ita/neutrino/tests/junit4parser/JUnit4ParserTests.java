@@ -13,7 +13,7 @@ import org.ita.neutrino.codeparser.CodeElement;
 import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.junit4parser.JUnitAction;
 import org.ita.neutrino.junit4parser.JUnitAssertion;
-import org.ita.neutrino.junit4parser.JUnitParser;
+import org.ita.neutrino.junit4parser.JUnit4Parser;
 import org.ita.neutrino.junit4parser.JUnitTestBattery;
 import org.ita.neutrino.junit4parser.JUnitTestMethod;
 import org.ita.neutrino.junit4parser.JUnitTestStatement;
@@ -95,7 +95,7 @@ public class JUnit4ParserTests extends RefactoringAbstractTests {
 	public void testTestParser() throws TestParserException, ParserException, JavaModelException {
 		prepareTests(); 
 		
-		JUnitParser testParser = new JUnitParser();
+		JUnit4Parser testParser = new JUnit4Parser();
 		
 		testParser.setEnvironment(codeParser.getEnvironment());
 		
