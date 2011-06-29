@@ -6,9 +6,6 @@ import java.util.List;
 import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
 import org.ita.neutrino.abstracrefactoring.RefactoringException;
 import org.ita.neutrino.abstracttestparser.Assertion;
-import org.ita.neutrino.codeparser.Environment;
-import org.ita.neutrino.codeparser.Expression;
-import org.ita.neutrino.codeparser.Type;
 
 public class AddExplanationRefactoring extends AbstractRefactoring {
 	
@@ -28,20 +25,14 @@ public class AddExplanationRefactoring extends AbstractRefactoring {
 				problems.add("Target assertion still have a explanation.");
 			}
 		}
-		
+
 		
 		return problems;
 	}
 
 	@Override
 	protected void doRefactor() throws RefactoringException {
-		Environment environment = getBattery().getCodeElement();
-		
-		Type javaLangStringType = environment.getTypeCache().get("java.lang.String"); 
-		
-		Expression explanationExpression = environment.getExpressionFactory().createLiteralExpression(javaLangStringType, explanationString);
-		
-		targetAssertion.getCodeElement().getParameterList().add(0, explanationExpression);
+		targetAssertion.setExplanation(explanationString);
 	}
 
 	public void setExplanationString(String explanationString) {

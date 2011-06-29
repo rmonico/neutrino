@@ -3,8 +3,10 @@ package org.ita.neutrino.junit4parser;
 import java.util.List;
 
 import org.ita.neutrino.abstracttestparser.Assertion;
+import org.ita.neutrino.codeparser.Environment;
 import org.ita.neutrino.codeparser.Expression;
 import org.ita.neutrino.codeparser.MethodInvocationStatement;
+import org.ita.neutrino.codeparser.Type;
 
 public class JUnitAssertion extends JUnitTestStatement implements Assertion {
 
@@ -76,6 +78,26 @@ public class JUnitAssertion extends JUnitTestStatement implements Assertion {
 		}
 		
 		return null;
+	}
+
+
+	@Override
+	public void setExplanation(String explanation) {
+		Environment environment = getEnvironment();
+		
+		Type javaLangStringType = environment.getTypeCache().get("java.lang.String"); 
+		
+		Expression explanationExpression = environment.getExpressionFactory().createLiteralExpression(javaLangStringType, explanation);
+		
+		getCodeElement().getParameterList().add(0, explanationExpression);
+	}
+
+	private Environment getEnvironment() {
+		JUnitTestMethod method = getParent();
+		JUnitTestSuite suite = method.getParent();
+		JUnitTestBattery battery = suite.getParent();
+		
+		return battery.getCodeElement();
 	}
 
 }

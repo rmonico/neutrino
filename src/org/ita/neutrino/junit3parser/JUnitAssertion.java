@@ -22,6 +22,12 @@ public class JUnitAssertion extends JUnitTestStatement implements Assertion {
 		return null;
 	}
 
+	@Override
+	public void setExplanation(String explanation) {
+		// TODO Auto-generated method stub
+		
+	}
+
 //	@Override
 //	public int getExplanationIndex() {
 //		List<Expression> parameterList = getCodeElement().getParameterList();

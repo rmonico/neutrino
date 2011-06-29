@@ -8,4 +8,6 @@ public interface Assertion extends TestStatement {
 	public MethodInvocationStatement getCodeElement();
 
 	public String getExplanation();
+	
+	public void setExplanation(String explanation);
 }
