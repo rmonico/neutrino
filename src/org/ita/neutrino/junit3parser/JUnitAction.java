@@ -1,22 +1,11 @@
 package org.ita.neutrino.junit3parser;
 
 import org.ita.neutrino.abstracttestparser.Action;
-import org.ita.neutrino.codeparser.Statement;
 
-public class JUnitAction extends JUnitTestStatement implements Action {
-
-	private Statement element;
+public class JUnitAction extends org.ita.neutrino.junitgenericparser.JUnitAction implements Action {
 
 	JUnitAction() {
-		
+		super();
 	}
 
-	@Override
-	public Statement getCodeElement() {
-		return element;
-	}
-	
-	void setCodeElement(Statement element) {
-		this.element = element;
-	}
 }

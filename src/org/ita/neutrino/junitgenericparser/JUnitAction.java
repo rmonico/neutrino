@@ -3,12 +3,23 @@ package org.ita.neutrino.junitgenericparser;
 import org.ita.neutrino.abstracttestparser.Action;
 import org.ita.neutrino.codeparser.Statement;
 
-public class JUnitAction extends JUnitTestStatement implements Action {
+public abstract class JUnitAction implements JUnitTestStatement, Action {
 
 	private Statement element;
+	private JUnitTestMethod parent;
 
-	JUnitAction() {
+	protected JUnitAction() {
 		
+	}
+
+	@Override
+	public void setParent(JUnitTestMethod parent) {
+		this.parent = parent;
+	}
+
+	@Override
+	public JUnitTestMethod getParent() {
+		return parent;
 	}
 
 	@Override
@@ -19,4 +30,5 @@ public class JUnitAction extends JUnitTestStatement implements Action {
 	void setCodeElement(Statement element) {
 		this.element = element;
 	}
+
 }

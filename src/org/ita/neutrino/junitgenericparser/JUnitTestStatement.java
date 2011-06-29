@@ -2,21 +2,9 @@ package org.ita.neutrino.junitgenericparser;
 
 import org.ita.neutrino.abstracttestparser.TestStatement;
 
-public abstract class JUnitTestStatement implements TestStatement {
+public interface JUnitTestStatement extends TestStatement {
 
-	private JUnitTestMethod parent;
+	public void setParent(JUnitTestMethod parent);
 	
-	void setParent(JUnitTestMethod parent) {
-		this.parent = parent;
-	}
-
-	@Override
-	public JUnitTestMethod getParent() {
-		return parent;
-	}
-	
-	@Override
-	public String toString() {
-		return getCodeElement().toString();
-	}
+	public JUnitTestMethod getParent();
 }

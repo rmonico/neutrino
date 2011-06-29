@@ -8,10 +8,27 @@ import org.ita.neutrino.codeparser.Expression;
 import org.ita.neutrino.codeparser.MethodInvocationStatement;
 import org.ita.neutrino.codeparser.Type;
 
-public class JUnitAssertion extends JUnitTestStatement implements Assertion {
+public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 
 	private MethodInvocationStatement element;
+	private JUnitTestMethod parent;
+	
+	protected JUnitAssertion() {
+		super();
+	}
 
+
+	@Override
+	public void setParent(JUnitTestMethod parent) {
+		this.parent = parent;
+	}
+
+
+	@Override
+	public JUnitTestMethod getParent() {
+		return parent;
+	}
+	
 	@Override
 	public MethodInvocationStatement getCodeElement() {
 		return element;
@@ -98,6 +115,11 @@ public class JUnitAssertion extends JUnitTestStatement implements Assertion {
 		JUnitTestBattery battery = suite.getParent();
 		
 		return battery.getCodeElement();
+	}
+
+	@Override
+	public String toString() {
+		return getCodeElement().toString();
 	}
 
 }
