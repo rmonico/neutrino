@@ -2,7 +2,7 @@ package org.ita.neutrino.astparser;
 
 import org.ita.neutrino.codeparser.LiteralExpression;
 
-public class ASTLiteralExpression extends ASTAbstractExpression<org.eclipse.jdt.core.dom.PrefixExpression> implements LiteralExpression {
+public class ASTLiteralExpression extends ASTAbstractExpression<org.eclipse.jdt.core.dom.Expression> implements LiteralExpression {
 
 	private String value;
 

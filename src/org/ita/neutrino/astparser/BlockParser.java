@@ -50,7 +50,7 @@ class BlockParser {
 	}
 
 	private void parseStatement(ASTNode node) throws ParserException {
-		// ConsoleVisitor.showNodes(node);
+//		ConsoleVisitor.showNodes(node);
 
 		Statement statement = null;
 
@@ -83,22 +83,22 @@ class BlockParser {
 
 		if (astExpression instanceof org.eclipse.jdt.core.dom.MethodInvocation) {
 			org.eclipse.jdt.core.dom.MethodInvocation astMethodInvocation = (org.eclipse.jdt.core.dom.MethodInvocation) astExpression;
-			
+
 			ASTMethodInvocationStatement methodInvocation = block.createMethodInvocationStatement();
 
 			methodInvocation.setASTObject(astMethodInvocation);
-			
+
 			populateParameterList(methodInvocation.getParameterList(), astMethodInvocation.arguments());
-			
+
 			String methodTypeQualifiedName = astMethodInvocation.resolveMethodBinding().getDeclaringClass().getQualifiedName();
 			String methodName = astMethodInvocation.getName().getIdentifier();
-			
+
 			Type type = environment.getTypeCache().get(methodTypeQualifiedName);
-			
+
 			Method method = type.getOrCreateMethod(methodName);
-			
+
 			methodInvocation.setCalledMethod(method);
-			
+
 			return methodInvocation;
 		} else {
 			wrappAsGenericStatement = true;
@@ -155,7 +155,7 @@ class BlockParser {
 				org.eclipse.jdt.core.dom.PrefixExpression astNode = (PrefixExpression) fragmentNodes.get(1);
 
 				Type nodeType = environment.getTypeCache().get(astNode.resolveTypeBinding().getQualifiedName());
-				
+
 				ASTLiteralExpression literalExpression = environment.getExpressionFactory().createLiteralExpression(nodeType, astNode.toString());
 
 				literalExpression.setASTObject(astNode);
@@ -173,7 +173,7 @@ class BlockParser {
 				mie.setASTObject(astNode);
 
 				populateParameterList(mie.getParameterList(), astNode.arguments());
-				
+
 				variableDeclaration.setInitializationExpression(mie);
 
 				// Variável inicializada com null
@@ -191,9 +191,9 @@ class BlockParser {
 
 				variableDeclaration.setInitializationExpression(cie);
 			} else if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.Expression) {
-				GenericExpression genericExpression = parseExpression((org.eclipse.jdt.core.dom.Expression) fragmentNodes.get(1));
+				org.ita.neutrino.codeparser.Expression expression = parseExpression((org.eclipse.jdt.core.dom.Expression) fragmentNodes.get(1));
 
-				variableDeclaration.setInitializationExpression(genericExpression);
+				variableDeclaration.setInitializationExpression(expression);
 			} else {
 				throw new UnsupportedSintaxException();
 			}
@@ -202,31 +202,47 @@ class BlockParser {
 		return variableDeclaration;
 	}
 
-	private GenericExpression parseExpression(org.eclipse.jdt.core.dom.Expression astNode) {
-		GenericExpression genericExpression = environment.createGenericExpression();
+	private org.ita.neutrino.codeparser.Expression parseExpression(org.eclipse.jdt.core.dom.Expression astNode) {
+		org.ita.neutrino.codeparser.Expression expression;
 
-		genericExpression.setASTObject(astNode);
-		
-		String typeQualifiedName = astNode.resolveTypeBinding().getQualifiedName();
-		
-		Type type = environment.getTypeCache().get(typeQualifiedName);
-		
-		genericExpression.setType(type);
-		
-		return genericExpression;
+		if (astNode instanceof org.eclipse.jdt.core.dom.StringLiteral) {
+			org.eclipse.jdt.core.dom.StringLiteral astStringLiteralExpression = (org.eclipse.jdt.core.dom.StringLiteral) astNode;
+
+			Type stringType = environment.getTypeCache().get("java.lang.String");
+			
+			org.ita.neutrino.astparser.ASTLiteralExpression stringLiteralExpression = environment.getExpressionFactory().createLiteralExpression(stringType, astStringLiteralExpression.getLiteralValue());
+			
+			stringLiteralExpression.setASTObject(astNode);
+
+			expression = stringLiteralExpression;
+		} else {
+			GenericExpression genericExpression = environment.createGenericExpression();
+
+			genericExpression.setASTObject(astNode);
+
+			String typeQualifiedName = astNode.resolveTypeBinding().getQualifiedName();
+
+			Type type = environment.getTypeCache().get(typeQualifiedName);
+
+			genericExpression.setType(type);
+
+			expression = genericExpression;
+		}
+
+		return expression;
 	}
 
 	private void populateParameterList(List<org.ita.neutrino.codeparser.Expression> parameterList, @SuppressWarnings("rawtypes") List arguments) {
 		for (Object argument : arguments) {
 			if (argument instanceof org.eclipse.jdt.core.dom.Expression) {
-				org.eclipse.jdt.core.dom.Expression expression = (org.eclipse.jdt.core.dom.Expression) argument;
-				
-				GenericExpression genericExpression = parseExpression(expression);
-				
-				parameterList.add(genericExpression);
+				org.eclipse.jdt.core.dom.Expression astExpression = (org.eclipse.jdt.core.dom.Expression) argument;
+
+				org.ita.neutrino.codeparser.Expression expression = parseExpression(astExpression);
+
+				parameterList.add(expression);
 			}
 		}
-		
+
 	}
 
 	private ASTGenericStatement parseGenericStatement(org.eclipse.jdt.core.dom.Statement node) {

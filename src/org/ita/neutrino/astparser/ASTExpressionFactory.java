@@ -10,6 +10,8 @@ class ASTExpressionFactory implements ExpressionFactory {
 		ASTLiteralExpression expression = new ASTLiteralExpression();
 
 		expression.setValue(value);
+		
+		expression.setType(type);
 
 		return expression;
 	}
