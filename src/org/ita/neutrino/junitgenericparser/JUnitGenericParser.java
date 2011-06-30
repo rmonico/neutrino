@@ -2,9 +2,10 @@ package org.ita.neutrino.junitgenericparser;
 
 import org.ita.neutrino.abstracttestparser.AbstractTestParser;
 import org.ita.neutrino.abstracttestparser.TestParserException;
+import org.ita.neutrino.codeparser.CodeSelection;
 import org.ita.neutrino.codeparser.Environment;
 
-public class JUnitGenericParser extends AbstractTestParser {
+public abstract class JUnitGenericParser extends AbstractTestParser {
 
 	private Environment environment;
 	private JUnitTestBattery battery;
@@ -14,17 +15,21 @@ public class JUnitGenericParser extends AbstractTestParser {
 		this.environment = environment;
 	}
 
+	protected abstract JUnitTestBattery createTestBattery(CodeSelection selection);
+
 	@Override
 	public void parse() throws TestParserException {
-		battery = new JUnitTestBattery(environment.getSelection());
+		battery = createTestBattery(environment.getSelection());
 		
 		battery.setCodeElement(environment);
 		
 		doBatteryParse();
 	}
 
+	protected abstract BatteryParser createBatteryParser();
+	
 	private void doBatteryParse() {
-		BatteryParser batteryParser = new BatteryParser();
+		BatteryParser batteryParser = createBatteryParser();
 		
 		batteryParser.setBattery(battery);
 		

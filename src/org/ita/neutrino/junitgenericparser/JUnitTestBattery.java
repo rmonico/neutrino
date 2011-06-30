@@ -17,8 +17,10 @@ public abstract class JUnitTestBattery extends TestBattery {
 	private Environment environment;
 	private JUnitSelection selection;
 
+	protected abstract JUnitSelection instantiateSelection(CodeSelection codeSelection);
+	
 	protected JUnitTestBattery(CodeSelection codeSelection) {
-		selection = new JUnitSelection(codeSelection);
+		selection = instantiateSelection(codeSelection);
 	}
 
 	@Override

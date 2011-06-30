@@ -3,7 +3,6 @@ package org.ita.neutrino.junitgenericparser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ita.neutrino.codeparser.Annotation;
 import org.ita.neutrino.codeparser.Environment;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.Method;
@@ -16,25 +15,11 @@ import org.ita.neutrino.codeparser.TypeKind;
  * @author Rafael Monico
  * 
  */
-class BatteryParser {
-
-	private enum TestMethodKind {
-		NOT_TEST_METHOD(null), BEFORE_METHOD("org.junit.Before"), TEST_METHOD("org.junit.Test"), AFTER_METHOD("org.junit.After");
-
-		private String annotationName;
-
-		private TestMethodKind(String qualifiedAnnotationName) {
-			annotationName = qualifiedAnnotationName;
-		}
-
-		String getAnnotationName() {
-			return annotationName;
-		}
-	}
+public abstract class BatteryParser {
 
 	private Environment environment;
 	private JUnitTestBattery battery;
-
+	
 	public void setBattery(JUnitTestBattery battery) {
 		this.battery = battery;
 		environment = battery.getCodeElement();
@@ -117,16 +102,10 @@ class BatteryParser {
 		return knownTypes;
 	}
 
-	private TestMethodKind getTestMethodKind(Method method) {
-		for (Annotation a : method.getAnnotations()) {
-			for (TestMethodKind kind : TestMethodKind.values()) {
-				if (a.getQualifiedName().equals(kind.getAnnotationName())) {
-					return kind;
-				}
-			}
-		}
-
-		return TestMethodKind.NOT_TEST_METHOD;
+	protected enum TestMethodKind {
+		NOT_TEST_METHOD, BEFORE_METHOD, TEST_METHOD, AFTER_METHOD;
 	}
+
+	protected abstract TestMethodKind getTestMethodKind(Method method);
 
 }

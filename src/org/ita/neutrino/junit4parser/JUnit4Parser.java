@@ -1,39 +1,23 @@
 package org.ita.neutrino.junit4parser;
 
-import org.ita.neutrino.abstracttestparser.AbstractTestParser;
-import org.ita.neutrino.abstracttestparser.TestParserException;
-import org.ita.neutrino.codeparser.Environment;
+import org.ita.neutrino.codeparser.CodeSelection;
+import org.ita.neutrino.junitgenericparser.JUnitGenericParser;
 
-public class JUnit4Parser extends AbstractTestParser {
-
-	private Environment environment;
-	private JUnitTestBattery battery;
+public class JUnit4Parser extends JUnitGenericParser {
 
 	@Override
-	public void setEnvironment(Environment environment) {
-		this.environment = environment;
+	protected JUnitTestBattery createTestBattery(CodeSelection selection) {
+		return new JUnitTestBattery(selection); 
 	}
 
 	@Override
-	public void parse() throws TestParserException {
-		battery = new JUnitTestBattery(environment.getSelection());
-		
-		battery.setCodeElement(environment);
-		
-		doBatteryParse();
-	}
-
-	private void doBatteryParse() {
-		BatteryParser batteryParser = new BatteryParser();
-		
-		batteryParser.setBattery(battery);
-		
-		batteryParser.parse();
+	protected BatteryParser createBatteryParser() {
+		return new BatteryParser();
 	}
 
 	@Override
 	public JUnitTestBattery getBattery() {
-		return battery;
+		return (JUnitTestBattery) super.getBattery();
 	}
 
 }

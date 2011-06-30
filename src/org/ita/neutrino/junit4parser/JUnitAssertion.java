@@ -5,8 +5,7 @@ public class JUnitAssertion extends org.ita.neutrino.junitgenericparser.JUnitAss
 	JUnitAssertion() {
 		super();
 	}
-	
-	
+
 	@Override
 	public JUnitTestMethod getParent() {
 		return (JUnitTestMethod) super.getParent();

@@ -35,5 +35,10 @@ public abstract class JUnitAction implements JUnitTestStatement, Action {
 	void setCodeElement(Statement element) {
 		this.element = element;
 	}
+	
+	@Override
+	public String toString() {
+		return getCodeElement().toString();
+	}
 
 }

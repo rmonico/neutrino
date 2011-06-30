@@ -7,6 +7,12 @@ import org.ita.neutrino.codeparser.CodeSelection;
 
 public class JUnitTestBattery extends org.ita.neutrino.junitgenericparser.JUnitTestBattery {
 
+	@Override
+	protected JUnitSelection instantiateSelection(CodeSelection codeSelection) {
+		return new JUnitSelection(codeSelection);
+	}
+	
+	@Override
 	protected List<JUnitTestSuite> instantiateSuiteList() {
 		return new ArrayList<JUnitTestSuite>();
 	}
