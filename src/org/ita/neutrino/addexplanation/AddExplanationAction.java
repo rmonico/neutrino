@@ -8,7 +8,7 @@ import org.eclipse.jface.text.ITextSelection;
 import org.ita.neutrino.abstracrefactoring.AbstractEclipseRefactoringAction;
 import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
 
-public class AddExplanationAction extends AbstractEclipseRefactoringAction {
+public abstract class AddExplanationAction extends AbstractEclipseRefactoringAction {
 
 	private String explanationString;
 	private AddExplanationRefactoring refactoring;

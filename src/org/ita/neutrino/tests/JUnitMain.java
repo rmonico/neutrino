@@ -7,7 +7,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.ita.neutrino.eclipseaction.ActionException;
 import org.ita.neutrino.eclipseaction.IAction;
-import org.ita.neutrino.tests.addexplanation.AddExplanationRefactoringTests;
+import org.ita.neutrino.tests.addexplanation.AddExplanationJUnit3Tests;
+import org.ita.neutrino.tests.addexplanation.AddExplanationJUnit4Tests;
 import org.ita.neutrino.tests.astparser.TestPackageParsing;
 import org.ita.neutrino.tests.astparser.TestSupportedBlockSintax;
 import org.ita.neutrino.tests.junit3parser.JUnit3ParserTests;
@@ -63,7 +64,8 @@ public class JUnitMain implements IAction {
 		classesToTest.add(TestPackageParsing.class);
 		classesToTest.add(JUnit3ParserTests.class);
 		classesToTest.add(JUnit4ParserTests.class);
-		classesToTest.add(AddExplanationRefactoringTests.class);
+		classesToTest.add(AddExplanationJUnit3Tests.class);
+		classesToTest.add(AddExplanationJUnit4Tests.class);
 //		classesToTest.add(ExtractInitializationMethodTests.class);
 //		classesToTest.add(CreateModelTestTests.class);
 		

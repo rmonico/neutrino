@@ -18,7 +18,7 @@ import org.ita.neutrino.junit4parser.JUnit4Parser;
 import org.ita.neutrino.tests.RefactoringAbstractTests;
 import org.junit.Test;
 
-public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
+public class AddExplanationJUnit4Tests extends RefactoringAbstractTests {
 
 	private ICompilationUnit refactoredCompilationUnit;
 	private JUnit4Parser testParser;
@@ -34,7 +34,7 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 		beforeRefactoringSource.append("\n");
 		beforeRefactoringSource.append("import org.junit.Test;\n");
 		beforeRefactoringSource.append("\n");
-		beforeRefactoringSource.append("public class TestNotas {\n");
+		beforeRefactoringSource.append("public class TestNotasJUnit4 {\n");
 		beforeRefactoringSource.append("\n");
 		beforeRefactoringSource.append("    @SuppressWarnings(\"unused\")\n");
 		beforeRefactoringSource.append("    @Test\n");
@@ -49,7 +49,7 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 		beforeRefactoringSource.append("    }\n");
 		beforeRefactoringSource.append("}\n");
 
-		refactoredCompilationUnit = createSourceFile("org.ita.neutrino.addexplanationrefactoring", "TestNotas.java", beforeRefactoringSource);
+		refactoredCompilationUnit = createSourceFile("org.ita.neutrino.addexplanationrefactoring", "TestNotasJUnit4.java", beforeRefactoringSource);
 		compilationUnits.add(refactoredCompilationUnit);
 
 		StringBuilder productionClassCode = new StringBuilder();
@@ -99,7 +99,7 @@ public class AddExplanationRefactoringTests extends RefactoringAbstractTests {
 		expectedSource.append("\n");
 		expectedSource.append("import org.junit.Test;\n");
 		expectedSource.append("\n");
-		expectedSource.append("public class TestNotas {\n");
+		expectedSource.append("public class TestNotasJUnit4 {\n");
 		expectedSource.append("\n");
 		expectedSource.append("    @SuppressWarnings(\"unused\")\n");
 		expectedSource.append("    @Test\n");

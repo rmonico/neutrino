@@ -14,6 +14,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.ita.neutrino.abstracttestparser.AbstractTestParser;
 import org.ita.neutrino.abstracttestparser.TestBattery;
 import org.ita.neutrino.abstracttestparser.TestParserException;
 import org.ita.neutrino.astparser.ASTParser;
@@ -23,7 +24,6 @@ import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.eclipseaction.ActionException;
 import org.ita.neutrino.eclipseaction.Activator;
 import org.ita.neutrino.eclipseaction.IAction;
-import org.ita.neutrino.junit4parser.JUnit4Parser;
 
 public abstract class AbstractEclipseRefactoringAction implements IAction {
 
@@ -121,8 +121,10 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 		return codeParser.getEnvironment();
 	}
 
+	protected abstract AbstractTestParser instantiateParser();
+
 	private TestBattery doTestParsing(Environment environment) throws ActionException {
-		JUnit4Parser testParser = new JUnit4Parser();
+		AbstractTestParser testParser = instantiateParser();
 
 		testParser.setEnvironment(environment);
 

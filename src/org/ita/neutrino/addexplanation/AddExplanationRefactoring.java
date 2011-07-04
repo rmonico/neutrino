@@ -17,7 +17,7 @@ public class AddExplanationRefactoring extends AbstractRefactoring {
 		List<String> problems = new ArrayList<String>();
 		
 		if ((!(getTargetFragment() instanceof Assertion)) || (getTargetFragment() == null)) {
-			problems.add("Target is not a JUnit 4 valid assertion.");
+			problems.add("Target is not a valid assertion.");
 		} else {
 			targetAssertion = (Assertion) getTargetFragment();
 

@@ -1,14 +1,10 @@
 package org.ita.neutrino.addexplanationrefactoring;
 
-import static org.junit.Assert.assertEquals;
+import junit.framework.TestCase;
 
-import org.junit.Test;
-
-public class TestNotas {
+public class TestNotasJUnit3 extends TestCase {
     
-    @SuppressWarnings("unused")
-    @Test
-    private void testNotasTurma() {
+    public void testNotasTurma() {
         Notas not = new Notas();
 
         not.add("João", 8.0);
@@ -18,3 +14,4 @@ public class TestNotas {
         assertEquals(not.avg(), 8.0, 0);
     }
 }
+
