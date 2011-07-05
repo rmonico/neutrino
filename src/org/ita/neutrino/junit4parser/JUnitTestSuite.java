@@ -3,6 +3,8 @@ package org.ita.neutrino.junit4parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ita.neutrino.abstracttestparser.TestMethod;
+
 public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTestSuite {
 
 	protected JUnitTestSuite() {
@@ -75,5 +77,21 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 	@Override
 	public JUnitTestMethod getMethodByName(String methodName) {
 		return (JUnitTestMethod) super.getMethodByName(methodName);
+	}
+
+	@Override
+	public TestMethod createNewBeforeTestsMethod() {
+			String newMethodName = getNewBeforeMethodName();
+			Method newMethod = getCodeElement().createNewMethod(newMethodName);
+			newMethod.addAnnotation();
+//			List<Statement> codeStatements = new ArrayList<Statement>();
+//			
+//			for (TestStatement codeStatement : testStatements) {
+//				codeStatements.add(codeStatement.getCodeElement());
+//			}
+//			
+//			TestMethod newBeforeMethod = getCodeElement().createMethod(getNewBeforeTestsMethodName(), codeStatements);
+			
+			return newMethod;
 	}
 }
