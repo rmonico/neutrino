@@ -64,7 +64,7 @@ public class ExtractInitializationMethodRefactoring extends AbstractRefactoring 
 			for (int j=0; j<smallerListSize; j++) {
 				TestStatement baseStatement = commomStatements.get(j);
 				TestStatement testingStatement = testMethod.getStatements().get(j);
-				// TODO: Testar esse equals
+				
 				if (!baseStatement.equals(testingStatement)) {
 					commomStatements = commomStatements.subList(0, j);
 					break;
