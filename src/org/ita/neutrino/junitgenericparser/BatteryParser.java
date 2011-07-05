@@ -88,7 +88,7 @@ public abstract class BatteryParser {
 	}
 
 	private void doBlocksParse() {
-		BlocksParser parser = new BlocksParser();
+		BlockParser parser = new BlockParser();
 		
 		parser.setBattery(battery);
 		
