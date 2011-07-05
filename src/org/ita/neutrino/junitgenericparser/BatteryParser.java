@@ -61,11 +61,17 @@ public abstract class BatteryParser {
 					testMethod = suite.createAfterMethod(m);
 				}
 				
+				
 				if (m == environment.getSelectedElement()) {
 					battery.getSelection().setSelectedFragment(testMethod);
 				}
 			}
-
+			
+			// Se a classe corresponde a uma suíte de testes, e é o elemento selecionado no parser do código fonte...
+			if ((suite != null) && (t == environment.getSelectedElement())) {
+				// Então disponibilizá-la como seleção para o código de testes
+				battery.getSelection().setSelectedFragment(suite);
+			}
 		}
 	}
 
