@@ -1,21 +1,21 @@
 package org.ita.neutrino.astparser;
 
 import org.eclipse.jdt.core.dom.ASTNode;
+import org.ita.neutrino.codeparser.AbstractCodeElement;
 import org.ita.neutrino.codeparser.Block;
 import org.ita.neutrino.codeparser.Statement;
 
-class ASTAbstractStatement<T extends ASTNode> implements Statement, ASTWrapper<T> {
+class ASTAbstractStatement<T extends ASTNode> extends AbstractCodeElement implements Statement, ASTWrapper<T> {
 
-	private Block parentBlock;
 	private T astObject;
 	
 	@Override
 	public Block getParent() {
-		return parentBlock;
+		return (Block) super.getParent();
 	}
 	
 	protected void setParent(Block block) {
-		parentBlock = block;
+		parent = block;
 	}
 
 	@Override

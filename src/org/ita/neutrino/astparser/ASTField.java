@@ -1,19 +1,19 @@
 package org.ita.neutrino.astparser;
 
 import org.eclipse.jdt.core.dom.FieldDeclaration;
+import org.ita.neutrino.codeparser.AbstractCodeElement;
 import org.ita.neutrino.codeparser.Expression;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.NonAccessFieldModifier;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.TypeListener;
 
-public class ASTField implements Field, ASTWrapper<FieldDeclaration> {
+public class ASTField extends AbstractCodeElement implements Field, ASTWrapper<FieldDeclaration> {
 
 	private String name;
 	private FieldTypeListener fieldTypeListener = new FieldTypeListener(); 
 	private Type fieldType;
 	private ParentTypeListener parentTypeListener = new ParentTypeListener();
-	private Type parent;
 	private NonAccessFieldModifier nonAccessModifier = new NonAccessFieldModifier();
 	private Expression initialization;
 	private ASTInnerElementAccessModifier accessModifier = new ASTInnerElementAccessModifier();
@@ -47,21 +47,21 @@ public class ASTField implements Field, ASTWrapper<FieldDeclaration> {
 	void setName(String name) {
 		this.name = name;
 	}
-
+	
 	@Override
 	public Type getParent() {
-		return parent;
+		return (Type) super.getParent();
 	}
-	
+
 	void setParentType(Type parent) {
 		if (this.parent != null) {
-			this.parent.removeListener(parentTypeListener);
+			getParent().removeListener(parentTypeListener);
 		}
 		
 		this.parent = parent;
 		
 		if (this.parent != null) {
-			this.parent.addListener(parentTypeListener);
+			getParent().addListener(parentTypeListener);
 		}
 	}
 

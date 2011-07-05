@@ -3,12 +3,13 @@ package org.ita.neutrino.astparser;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ita.neutrino.codeparser.AbstractCodeElement;
 import org.ita.neutrino.codeparser.Block;
 import org.ita.neutrino.codeparser.CodeElement;
 import org.ita.neutrino.codeparser.Invokable;
 import org.ita.neutrino.codeparser.Statement;
 
-public class ASTBlock extends ASTCodeElement implements Block, ASTWrapper<org.eclipse.jdt.core.dom.Block> {
+public class ASTBlock extends AbstractCodeElement implements Block, ASTWrapper<org.eclipse.jdt.core.dom.Block> {
 
 	private List<Statement> statementList = new ArrayList<Statement>();
 	private org.eclipse.jdt.core.dom.Block astObject;

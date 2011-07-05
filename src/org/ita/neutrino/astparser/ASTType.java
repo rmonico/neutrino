@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.ita.neutrino.codeparser.AbstractCodeElement;
 import org.ita.neutrino.codeparser.Constructor;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.Method;
@@ -14,10 +15,9 @@ import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.TypeAccessModifier;
 import org.ita.neutrino.codeparser.TypeListener;
 
-public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
+public abstract class ASTType extends AbstractCodeElement implements Type, ASTWrapper<TypeDeclaration> {
 
 	private ASTTypeHandler handler = new ASTTypeHandler(this);
-	private SourceFile sourceFile;
 	private ASTPackage pack;
 	private String name;
 	private TypeAccessModifier accessModifier = new TypeAccessModifier();
@@ -29,11 +29,11 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 
 	@Override
 	public SourceFile getParent() {
-		return sourceFile;
+		return (SourceFile) super.getParent();
 	}
 
 	protected void setSourceFile(SourceFile sourceFile) {
-		this.sourceFile = sourceFile;
+		this.parent = sourceFile;
 	}
 
 	@Override
@@ -119,7 +119,7 @@ public abstract class ASTType implements Type, ASTWrapper<TypeDeclaration> {
 		sb.append("\n");
 		sb.append("Kind: " + getKind() + "\n");
 		sb.append("instanceof: " + getClass() + "\n");
-		sb.append("File: " + sourceFile.getFileName() + "\n");
+		sb.append("File: " + getParent().getFileName() + "\n");
 		sb.append("Package: " + pack.getName() + "\n");
 		sb.append("Access: " + accessModifier.toString() + "\n");
 

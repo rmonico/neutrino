@@ -1,8 +1,7 @@
-package org.ita.neutrino.astparser;
+package org.ita.neutrino.codeparser;
 
-import org.ita.neutrino.codeparser.CodeElement;
 
-public class ASTCodeElement implements CodeElement {
+public class AbstractCodeElement implements CodeElement {
 
 	protected CodeElement parent;
 

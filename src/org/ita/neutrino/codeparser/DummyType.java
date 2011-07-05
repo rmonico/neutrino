@@ -11,9 +11,8 @@ import java.util.Map;
  * @author Rafael Monico
  * 
  */
-public abstract class DummyType implements Type {
+public abstract class DummyType extends AbstractCodeElement implements Type {
 
-	private SourceFile sourceFile;
 	private Package pack;
 	private String name;
 	private TypeAccessModifier accessModifier = new TypeAccessModifier();
@@ -24,11 +23,11 @@ public abstract class DummyType implements Type {
 
 	@Override
 	public SourceFile getParent() {
-		return sourceFile;
+		return (SourceFile) super.getParent();
 	}
 
 	protected void setSourceFile(SourceFile sourceFile) {
-		this.sourceFile = sourceFile;
+		this.parent = sourceFile;
 	}
 
 	@Override

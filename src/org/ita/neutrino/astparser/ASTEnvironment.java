@@ -8,6 +8,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.ita.neutrino.codeparser.AbstractCodeElement;
 import org.ita.neutrino.codeparser.CodeElement;
 import org.ita.neutrino.codeparser.Constructor;
 import org.ita.neutrino.codeparser.Environment;
@@ -19,7 +20,7 @@ import org.ita.neutrino.codeparser.TypeListener;
 import org.zero.utils.IMapWrapper;
 import org.zero.utils.MapWrapper;
 
-public class ASTEnvironment extends ASTCodeElement implements Environment, TypeListener {
+public class ASTEnvironment extends AbstractCodeElement implements Environment, TypeListener {
 
 	private static final String PRIMITIVE_TYPE_PACKAGE_NAME = "<primitive type package>";
 	private static final String DEFAULT_PACKAGE = "<default package>";

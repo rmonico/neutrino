@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jdt.core.dom.PackageDeclaration;
+import org.ita.neutrino.codeparser.AbstractCodeElement;
 import org.ita.neutrino.codeparser.Package;
 
-public class ASTPackage implements Package, ASTWrapper<PackageDeclaration> {
+public class ASTPackage extends AbstractCodeElement implements Package, ASTWrapper<PackageDeclaration> {
 
 	private Map<String, ASTSourceFile> sourceFileList = new HashMap<String, ASTSourceFile>();
 	private String name;
-	private ASTEnvironment parent;
 	private PackageDeclaration astObject;
 
 	@Override
@@ -29,7 +29,7 @@ public class ASTPackage implements Package, ASTWrapper<PackageDeclaration> {
 	
 	@Override
 	public ASTEnvironment getParent() {
-		return parent;
+		return (ASTEnvironment) super.getParent();
 	}
 
 	void setEnvironment(ASTEnvironment parent) {

@@ -1,15 +1,15 @@
 package org.ita.neutrino.astparser;
 
+import org.ita.neutrino.codeparser.AbstractCodeElement;
 import org.ita.neutrino.codeparser.ImportDeclaration;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.TypeListener;
 
-public class ASTImportDeclaration implements ImportDeclaration, ASTWrapper<org.eclipse.jdt.core.dom.ImportDeclaration> {
+public class ASTImportDeclaration extends AbstractCodeElement implements ImportDeclaration, ASTWrapper<org.eclipse.jdt.core.dom.ImportDeclaration> {
 
 	private boolean isStatic;
 	private Type importedType;
 	private TypeListener importedTypeListener = new ImportedTypeListener();
-	private ASTSourceFile parent;
 	private org.eclipse.jdt.core.dom.ImportDeclaration astObject;
 
 	private class ImportedTypeListener implements TypeListener {
@@ -48,7 +48,7 @@ public class ASTImportDeclaration implements ImportDeclaration, ASTWrapper<org.e
 
 	@Override
 	public ASTSourceFile getParent() {
-		return parent;
+		return (ASTSourceFile) super.getParent();
 	}
 
 	protected void setStatic(boolean isStatic) {

@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.ita.neutrino.codeparser.AbstractCodeElement;
 import org.ita.neutrino.codeparser.Annotation;
 import org.ita.neutrino.codeparser.Argument;
 import org.ita.neutrino.codeparser.CheckedExceptionClass;
 import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.Type;
 
-public class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
+public class ASTMethod extends AbstractCodeElement implements Method, ASTWrapper<MethodDeclaration> {
 
 	private ASTInnerElementAccessModifier accessModifier = new ASTInnerElementAccessModifier();
 	private String name;
-	private Type parent;
 	private ASTMethodDeclarationNonAccessModifier nonAccessModifier = new ASTMethodDeclarationNonAccessModifier();
 	private MethodDeclaration astObject;
 	private ASTBlock body;
@@ -50,11 +50,10 @@ public class ASTMethod implements Method, ASTWrapper<MethodDeclaration> {
 		this.parent = parent;
 	}
 	
-	@Override
 	public Type getParent() {
-		return parent;
+		return (Type) super.getParent();
 	}
-
+	
 	@Override
 	public List<Annotation> getAnnotations() {
 		return annotationList;

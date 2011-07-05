@@ -11,8 +11,8 @@ import org.ita.neutrino.codeparser.MethodInvocationExpression;
 public class ASTMethodInvocationExpression extends ASTAbstractExpression<org.eclipse.jdt.core.dom.MethodInvocation> implements MethodInvocationExpression, MethodInvocationDelegator, ASTWritableElement {
 
 	private MethodInvocationHandler mih = new MethodInvocationHandler(this);
-	private CodeElement parent;
 
+	
 	public ASTMethodInvocationExpression() {
 	}
 	
@@ -50,11 +50,6 @@ public class ASTMethodInvocationExpression extends ASTAbstractExpression<org.ecl
 		return mih.getASTObject();
 	}
 
-	@Override
-	public CodeElement getParent() {
-		return parent;
-	}
-	
 	protected void setParent(CodeElement parent) {
 		this.parent = parent;
 	}

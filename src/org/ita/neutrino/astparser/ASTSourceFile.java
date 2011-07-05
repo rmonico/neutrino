@@ -8,6 +8,7 @@ import java.util.Map;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
+import org.ita.neutrino.codeparser.AbstractCodeElement;
 import org.ita.neutrino.codeparser.Annotation;
 import org.ita.neutrino.codeparser.Enum;
 import org.ita.neutrino.codeparser.SourceFile;
@@ -16,14 +17,13 @@ import org.ita.neutrino.codeparser.TypeListener;
 import org.zero.utils.IMapWrapper;
 import org.zero.utils.MapWrapper;
 
-public class ASTSourceFile implements SourceFile,
+public class ASTSourceFile extends AbstractCodeElement implements SourceFile,
 		ASTWrapper<ASTSourceFile.ASTContainer>, TypeListener {
 
 	private List<ASTImportDeclaration> importDeclarationList = new ArrayList<ASTImportDeclaration>();
 	private IMapWrapper<String, ASTType> wrapper;
 	private Map<String, ASTType> typeList;
 	private String fileName;
-	private ASTPackage parent;
 	private ASTContainer astObject;
 
 
@@ -74,7 +74,7 @@ public class ASTSourceFile implements SourceFile,
 
 	@Override
 	public ASTPackage getParent() {
-		return parent;
+		return (ASTPackage) super.getParent();
 	}
 
 	@Override
@@ -159,7 +159,7 @@ public class ASTSourceFile implements SourceFile,
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("Source file \"" + fileName + "\":");
-		sb.append("Parent package: " + parent.getName());
+		sb.append("Parent package: " + getParent().getName());
 		sb.append("\n");
 		sb.append("\n");
 		
