@@ -74,7 +74,7 @@ public class ExtractInitializationMethodRefactoring extends AbstractRefactoring 
 
 	@Override
 	protected void doRefactor() throws RefactoringException {
-		TestMethod newBeforeMethod = targetSuite.createBeforeTestsMethod("setup", commomStatements);
+		TestMethod newBeforeMethod = targetSuite.createBeforeTestsMethod(commomStatements);
 		
 		for (TestMethod testMethod : targetSuite.getTestMethodList()) {
 //			testMethod.removeStatements(commomStatements);

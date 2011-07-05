@@ -21,5 +21,5 @@ public interface TestSuite extends TestElement<Type> {
 
 	public TestMethod getMethodByName(String methodName);
 
-	public TestMethod createBeforeTestsMethod(String string, List<TestStatement> commomStatements);
+	public TestMethod createBeforeTestsMethod(List<TestStatement> commomStatements);
 }
