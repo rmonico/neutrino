@@ -6,18 +6,20 @@ import org.ita.neutrino.codeparser.Type;
 
 public interface TestSuite extends TestElement<Type> {
 	
-	public abstract String getName();
+	public String getName();
 	
-	public abstract List<? extends Fixture> getFixtures();
+	public List<? extends Fixture> getFixtures();
 	
-	public abstract List<? extends TestMethod> getTestMethodList();
+	public List<? extends TestMethod> getTestMethodList();
 	
-	public abstract List<? extends TestMethod> getBeforeMethodList();
+	public List<? extends TestMethod> getBeforeMethodList();
 	
-	public abstract List<? extends TestMethod> getAfterMethodList();
+	public List<? extends TestMethod> getAfterMethodList();
 
 	@Override
-	public abstract TestBattery getParent();
+	public TestBattery getParent();
 
-	public abstract TestMethod getMethodByName(String methodName);
+	public TestMethod getMethodByName(String methodName);
+
+	public TestMethod createBeforeTestsMethod(String string, List<TestStatement> commomStatements);
 }
