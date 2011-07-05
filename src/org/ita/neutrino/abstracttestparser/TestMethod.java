@@ -11,4 +11,6 @@ public interface TestMethod extends TestElement<Method> {
 	public abstract TestSuite getParent();
 
 	public abstract List<? extends TestStatement> getStatements();
+
+	public abstract void addStatements(List<TestStatement> statements);
 }
