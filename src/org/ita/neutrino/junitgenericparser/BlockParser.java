@@ -8,7 +8,7 @@ import org.ita.neutrino.codeparser.MethodInvocationStatement;
 import org.ita.neutrino.codeparser.Statement;
 import org.ita.neutrino.codeparser.Type;
 
-public class BlocksParser {
+public class BlockParser {
 
 	private JUnitTestBattery battery;
 	private List<JUnitTestMethod> concreteMethodList;
