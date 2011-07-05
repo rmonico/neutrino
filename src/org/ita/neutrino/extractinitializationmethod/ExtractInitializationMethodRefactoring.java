@@ -12,6 +12,7 @@ import org.ita.neutrino.abstracttestparser.TestSuite;
 public class ExtractInitializationMethodRefactoring extends AbstractRefactoring {
 
 	private TestSuite targetSuite;
+	private List<TestStatement> commomStatements;
 
 	@Override
 	public List<String> checkInitialConditions() {
@@ -22,8 +23,11 @@ public class ExtractInitializationMethodRefactoring extends AbstractRefactoring 
 		} else {
 			targetSuite = (TestSuite) getTargetFragment();
 
-			// TODO: Listar as linhas em comum no início de cada um dos blocos
-			// de código, se não houver devolver erro
+			commomStatements = listCommonStatements(targetSuite);
+			
+			if (commomStatements.isEmpty()) {
+				problems.add("Methods have no commom initialization. Unable to extract initialization method.");
+			}
 		}
 
 		return problems;
@@ -31,15 +35,13 @@ public class ExtractInitializationMethodRefactoring extends AbstractRefactoring 
 
 	@Override
 	protected void doRefactor() throws RefactoringException {
-		List<TestStatement> commomStatements = listCommonStatements();
 		
-		System.out.println(commomStatements);
 	}
 
-	private List<TestStatement> listCommonStatements() {
+	private List<TestStatement> listCommonStatements(TestSuite suite) {
 		List<TestStatement> commomStatements = new ArrayList<TestStatement>();
 
-		List<? extends TestMethod> testMethods = targetSuite.getTestMethodList();
+		List<? extends TestMethod> testMethods = suite.getTestMethodList();
 
 		// Utiliza a lista de statements do primeiro método como base para
 		// comparar com os demais
