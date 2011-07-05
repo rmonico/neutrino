@@ -33,11 +33,6 @@ public class ExtractInitializationMethodRefactoring extends AbstractRefactoring 
 		return problems;
 	}
 
-	@Override
-	protected void doRefactor() throws RefactoringException {
-		
-	}
-
 	private List<TestStatement> listCommonStatements(TestSuite suite) {
 		List<TestStatement> commomStatements = new ArrayList<TestStatement>();
 
@@ -75,6 +70,15 @@ public class ExtractInitializationMethodRefactoring extends AbstractRefactoring 
 		}
 
 		return commomStatements;
+	}
+
+	@Override
+	protected void doRefactor() throws RefactoringException {
+		TestMethod newBeforeMethod = targetSuite.createBeforeTestsMethod("setup", commomStatements);
+		
+		for (TestMethod testMethod : targetSuite.getTestMethodList()) {
+//			testMethod.removeStatements(commomStatements);
+		}
 	}
 
 }
