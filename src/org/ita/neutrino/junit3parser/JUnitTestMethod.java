@@ -3,6 +3,8 @@ package org.ita.neutrino.junit3parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ita.neutrino.junitgenericparser.JUnitTestStatement;
+
 public class JUnitTestMethod extends org.ita.neutrino.junitgenericparser.JUnitTestMethod {
 
 	@Override

@@ -7,7 +7,7 @@ import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.MethodInvocationStatement;
 import org.ita.neutrino.codeparser.Statement;
 
-public abstract class JUnitTestMethod extends TestMethod {
+public abstract class JUnitTestMethod implements TestMethod {
 
 	protected abstract List<? extends JUnitTestStatement> instantiateStatementList();
 	

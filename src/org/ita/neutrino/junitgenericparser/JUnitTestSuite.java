@@ -8,7 +8,7 @@ import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.Type;
 
-public abstract class JUnitTestSuite extends TestSuite {
+public abstract class JUnitTestSuite implements TestSuite {
 
 	protected abstract List<? extends JUnitTestMethod> instantiateMethodList();
 	
@@ -17,7 +17,7 @@ public abstract class JUnitTestSuite extends TestSuite {
 	private List<? extends JUnitTestMethod> afterMethodList = instantiateMethodList();
 
 	private JUnitTestBattery parent;
-	private TestElement selectedFragment;
+	private TestElement<?> selectedFragment;
 	private Type codeElement;
 
 	
@@ -112,7 +112,7 @@ public abstract class JUnitTestSuite extends TestSuite {
 		return fixtures;
 	}
 
-	protected TestElement getSelectedFragment() {
+	protected TestElement<?> getSelectedFragment() {
 		return selectedFragment;
 	}
 

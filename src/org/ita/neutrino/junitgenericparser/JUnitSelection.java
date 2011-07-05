@@ -13,8 +13,7 @@ import org.ita.neutrino.codeparser.CodeSelection;
 public class JUnitSelection implements TestSelection {
 
 	private CodeSelection codeSelection;
-	private TestElement selectedFragment;
-	
+	private TestElement<?> selectedFragment;
 	
 	public JUnitSelection(CodeSelection codeSelection) {
 		this.codeSelection = codeSelection;
@@ -51,11 +50,11 @@ public class JUnitSelection implements TestSelection {
 	}
 
 	@Override
-	public TestElement getSelectedFragment() {
+	public TestElement<?> getSelectedFragment() {
 		return selectedFragment;
 	}
 
-	void setSelectedFragment(TestElement selectedFragment) {
+	void setSelectedFragment(TestElement<?> selectedFragment) {
 		this.selectedFragment = selectedFragment;
 	}
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.ita.neutrino.codeparser.Environment;
 
-public abstract class TestBattery implements TestElement, CodeElementWrapper<Environment> {
+public interface TestBattery extends TestElement<Environment> {
 
 	public abstract List<? extends TestSuite> getSuiteList();
 
@@ -15,12 +15,6 @@ public abstract class TestBattery implements TestElement, CodeElementWrapper<Env
 	 */
 	public abstract TestSuite getSuiteByName(String suiteName);
 
-	@Override
-	public TestElement getParent() {
-		// A bateria não possui parent
-		return null;
-	}
-	
 	public abstract TestSelection getSelection();
 	
 	@Override

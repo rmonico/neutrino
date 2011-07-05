@@ -10,7 +10,7 @@ public interface TestSelection extends Selection {
 	 * 
 	 * @return
 	 */
-	TestElement getSelectedFragment();
+	TestElement<?> getSelectedFragment();
 	
 //	void setSelectedFragment(TestElement fragment);
 

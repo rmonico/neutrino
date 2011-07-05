@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.ita.neutrino.codeparser.Type;
 
-public abstract class TestSuite implements TestElement, CodeElementWrapper<Type> {
+public interface TestSuite extends TestElement<Type> {
 	
 	public abstract String getName();
 	

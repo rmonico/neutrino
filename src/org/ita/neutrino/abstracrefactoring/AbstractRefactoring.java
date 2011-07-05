@@ -9,7 +9,7 @@ import org.ita.neutrino.abstracttestparser.TestParserException;
 public abstract class AbstractRefactoring {
 
 	private TestBattery battery;
-	private TestElement fragment;
+	private TestElement<?> fragment;
 
 	public void setBattery(TestBattery battery) {
 		this.battery = battery;
@@ -35,11 +35,11 @@ public abstract class AbstractRefactoring {
 
 	protected abstract void doRefactor() throws RefactoringException;
 
-	public void setTargetFragment(TestElement fragment) {
+	public void setTargetFragment(TestElement<?> fragment) {
 		this.fragment = fragment;
 	}
 
-	public TestElement getTargetFragment() {
+	public TestElement<?> getTargetFragment() {
 		return fragment;
 	}
 
