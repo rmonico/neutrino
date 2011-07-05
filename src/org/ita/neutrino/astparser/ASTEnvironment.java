@@ -19,7 +19,7 @@ import org.ita.neutrino.codeparser.TypeListener;
 import org.zero.utils.IMapWrapper;
 import org.zero.utils.MapWrapper;
 
-public class ASTEnvironment implements Environment, TypeListener {
+public class ASTEnvironment extends ASTCodeElement implements Environment, TypeListener {
 
 	private static final String PRIMITIVE_TYPE_PACKAGE_NAME = "<primitive type package>";
 	private static final String DEFAULT_PACKAGE = "<default package>";
