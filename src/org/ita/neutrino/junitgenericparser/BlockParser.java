@@ -66,24 +66,26 @@ public class BlockParser {
 	}
 
 	private void parseStatement(JUnitTestMethod method, Statement statement) {
-		if (statement instanceof MethodInvocationStatement) {
-			MethodInvocationStatement methodInvocation = (MethodInvocationStatement) statement;
-
-			JUnitTestStatement testStatement = null;
-			
-			if (isAssertion(methodInvocation)) {
-				testStatement = method.createAssertion(methodInvocation);
-			} else {
-				testStatement = method.createAction(statement);
-			}
-			
-			if (battery.getCodeElement().getSelection().getSelectedElement() == statement) {
-				battery.getSelection().setSelectedFragment(testStatement);
-			}
+		JUnitTestStatement testStatement;
+		
+		if (isAssertion(statement)) {
+			testStatement = method.createAssertion((MethodInvocationStatement) statement);
+		} else {
+			testStatement = method.createAction(statement);
+		}
+		
+		if (battery.getCodeElement().getSelection().getSelectedElement() == statement) {
+			battery.getSelection().setSelectedFragment(testStatement);
 		}
 	}
 
-	private boolean isAssertion(MethodInvocationStatement methodInvocation) {
+	private boolean isAssertion(Statement statement) {
+		
+		if (!(statement instanceof MethodInvocationStatement)) {
+			return false;
+		}
+		
+		MethodInvocationStatement methodInvocation = (MethodInvocationStatement) statement;
 		
 		Type methodType = methodInvocation.getCalledMethod().getParent();
 		String fullName = methodType.getQualifiedName() + "." + methodInvocation.getCalledMethod().getName();
