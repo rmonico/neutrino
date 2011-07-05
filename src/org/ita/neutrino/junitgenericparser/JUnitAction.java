@@ -1,6 +1,7 @@
 package org.ita.neutrino.junitgenericparser;
 
 import org.ita.neutrino.abstracttestparser.Action;
+import org.ita.neutrino.abstracttestparser.TestElement;
 import org.ita.neutrino.codeparser.Statement;
 
 public abstract class JUnitAction implements JUnitTestStatement, Action {
@@ -35,10 +36,20 @@ public abstract class JUnitAction implements JUnitTestStatement, Action {
 	void setCodeElement(Statement element) {
 		this.element = element;
 	}
-	
+
 	@Override
 	public String toString() {
 		return getCodeElement().toString();
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+
+		// Delega a comparação ao elemento do código fonte
+		if (obj instanceof TestElement) {
+			return this.getCodeElement().equals(obj);
+		} else {
+			return false;
+		}
+	}
 }
