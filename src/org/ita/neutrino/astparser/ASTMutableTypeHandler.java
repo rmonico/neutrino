@@ -1,6 +1,7 @@
 package org.ita.neutrino.astparser;
 
 import org.eclipse.jdt.core.dom.AST;
+import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.PrimitiveType;
@@ -41,15 +42,16 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 
 		newSetup.setReturnType2(ast.newPrimitiveType(PrimitiveType.VOID));
 
+		Block block = ast.newBlock();
+
+		newSetup.setBody(block);
+
 		String methodSignature = newSetup.getName().toString();
 
 		Method newSetupMethod = createMethod(methodSignature);
 
 		ASTRewrite rewrite = compilationUnitASTContainer.getRewrite();
 
-		// ListRewrite lrw = rewrite.getListRewrite(RefactoringUtils
-		// .getPublicClassFrom(compilationUnitASTContainer.getCompilationUnit()),
-		// TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
 		ListRewrite lrw = rewrite.getListRewrite(handled.getASTObject(), TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
 
 		lrw.insertFirst(newSetup, null);
@@ -61,7 +63,7 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 		beforeAnnotation.setTypeName(ast.newName(name));
 
 		rewrite.getListRewrite(newSetup, MethodDeclaration.MODIFIERS2_PROPERTY).insertFirst(beforeAnnotation, null);
-		
+
 		return newSetupMethod;
 	}
 
