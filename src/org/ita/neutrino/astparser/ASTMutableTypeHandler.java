@@ -2,8 +2,8 @@ package org.ita.neutrino.astparser;
 
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.PrimitiveType;
 import org.ita.neutrino.codeparser.Method;
-import org.ita.neutrino.eclipseaction.NotImplementedYetException;
 
 public class ASTMutableTypeHandler extends ASTTypeHandler {
 	
@@ -30,7 +30,15 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 		
 		MethodDeclaration newSetup = ast.newMethodDeclaration();
 
-		throw new NotImplementedYetException();
+		newSetup.setName(ast.newSimpleName("setup"));
+		
+		newSetup.setReturnType2(ast.newPrimitiveType(PrimitiveType.VOID));
+		
+		String methodSignature = newSetup.getName().toString();
+
+		Method newSetupMethod = createMethod(methodSignature);
+		
+		return newSetupMethod;
 	}
 
 
