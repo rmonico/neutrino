@@ -8,7 +8,7 @@ import org.junit.Test;
 public class TestConnectJUnit4 {
 
 	Connect connect;
-
+	
 	@Test
 	public void testConecta() {
 		connect.estabelecerConexao();

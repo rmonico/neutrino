@@ -12,7 +12,7 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 	protected JUnitTestSuite() {
 		super();
 	}
-	
+
 	@Override
 	protected JUnitTestMethod instantiateTestMethod() {
 		return new JUnitTestMethod();
@@ -26,7 +26,7 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 	protected JUnitFixture instantiateFixture() {
 		return new JUnitFixture();
 	};
-	
+
 	@Override
 	protected List<JUnitFixture> instantiateFixtureList() {
 		return new ArrayList<JUnitFixture>();
@@ -83,18 +83,18 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 
 	@Override
 	public TestMethod createNewBeforeTestsMethod() {
-			String newMethodName = getNewBeforeMethodName();
-			Method newMethod = getCodeElement().createNewMethod(newMethodName);
-			newMethod.addAnnotation();
-		
-			return parseBeforeMethod(newMethod);
+		String newMethodName = getNewBeforeMethodName();
+		Method newMethod = getCodeElement().createNewMethod(newMethodName);
+		newMethod.addAnnotation();
+
+		return parseBeforeMethod(newMethod);
 	}
 
 	private static final String defaultBeforeMethodName = "setup";
-	
+
 	private String getNewBeforeMethodName() {
 		boolean hasSetup = false;
-		
+
 		// Já há um método setup?
 		for (TestMethod testMethod : getBeforeMethodList()) {
 			if (testMethod.getName().equals(defaultBeforeMethodName)) {
@@ -102,7 +102,7 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 				break;
 			}
 		}
-		
+
 		if (!hasSetup) {
 			return defaultBeforeMethodName;
 		}

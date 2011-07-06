@@ -1,8 +1,11 @@
 package org.ita.neutrino.astparser;
 
+import java.util.List;
+
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.PrimitiveType;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
@@ -49,20 +52,17 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 		String methodSignature = newSetup.getName().toString();
 
 		Method newSetupMethod = createMethod(methodSignature);
+		
+		@SuppressWarnings("unchecked")
+		List<Modifier> modifiers = newSetup.modifiers();
+		
+		modifiers.add(ast.newModifier(Modifier.ModifierKeyword.PUBLIC_KEYWORD));
 
 		ASTRewrite rewrite = compilationUnitASTContainer.getRewrite();
 
 		ListRewrite lrw = rewrite.getListRewrite(handled.getASTObject(), TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
 
 		lrw.insertFirst(newSetup, null);
-
-		NormalAnnotation beforeAnnotation = ast.newNormalAnnotation();
-
-		String[] name = { "org", "junit", "Before" };
-
-		beforeAnnotation.setTypeName(ast.newName(name));
-
-		rewrite.getListRewrite(newSetup, MethodDeclaration.MODIFIERS2_PROPERTY).insertFirst(beforeAnnotation, null);
 
 		return newSetupMethod;
 	}
