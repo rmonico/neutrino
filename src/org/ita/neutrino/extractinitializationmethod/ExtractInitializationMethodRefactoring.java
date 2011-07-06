@@ -86,10 +86,10 @@ public class ExtractInitializationMethodRefactoring extends AbstractRefactoring 
 		// TODO
 		beforeMethod.addStatements(commomStatements);
 		
-		for (TestMethod testMethod : targetSuite.getTestMethodList()) {
+//		for (TestMethod testMethod : targetSuite.getTestMethodList()) {
 //			TODO
 //			testMethod.removeStatements(commomStatements);
-		}
+//		}
 	}
 
 }

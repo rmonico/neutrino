@@ -48,15 +48,15 @@ public abstract class JUnitTestSuite implements TestSuite {
 		return method;
 	}
 
-	JUnitTestMethod createBeforeMethod(Method element) {
+	protected JUnitTestMethod parseBeforeMethod(Method element) {
 		return internalCreateTestMethod(element, beforeMethodList);
 	}
 
-	JUnitTestMethod createTestMethod(Method element) {
+	protected JUnitTestMethod parseTestMethod(Method element) {
 		return internalCreateTestMethod(element, testMethodList);
 	}
 
-	JUnitTestMethod createAfterMethod(Method element) {
+	protected JUnitTestMethod parseAfterMethod(Method element) {
 		return internalCreateTestMethod(element, afterMethodList);
 	}
 	

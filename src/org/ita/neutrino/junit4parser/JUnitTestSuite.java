@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ita.neutrino.abstracttestparser.TestMethod;
+import org.ita.neutrino.codeparser.Method;
+import org.ita.neutrino.eclipseaction.NotImplementedYetException;
 
 public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTestSuite {
 
@@ -84,14 +86,28 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 			String newMethodName = getNewBeforeMethodName();
 			Method newMethod = getCodeElement().createNewMethod(newMethodName);
 			newMethod.addAnnotation();
-//			List<Statement> codeStatements = new ArrayList<Statement>();
-//			
-//			for (TestStatement codeStatement : testStatements) {
-//				codeStatements.add(codeStatement.getCodeElement());
-//			}
-//			
-//			TestMethod newBeforeMethod = getCodeElement().createMethod(getNewBeforeTestsMethodName(), codeStatements);
-			
-			return newMethod;
+		
+			return parseBeforeMethod(newMethod);
+	}
+
+	private static final String defaultBeforeMethodName = "setup";
+	
+	private String getNewBeforeMethodName() {
+		boolean hasSetup = false;
+		
+		// Já há um método setup?
+		for (TestMethod testMethod : getBeforeMethodList()) {
+			if (testMethod.getName().equals(defaultBeforeMethodName)) {
+				hasSetup = true;
+				break;
+			}
+		}
+		
+		if (!hasSetup) {
+			return defaultBeforeMethodName;
+		}
+
+		// TODO: colocar um número na frente do setup. Exemplo: setup1
+		throw new NotImplementedYetException();
 	}
 }

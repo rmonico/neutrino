@@ -108,4 +108,6 @@ public interface Type extends CodeElement {
 	 * @return
 	 */
 	Constructor getOrCreateConstructor(String constructorParams);
+
+	Method createNewMethod(String newMethodName);
 }

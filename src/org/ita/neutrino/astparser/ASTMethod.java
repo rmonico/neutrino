@@ -10,6 +10,7 @@ import org.ita.neutrino.codeparser.Argument;
 import org.ita.neutrino.codeparser.CheckedExceptionClass;
 import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.Type;
+import org.ita.neutrino.eclipseaction.NotImplementedYetException;
 
 public class ASTMethod extends AbstractCodeElement implements Method, ASTWrapper<MethodDeclaration> {
 
@@ -109,6 +110,12 @@ public class ASTMethod extends AbstractCodeElement implements Method, ASTWrapper
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	@Override
+	public void addAnnotation() {
+		throw new NotImplementedYetException();
+		
 	}
 
 }

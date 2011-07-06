@@ -46,4 +46,9 @@ public class DummyClass extends org.ita.neutrino.codeparser.DummyClass {
 		return handler.createMethod(methodSignature);
 	}
 
+	@Override
+	public Method createNewMethod(String newMethodName) {
+		return handler.createNewMethod(newMethodName);
+	}
+
 }

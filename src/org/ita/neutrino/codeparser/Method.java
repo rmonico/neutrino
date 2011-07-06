@@ -12,5 +12,7 @@ public interface Method extends TypeElement, Invokable {
 	MethodDeclarationNonAccessModifier getNonAccessModifier();
 	
 	Type getReturnType();
+
+	void addAnnotation();
 	
 }

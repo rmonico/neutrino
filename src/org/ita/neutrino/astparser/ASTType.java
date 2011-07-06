@@ -183,4 +183,10 @@ public abstract class ASTType extends AbstractCodeElement implements Type, ASTWr
 		return null;
 	}
 
+	@Override
+	public Method createNewMethod(String newMethodName) {
+		return handler.createNewMethod(newMethodName);
+	}
+
+
 }

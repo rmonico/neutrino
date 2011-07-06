@@ -54,11 +54,11 @@ public abstract class BatteryParser {
 				JUnitTestMethod testMethod = null; 
 					
 				if (methodKind == TestMethodKind.BEFORE_METHOD) {
-					testMethod = suite.createBeforeMethod(m);
+					testMethod = suite.parseBeforeMethod(m);
 				} else if (methodKind == TestMethodKind.TEST_METHOD) {
-					testMethod = suite.createTestMethod(m);
+					testMethod = suite.parseTestMethod(m);
 				} else if (methodKind == TestMethodKind.AFTER_METHOD) {
-					testMethod = suite.createAfterMethod(m);
+					testMethod = suite.parseAfterMethod(m);
 				}
 				
 				
