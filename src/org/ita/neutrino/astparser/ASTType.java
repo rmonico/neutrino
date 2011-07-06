@@ -29,8 +29,8 @@ public abstract class ASTType extends AbstractCodeElement implements MutableType
 	private List<TypeListener> listeners = new ArrayList<TypeListener>();
 
 	@Override
-	public SourceFile getParent() {
-		return (SourceFile) super.getParent();
+	public ASTSourceFile getParent() {
+		return (ASTSourceFile) super.getParent();
 	}
 
 	protected void setSourceFile(SourceFile sourceFile) {
