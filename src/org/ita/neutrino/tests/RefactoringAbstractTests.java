@@ -92,7 +92,7 @@ public class RefactoringAbstractTests {
 
 	@After
 	public void releaseEnvironment() throws CoreException {
-		if (!deleteTestProject) {
+		if (deleteTestProject) {
 			project.delete(false, null);
 		}
 	}
