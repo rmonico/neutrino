@@ -180,6 +180,9 @@ public class ExtractInitializationMethodJUnit4Tests extends RefactoringAbstractT
 
 	@Test
 	public void testExtractInitializationMethodRefactoring() throws JavaModelException, RefactoringException, TestParserException, ParserException {
+		// Debug purposes
+		setDeleteTestProject(false);
+		
 		prepareTests();
 
 		// Aplica a refatoração na bateria de testes
@@ -200,7 +203,6 @@ public class ExtractInitializationMethodJUnit4Tests extends RefactoringAbstractT
 		StringBuilder expectedSource = getExpectedSource();
 
 		assertBlockEquals("Extrair método de inicialização", expectedSource.toString(), afterRefactoringSource);
-
 	}
 
 }

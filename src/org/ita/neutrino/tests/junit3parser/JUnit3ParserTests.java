@@ -19,7 +19,6 @@ import org.ita.neutrino.junit3parser.JUnitTestMethod;
 import org.ita.neutrino.junit3parser.JUnitTestSuite;
 import org.ita.neutrino.junitgenericparser.JUnitTestStatement;
 import org.ita.neutrino.tests.RefactoringAbstractTests;
-import org.junit.Before;
 import org.junit.Test;
 
 public class JUnit3ParserTests extends RefactoringAbstractTests {
@@ -28,12 +27,6 @@ public class JUnit3ParserTests extends RefactoringAbstractTests {
 	private JUnitTestBattery battery;
 	private JUnitTestSuite suite;
 
-	@Before
-	public void setup() {
-		// Não apaga o projeto de testes após rodar cada teste.
-		setAlwaysDeleteTestProject(true);
-	}
-	
 	private void prepareTests() throws JavaModelException, ParserException {
 		StringBuilder mockClassCode = new StringBuilder();
 
@@ -107,8 +100,6 @@ public class JUnit3ParserTests extends RefactoringAbstractTests {
 		testSuiteMethodParser();
 		
 		testBlockElementsParser();
-		
-		setTestsOk();
 	}
 
 	private void testBatteryParser() {

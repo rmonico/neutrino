@@ -393,8 +393,6 @@ public class TestCompleteSourceFileParsing extends RefactoringAbstractTests {
 		testBlockCreation();
 
 		testAnnotationParsing();
-
-		setTestsOk();
 	}
 
 	private void testClassModifierParsing() {

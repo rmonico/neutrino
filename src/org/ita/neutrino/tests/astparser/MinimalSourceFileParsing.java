@@ -66,8 +66,6 @@ public class MinimalSourceFileParsing extends RefactoringAbstractTests {
 
 		assertEquals("Lista de tipos (size)", 1, sourceFile.getTypeList().size());
 		assertEquals("Lista de tipos", environment.getTypeCache().get("org.ita.neutrino.testfiles.MinimalSourceFile"), sourceFile.getTypeList().get("MinimalSourceFile"));
-
-		setTestsOk();
 	}
 
 }

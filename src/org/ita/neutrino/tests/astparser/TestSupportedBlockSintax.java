@@ -214,8 +214,6 @@ public class TestSupportedBlockSintax extends RefactoringAbstractTests {
 		assertEquals("Declaração de variável objeto inicializada por construtor (Tipo)", "constructedObject", constructedObject.getVariableName());
 		assertEquals("Declaração de variável objeto inicializada por construtor (Type)", "java.lang.Integer", constructedObject.getVariableType().getQualifiedName());
 		assertEquals("Declaração de variável objeto inicializada por construtor (Initialization)", "new Integer(99)", constructedObject.getInitialization().toString());
-
-		setTestsOk();
 	}
 
 }

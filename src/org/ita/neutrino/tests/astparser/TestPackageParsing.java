@@ -71,8 +71,6 @@ public class TestPackageParsing extends RefactoringAbstractTests {
 
 		assertEquals("Validade do ambiente do pacote 3", parser.getEnvironment(), pack3.getParent());
 		assertEquals("Nome do pacote 3", "java.lang", pack3.getName());
-
-		setTestsOk();
 	}
 
 }

@@ -31,8 +31,7 @@ public class RefactoringAbstractTests {
 	private Map<String, IPackageFragment> knownPackages = new HashMap<String, IPackageFragment>();
 	private IJavaProject javaProject;
 	private IProject project;
-	private boolean testsOk;
-	private boolean alwaysDeleteTestProject;
+	private boolean deleteTestProject;
 
 	protected IPackageFragment getPackageByName(String packageName)
 			throws JavaModelException {
@@ -87,26 +86,19 @@ public class RefactoringAbstractTests {
 		options.put(DefaultCodeFormatterConstants.FORMATTER_TAB_SIZE, "4");
 		javaProject.setOptions(options);
 
-		// Os testes não estão ok até que alguém diga que estão
-		testsOk = false;
-		
-		// Não apaga o projeto de testes após rodar cada teste.
-		setAlwaysDeleteTestProject(true);
+		// Apaga o projeto de testes após rodar cada teste.
+		setDeleteTestProject(true);
 	}
 
 	@After
 	public void releaseEnvironment() throws CoreException {
-		if (testsOk || alwaysDeleteTestProject) {
+		if (!deleteTestProject) {
 			project.delete(false, null);
 		}
 	}
 
-	protected void setTestsOk() {
-		testsOk = true;
-	}
-	
-	protected void setAlwaysDeleteTestProject(boolean value) {
-		alwaysDeleteTestProject = value;
+	protected void setDeleteTestProject(boolean value) {
+		deleteTestProject = value;
 	}
 
 	protected ICompilationUnit createSourceFile(String packageName,
