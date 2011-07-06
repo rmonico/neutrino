@@ -6,7 +6,7 @@ import org.ita.neutrino.abstracttestparser.TestElement;
 import org.ita.neutrino.abstracttestparser.TestSuite;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.Method;
-import org.ita.neutrino.codeparser.Type;
+import org.ita.neutrino.codeparser.MutableType;
 
 public abstract class JUnitTestSuite implements TestSuite {
 
@@ -18,7 +18,7 @@ public abstract class JUnitTestSuite implements TestSuite {
 
 	private JUnitTestBattery parent;
 	private TestElement<?> selectedFragment;
-	private Type codeElement;
+	private MutableType codeElement;
 
 	
 	protected abstract List<? extends JUnitFixture> instantiateFixtureList();
@@ -117,11 +117,11 @@ public abstract class JUnitTestSuite implements TestSuite {
 	}
 
 	@Override
-	public Type getCodeElement() {
+	public MutableType getCodeElement() {
 		return codeElement;
 	}
 
-	protected void setCodeElement(Type type) {
+	protected void setCodeElement(MutableType type) {
 		codeElement = type;
 	}
 	

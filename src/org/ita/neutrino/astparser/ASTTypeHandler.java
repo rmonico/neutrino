@@ -1,6 +1,5 @@
 package org.ita.neutrino.astparser;
 
-import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.Type;
 
 /**
@@ -48,18 +47,6 @@ public class ASTTypeHandler {
 		handled.getConstructorList().put(constructorSignature, constructor);
 
 		return constructor;
-	}
-
-	/**
-	 * Deve criar um método usando os objetos do AST para que seja refletido no
-	 * código.
-	 * 
-	 * @param dummyType
-	 * @param newMethodName
-	 * @return
-	 */
-	public Method createNewMethod(String newMethodName) {
-		return null;
 	}
 
 }

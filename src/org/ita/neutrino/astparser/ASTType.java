@@ -10,14 +10,15 @@ import org.ita.neutrino.codeparser.AbstractCodeElement;
 import org.ita.neutrino.codeparser.Constructor;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.Method;
+import org.ita.neutrino.codeparser.MutableType;
 import org.ita.neutrino.codeparser.SourceFile;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.TypeAccessModifier;
 import org.ita.neutrino.codeparser.TypeListener;
 
-public abstract class ASTType extends AbstractCodeElement implements Type, ASTWrapper<TypeDeclaration> {
+public abstract class ASTType extends AbstractCodeElement implements MutableType, ASTWrapper<TypeDeclaration> {
 
-	private ASTTypeHandler handler = new ASTTypeHandler(this);
+	private ASTMutableTypeHandler handler = new ASTMutableTypeHandler(this);
 	private ASTPackage pack;
 	private String name;
 	private TypeAccessModifier accessModifier = new TypeAccessModifier();

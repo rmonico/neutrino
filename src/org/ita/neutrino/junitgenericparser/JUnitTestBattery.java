@@ -7,8 +7,8 @@ import org.ita.neutrino.abstracttestparser.TestElement;
 import org.ita.neutrino.abstracttestparser.TestParserException;
 import org.ita.neutrino.codeparser.CodeSelection;
 import org.ita.neutrino.codeparser.Environment;
+import org.ita.neutrino.codeparser.MutableType;
 import org.ita.neutrino.codeparser.ParserException;
-import org.ita.neutrino.codeparser.Type;
 
 public abstract class JUnitTestBattery implements TestBattery {
 
@@ -46,7 +46,7 @@ public abstract class JUnitTestBattery implements TestBattery {
 	protected abstract JUnitTestSuite instantiateSuite();
 
 	@SuppressWarnings("unchecked")
-	JUnitTestSuite createSuite(Type type) {
+	JUnitTestSuite createSuite(MutableType type) {
 		JUnitTestSuite suite = instantiateSuite();
 
 		suite.setParent(this);

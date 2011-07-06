@@ -2,9 +2,9 @@ package org.ita.neutrino.abstracttestparser;
 
 import java.util.List;
 
-import org.ita.neutrino.codeparser.Type;
+import org.ita.neutrino.codeparser.MutableType;
 
-public interface TestSuite extends TestElement<Type> {
+public interface TestSuite extends TestElement<MutableType> {
 
 	public String getName();
 

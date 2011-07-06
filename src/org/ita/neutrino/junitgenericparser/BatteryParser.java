@@ -6,6 +6,7 @@ import java.util.List;
 import org.ita.neutrino.codeparser.Environment;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.Method;
+import org.ita.neutrino.codeparser.MutableType;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.TypeKind;
 
@@ -19,7 +20,7 @@ public abstract class BatteryParser {
 
 	private Environment environment;
 	private JUnitTestBattery battery;
-	
+
 	public void setBattery(JUnitTestBattery battery) {
 		this.battery = battery;
 		environment = battery.getCodeElement();
@@ -34,9 +35,9 @@ public abstract class BatteryParser {
 	}
 
 	private void populateMethodList() {
-		List<Type> knownTypes = getKnownTypesList();
+		List<MutableType> knownTypes = getKnownTypesList();
 
-		for (Type t : knownTypes) {
+		for (MutableType t : knownTypes) {
 			// Não sei se a classe será uma suite de teste nesse momento
 			JUnitTestSuite suite = null;
 
@@ -51,8 +52,8 @@ public abstract class BatteryParser {
 					suite = battery.createSuite(t);
 				}
 
-				JUnitTestMethod testMethod = null; 
-					
+				JUnitTestMethod testMethod = null;
+
 				if (methodKind == TestMethodKind.BEFORE_METHOD) {
 					testMethod = suite.parseBeforeMethod(m);
 				} else if (methodKind == TestMethodKind.TEST_METHOD) {
@@ -60,14 +61,14 @@ public abstract class BatteryParser {
 				} else if (methodKind == TestMethodKind.AFTER_METHOD) {
 					testMethod = suite.parseAfterMethod(m);
 				}
-				
-				
+
 				if (m == environment.getSelectedElement()) {
 					battery.getSelection().setSelectedFragment(testMethod);
 				}
 			}
-			
-			// Se a classe corresponde a uma suíte de testes, e é o elemento selecionado no parser do código fonte...
+
+			// Se a classe corresponde a uma suíte de testes, e é o elemento
+			// selecionado no parser do código fonte...
 			if ((suite != null) && (t == environment.getSelectedElement())) {
 				// Então disponibilizá-la como seleção para o código de testes
 				battery.getSelection().setSelectedFragment(suite);
@@ -79,7 +80,7 @@ public abstract class BatteryParser {
 		for (JUnitTestSuite suite : battery.getSuiteList()) {
 			for (Field field : suite.getCodeElement().getFieldList().values()) {
 				JUnitFixture fixture = suite.createFixture(field);
-				
+
 				if (environment.getSelection().getSelectedElement() == field) {
 					battery.getSelection().setSelectedFragment(fixture);
 				}
@@ -89,19 +90,23 @@ public abstract class BatteryParser {
 
 	private void doBlocksParse() {
 		BlockParser parser = new BlockParser();
-		
+
 		parser.setBattery(battery);
-		
+
 		parser.parse();
-		
+
 	}
 
-	private List<Type> getKnownTypesList() {
-		List<Type> knownTypes = new ArrayList<Type>();
+	private List<MutableType> getKnownTypesList() {
+		List<MutableType> knownTypes = new ArrayList<MutableType>();
 
 		for (Type t : environment.getTypeCache().values()) {
 			if ((t.getKind() != TypeKind.UNKNOWN) && (t.getParent() != null)) {
-				knownTypes.add(t);
+				// Para o tipo ser considerado uma suite de testes, é necessário
+				// que seja mutável
+				if (t instanceof MutableType) {
+					knownTypes.add((MutableType) t);
+				}
 			}
 		}
 
