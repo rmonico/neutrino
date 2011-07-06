@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ita.neutrino.abstracttestparser.TestMethod;
-import org.ita.neutrino.codeparser.Method;
+import org.ita.neutrino.codeparser.Annotation;
+import org.ita.neutrino.codeparser.Environment;
+import org.ita.neutrino.codeparser.MutableMethod;
 import org.ita.neutrino.eclipseaction.NotImplementedYetException;
 
 public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTestSuite {
@@ -84,8 +86,13 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 	@Override
 	public TestMethod createNewBeforeTestsMethod() {
 		String newMethodName = getNewBeforeMethodName();
-		Method newMethod = getCodeElement().createNewMethod(newMethodName);
-		newMethod.addAnnotation();
+		MutableMethod newMethod = getCodeElement().createNewMethod(newMethodName);
+		
+		Environment environment = getCodeElement().getPackage().getParent();
+		
+		Annotation junit4BeforeAnnotation = (Annotation) environment.getTypeCache().get("org.junit.Before");
+		
+		newMethod.addAnnotation(junit4BeforeAnnotation);
 
 		return parseBeforeMethod(newMethod);
 	}

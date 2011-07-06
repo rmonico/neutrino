@@ -3,16 +3,18 @@ package org.ita.neutrino.astparser;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.NormalAnnotation;
+import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.ita.neutrino.codeparser.AbstractCodeElement;
 import org.ita.neutrino.codeparser.Annotation;
 import org.ita.neutrino.codeparser.Argument;
 import org.ita.neutrino.codeparser.CheckedExceptionClass;
-import org.ita.neutrino.codeparser.Method;
+import org.ita.neutrino.codeparser.MutableMethod;
 import org.ita.neutrino.codeparser.Type;
-import org.ita.neutrino.eclipseaction.NotImplementedYetException;
 
-public class ASTMethod extends AbstractCodeElement implements Method, ASTWrapper<MethodDeclaration> {
+public class ASTMethod extends AbstractCodeElement implements MutableMethod, ASTWrapper<MethodDeclaration> {
 
 	private ASTInnerElementAccessModifier accessModifier = new ASTInnerElementAccessModifier();
 	private String name;
@@ -20,12 +22,12 @@ public class ASTMethod extends AbstractCodeElement implements Method, ASTWrapper
 	private MethodDeclaration astObject;
 	private ASTBlock body;
 	private List<Annotation> annotationList = new ArrayList<Annotation>();
-	
+
 	ASTBlock createBlock() {
 		ASTBlock methodBlock = new ASTBlock();
-		
+
 		methodBlock.setParent(this);
-		
+
 		return methodBlock;
 	}
 
@@ -33,7 +35,7 @@ public class ASTMethod extends AbstractCodeElement implements Method, ASTWrapper
 	public ASTInnerElementAccessModifier getAccessModifier() {
 		return accessModifier;
 	}
-	
+
 	void setAccessModifier(ASTInnerElementAccessModifier accessModifier) {
 		this.accessModifier = accessModifier;
 	}
@@ -41,7 +43,7 @@ public class ASTMethod extends AbstractCodeElement implements Method, ASTWrapper
 	void setName(String name) {
 		this.name = name;
 	}
-	
+
 	@Override
 	public String getName() {
 		return name;
@@ -50,11 +52,11 @@ public class ASTMethod extends AbstractCodeElement implements Method, ASTWrapper
 	void setParentType(Type parent) {
 		this.parent = parent;
 	}
-	
-	public Type getParent() {
-		return (Type) super.getParent();
+
+	public ASTType getParent() {
+		return (ASTType) super.getParent();
 	}
-	
+
 	@Override
 	public List<Annotation> getAnnotations() {
 		return annotationList;
@@ -64,7 +66,7 @@ public class ASTMethod extends AbstractCodeElement implements Method, ASTWrapper
 	public ASTMethodDeclarationNonAccessModifier getNonAccessModifier() {
 		return nonAccessModifier;
 	}
-	
+
 	void setNonAccessModifier(ASTMethodDeclarationNonAccessModifier nonAccessModifier) {
 		this.nonAccessModifier = nonAccessModifier;
 	}
@@ -86,36 +88,46 @@ public class ASTMethod extends AbstractCodeElement implements Method, ASTWrapper
 
 	@Override
 	public void setASTObject(MethodDeclaration astObject) {
-		this.astObject = astObject; 
+		this.astObject = astObject;
 	}
 
 	@Override
 	public MethodDeclaration getASTObject() {
 		return astObject;
 	}
-	
+
 	@Override
 	public ASTBlock getBody() {
 		if (nonAccessModifier.isAbstract()) {
 			return null;
 		}
-		
+
 		if (body == null) {
 			body = createBlock();
 		}
-		
+
 		return body;
 	}
-	
+
 	@Override
 	public String toString() {
 		return name;
 	}
 
+	/**
+	 * Mutable method.
+	 */
 	@Override
-	public void addAnnotation() {
-//		throw new NotImplementedYetException();
+	public void addAnnotation(Annotation annotation) {
+		AST ast = astObject.getAST();
 		
+		ASTRewrite rewrite = getParent().getParent().getASTObject().getRewrite();
+		
+		NormalAnnotation astAnnotation = ast.newNormalAnnotation();
+
+		astAnnotation.setTypeName(ast.newName(annotation.getQualifiedName()));
+
+		rewrite.getListRewrite(astObject, MethodDeclaration.MODIFIERS2_PROPERTY).insertFirst(astAnnotation, null);
 	}
 
 }

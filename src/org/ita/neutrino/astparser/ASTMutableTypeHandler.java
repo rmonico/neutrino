@@ -13,6 +13,7 @@ import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 import org.ita.neutrino.astparser.ASTSourceFile.ASTContainer;
 import org.ita.neutrino.codeparser.Method;
+import org.ita.neutrino.codeparser.MutableMethod;
 
 public class ASTMutableTypeHandler extends ASTTypeHandler {
 
@@ -32,9 +33,7 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 	 * @param newMethodName
 	 * @return
 	 */
-	public Method createNewMethod(String newMethodName) {
-		// TODO: Continuar aqui, pegar o código do projeto antigo e colocar aqui
-
+	public MutableMethod createNewMethod(String newMethodName) {
 		ASTContainer compilationUnitASTContainer = handled.getParent().getASTObject();
 
 		AST ast = compilationUnitASTContainer.getCompilationUnit().getAST();
@@ -51,7 +50,7 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 
 		String methodSignature = newSetup.getName().toString();
 
-		Method newSetupMethod = createMethod(methodSignature);
+		MutableMethod newSetupMethod = createMethod(methodSignature);
 		
 		@SuppressWarnings("unchecked")
 		List<Modifier> modifiers = newSetup.modifiers();

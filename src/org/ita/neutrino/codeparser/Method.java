@@ -13,6 +13,4 @@ public interface Method extends TypeElement, Invokable {
 	
 	Type getReturnType();
 
-	void addAnnotation();
-	
 }

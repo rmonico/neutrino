@@ -10,6 +10,7 @@ import org.ita.neutrino.codeparser.AbstractCodeElement;
 import org.ita.neutrino.codeparser.Constructor;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.Method;
+import org.ita.neutrino.codeparser.MutableMethod;
 import org.ita.neutrino.codeparser.MutableType;
 import org.ita.neutrino.codeparser.SourceFile;
 import org.ita.neutrino.codeparser.Type;
@@ -185,7 +186,7 @@ public abstract class ASTType extends AbstractCodeElement implements MutableType
 	}
 
 	@Override
-	public Method createNewMethod(String newMethodName) {
+	public MutableMethod createNewMethod(String newMethodName) {
 		return handler.createNewMethod(newMethodName);
 	}
 
