@@ -44,7 +44,7 @@ public class JUnitTestMethod extends org.ita.neutrino.junitgenericparser.JUnitTe
 
 	@Override
 	public void addStatements(List<TestStatement> testStatements) {
-		throw new NotImplementedYetException();
+//		throw new NotImplementedYetException();
 		// TODO
 //		List<Statement> codeStatements = new ArrayList<Statement>();
 //		

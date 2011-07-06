@@ -114,7 +114,7 @@ public class ASTMethod extends AbstractCodeElement implements Method, ASTWrapper
 
 	@Override
 	public void addAnnotation() {
-		throw new NotImplementedYetException();
+//		throw new NotImplementedYetException();
 		
 	}
 
