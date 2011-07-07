@@ -10,21 +10,19 @@ import org.ita.neutrino.abstracttestparser.TestParserException;
 import org.ita.neutrino.addexplanation.AddExplanationRefactoring;
 import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.junitgenericparser.JUnitGenericParser;
-import org.ita.neutrino.tests.RefactoringAbstractTests;
+import org.ita.neutrino.tests.PluginAbstractTests;
 import org.junit.Test;
 
-public abstract class AddExplanationToAssertionTests extends RefactoringAbstractTests {
+public abstract class AddExplanationToAssertionTests extends PluginAbstractTests {
 	
 	protected ICompilationUnit refactoredCompilationUnit;
-	
 	protected JUnitGenericParser testParser;
 
 	protected abstract void prepareTests() throws JavaModelException, ParserException, TestParserException;
-	
 	protected abstract StringBuilder getExpectedSource();
 	
 	@Test
-	public void testAddExplanationToAssertionNewRefactoring() throws JavaModelException, RefactoringException, TestParserException, ParserException {
+	public void testAddExplanationToAssertionRefactoring() throws JavaModelException, RefactoringException, TestParserException, ParserException {
 
 		prepareTests();
 		

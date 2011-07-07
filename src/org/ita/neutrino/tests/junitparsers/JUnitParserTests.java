@@ -16,10 +16,10 @@ import org.ita.neutrino.junitgenericparser.JUnitTestBattery;
 import org.ita.neutrino.junitgenericparser.JUnitTestMethod;
 import org.ita.neutrino.junitgenericparser.JUnitTestStatement;
 import org.ita.neutrino.junitgenericparser.JUnitTestSuite;
-import org.ita.neutrino.tests.RefactoringAbstractTests;
+import org.ita.neutrino.tests.PluginAbstractTests;
 import org.junit.Test;
 
-public abstract class JUnitParserTests extends RefactoringAbstractTests {
+public abstract class JUnitParserTests extends PluginAbstractTests {
 
 	protected ASTParser codeParser;
 	protected JUnitTestBattery battery;

@@ -10,10 +10,10 @@ import org.ita.neutrino.abstracttestparser.TestParserException;
 import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.extractinitializationmethod.ExtractInitializationMethodRefactoring;
 import org.ita.neutrino.junitgenericparser.JUnitGenericParser;
-import org.ita.neutrino.tests.RefactoringAbstractTests;
+import org.ita.neutrino.tests.PluginAbstractTests;
 import org.junit.Test;
 
-public abstract class ExtractInitializationMethodTests extends RefactoringAbstractTests {
+public abstract class ExtractInitializationMethodTests extends PluginAbstractTests {
 	
 	protected ICompilationUnit refactoredCompilationUnit;
 	protected JUnitGenericParser testParser;
@@ -23,6 +23,7 @@ public abstract class ExtractInitializationMethodTests extends RefactoringAbstra
 	
 	@Test
 	public void testExtractInitializationMethodRefactoring() throws JavaModelException, RefactoringException, TestParserException, ParserException {
+
 		prepareTests();
 
 		// Aplica a refatoração na bateria de testes

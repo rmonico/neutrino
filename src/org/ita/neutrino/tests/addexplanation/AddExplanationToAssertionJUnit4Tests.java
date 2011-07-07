@@ -9,11 +9,10 @@ import org.ita.neutrino.abstracttestparser.TestParserException;
 import org.ita.neutrino.astparser.ASTParser;
 import org.ita.neutrino.codeparser.CodeSelection;
 import org.ita.neutrino.codeparser.ParserException;
-import org.ita.neutrino.junit3parser.JUnit3Parser;
+import org.ita.neutrino.junit4parser.JUnit4Parser;
 
-public class AddExplanationJUnit3Tests extends AddExplanationToAssertionTests {
+public class AddExplanationToAssertionJUnit4Tests extends AddExplanationToAssertionTests {
 
-	@Override
 	protected void prepareTests() throws JavaModelException, ParserException, TestParserException {
 		List<ICompilationUnit> compilationUnits = new ArrayList<ICompilationUnit>();
 
@@ -21,10 +20,14 @@ public class AddExplanationJUnit3Tests extends AddExplanationToAssertionTests {
 
 		beforeRefactoringSource.append("package org.ita.neutrino.addexplanationrefactoring;\n");
 		beforeRefactoringSource.append("\n");
-		beforeRefactoringSource.append("import junit.framework.TestCase;\n");
+		beforeRefactoringSource.append("import static org.junit.Assert.assertEquals;\n");
 		beforeRefactoringSource.append("\n");
-		beforeRefactoringSource.append("public class TestNotasJUnit3 extends TestCase {\n");
-		beforeRefactoringSource.append("    \n");
+		beforeRefactoringSource.append("import org.junit.Test;\n");
+		beforeRefactoringSource.append("\n");
+		beforeRefactoringSource.append("public class TestNotasJUnit4 {\n");
+		beforeRefactoringSource.append("\n");
+		beforeRefactoringSource.append("    @SuppressWarnings(\"unused\")\n");
+		beforeRefactoringSource.append("    @Test\n");
 		beforeRefactoringSource.append("    public void testNotasTurma() {\n");
 		beforeRefactoringSource.append("        Notas not = new Notas();\n");
 		beforeRefactoringSource.append("\n");
@@ -36,7 +39,7 @@ public class AddExplanationJUnit3Tests extends AddExplanationToAssertionTests {
 		beforeRefactoringSource.append("    }\n");
 		beforeRefactoringSource.append("}\n");
 
-		refactoredCompilationUnit = createSourceFile("org.ita.neutrino.addexplanationrefactoring", "TestNotasJUnit3.java", beforeRefactoringSource);
+		refactoredCompilationUnit = createSourceFile("org.ita.neutrino.addexplanationrefactoring", "TestNotasJUnit4.java", beforeRefactoringSource);
 		compilationUnits.add(refactoredCompilationUnit);
 
 		StringBuilder productionClassCode = new StringBuilder();
@@ -64,12 +67,12 @@ public class AddExplanationJUnit3Tests extends AddExplanationToAssertionTests {
 		CodeSelection selection = codeParser.getSelection();
 		
 		selection.setSourceFile(refactoredCompilationUnit);
-		selection.setSelectionStart(310);
+		selection.setSelectionStart(375);
 		selection.setSelectionLength(12);
 		
 		codeParser.parse();
-		
-		testParser = new JUnit3Parser();
+
+		testParser = new JUnit4Parser();
 		
 		testParser.setEnvironment(codeParser.getEnvironment());
 		
@@ -77,16 +80,19 @@ public class AddExplanationJUnit3Tests extends AddExplanationToAssertionTests {
 
 	}
 
-	@Override
 	protected StringBuilder getExpectedSource() {
 		StringBuilder expectedSource = new StringBuilder();
 
 		expectedSource.append("package org.ita.neutrino.addexplanationrefactoring;\n");
 		expectedSource.append("\n");
-		expectedSource.append("import junit.framework.TestCase;\n");
+		expectedSource.append("import static org.junit.Assert.assertEquals;\n");
 		expectedSource.append("\n");
-		expectedSource.append("public class TestNotasJUnit3 extends TestCase {\n");
-		expectedSource.append("    \n");
+		expectedSource.append("import org.junit.Test;\n");
+		expectedSource.append("\n");
+		expectedSource.append("public class TestNotasJUnit4 {\n");
+		expectedSource.append("\n");
+		expectedSource.append("    @SuppressWarnings(\"unused\")\n");
+		expectedSource.append("    @Test\n");
 		expectedSource.append("    public void testNotasTurma() {\n");
 		expectedSource.append("        Notas not = new Notas();\n");
 		expectedSource.append("\n");

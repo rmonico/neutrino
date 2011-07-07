@@ -13,10 +13,10 @@ import org.ita.neutrino.codeparser.MethodInvocationExpression;
 import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.VariableDeclarationStatement;
-import org.ita.neutrino.tests.RefactoringAbstractTests;
+import org.ita.neutrino.tests.PluginAbstractTests;
 import org.junit.Test;
 
-public class TestSupportedBlockSintax extends RefactoringAbstractTests {
+public class TestSupportedBlockSintax extends PluginAbstractTests {
 
 	private ICompilationUnit blockSupportedSintax;
 

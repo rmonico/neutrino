@@ -26,7 +26,7 @@ import org.junit.Before;
  * <code>getProject()</code>.
  * 
  */
-public class RefactoringAbstractTests {
+public class PluginAbstractTests {
 
 	private Map<String, IPackageFragment> knownPackages = new HashMap<String, IPackageFragment>();
 	private IJavaProject javaProject;

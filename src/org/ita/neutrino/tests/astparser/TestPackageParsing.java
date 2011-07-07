@@ -8,10 +8,10 @@ import org.ita.neutrino.astparser.ASTEnvironment;
 import org.ita.neutrino.astparser.ASTPackage;
 import org.ita.neutrino.astparser.ASTParser;
 import org.ita.neutrino.codeparser.ParserException;
-import org.ita.neutrino.tests.RefactoringAbstractTests;
+import org.ita.neutrino.tests.PluginAbstractTests;
 import org.junit.Test;
 
-public class TestPackageParsing extends RefactoringAbstractTests {
+public class TestPackageParsing extends PluginAbstractTests {
 	
 	private ICompilationUnit[] compilationUnits;
 	
