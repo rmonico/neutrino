@@ -3,13 +3,13 @@ package org.ita.neutrino.extractinitializationmethod;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
 import org.ita.neutrino.abstracrefactoring.RefactoringException;
 import org.ita.neutrino.abstracttestparser.TestMethod;
 import org.ita.neutrino.abstracttestparser.TestStatement;
 import org.ita.neutrino.abstracttestparser.TestSuite;
+import org.ita.neutrino.extractmethod.AbstractExtractMethodRefactoring;
 
-public class ExtractInitializationMethodRefactoring extends AbstractRefactoring {
+public class ExtractInitializationMethodRefactoring extends AbstractExtractMethodRefactoring {
 
 	private TestSuite targetSuite;
 	private List<TestStatement> commomStatements;
@@ -23,7 +23,7 @@ public class ExtractInitializationMethodRefactoring extends AbstractRefactoring 
 		} else {
 			targetSuite = (TestSuite) getTargetFragment();
 
-			commomStatements = listCommonStatements(targetSuite);
+			commomStatements = listCommonStatements(targetSuite, true);
 			
 			if (commomStatements.isEmpty()) {
 				problems.add("Methods have no commom initialization. Unable to extract initialization method.");
@@ -31,45 +31,6 @@ public class ExtractInitializationMethodRefactoring extends AbstractRefactoring 
 		}
 
 		return problems;
-	}
-
-	private List<TestStatement> listCommonStatements(TestSuite suite) {
-		List<TestStatement> commomStatements = new ArrayList<TestStatement>();
-
-		List<? extends TestMethod> testMethods = suite.getTestMethodList();
-
-		// Utiliza a lista de statements do primeiro método como base para
-		// comparar com os demais
-		commomStatements.addAll(testMethods.get(0).getStatements());
-
-		// iterar por todos, exceto o primeiro
-		for (int i = 1; i < testMethods.size(); i++) {
-			TestMethod testMethod = testMethods.get(i);
-
-			// Compara duas lista de elementos de teste 
-			// Cálculo do tamanho da menor lista
-			int smallerListSize;
-			
-			if (testMethod.getStatements().size() < commomStatements.size()) {
-				smallerListSize = testMethod.getStatements().size();
-			} else {
-				smallerListSize = commomStatements.size();
-			}
-				
-			// Comparar os statements da lista base com os do método sendo
-			// testado, testMethod
-			for (int j=0; j<smallerListSize; j++) {
-				TestStatement baseStatement = commomStatements.get(j);
-				TestStatement testingStatement = testMethod.getStatements().get(j);
-				
-				if (!baseStatement.equals(testingStatement)) {
-					commomStatements = commomStatements.subList(0, j);
-					break;
-				}
-			}
-		}
-
-		return commomStatements;
 	}
 
 	@Override
