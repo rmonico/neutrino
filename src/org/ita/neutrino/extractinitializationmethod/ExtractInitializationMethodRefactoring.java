@@ -74,6 +74,7 @@ public class ExtractInitializationMethodRefactoring extends AbstractRefactoring 
 
 	@Override
 	protected void doRefactor() throws RefactoringException {
+		
 		TestMethod beforeMethod;
 		
 		if (targetSuite.getBeforeMethodList().isEmpty()) {
@@ -85,7 +86,9 @@ public class ExtractInitializationMethodRefactoring extends AbstractRefactoring 
 
 		beforeMethod.addStatements(commomStatements);
 		
-		beforeMethod.removeFirstStatements(commomStatements.size());
+		for (TestMethod testMethod : targetSuite.getTestMethodList()) {
+			testMethod.removeFirstStatements(commomStatements.size());
+		}
 	}
 
 }

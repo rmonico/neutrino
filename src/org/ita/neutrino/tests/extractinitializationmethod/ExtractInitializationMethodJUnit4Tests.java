@@ -49,7 +49,6 @@ public class ExtractInitializationMethodJUnit4Tests extends RefactoringAbstractT
 		beforeRefactoringSource.append("        assertTrue(\"Conexão Estabelecida\", connect.isConectado());\n");
 		beforeRefactoringSource.append("        assertFalse(\"Esperando Conexão\", connect.isListen());\n");
 		beforeRefactoringSource.append("        connect.fecharConexao();\n");
-		beforeRefactoringSource.append("\n");
 		beforeRefactoringSource.append("    }\n");
 		beforeRefactoringSource.append("\n");
 		beforeRefactoringSource.append("    @Test\n");
@@ -179,9 +178,6 @@ public class ExtractInitializationMethodJUnit4Tests extends RefactoringAbstractT
 
 	@Test
 	public void testExtractInitializationMethodRefactoring() throws JavaModelException, RefactoringException, TestParserException, ParserException {
-		// Debug purposes
-//		setDeleteTestProject(false);
-		
 		prepareTests();
 
 		// Aplica a refatoração na bateria de testes
