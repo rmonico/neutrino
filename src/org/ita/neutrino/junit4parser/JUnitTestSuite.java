@@ -87,7 +87,7 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 	public TestMethod createNewBeforeTestsMethod() {
 		String newMethodName = getNewBeforeMethodName();
 		
-		MutableMethod newMethod = getCodeElement().createNewMethod(newMethodName);
+		MutableMethod newMethod = getCodeElement().createNewMethod(newMethodName, 0);
 		
 		Environment environment = getCodeElement().getPackage().getParent();
 		
@@ -118,4 +118,41 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 		// TODO: colocar um número na frente do setup. Exemplo: setup1
 		throw new NotImplementedYetException();
 	}
+
+	@Override
+	public TestMethod createNewAfterTestsMethod() {
+		String newMethodName = getNewAfterMethodName();
+		
+		MutableMethod newMethod = getCodeElement().createNewMethod(newMethodName, -1);
+		
+		Environment environment = getCodeElement().getPackage().getParent();
+		
+		Type junit4AfterAnnotation = (Type) environment.getTypeCache().get("org.junit.After");
+		
+		newMethod.addAnnotation(junit4AfterAnnotation);
+
+		return parseAfterMethod(newMethod);
+	}
+
+	private static final String defaultAfterMethodName = "teardown";
+
+	private String getNewAfterMethodName() {
+		boolean hasTeardown = false;
+
+		// Já há um método teardown?
+		for (TestMethod testMethod : getAfterMethodList()) {
+			if (testMethod.getName().equals(defaultAfterMethodName)) {
+				hasTeardown = true;
+				break;
+			}
+		}
+
+		if (!hasTeardown) {
+			return defaultAfterMethodName;
+		}
+
+		// TODO: colocar um número na frente do setup. Exemplo: teardown1
+		throw new NotImplementedYetException();
+	}
+
 }

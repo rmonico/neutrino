@@ -186,8 +186,8 @@ public abstract class ASTType extends AbstractCodeElement implements MutableType
 	}
 
 	@Override
-	public MutableMethod createNewMethod(String newMethodName) {
-		return handler.createNewMethod(newMethodName);
+	public MutableMethod createNewMethod(String newMethodName, int index) {
+		return handler.createNewMethod(newMethodName, index);
 	}
 
 	@Override

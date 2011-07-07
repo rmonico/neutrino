@@ -29,16 +29,17 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 	 * 
 	 * @param dummyType
 	 * @param newMethodName
+	 * @param index 
 	 * @return
 	 */
-	public MutableMethod createNewMethod(String newMethodName) {
+	public MutableMethod createNewMethod(String newMethodName, int index) {
 		ASTContainer compilationUnitASTContainer = handled.getParent().getASTObject();
 
 		AST ast = compilationUnitASTContainer.getCompilationUnit().getAST();
 
 		MethodDeclaration newSetup = ast.newMethodDeclaration();
 
-		newSetup.setName(ast.newSimpleName("setup"));
+		newSetup.setName(ast.newSimpleName(newMethodName));
 
 		newSetup.setReturnType2(ast.newPrimitiveType(PrimitiveType.VOID));
 
@@ -61,8 +62,12 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 
 		ListRewrite lrw = rewrite.getListRewrite(handled.getASTObject(), TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
 
-		lrw.insertFirst(newSetup, null);
-
+		if (index == -1) {
+			lrw.insertLast(newSetup, null);
+		} else {
+			lrw.insertAt(newSetup, index, null);
+		}
+		
 		return newSetupMethod;
 	}
 

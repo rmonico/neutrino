@@ -6,7 +6,7 @@ public interface MutableMethod extends Method {
 	
 	void addAnnotation(Type junit4BeforeAnnotation);
 
-	void addStatements(List<Statement> codeStatements);
+	void addStatements(List<Statement> codeStatements, int index);
 
 	void removeFirstStatements(int count);
 }

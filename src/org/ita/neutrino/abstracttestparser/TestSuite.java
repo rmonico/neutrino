@@ -27,4 +27,6 @@ public interface TestSuite extends TestElement<MutableType> {
 	 * alterações.
 	 */
 	public TestMethod createNewBeforeTestsMethod();
+
+	public TestMethod createNewAfterTestsMethod();
 }

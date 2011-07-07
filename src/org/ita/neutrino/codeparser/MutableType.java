@@ -6,6 +6,6 @@ public interface MutableType extends Type {
 
 	Map<String, MutableMethod> getMutableMethodList();
 
-	MutableMethod createNewMethod(String newMethodName);
+	MutableMethod createNewMethod(String newMethodName, int index);
 
 }

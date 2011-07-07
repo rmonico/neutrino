@@ -13,7 +13,7 @@ public interface TestMethod extends TestElement<Method> {
 
 	public abstract List<? extends TestStatement> getStatements();
 
-	public abstract void addStatements(List<TestStatement> statements);
+	public abstract void addStatements(List<TestStatement> statements, int index);
 	
 	public MutableMethod getCodeElement();
 

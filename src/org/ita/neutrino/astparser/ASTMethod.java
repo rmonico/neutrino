@@ -136,15 +136,17 @@ public class ASTMethod extends AbstractCodeElement implements MutableMethod, AST
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void addStatements(List<Statement> codeStatements) {
+	public void addStatements(List<Statement> codeStatements, int index) {
 		Block block = getASTObject().getBody();
 
 		AST ast = astObject.getAST();
-		
+
 		ASTRewrite rewrite = ((ASTType) getParent()).getParent().getASTObject().getRewrite();
-		
-		ListRewrite lwr = rewrite.getListRewrite(block, Block.STATEMENTS_PROPERTY);
-		
+
+		ListRewrite lrw = rewrite.getListRewrite(block, Block.STATEMENTS_PROPERTY);
+
+		int originalListSize = lrw.getOriginalList().size()-1;
+
 		for (Statement statement : codeStatements) {
 			ASTAbstractStatement<ASTNode> astStatement = (ASTAbstractStatement<ASTNode>) statement;
 
@@ -152,9 +154,13 @@ public class ASTMethod extends AbstractCodeElement implements MutableMethod, AST
 
 			ASTNode copyOfAstNode = ASTNode.copySubtree(ast, astNode);
 
-//			block.statements().add(copyOfAstNode);
-			
-			lwr.insertLast(copyOfAstNode, null);
+			// block.statements().add(copyOfAstNode);
+
+			if (index == -1) {
+				lrw.insertAt(copyOfAstNode, originalListSize, null);
+			} else {
+				lrw.insertAt(copyOfAstNode, index, null);
+			}
 		}
 	}
 

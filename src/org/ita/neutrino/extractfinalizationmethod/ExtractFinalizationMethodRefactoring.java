@@ -100,20 +100,20 @@ public class ExtractFinalizationMethodRefactoring extends AbstractRefactoring {
 	@Override
 	protected void doRefactor() throws RefactoringException {
 
-		TestMethod beforeMethod;
+		TestMethod afterMethod;
 
-		if (targetSuite.getBeforeMethodList().isEmpty()) {
-			beforeMethod = targetSuite.createNewBeforeTestsMethod();
+		if (targetSuite.getAfterMethodList().isEmpty()) {
+			afterMethod = targetSuite.createNewAfterTestsMethod();
 		} else {
-			List<? extends TestMethod> beforeMethodList = targetSuite.getBeforeMethodList();
-			beforeMethod = beforeMethodList.get(beforeMethodList.size() - 1);
+			List<? extends TestMethod> afterMethodList = targetSuite.getAfterMethodList();
+			afterMethod = afterMethodList.get(0);
 		}
 
-		beforeMethod.addStatements(commomStatements);
+		afterMethod.addStatements(commomStatements, 0);
 
-		for (TestMethod testMethod : targetSuite.getTestMethodList()) {
-			testMethod.removeFirstStatements(commomStatements.size());
-		}
+//		for (TestMethod testMethod : targetSuite.getTestMethodList()) {
+//			testMethod.removeLastStatements(commomStatements.size());
+//		}
 	}
 
 }

@@ -90,13 +90,13 @@ public abstract class JUnitTestMethod implements TestMethod {
 	}
 
 	@Override
-	public void addStatements(List<TestStatement> testStatements) {
+	public void addStatements(List<TestStatement> testStatements, int index) {
 		List<Statement> codeStatements = new ArrayList<Statement>();
 		
 		for (TestStatement codeStatement : testStatements) {
 			codeStatements.add(codeStatement.getCodeElement());
 		}
 		
-		getCodeElement().addStatements(codeStatements);
+		getCodeElement().addStatements(codeStatements, index);
 	}
 }
