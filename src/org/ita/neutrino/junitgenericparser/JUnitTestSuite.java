@@ -5,7 +5,7 @@ import java.util.List;
 import org.ita.neutrino.abstracttestparser.TestElement;
 import org.ita.neutrino.abstracttestparser.TestSuite;
 import org.ita.neutrino.codeparser.Field;
-import org.ita.neutrino.codeparser.Method;
+import org.ita.neutrino.codeparser.MutableMethod;
 import org.ita.neutrino.codeparser.MutableType;
 
 public abstract class JUnitTestSuite implements TestSuite {
@@ -36,7 +36,7 @@ public abstract class JUnitTestSuite implements TestSuite {
 	protected abstract JUnitTestMethod instantiateTestMethod();
 	
 	@SuppressWarnings("unchecked")
-	private JUnitTestMethod internalCreateTestMethod(Method element, List<? extends JUnitTestMethod> destList) {
+	private JUnitTestMethod internalCreateTestMethod(MutableMethod element, List<? extends JUnitTestMethod> destList) {
 		JUnitTestMethod method = instantiateTestMethod();
 
 		method.setParent(this);
@@ -48,15 +48,15 @@ public abstract class JUnitTestSuite implements TestSuite {
 		return method;
 	}
 
-	protected JUnitTestMethod parseBeforeMethod(Method element) {
+	protected JUnitTestMethod parseBeforeMethod(MutableMethod element) {
 		return internalCreateTestMethod(element, beforeMethodList);
 	}
 
-	protected JUnitTestMethod parseTestMethod(Method element) {
+	protected JUnitTestMethod parseTestMethod(MutableMethod element) {
 		return internalCreateTestMethod(element, testMethodList);
 	}
 
-	protected JUnitTestMethod parseAfterMethod(Method element) {
+	protected JUnitTestMethod parseAfterMethod(MutableMethod element) {
 		return internalCreateTestMethod(element, afterMethodList);
 	}
 	

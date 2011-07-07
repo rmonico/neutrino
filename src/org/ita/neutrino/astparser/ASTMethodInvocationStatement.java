@@ -2,12 +2,12 @@ package org.ita.neutrino.astparser;
 
 import java.util.List;
 
-import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.eclipse.jdt.core.dom.ASTNode;
 import org.ita.neutrino.codeparser.Expression;
 import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.MethodInvocationStatement;
 
-public class ASTMethodInvocationStatement extends ASTAbstractStatement<org.eclipse.jdt.core.dom.MethodInvocation> implements MethodInvocationStatement, MethodInvocationDelegator, ASTWritableElement {
+public class ASTMethodInvocationStatement extends ASTAbstractStatement<org.eclipse.jdt.core.dom.ASTNode> implements MethodInvocationStatement, MethodInvocationDelegator, ASTWritableElement {
 
 	private MethodInvocationHandler mih = new MethodInvocationHandler(this);
 
@@ -26,12 +26,12 @@ public class ASTMethodInvocationStatement extends ASTAbstractStatement<org.eclip
 	}
 
 	@Override
-	public void setASTObject(MethodInvocation astObject) {
-		mih.setASTObject(astObject);
+	public void setASTObject(ASTNode node) {
+		mih.setASTObject(node);
 	}
 	
 	@Override
-	public MethodInvocation getASTObject() {
+	public ASTNode getASTObject() {
 		return mih.getASTObject();
 	}
 

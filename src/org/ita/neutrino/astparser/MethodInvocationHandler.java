@@ -3,6 +3,8 @@ package org.ita.neutrino.astparser;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
@@ -22,7 +24,7 @@ class MethodInvocationHandler implements ASTMethodInvocation, ASTWritableElement
 	private List<Expression> parameterList;
 	private ListWrapper<Expression> wrapper;
 	private AbstractListListener<Expression> listener;
-	private org.eclipse.jdt.core.dom.MethodInvocation astObject;
+	private ASTNode astObject;
 
 	public MethodInvocationHandler(MethodInvocationDelegator delegator) {
 		this.delegator = delegator;
@@ -64,7 +66,7 @@ class MethodInvocationHandler implements ASTMethodInvocation, ASTWritableElement
 	 * 
 	 */
 	private void parameterListItemAdded(int index, Expression element) {
-		org.eclipse.jdt.core.dom.MethodInvocation assertInvocation = delegator.getASTObject();
+		org.eclipse.jdt.core.dom.MethodInvocation assertInvocation = (MethodInvocation) ((ExpressionStatement) delegator.getASTObject()).getExpression();
 
 		ASTContainer container = locateASTContainerOfDelegator();
 
@@ -100,12 +102,12 @@ class MethodInvocationHandler implements ASTMethodInvocation, ASTWritableElement
 	}
 
 	@Override
-	public org.eclipse.jdt.core.dom.MethodInvocation getASTObject() {
+	public ASTNode getASTObject() {
 		return astObject;
 	}
 
 	@Override
-	public void setASTObject(org.eclipse.jdt.core.dom.MethodInvocation astObject) {
+	public void setASTObject(ASTNode astObject) {
 		this.astObject = astObject;
 	}
 

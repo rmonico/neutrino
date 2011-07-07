@@ -4,7 +4,7 @@ import org.ita.neutrino.codeparser.AbstractCodeElement;
 import org.ita.neutrino.codeparser.Expression;
 import org.ita.neutrino.codeparser.Type;
 
-public abstract class ASTAbstractExpression<T extends org.eclipse.jdt.core.dom.Expression> extends AbstractCodeElement implements Expression, ASTWrapper<T> {
+public abstract class ASTAbstractExpression<T extends org.eclipse.jdt.core.dom.ASTNode> extends AbstractCodeElement implements Expression, ASTWrapper<T> {
 
 	private T astObject;
 	private Type type;

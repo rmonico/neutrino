@@ -87,11 +87,12 @@ class BlockParser {
 
 			ASTMethodInvocationStatement methodInvocation = block.createMethodInvocationStatement();
 
-			methodInvocation.setASTObject(astMethodInvocation);
+			methodInvocation.setASTObject(node);
 
 			populateParameterList(methodInvocation.getParameterList(), astMethodInvocation.arguments());
 
 			String methodTypeQualifiedName = astMethodInvocation.resolveMethodBinding().getDeclaringClass().getQualifiedName();
+			
 			String methodName = astMethodInvocation.getName().getIdentifier();
 
 			Type type = environment.getTypeCache().get(methodTypeQualifiedName);
@@ -171,7 +172,7 @@ class BlockParser {
 
 				ASTMethodInvocationExpression mie = environment.createMethodInvocationExpression(methodSignatureString);
 
-				mie.setASTObject(astNode);
+				mie.setASTObject(node);
 
 				populateParameterList(mie.getParameterList(), astNode.arguments());
 

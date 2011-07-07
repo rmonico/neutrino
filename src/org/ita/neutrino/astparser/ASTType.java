@@ -190,5 +190,14 @@ public abstract class ASTType extends AbstractCodeElement implements MutableType
 		return handler.createNewMethod(newMethodName);
 	}
 
-
+	@Override
+	public Map<String, MutableMethod> getMutableMethodList() {
+		Map<String, MutableMethod> mutableMethodList = new HashMap<String, MutableMethod>();
+		
+		for (String methodName : methodList.keySet()) {
+			mutableMethodList.put(methodName, (MutableMethod) methodList.get(methodName));
+		}
+		
+		return mutableMethodList;
+	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.ita.neutrino.codeparser.Environment;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.Method;
+import org.ita.neutrino.codeparser.MutableMethod;
 import org.ita.neutrino.codeparser.MutableType;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.TypeKind;
@@ -41,7 +42,7 @@ public abstract class BatteryParser {
 			// Não sei se a classe será uma suite de teste nesse momento
 			JUnitTestSuite suite = null;
 
-			for (Method m : t.getMethodList().values()) {
+			for (MutableMethod m : t.getMutableMethodList().values()) {
 				TestMethodKind methodKind = getTestMethodKind(m);
 
 				if (methodKind == TestMethodKind.NOT_TEST_METHOD) {

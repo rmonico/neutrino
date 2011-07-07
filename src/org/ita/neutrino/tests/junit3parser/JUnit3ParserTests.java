@@ -148,14 +148,14 @@ public class JUnit3ParserTests extends RefactoringAbstractTests {
 		
 		JUnitAction action = (JUnitAction) statementList.get(0);
 		
-		assertEquals("Action: valor", "action()", action.toString());
+		assertEquals("Action: valor", "action();\n", action.toString());
 		
 		
 		assertEquals("Assertion: classe", statementList.get(1).getClass(), JUnitAssertion.class);
 		
 		JUnitAssertion assertion = (JUnitAssertion) statementList.get(1);
 		
-		assertEquals("Assertion: valor", "assertTrue(\"Comment\",true)", assertion.toString());
+		assertEquals("Assertion: valor", "assertTrue(\"Comment\",true);\n", assertion.toString());
 				
 		assertEquals("Assertion: comentário", "Comment", assertion.getExplanation());
 		

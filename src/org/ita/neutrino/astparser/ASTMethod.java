@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.AST;
+import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
@@ -12,6 +14,7 @@ import org.ita.neutrino.codeparser.Annotation;
 import org.ita.neutrino.codeparser.Argument;
 import org.ita.neutrino.codeparser.CheckedExceptionClass;
 import org.ita.neutrino.codeparser.MutableMethod;
+import org.ita.neutrino.codeparser.Statement;
 import org.ita.neutrino.codeparser.Type;
 
 public class ASTMethod extends AbstractCodeElement implements MutableMethod, ASTWrapper<MethodDeclaration> {
@@ -120,14 +123,32 @@ public class ASTMethod extends AbstractCodeElement implements MutableMethod, AST
 	@Override
 	public void addAnnotation(Type annotation) {
 		AST ast = astObject.getAST();
-		
+
 		ASTRewrite rewrite = ((ASTSourceFile) getParent().getParent()).getASTObject().getRewrite();
-		
+
 		NormalAnnotation astAnnotation = ast.newNormalAnnotation();
 
 		astAnnotation.setTypeName(ast.newName(annotation.getQualifiedName()));
 
 		rewrite.getListRewrite(astObject, MethodDeclaration.MODIFIERS2_PROPERTY).insertFirst(astAnnotation, null);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void addStatements(List<Statement> codeStatements) {
+		Block block = getASTObject().getBody();
+		
+		AST  ast = astObject.getAST();
+
+		for (Statement statement : codeStatements) {
+			ASTAbstractStatement<ASTNode> astStatement = (ASTAbstractStatement<ASTNode>) statement;
+			
+			ASTNode astNode = astStatement.getASTObject();
+			
+			ASTNode copyOfAstNode = ASTNode.copySubtree(ast, astNode);
+			
+			block.statements().add(copyOfAstNode);
+		}
 	}
 
 }

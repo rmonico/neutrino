@@ -3,8 +3,8 @@ package org.ita.neutrino.junitgenericparser;
 import java.util.List;
 
 import org.ita.neutrino.abstracttestparser.TestMethod;
-import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.MethodInvocationStatement;
+import org.ita.neutrino.codeparser.MutableMethod;
 import org.ita.neutrino.codeparser.Statement;
 
 public abstract class JUnitTestMethod implements TestMethod {
@@ -13,7 +13,7 @@ public abstract class JUnitTestMethod implements TestMethod {
 	
 	private JUnitTestSuite parent;
 	private List<? extends JUnitTestStatement> statementList = instantiateStatementList();
-	private Method element;
+	private MutableMethod element;
 
 	protected JUnitTestMethod() {
 
@@ -64,11 +64,11 @@ public abstract class JUnitTestMethod implements TestMethod {
 	}
 
 	@Override
-	public Method getCodeElement() {
+	public MutableMethod getCodeElement() {
 		return element;
 	}
 
-	void setCodeElement(Method element) {
+	void setCodeElement(MutableMethod element) {
 		this.element = element;
 	}
 
@@ -81,4 +81,10 @@ public abstract class JUnitTestMethod implements TestMethod {
 	public String toString() {
 		return getName();
 	}
+
+	@Override
+	public void removeFirstStatements(int count) {
+		getCodeElement().removeFirstStatements(count);
+	}
+
 }
