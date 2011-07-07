@@ -145,10 +145,10 @@ public class ASTMethod extends AbstractCodeElement implements MutableMethod, AST
 
 		ListRewrite lrw = rewrite.getListRewrite(block, Block.STATEMENTS_PROPERTY);
 
-		int originalListSize = lrw.getOriginalList().size() - 1;
+		int originalListSize = lrw.getOriginalList().size();
 
-		for (Statement statement : codeStatements) {
-			ASTAbstractStatement<ASTNode> astStatement = (ASTAbstractStatement<ASTNode>) statement;
+		for (int i=0; i<codeStatements.size(); i++) {
+			ASTAbstractStatement<ASTNode> astStatement = (ASTAbstractStatement<ASTNode>) codeStatements.get(i);
 
 			ASTNode astNode = astStatement.getASTObject();
 
@@ -159,7 +159,7 @@ public class ASTMethod extends AbstractCodeElement implements MutableMethod, AST
 			if (index == -1) {
 				lrw.insertAt(copyOfAstNode, originalListSize, null);
 			} else {
-				lrw.insertAt(copyOfAstNode, index, null);
+				lrw.insertAt(copyOfAstNode, index+i, null);
 			}
 		}
 	}
