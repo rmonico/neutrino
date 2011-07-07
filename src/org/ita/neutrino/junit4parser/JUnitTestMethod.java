@@ -3,8 +3,6 @@ package org.ita.neutrino.junit4parser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ita.neutrino.abstracttestparser.TestStatement;
-import org.ita.neutrino.codeparser.Statement;
 import org.ita.neutrino.junitgenericparser.JUnitTestStatement;
 
 public class JUnitTestMethod extends org.ita.neutrino.junitgenericparser.JUnitTestMethod {
@@ -40,17 +38,6 @@ public class JUnitTestMethod extends org.ita.neutrino.junitgenericparser.JUnitTe
 
 	void setParent(JUnitTestSuite parent) {
 		super.setParent(parent);
-	}
-
-	@Override
-	public void addStatements(List<TestStatement> testStatements) {
-		List<Statement> codeStatements = new ArrayList<Statement>();
-		
-		for (TestStatement codeStatement : testStatements) {
-			codeStatements.add(codeStatement.getCodeElement());
-		}
-		
-		getCodeElement().addStatements(codeStatements);
 	}
 
 }

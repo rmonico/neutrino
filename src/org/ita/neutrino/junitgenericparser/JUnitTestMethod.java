@@ -1,8 +1,10 @@
 package org.ita.neutrino.junitgenericparser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.ita.neutrino.abstracttestparser.TestMethod;
+import org.ita.neutrino.abstracttestparser.TestStatement;
 import org.ita.neutrino.codeparser.MethodInvocationStatement;
 import org.ita.neutrino.codeparser.MutableMethod;
 import org.ita.neutrino.codeparser.Statement;
@@ -87,4 +89,14 @@ public abstract class JUnitTestMethod implements TestMethod {
 		getCodeElement().removeFirstStatements(count);
 	}
 
+	@Override
+	public void addStatements(List<TestStatement> testStatements) {
+		List<Statement> codeStatements = new ArrayList<Statement>();
+		
+		for (TestStatement codeStatement : testStatements) {
+			codeStatements.add(codeStatement.getCodeElement());
+		}
+		
+		getCodeElement().addStatements(codeStatements);
+	}
 }

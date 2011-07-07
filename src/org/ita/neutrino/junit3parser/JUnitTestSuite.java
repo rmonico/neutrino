@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ita.neutrino.abstracttestparser.TestMethod;
+import org.ita.neutrino.codeparser.MutableMethod;
 
 public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTestSuite {
 
@@ -78,7 +79,8 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 
 	@Override
 	public TestMethod createNewBeforeTestsMethod() {
-		// TODO Auto-generated method stub
-		return null;
+		MutableMethod newMethod = getCodeElement().createNewMethod("setup");
+		
+		return parseBeforeMethod(newMethod);
 	}
 }

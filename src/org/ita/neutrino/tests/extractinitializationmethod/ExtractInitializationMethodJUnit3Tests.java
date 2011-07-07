@@ -117,7 +117,7 @@ public class ExtractInitializationMethodJUnit3Tests extends RefactoringAbstractT
 		CodeSelection selection = codeParser.getSelection();
 
 		selection.setSourceFile(refactoredCompilationUnit);
-		selection.setSelectionStart(180);
+		selection.setSelectionStart(102);
 		selection.setSelectionLength(17);
 
 		codeParser.parse();
@@ -136,14 +136,14 @@ public class ExtractInitializationMethodJUnit3Tests extends RefactoringAbstractT
 		expectedSource.append("\n");
 		expectedSource.append("import junit.framework.TestCase;\n");
 		expectedSource.append("\n");
-		expectedSource.append("public class TestConnectJUnit3Expected extends TestCase {\n");
+		expectedSource.append("public class TestConnectJUnit3 extends TestCase {\n");
 		expectedSource.append("\n");
 		expectedSource.append("    public void setup() {\n");
 		expectedSource.append("        connect = new Connect();\n");
 		expectedSource.append("        connect.setPorta(8080);\n");
 		expectedSource.append("        connect.setIP(\"127.0.0.1\");\n");
 		expectedSource.append("    }\n");
-		expectedSource.append("    \n");
+		expectedSource.append("\n");
 		expectedSource.append("    Connect connect;\n");
 		expectedSource.append("\n");
 		expectedSource.append("    public void testConecta() {\n");

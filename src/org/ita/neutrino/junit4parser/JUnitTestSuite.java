@@ -86,6 +86,7 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 	@Override
 	public TestMethod createNewBeforeTestsMethod() {
 		String newMethodName = getNewBeforeMethodName();
+		
 		MutableMethod newMethod = getCodeElement().createNewMethod(newMethodName);
 		
 		Environment environment = getCodeElement().getPackage().getParent();
