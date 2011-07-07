@@ -1,14 +1,13 @@
 package org.ita.neutrino.junitgenericparser;
 
 import org.ita.neutrino.abstracttestparser.Action;
-import org.ita.neutrino.abstracttestparser.TestElement;
-import org.ita.neutrino.codeparser.CodeElement;
 import org.ita.neutrino.codeparser.Statement;
 
 public abstract class JUnitAction implements JUnitTestStatement, Action {
 
 	private Statement element;
 	private JUnitTestMethod parent;
+	private JUnitTestStatementHandler handler = new JUnitTestStatementHandler(this);
 
 	protected JUnitAction() {
 		super();
@@ -45,15 +44,6 @@ public abstract class JUnitAction implements JUnitTestStatement, Action {
 
 	@Override
 	public boolean equals(Object obj) {
-
-		// Delega a comparação ao elemento do código fonte
-		if (obj instanceof TestElement<?>) {
-			@SuppressWarnings("unchecked")
-			TestElement<CodeElement> testingElement = (TestElement<CodeElement>) obj;
-			
-			return this.getCodeElement().equals(testingElement.getCodeElement());
-		} else {
-			return false;
-		}
+		return handler.equals(obj);
 	}
 }

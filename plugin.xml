@@ -34,13 +34,18 @@
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.addexplanation.AddExplanationJUnit3">
          </action>
-         <!-- Fazer depois
          <action
-               label="Extract initialization method"
-               menubarPath="org.ita.neutrino.menu/mainGroup1"
+               label="JUnit 4 - Extract initialization method"
+               menubarPath="org.ita.neutrino.menu/junit4"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.extractinitializationmethod.Action">
-         </action-->
+               id="org.ita.neutrino.extractinitializationmethod.ExtractInitializationMethodJUnit4">
+         </action>
+         <action
+               label="JUnit 3 - Extract initialization method"
+               menubarPath="org.ita.neutrino.menu/junit3"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.extractinitializationmethod.ExtractInitializationMethodJUnit3">
+         </action>
          <action
                label="Run JUnits"
                menubarPath="org.ita.neutrino.menu/testGroup1"

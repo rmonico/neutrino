@@ -12,6 +12,7 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 
 	private MethodInvocationStatement element;
 	private JUnitTestMethod parent;
+	private JUnitTestStatementHandler handler = new JUnitTestStatementHandler(this);
 	
 	protected JUnitAssertion() {
 		super();
@@ -121,4 +122,8 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 		return getCodeElement().toString();
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		return handler.equals(obj);
+	}
 }
