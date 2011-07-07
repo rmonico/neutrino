@@ -2,15 +2,17 @@ package org.ita.neutrino.extractinitializationmethod;
 
 import junit.framework.TestCase;
 
-public class TestConnectJUnit3 extends TestCase {
+public class TestConnectJUnit3Expected extends TestCase {
 
-	Connect connect;
-
-	public void testConecta() {
+	public void setup() {
 		connect = new Connect();
 		connect.setPorta(8080);
 		connect.setIP("127.0.0.1");
+	}
+	
+	Connect connect;
 
+	public void testConecta() {
 		connect.estabelecerConexao();
 		assertTrue("Conexão Estabelecida", connect.isConectado());
 		assertFalse("Esperando Conexão", connect.isListen());
@@ -18,10 +20,6 @@ public class TestConnectJUnit3 extends TestCase {
 	}
 
 	public void testListen() {
-		connect = new Connect();
-		connect.setPorta(8080);
-		connect.setIP("127.0.0.1");
-
 		connect.escutarConexao();
 		assertFalse("Conexão Estabelecida", connect.isConectado());
 		assertTrue("Esperando Conexão", connect.isListen());

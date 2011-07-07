@@ -11,6 +11,7 @@ import org.ita.neutrino.tests.addexplanation.AddExplanationJUnit3Tests;
 import org.ita.neutrino.tests.addexplanation.AddExplanationJUnit4Tests;
 import org.ita.neutrino.tests.astparser.TestPackageParsing;
 import org.ita.neutrino.tests.astparser.TestSupportedBlockSintax;
+import org.ita.neutrino.tests.extractinitializationmethod.ExtractInitializationMethodJUnit3Tests;
 import org.ita.neutrino.tests.extractinitializationmethod.ExtractInitializationMethodJUnit4Tests;
 import org.ita.neutrino.tests.junit3parser.JUnit3ParserTests;
 import org.ita.neutrino.tests.junit4parser.JUnit4ParserTests;
@@ -67,7 +68,7 @@ public class JUnitMain implements IAction {
 		classesToTest.add(JUnit4ParserTests.class);
 		classesToTest.add(AddExplanationJUnit3Tests.class);
 		classesToTest.add(AddExplanationJUnit4Tests.class);
-//		classesToTest.add(ExtractInitializationMethodJUnit3Tests.class);
+		classesToTest.add(ExtractInitializationMethodJUnit3Tests.class);
 		classesToTest.add(ExtractInitializationMethodJUnit4Tests.class);
 //		classesToTest.add(CreateModelTestTests.class);
 		

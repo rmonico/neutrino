@@ -1,27 +1,31 @@
 package org.ita.neutrino.extractinitializationmethod;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-public class TestConnectJUnit3 extends TestCase {
+import org.junit.Test;
 
-	Connect connect;
+public class TestConnectJUnit4Expected {
 
-	public void testConecta() {
+	@org.junit.Before()
+	public void setup() {
 		connect = new Connect();
 		connect.setPorta(8080);
 		connect.setIP("127.0.0.1");
+	}
 
+	Connect connect;
+
+	@Test
+	public void testConecta() {
 		connect.estabelecerConexao();
 		assertTrue("Conexão Estabelecida", connect.isConectado());
 		assertFalse("Esperando Conexão", connect.isListen());
 		connect.fecharConexao();
 	}
 
+	@Test
 	public void testListen() {
-		connect = new Connect();
-		connect.setPorta(8080);
-		connect.setIP("127.0.0.1");
-
 		connect.escutarConexao();
 		assertFalse("Conexão Estabelecida", connect.isConectado());
 		assertTrue("Esperando Conexão", connect.isListen());
