@@ -1,29 +1,19 @@
 package org.ita.neutrino.tests.addexplanation;
 
-import static org.zero.utils.JUnitUtils.assertBlockEquals;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
-import org.ita.neutrino.abstracrefactoring.RefactoringException;
-import org.ita.neutrino.abstracttestparser.TestBattery;
 import org.ita.neutrino.abstracttestparser.TestParserException;
-import org.ita.neutrino.addexplanation.AddExplanationRefactoring;
 import org.ita.neutrino.astparser.ASTParser;
 import org.ita.neutrino.codeparser.CodeSelection;
 import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.junit4parser.JUnit4Parser;
-import org.ita.neutrino.tests.RefactoringAbstractTests;
-import org.junit.Test;
 
-public class AddExplanationJUnit4Tests extends RefactoringAbstractTests {
+public class AddExplanationJUnit4Tests extends AddExplanationToAssertionTests {
 
-	private ICompilationUnit refactoredCompilationUnit;
-	private JUnit4Parser testParser;
-	
-	private void prepareTests() throws JavaModelException, ParserException, TestParserException {
+	protected void prepareTests() throws JavaModelException, ParserException, TestParserException {
 		List<ICompilationUnit> compilationUnits = new ArrayList<ICompilationUnit>();
 
 		StringBuilder beforeRefactoringSource = new StringBuilder();
@@ -90,7 +80,7 @@ public class AddExplanationJUnit4Tests extends RefactoringAbstractTests {
 
 	}
 
-	private StringBuilder getExpectedSource() {
+	protected StringBuilder getExpectedSource() {
 		StringBuilder expectedSource = new StringBuilder();
 
 		expectedSource.append("package org.ita.neutrino.addexplanationrefactoring;\n");
@@ -115,33 +105,6 @@ public class AddExplanationJUnit4Tests extends RefactoringAbstractTests {
 		expectedSource.append("}\n");
 		
 		return expectedSource;
-	}
-
-	@Test
-	public void testAddExplanationToAssertionNewRefactoring() throws JavaModelException, RefactoringException, TestParserException, ParserException {
-
-		prepareTests();
-		
-		// Aplica a refatoração na bateria de testes
-		TestBattery battery = testParser.getBattery();
-
-		AddExplanationRefactoring refactoring = new AddExplanationRefactoring();
-
-		refactoring.setBattery(battery);
-
-		refactoring.setExplanationString("Média da turma");
-
-		// Define em que arquivo fonte e local será feita a refatoração
-		refactoring.setTargetFragment(battery.getSelection().getSelectedFragment());
-
-		refactoring.refactor();
-
-		// Verificação
-		String afterRefactoringSource = refactoredCompilationUnit.getSource();
-
-		StringBuilder expectedSource = getExpectedSource();
-
-		assertBlockEquals("Adicionar explicação a asserção", expectedSource.toString(), afterRefactoringSource);
 	}
 
 }
