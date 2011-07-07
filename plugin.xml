@@ -29,22 +29,34 @@
                id="org.ita.neutrino.addexplanation.AddExplanationJUnit4">
          </action>
          <action
-               label="JUnit 3 - Add explanation to assertion"
+               label="JUnit 3 - Add Explanation To Assertion"
                menubarPath="org.ita.neutrino.menu/junit3"
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.addexplanation.AddExplanationJUnit3">
          </action>
          <action
-               label="JUnit 4 - Extract initialization method"
+               label="JUnit 4 - Extract Initialization Method"
                menubarPath="org.ita.neutrino.menu/junit4"
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.extractinitializationmethod.ExtractInitializationMethodJUnit4">
          </action>
          <action
-               label="JUnit 3 - Extract initialization method"
+               label="JUnit 3 - Extract Initialization Method"
                menubarPath="org.ita.neutrino.menu/junit3"
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.extractinitializationmethod.ExtractInitializationMethodJUnit3">
+         </action>
+         <action
+               label="JUnit 4 - Extract Finalization Method"
+               menubarPath="org.ita.neutrino.menu/junit4"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.extractfinalizationmethod.ExtractFinalizationMethodJUnit4">
+         </action>
+         <action
+               label="JUnit 3 - Extract Finalization Method"
+               menubarPath="org.ita.neutrino.menu/junit3"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.extractfinalizationmethod.ExtractFinalizationMethodJUnit3">
          </action>
          <action
                label="Run JUnits"
