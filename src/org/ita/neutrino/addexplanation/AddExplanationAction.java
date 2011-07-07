@@ -11,7 +11,7 @@ import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
 public abstract class AddExplanationAction extends AbstractEclipseRefactoringAction {
 
 	private String explanationString;
-	private AddExplanationRefactoring refactoring;
+	private AddExplanationToAssertionRefactoring refactoring;
 
 	@Override
 	protected String getRefactoringName() {
@@ -30,7 +30,7 @@ public abstract class AddExplanationAction extends AbstractEclipseRefactoringAct
 
 	@Override
 	protected AbstractRefactoring createRefactoringObject() {
-		return refactoring = new AddExplanationRefactoring();
+		return refactoring = new AddExplanationToAssertionRefactoring();
 	}
 	
 	@Override

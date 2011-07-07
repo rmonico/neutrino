@@ -7,7 +7,7 @@ import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
 import org.ita.neutrino.abstracrefactoring.RefactoringException;
 import org.ita.neutrino.abstracttestparser.Assertion;
 
-public class AddExplanationRefactoring extends AbstractRefactoring {
+public class AddExplanationToAssertionRefactoring extends AbstractRefactoring {
 	
 	private String explanationString;
 	private Assertion targetAssertion;
