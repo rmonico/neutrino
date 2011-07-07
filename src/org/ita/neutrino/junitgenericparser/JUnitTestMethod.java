@@ -85,8 +85,8 @@ public abstract class JUnitTestMethod implements TestMethod {
 	}
 
 	@Override
-	public void removeFirstStatements(int count) {
-		getCodeElement().removeFirstStatements(count);
+	public void removeStatements(int index, int count) {
+		getCodeElement().removeStatements(index, count);
 	}
 
 	@Override

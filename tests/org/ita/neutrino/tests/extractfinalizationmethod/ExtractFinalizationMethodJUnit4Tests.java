@@ -160,11 +160,11 @@ public class ExtractFinalizationMethodJUnit4Tests extends ExtractFinalizationMet
 		expectedSource.append("        assertTrue(\"Esperando Conexão\", connect.isListen());\n");
 		expectedSource.append("    }\n");
 		expectedSource.append("\n");
-		expectedSource.append("    \n");
 		expectedSource.append("    @org.junit.After()\n");
 		expectedSource.append("    public void teardown() {\n");
 		expectedSource.append("        connect.fecharConexao();\n");
 		expectedSource.append("    }\n");
+		expectedSource.append("\n");
 		expectedSource.append("}\n");
 		
 		return expectedSource;

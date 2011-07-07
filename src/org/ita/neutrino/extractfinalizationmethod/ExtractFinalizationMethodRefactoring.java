@@ -111,9 +111,9 @@ public class ExtractFinalizationMethodRefactoring extends AbstractRefactoring {
 
 		afterMethod.addStatements(commomStatements, 0);
 
-//		for (TestMethod testMethod : targetSuite.getTestMethodList()) {
-//			testMethod.removeLastStatements(commomStatements.size());
-//		}
+		for (TestMethod testMethod : targetSuite.getTestMethodList()) {
+			testMethod.removeStatements(testMethod.getStatements().size()-commomStatements.size(), commomStatements.size());
+		}
 	}
 
 }

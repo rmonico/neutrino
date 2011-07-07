@@ -8,5 +8,5 @@ public interface MutableMethod extends Method {
 
 	void addStatements(List<Statement> codeStatements, int index);
 
-	void removeFirstStatements(int count);
+	void removeStatements(int index, int count);
 }

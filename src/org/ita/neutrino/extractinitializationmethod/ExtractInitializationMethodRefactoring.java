@@ -88,7 +88,7 @@ public class ExtractInitializationMethodRefactoring extends AbstractRefactoring 
 		beforeMethod.addStatements(commomStatements, -1);
 		
 		for (TestMethod testMethod : targetSuite.getTestMethodList()) {
-			testMethod.removeFirstStatements(commomStatements.size());
+			testMethod.removeStatements(0, commomStatements.size());
 		}
 	}
 

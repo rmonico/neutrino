@@ -17,5 +17,5 @@ public interface TestMethod extends TestElement<Method> {
 	
 	public MutableMethod getCodeElement();
 
-	public abstract void removeFirstStatements(int count);
+	public abstract void removeStatements(int count, int i);
 }

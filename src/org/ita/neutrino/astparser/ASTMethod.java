@@ -145,7 +145,7 @@ public class ASTMethod extends AbstractCodeElement implements MutableMethod, AST
 
 		ListRewrite lrw = rewrite.getListRewrite(block, Block.STATEMENTS_PROPERTY);
 
-		int originalListSize = lrw.getOriginalList().size()-1;
+		int originalListSize = lrw.getOriginalList().size() - 1;
 
 		for (Statement statement : codeStatements) {
 			ASTAbstractStatement<ASTNode> astStatement = (ASTAbstractStatement<ASTNode>) statement;
@@ -165,7 +165,7 @@ public class ASTMethod extends AbstractCodeElement implements MutableMethod, AST
 	}
 
 	@Override
-	public void removeFirstStatements(int count) {
+	public void removeStatements(int index, int count) {
 		@SuppressWarnings("unchecked")
 		List<ASTNode> statements = getASTObject().getBody().statements();
 
@@ -173,7 +173,7 @@ public class ASTMethod extends AbstractCodeElement implements MutableMethod, AST
 
 		ListRewrite listRewrite = rewrite.getListRewrite(getASTObject().getBody(), Block.STATEMENTS_PROPERTY);
 
-		for (int i = 0; i < count; i++) {
+		for (int i = index; i < index + count; i++) {
 			listRewrite.remove(statements.get(i), null);
 		}
 	}
