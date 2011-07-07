@@ -157,7 +157,7 @@ public class ASTMethod extends AbstractCodeElement implements MutableMethod, AST
 			// block.statements().add(copyOfAstNode);
 
 			if (index == -1) {
-				lrw.insertAt(copyOfAstNode, originalListSize, null);
+				lrw.insertAt(copyOfAstNode, originalListSize+i, null);
 			} else {
 				lrw.insertAt(copyOfAstNode, index+i, null);
 			}
