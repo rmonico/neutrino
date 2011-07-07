@@ -1,29 +1,19 @@
 package org.ita.neutrino.tests.extractinitializationmethod;
 
-import static org.zero.utils.JUnitUtils.assertBlockEquals;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
-import org.ita.neutrino.abstracrefactoring.RefactoringException;
-import org.ita.neutrino.abstracttestparser.TestBattery;
 import org.ita.neutrino.abstracttestparser.TestParserException;
 import org.ita.neutrino.astparser.ASTParser;
 import org.ita.neutrino.codeparser.CodeSelection;
 import org.ita.neutrino.codeparser.ParserException;
-import org.ita.neutrino.extractinitializationmethod.ExtractInitializationMethodRefactoring;
 import org.ita.neutrino.junit4parser.JUnit4Parser;
-import org.ita.neutrino.tests.RefactoringAbstractTests;
-import org.junit.Test;
 
-public class ExtractInitializationMethodJUnit4Tests extends RefactoringAbstractTests {
+public class ExtractInitializationMethodJUnit4Tests extends ExtractInitializationMethodTests {
 
-	private ICompilationUnit refactoredCompilationUnit;
-	private JUnit4Parser testParser;
-
-	private void prepareTests() throws JavaModelException, ParserException, TestParserException {
+	protected void prepareTests() throws JavaModelException, ParserException, TestParserException {
 		List<ICompilationUnit> compilationUnits = new ArrayList<ICompilationUnit>();
 
 		StringBuilder beforeRefactoringSource = new StringBuilder();
@@ -126,7 +116,7 @@ public class ExtractInitializationMethodJUnit4Tests extends RefactoringAbstractT
 		selection.setSelectionLength(17);
 
 		codeParser.parse();
-		
+
 		testParser = new JUnit4Parser();
 
 		testParser.setEnvironment(codeParser.getEnvironment());
@@ -134,7 +124,7 @@ public class ExtractInitializationMethodJUnit4Tests extends RefactoringAbstractT
 		testParser.parse();
 	}
 
-	private StringBuilder getExpectedSource() {
+	protected StringBuilder getExpectedSource() {
 		StringBuilder expectedSource = new StringBuilder();
 
 		expectedSource.append("package org.ita.neutrino.extractinitializationmethod;\n");
@@ -174,30 +164,6 @@ public class ExtractInitializationMethodJUnit4Tests extends RefactoringAbstractT
 		expectedSource.append("}\n");
 
 		return expectedSource;
-	}
-
-	@Test
-	public void testExtractInitializationMethodRefactoring() throws JavaModelException, RefactoringException, TestParserException, ParserException {
-		prepareTests();
-
-		// Aplica a refatoração na bateria de testes
-		TestBattery battery = testParser.getBattery();
-
-		ExtractInitializationMethodRefactoring refactoring = new ExtractInitializationMethodRefactoring();
-
-		refactoring.setBattery(battery);
-
-		// Define em que arquivo fonte e local será feita a refatoração
-		refactoring.setTargetFragment(battery.getSelection().getSelectedFragment());
-
-		refactoring.refactor();
-
-		// Verificação
-		String afterRefactoringSource = refactoredCompilationUnit.getSource();
-
-		StringBuilder expectedSource = getExpectedSource();
-
-		assertBlockEquals("Extrair método de inicialização", expectedSource.toString(), afterRefactoringSource);
 	}
 
 }
