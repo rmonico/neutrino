@@ -6,13 +6,11 @@ import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
-import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.PrimitiveType;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 import org.ita.neutrino.astparser.ASTSourceFile.ASTContainer;
-import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.MutableMethod;
 
 public class ASTMutableTypeHandler extends ASTTypeHandler {
@@ -50,7 +48,9 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 
 		String methodSignature = newSetup.getName().toString();
 
-		MutableMethod newSetupMethod = createMethod(methodSignature);
+		ASTMethod newSetupMethod = createMethod(methodSignature);
+		
+		newSetupMethod.setASTObject(newSetup);
 		
 		@SuppressWarnings("unchecked")
 		List<Modifier> modifiers = newSetup.modifiers();

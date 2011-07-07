@@ -53,8 +53,8 @@ public class ASTMethod extends AbstractCodeElement implements MutableMethod, AST
 		this.parent = parent;
 	}
 
-	public ASTType getParent() {
-		return (ASTType) super.getParent();
+	public Type getParent() {
+		return (Type) super.getParent();
 	}
 
 	@Override
@@ -118,10 +118,10 @@ public class ASTMethod extends AbstractCodeElement implements MutableMethod, AST
 	 * Mutable method.
 	 */
 	@Override
-	public void addAnnotation(Annotation annotation) {
+	public void addAnnotation(Type annotation) {
 		AST ast = astObject.getAST();
 		
-		ASTRewrite rewrite = getParent().getParent().getASTObject().getRewrite();
+		ASTRewrite rewrite = ((ASTSourceFile) getParent().getParent()).getASTObject().getRewrite();
 		
 		NormalAnnotation astAnnotation = ast.newNormalAnnotation();
 

@@ -2,13 +2,16 @@ package org.ita.neutrino.astparser;
 
 import java.util.HashMap;
 
+import org.ita.neutrino.codeparser.Annotation;
+import org.ita.neutrino.codeparser.Class;
 import org.ita.neutrino.codeparser.Type;
+import org.ita.neutrino.codeparser.TypeCache;
 
-public class TypeCache extends HashMap<String, Type> {
+public class ASTTypeCache extends HashMap<String, Type> implements TypeCache {
 	
 	private ASTEnvironment environment;
 
-	public TypeCache(ASTEnvironment environment) {
+	public ASTTypeCache(ASTEnvironment environment) {
 		this.environment = environment;
 	}
 
@@ -39,5 +42,17 @@ public class TypeCache extends HashMap<String, Type> {
 		}
 		
 		return cachedType;
+	}
+
+	@Override
+	public Class getOrCreateClass(String qualifiedName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Annotation getOrCreateAnnotation(String qualifiedName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -59,7 +59,7 @@ public class ASTSourceFile extends AbstractCodeElement implements SourceFile,
 
 	// Construtor restrito ao pacote
 	ASTSourceFile() {
-		WrappedMapListener<ASTType> wrapperListener = new WrappedMapListener<ASTType>();
+		WrappedMapListener wrapperListener = new WrappedMapListener();
 		wrapperListener.setTypeListener(this);
 		
 		wrapper = new MapWrapper<String, ASTType>(new HashMap<String, ASTType>());

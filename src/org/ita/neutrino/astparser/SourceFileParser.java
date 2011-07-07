@@ -3,6 +3,8 @@ package org.ita.neutrino.astparser;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
+import org.eclipse.jdt.core.dom.IMethodBinding;
+import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.ImportDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.ita.neutrino.codeparser.Type;
@@ -32,8 +34,26 @@ class SourceFileParser {
 			// Nesse caso, node.getName() já devolve o nome qualificado do tipo
 			// importado
 
-			Type type = environment.getTypeCache().get(node.getName());
-
+			ITypeBinding typeBinding;
+			
+			if (node.isStatic()) {
+				IMethodBinding methodBinding = (IMethodBinding) node.resolveBinding();
+				
+				typeBinding = methodBinding.getDeclaringClass();
+			} else {
+				typeBinding = (ITypeBinding) node.resolveBinding();
+			}
+			
+			Type type;
+			
+			if (typeBinding.isClass()) {
+				type = environment.getTypeCache().getOrCreateClass(node.getName().getFullyQualifiedName());
+			} else if (typeBinding.isAnnotation()) {
+				type = environment.getTypeCache().getOrCreateAnnotation(node.getName().getFullyQualifiedName());
+			} else {
+				type = environment.getTypeCache().get(node.getName());
+			}
+			
 			_import.setType(type);
 
 			_import.setASTObject(node);

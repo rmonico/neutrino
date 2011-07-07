@@ -16,26 +16,25 @@ import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.Package;
 import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.codeparser.Type;
+import org.ita.neutrino.codeparser.TypeCache;
 import org.ita.neutrino.codeparser.TypeListener;
-import org.zero.utils.IMapWrapper;
-import org.zero.utils.MapWrapper;
 
 public class ASTEnvironment extends AbstractCodeElement implements Environment, TypeListener {
 
 	private static final String PRIMITIVE_TYPE_PACKAGE_NAME = "<primitive type package>";
 	private static final String DEFAULT_PACKAGE = "<default package>";
 	private Map<String, ASTPackage> packageList = new HashMap<String, ASTPackage>();
-	private IMapWrapper<String, Type> wrapper;
-	private Map<String, Type> typeCache;
+	private TypeCacheWrapper wrapper;
+	private TypeCache typeCache;
 	private ASTSelection selection;
 	private ASTExpressionFactory expressionFactory = new ASTExpressionFactory();
 
 	// Construtor restrito ao pacote
 	ASTEnvironment() {
-		WrappedMapListener<Type> wrapperListener = new WrappedMapListener<Type>();
+		WrappedTypeCacheListener wrapperListener = new WrappedTypeCacheListener();
 		wrapperListener.setTypeListener(this);
 
-		wrapper = new MapWrapper<String, Type>(new TypeCache(this));
+		wrapper = new TypeCacheWrapper(new ASTTypeCache(this));
 		wrapper.addListener(wrapperListener);
 
 		typeCache = wrapper;
@@ -79,7 +78,7 @@ public class ASTEnvironment extends AbstractCodeElement implements Environment, 
 	 * 
 	 */
 	@Override
-	public Map<String, Type> getTypeCache() {
+	public TypeCache getTypeCache() {
 		return typeCache;
 	}
 

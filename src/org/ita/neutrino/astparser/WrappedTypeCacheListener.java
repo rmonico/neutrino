@@ -1,9 +1,17 @@
 package org.ita.neutrino.astparser;
 
+import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.TypeListener;
-import org.zero.utils.IMapListener;
 
-public class WrappedMapListener implements IMapListener<String, ASTType> {
+/**
+ * Implementação de IMapListener<String, ? extends Type> responsável por
+ * atualizar o listener de tipo dos itens do Map ouvido.
+ * 
+ * @author Rafael Monico
+ * 
+ * @param <T>
+ */
+public class WrappedTypeCacheListener implements ITypeCacheListener {
 
 	private TypeListener listener;
 
@@ -12,7 +20,7 @@ public class WrappedMapListener implements IMapListener<String, ASTType> {
 	}
 
 	@Override
-	public void put(String key, ASTType newValue, ASTType oldValue) {
+	public void put(String key, Type newValue, Type oldValue) {
 		if (oldValue != null) {
 			oldValue.removeListener(listener);
 		}
@@ -23,7 +31,7 @@ public class WrappedMapListener implements IMapListener<String, ASTType> {
 	}
 
 	@Override
-	public void remove(String key, ASTType removedValue) {
+	public void remove(String key, Type removedValue) {
 		if (removedValue != null) {
 			removedValue.removeListener(listener);
 		}

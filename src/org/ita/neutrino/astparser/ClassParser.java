@@ -6,6 +6,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.IAnnotationBinding;
+import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
@@ -61,7 +62,15 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 
 				String typeName = ASTEnvironment.extractTypeName(fieldTypeQualifiedName);
 
-				fieldType = environment.createDummyType(typeName, pack);
+				ITypeBinding typeBinding = fieldDeclaration.getType().resolveBinding();
+				
+				if (typeBinding.isClass()) {
+					fieldType = environment.createDummyClass(typeName);
+				} else if (typeBinding.isAnnotation()) {
+					fieldType = environment.createDummyAnnotation(typeName);
+				} else {
+					fieldType = environment.createDummyType(typeName, pack);
+				}
 			}
 
 			field.setFieldType(fieldType);

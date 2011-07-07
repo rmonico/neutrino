@@ -33,7 +33,7 @@ public interface Environment extends CodeElement {
 	 * 
 	 * @return
 	 */
-	public abstract Map<String, ? extends Type> getTypeCache();
+	public abstract TypeCache getTypeCache();
 
 	/**
 	 * Informa qual o elemento de código mais interno que está sob a seleção.
