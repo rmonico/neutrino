@@ -13,7 +13,7 @@ class BatteryParser extends org.ita.neutrino.junitgenericparser.BatteryParser {
 	protected TestMethodKind getTestMethodKind(Method method) {
 		if (method.getName().equals("setup")) {
 			return TestMethodKind.BEFORE_METHOD;
-		} else if (method.getName().equals("tearDown"))  {
+		} else if (method.getName().equals("teardown"))  {
 			return TestMethodKind.AFTER_METHOD;
 		} else if (method.getName().startsWith("test")) {
 			return TestMethodKind.TEST_METHOD;
