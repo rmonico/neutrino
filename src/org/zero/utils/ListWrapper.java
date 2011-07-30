@@ -11,7 +11,7 @@ public class ListWrapper<E> implements IListWrapper<E> {
 
 	private List<E> instance;
 	private List<IListListener<E>> listenerList = new ArrayList<IListListener<E>>();
-	private IListListener<E> notifier = new Ǹotifier<E>(listenerList);
+	private IListListener<E> notifier = new  Notifier<E>(listenerList);
 
 	public ListWrapper(List<E> instance) {
 		this.instance = instance;
@@ -27,11 +27,11 @@ public class ListWrapper<E> implements IListWrapper<E> {
 		listenerList.remove(listener);
 	}
 
-	private static class Ǹotifier<E> implements IListListener<E> {
+	private static class Notifier<E> implements IListListener<E> {
 
 		private List<IListListener<E>> listeners;
 
-		public Ǹotifier(List<IListListener<E>> listeners) {
+		public Notifier(List<IListListener<E>> listeners) {
 			this.listeners = listeners;
 		}
 
