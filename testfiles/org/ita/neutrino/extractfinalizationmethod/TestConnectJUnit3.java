@@ -12,7 +12,7 @@ public class TestConnectJUnit3 extends TestCase {
 		connect.setIP("127.0.0.1");
 
 		connect.estabelecerConexao();
-		assertTrue("Conexão Estabelecida", connect.isConectado());
+		assertTrue(connect.isConectado());
 		assertFalse("Esperando Conexão", connect.isListen());
 		connect.fecharConexao();
 	}
