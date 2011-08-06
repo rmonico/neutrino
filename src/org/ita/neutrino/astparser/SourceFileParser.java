@@ -35,17 +35,17 @@ class SourceFileParser {
 			// importado
 
 			ITypeBinding typeBinding;
-			
+
 			if (node.isStatic()) {
 				IMethodBinding methodBinding = (IMethodBinding) node.resolveBinding();
-				
+
 				typeBinding = methodBinding.getDeclaringClass();
 			} else {
 				typeBinding = (ITypeBinding) node.resolveBinding();
 			}
-			
+
 			Type type;
-			
+
 			if (typeBinding.isClass()) {
 				type = environment.getTypeCache().getOrCreateClass(node.getName().getFullyQualifiedName());
 			} else if (typeBinding.isAnnotation()) {
@@ -53,7 +53,7 @@ class SourceFileParser {
 			} else {
 				type = environment.getTypeCache().get(node.getName());
 			}
-			
+
 			_import.setType(type);
 
 			_import.setASTObject(node);
@@ -105,7 +105,7 @@ class SourceFileParser {
 					selection.setSelectedElement(type);
 				}
 			}
-			
+
 			return false;
 		}
 

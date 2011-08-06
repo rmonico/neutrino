@@ -3,6 +3,7 @@ package org.ita.neutrino.extractinitializationmethod;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.ita.neutrino.businessclasses.Connect;
 import org.junit.Test;
 
 public class TestConnectJUnit4Expected {
