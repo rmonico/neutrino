@@ -1,5 +1,7 @@
 package org.ita.neutrino.extractinitializationmethod;
 
+import org.ita.neutrino.businessclasses.Connect;
+
 import junit.framework.TestCase;
 
 public class TestConnectJUnit3 extends TestCase {
