@@ -1,4 +1,4 @@
-package org.ita.neutrino.extractfinalizationmethod;
+package org.ita.neutrino.businessclasses;
 
 public class Connect {
 

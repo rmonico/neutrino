@@ -2,6 +2,8 @@ package org.ita.neutrino.extractfinalizationmethod;
 
 import junit.framework.TestCase;
 
+import org.ita.neutrino.businessclasses.Connect;
+
 public class TestConnectJUnit3 extends TestCase {
 
 	Connect connect;
