@@ -58,12 +58,12 @@
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.extractfinalizationmethod.ExtractFinalizationMethodJUnit3">
          </action>
-         <!--action
+         <action
                label="Run JUnits"
                menubarPath="org.ita.neutrino.menu/testGroup1"
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.tests.JUnitMain">
-         </action-->
+         </action>
       </actionSet>
    </extension>
 </plugin>
