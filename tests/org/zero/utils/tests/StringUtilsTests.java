@@ -3,7 +3,6 @@ package org.zero.utils.tests;
 
 import static org.junit.Assert.assertEquals;
 
-import org.ita.neutrino.astparser.ASTEnvironment;
 import org.junit.Test;
 import org.zero.utils.StringUtils;
 
@@ -21,11 +20,11 @@ public class StringUtilsTests {
 	public void testExtractQualifiedNameParts() {
 		String fullQualifiedName = "java.lang.Object";
 		
-		String packageName = ASTEnvironment.extractPackageName(fullQualifiedName);
+		String packageName = StringUtils.extractPackageName(fullQualifiedName);
 		
 		assertEquals("Extração do nome do pacote", "java.lang", packageName);
 		
-		String typeName = ASTEnvironment.extractTypeName(fullQualifiedName);
+		String typeName = StringUtils.extractTypeName(fullQualifiedName);
 		
 		assertEquals("Extração do nome do tipo.", "Object", typeName);
 	}

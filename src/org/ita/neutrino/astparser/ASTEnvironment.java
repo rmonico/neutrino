@@ -18,6 +18,7 @@ import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.TypeCache;
 import org.ita.neutrino.codeparser.TypeListener;
+import org.zero.utils.StringUtils;
 
 public class ASTEnvironment extends AbstractCodeElement implements Environment, TypeListener {
 
@@ -160,18 +161,18 @@ public class ASTEnvironment extends AbstractCodeElement implements Environment, 
 
 	public static String extractPackageName(String typeFullQualifiedName) {
 
-		int lastIndexOf = typeFullQualifiedName.lastIndexOf('.');
+		String packageName = StringUtils.extractPackageName(typeFullQualifiedName);
 
-		if (lastIndexOf == -1) {
-			return PRIMITIVE_TYPE_PACKAGE_NAME;
+		if (packageName.isEmpty()) {
+			packageName = PRIMITIVE_TYPE_PACKAGE_NAME;
 		}
 
-		return typeFullQualifiedName.substring(0, lastIndexOf);
+		return packageName;
 
 	}
 
 	public static String extractTypeName(String typeFullQualifiedName) {
-		return typeFullQualifiedName.substring(typeFullQualifiedName.lastIndexOf('.') + 1, typeFullQualifiedName.length());
+		return StringUtils.extractTypeName(typeFullQualifiedName);
 	}
 
 	public ASTMethodInvocationExpression createMethodInvocationExpression(String methodSignature) {
