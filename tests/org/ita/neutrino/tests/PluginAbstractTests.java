@@ -77,7 +77,7 @@ public class PluginAbstractTests {
 				JavaRuntime.getDefaultJREContainerEntry(),
 				JavaCore.newLibraryEntry(
 						new Path(
-								"/home/programs/eclipse/plugins/org.junit_4.8.1.v4_8_1_v20100427-1100/junit.jar"),
+								"C:\\Program Files\\eclipse\\plugins\\org.junit_4.8.1.v4_8_1_v20100427-1100\\junit.jar"),
 						null, null) };
 		javaProject.setRawClasspath(cpentry, javaProject.getPath(), null);
 		Map options = new HashMap();

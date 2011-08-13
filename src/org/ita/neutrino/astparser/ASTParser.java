@@ -97,33 +97,7 @@ public class ASTParser implements CodeParser {
 		parser.createASTs(compilationUnits, new String[0], new ASTRequestor() {
 			@Override
 			public void acceptAST(ICompilationUnit jdtObject, CompilationUnit astObject) {
-				PackageDeclaration pack = astObject.getPackage();
-
-				String packageName;
-
-				if (pack == null) {
-					packageName = null;
-				} else {
-					packageName = pack.getName().toString();
-				}
-
-				ASTPackage parsedPackage = getEnvironment().getOrCreatePackage(packageName);
-
-				parsedPackage.setASTObject(pack);
-
-				String sourceFileName = jdtObject.getPath().toFile().getName();
-
-				ASTSourceFile sourceFile = parsedPackage.createSourceFile(sourceFileName);
-
-				ASTSourceFile.ASTContainer container = sourceFile.new ASTContainer();
-
-				container.setICompilationUnit(jdtObject);
-				container.setCompilationUnit(astObject);
-				container.setRewrite(ASTRewrite.create(astObject.getAST()));
-
-				sourceFile.setASTObject(container);
-
-				super.acceptAST(jdtObject, astObject);
+				requestAST(jdtObject, astObject);
 			}
 		}, new NullProgressMonitor());
 	}
@@ -245,5 +219,33 @@ public class ASTParser implements CodeParser {
 	@Override
 	public ASTSelection getSelection() {
 		return selection;
+	}
+
+	private void requestAST(ICompilationUnit jdtObject, CompilationUnit astObject) {
+		PackageDeclaration pack = astObject.getPackage();
+
+		String packageName;
+
+		if (pack == null) {
+			packageName = null;
+		} else {
+			packageName = pack.getName().toString();
+		}
+
+		ASTPackage parsedPackage = getEnvironment().getOrCreatePackage(packageName);
+
+		parsedPackage.setASTObject(pack);
+
+		String sourceFileName = jdtObject.getPath().toFile().getName();
+
+		ASTSourceFile sourceFile = parsedPackage.createSourceFile(sourceFileName);
+
+		ASTSourceFile.ASTContainer container = sourceFile.new ASTContainer();
+
+		container.setICompilationUnit(jdtObject);
+		container.setCompilationUnit(astObject);
+		container.setRewrite(ASTRewrite.create(astObject.getAST()));
+
+		sourceFile.setASTObject(container);
 	}
 }
