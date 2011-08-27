@@ -5,6 +5,7 @@ import java.util.List;
 import org.ita.neutrino.abstracttestparser.Assertion;
 import org.ita.neutrino.codeparser.Environment;
 import org.ita.neutrino.codeparser.Expression;
+import org.ita.neutrino.codeparser.ExpressionFactory;
 import org.ita.neutrino.codeparser.MethodInvocationStatement;
 import org.ita.neutrino.codeparser.Type;
 
@@ -112,7 +113,8 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 		
 		Type javaLangStringType = environment.getTypeCache().get("java.lang.String"); 
 		
-		Expression explanationExpression = environment.getExpressionFactory().createLiteralExpression(javaLangStringType, explanation);
+		ExpressionFactory ef =environment.getExpressionFactory();
+		Expression explanationExpression = ef.createLiteralExpression(javaLangStringType, explanation);
 		
 		getCodeElement().getParameterList().add(0, explanationExpression);
 	}

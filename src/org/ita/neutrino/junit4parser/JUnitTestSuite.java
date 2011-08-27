@@ -155,4 +155,5 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 		throw new NotImplementedYetException();
 	}
 
+
 }

@@ -85,15 +85,15 @@ public abstract class ASTType extends AbstractCodeElement implements MutableType
 	public void setASTObject(TypeDeclaration astObject) {
 		this.astObject = astObject;
 	}
-	
+
 	/**
 	 * Apenas notifica os listeners sobre a promoção.
 	 */
 	@Override
 	public void promote(Type newType) {
 		assert this.getQualifiedName().equals(newType.getQualifiedName()) : "O tipo só pode ser promovido a um tipo de mesmo qualified name.";
-		
-		for (TypeListener listener : listeners ) {
+
+		for (TypeListener listener : listeners) {
 			listener.typePromoted(this, newType);
 		}
 	}
@@ -102,12 +102,12 @@ public abstract class ASTType extends AbstractCodeElement implements MutableType
 	public void addListener(TypeListener listener) {
 		listeners.add(listener);
 	}
-	
+
 	@Override
 	public void removeListener(TypeListener listener) {
 		listeners.remove(listener);
 	}
-	
+
 	@Override
 	public String getQualifiedName() {
 		return getPackage().getName() + "." + getName();
@@ -136,7 +136,7 @@ public abstract class ASTType extends AbstractCodeElement implements MutableType
 
 			sb.append("AST: <" + astHeader + ">\n");
 		}
-		
+
 		sb.append("\n");
 		sb.append("\n");
 		sb.append("Field list:\n");
@@ -159,7 +159,7 @@ public abstract class ASTType extends AbstractCodeElement implements MutableType
 
 		return sb.toString();
 	}
-	
+
 	ASTField createField(String fieldName) {
 		return handler.createField(fieldName);
 	}
@@ -171,14 +171,14 @@ public abstract class ASTType extends AbstractCodeElement implements MutableType
 	@Override
 	public ASTMethod getOrCreateMethod(String methodSignature) {
 		ASTMethod method = (ASTMethod) getMethodList().get(methodSignature);
-		
+
 		if (method == null) {
 			method = createMethod(methodSignature);
 		}
-		
+
 		return method;
 	}
-	
+
 	@Override
 	public Constructor getOrCreateConstructor(String constructorParams) {
 		// TODO Auto-generated method stub
@@ -193,11 +193,18 @@ public abstract class ASTType extends AbstractCodeElement implements MutableType
 	@Override
 	public Map<String, MutableMethod> getMutableMethodList() {
 		Map<String, MutableMethod> mutableMethodList = new HashMap<String, MutableMethod>();
-		
+
 		for (String methodName : methodList.keySet()) {
 			mutableMethodList.put(methodName, (MutableMethod) methodList.get(methodName));
 		}
-		
+
 		return mutableMethodList;
 	}
+
+	@Override
+	public Field createNewField(Type fieldType, String fieldName) {
+		Field f = handler.createNewField(fieldType, fieldName);
+		return f;
+	}
+
 }

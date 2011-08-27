@@ -7,11 +7,12 @@ import org.ita.neutrino.abstracttestparser.TestSuite;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.MutableMethod;
 import org.ita.neutrino.codeparser.MutableType;
+import org.ita.neutrino.codeparser.Type;
 
 public abstract class JUnitTestSuite implements TestSuite {
 
 	protected abstract List<? extends JUnitTestMethod> instantiateMethodList();
-	
+
 	private List<? extends JUnitTestMethod> beforeMethodList = instantiateMethodList();
 	private List<? extends JUnitTestMethod> testMethodList = instantiateMethodList();
 	private List<? extends JUnitTestMethod> afterMethodList = instantiateMethodList();
@@ -20,21 +21,20 @@ public abstract class JUnitTestSuite implements TestSuite {
 	private TestElement<?> selectedFragment;
 	private MutableType codeElement;
 
-	
 	protected abstract List<? extends JUnitFixture> instantiateFixtureList();
 
 	private List<? extends JUnitFixture> fixtures = instantiateFixtureList();
 
 	protected JUnitTestSuite() {
 	}
-	
+
 	@Override
 	public String getName() {
 		return getCodeElement().getName();
 	}
 
 	protected abstract JUnitTestMethod instantiateTestMethod();
-	
+
 	@SuppressWarnings("unchecked")
 	private JUnitTestMethod internalCreateTestMethod(MutableMethod element, List<? extends JUnitTestMethod> destList) {
 		JUnitTestMethod method = instantiateTestMethod();
@@ -42,7 +42,7 @@ public abstract class JUnitTestSuite implements TestSuite {
 		method.setParent(this);
 
 		method.setCodeElement(element);
-		
+
 		((List<JUnitTestMethod>) destList).add(method);
 
 		return method;
@@ -59,19 +59,19 @@ public abstract class JUnitTestSuite implements TestSuite {
 	protected JUnitTestMethod parseAfterMethod(MutableMethod element) {
 		return internalCreateTestMethod(element, afterMethodList);
 	}
-	
+
 	protected abstract JUnitFixture instantiateFixture();
 
 	@SuppressWarnings("unchecked")
 	JUnitFixture createFixture(Field field) {
 		JUnitFixture fixture = instantiateFixture();
-		
+
 		fixture.setParent(this);
-		
+
 		fixture.setCodeElement(field);
-		
-		((List<JUnitFixture>)fixtures).add(fixture);
-		
+
+		((List<JUnitFixture>) fixtures).add(fixture);
+
 		return fixture;
 	}
 
@@ -124,7 +124,7 @@ public abstract class JUnitTestSuite implements TestSuite {
 	protected void setCodeElement(MutableType type) {
 		codeElement = type;
 	}
-	
+
 	@Override
 	public String toString() {
 		return getName();
@@ -135,14 +135,19 @@ public abstract class JUnitTestSuite implements TestSuite {
 		if (methodName == null) {
 			return null;
 		}
-		
+
 		for (JUnitTestMethod method : getTestMethodList()) {
 			if (methodName.equals(method.getName())) {
 				return method;
 			}
 		}
-		
+
 		return null;
 	}
 
+	@Override
+	public void createNewFixture(Type variableType, String variableName) {
+		this.getCodeElement().createNewField(variableType, variableName);
+
+	}
 }

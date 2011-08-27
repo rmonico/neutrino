@@ -19,7 +19,7 @@ public class ExtractInitializationMethodRefactoring extends AbstractExtractMetho
 		List<String> problems = new ArrayList<String>();
 
 		if ((!(getTargetFragment() instanceof TestSuite)) || (getTargetFragment() == null)) {
-			problems.add("Selection must be a test suite (selection: \"" + getTargetFragment() + "\").");
+			problems.add("Selection must be the class name of the test suite (selection: \"" + getTargetFragment() + "\").");
 		} else {
 			targetSuite = (TestSuite) getTargetFragment();
 

@@ -3,6 +3,7 @@ package org.ita.neutrino.abstracttestparser;
 import java.util.List;
 
 import org.ita.neutrino.codeparser.MutableType;
+import org.ita.neutrino.codeparser.Type;
 
 public interface TestSuite extends TestElement<MutableType> {
 
@@ -29,4 +30,6 @@ public interface TestSuite extends TestElement<MutableType> {
 	public TestMethod createNewBeforeTestsMethod();
 
 	public TestMethod createNewAfterTestsMethod();
+
+	public void createNewFixture(Type variableType, String variableName);
 }

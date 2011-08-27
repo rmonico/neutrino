@@ -8,4 +8,6 @@ public interface MutableType extends Type {
 
 	MutableMethod createNewMethod(String newMethodName, int index);
 
+	Field createNewField(Type fieldType, String fieldName);
+
 }

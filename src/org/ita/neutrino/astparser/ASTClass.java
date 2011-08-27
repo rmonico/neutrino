@@ -1,6 +1,7 @@
 package org.ita.neutrino.astparser;
 
 import org.ita.neutrino.codeparser.Class;
+import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.NonAccessClassModifier;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.TypeKind;
