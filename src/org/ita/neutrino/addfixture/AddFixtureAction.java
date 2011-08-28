@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.ita.neutrino.abstracrefactoring.AbstractEclipseRefactoringAction;
 import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
-import org.ita.neutrino.abstracrefactoring.RefactoringException;
-import org.ita.neutrino.abstracttestparser.AbstractTestParser;
 
 public abstract class AddFixtureAction extends AbstractEclipseRefactoringAction {
 

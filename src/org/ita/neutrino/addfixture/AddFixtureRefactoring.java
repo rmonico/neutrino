@@ -6,14 +6,13 @@ import java.util.List;
 import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
 import org.ita.neutrino.abstracrefactoring.RefactoringException;
 import org.ita.neutrino.abstracttestparser.Action;
-import org.ita.neutrino.abstracttestparser.Assertion;
 import org.ita.neutrino.abstracttestparser.TestMethod;
 import org.ita.neutrino.abstracttestparser.TestSuite;
 import org.ita.neutrino.codeparser.Statement;
 import org.ita.neutrino.codeparser.VariableDeclarationStatement;
 
 public class AddFixtureRefactoring extends AbstractRefactoring {
-	private TestSuite targetSuite;
+
 	private VariableDeclarationStatement variableDeclaration;
 	private Action targetAction;
 
