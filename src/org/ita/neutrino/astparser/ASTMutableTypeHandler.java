@@ -75,24 +75,32 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 		return newSetupMethod;
 	}
 
+	/**
+	 * Cria um Field na classe manipulada por essa.
+	 * 
+	 * @param fieldType
+	 * @param fieldName
+	 * @return
+	 */
 	public Field createNewField(Type fieldType, String fieldName) {
-		ASTField f = createField(fieldName);
-		f.setFieldType(fieldType);
-		
 		ASTContainer compilationUnitASTContainer = handled.getParent().getASTObject();
+
 		AST ast = compilationUnitASTContainer.getCompilationUnit().getAST();
+
 		VariableDeclarationFragment fragment = ast.newVariableDeclarationFragment();
 		fragment.setName(ast.newSimpleName(fieldName));
 		FieldDeclaration fieldDeclaration = ast.newFieldDeclaration(fragment);
-		//fd.setType((org.eclipse.jdt.core.dom.Type) fieldType);
 		fieldDeclaration.setType(ast.newSimpleType(ast.newSimpleName(fieldType.getName())));
 
 		ASTRewrite rewrite = compilationUnitASTContainer.getRewrite();
 		ListRewrite lrw = rewrite.getListRewrite(handled.getASTObject(), TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
 		lrw.insertFirst(fieldDeclaration, null);
-		
+
+		ASTField f = createField(fieldName);
+
+		f.setFieldType(fieldType);
 		f.setASTObject(fieldDeclaration);
-		
+
 		return f;
 	}
 }
