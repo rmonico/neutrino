@@ -11,6 +11,7 @@ import org.eclipse.jdt.core.dom.ASTRequestor;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
+import org.ita.neutrino.codeparser.Block;
 import org.ita.neutrino.codeparser.CodeParser;
 import org.ita.neutrino.codeparser.Constructor;
 import org.ita.neutrino.codeparser.Method;
@@ -203,7 +204,13 @@ public class ASTParser implements CodeParser {
 			for (ASTSourceFile sourceFile : pack.getSourceFileList().values()) {
 				for (ASTType type : sourceFile.getTypeList().values()) {
 					for (Method method : type.getMethodList().values()) {
-						for (Statement statement : method.getBody().getStatementList()) {
+						Block block = method.getBody();
+						
+						if (block == null) {
+							continue;
+						}
+						
+						for (Statement statement : block.getStatementList()) {
 							if (statement instanceof ASTWritableElement) {
 								ASTWritableElement writable = (ASTWritableElement) statement;
 
