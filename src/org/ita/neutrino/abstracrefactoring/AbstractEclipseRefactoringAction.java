@@ -41,7 +41,8 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 	}
 
 	/**
-	 * Deve devolver um nome amigável para a refatoração, esse valor será utilizado nos diálogos com o usuário.
+	 * Deve devolver um nome amigável para a refatoração, esse valor será
+	 * utilizado nos diálogos com o usuário.
 	 * 
 	 * @return
 	 */
@@ -56,7 +57,7 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 		TestBattery battery = doTestParsing(environment);
 
 		refactoringObject = createRefactoringObject();
-		
+
 		if (refactoringObject == null) {
 			throw new ActionException("Method \"" + getClass().getName() + ".createRefactoringObject()\" must return non null value.");
 		}
@@ -91,7 +92,8 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 
 	/**
 	 * Permite fazer uma checagem prévia das condições no Eclipse antes de fazer
-	 * qualquer outra coisa.
+	 * qualquer outra coisa. Pode devolver null indicando que não houveram
+	 * problemas. Essa checagem deve ser específica do Eclipse.
 	 * 
 	 * @return
 	 */
@@ -101,7 +103,8 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 		ASTParser codeParser = new ASTParser();
 
 		try {
-			// Retorna todo o código fonte existente no projeto e o passo para o objeto codeParser
+			// Retorna todo o código fonte existente no projeto e o passo para o
+			// objeto codeParser
 			codeParser.setCompilationUnits(RefactoringUtils.getAllWorkspaceCompilationUnits(null).toArray(new ICompilationUnit[0]));
 		} catch (CoreException e) {
 			throw new ActionException(e);
@@ -137,12 +140,13 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 		} catch (TestParserException e) {
 			throw new ActionException(e);
 		}
-		
+
 		return testParser.getBattery();
 	}
 
 	/**
-	 * Deve instanciar e devolver o objeto de refatoração.
+	 * Deve instanciar e devolver o objeto de refatoração. Deve obrigatoriamente
+	 * devolver uma instância não nula.
 	 * 
 	 * @return
 	 */
@@ -150,6 +154,9 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 
 	private void verifyInitialConditions() throws ActionException {
 		List<String> errors = refactoringObject.checkInitialConditions();
+
+		// TODO: Verificar se errors veio nulo, checkInitialConditions pode
+		// devolver um valor nulo indicando que não houver erros
 
 		if (errors.size() > 0) {
 			String message = RefactoringException.getMessageForProblemList(errors);

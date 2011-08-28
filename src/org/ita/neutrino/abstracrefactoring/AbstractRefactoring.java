@@ -31,6 +31,12 @@ public abstract class AbstractRefactoring {
 		applyChanges();
 	}
 
+	/**
+	 * Checagem de condições iniciais da refatoração. Deve ser desacoplada do
+	 * framework do código de testes.
+	 * 
+	 * @return
+	 */
 	public abstract List<String> checkInitialConditions();
 
 	protected abstract void doRefactor() throws RefactoringException;
