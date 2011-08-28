@@ -85,7 +85,7 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 		fragment.setName(ast.newSimpleName(fieldName));
 		FieldDeclaration fieldDeclaration = ast.newFieldDeclaration(fragment);
 		//fd.setType((org.eclipse.jdt.core.dom.Type) fieldType);
-		fieldDeclaration.setType(ast.newSimpleType(ast.newSimpleName(fieldType.getQualifiedName())));
+		fieldDeclaration.setType(ast.newSimpleType(ast.newSimpleName(fieldType.getName())));
 
 		ASTRewrite rewrite = compilationUnitASTContainer.getRewrite();
 		ListRewrite lrw = rewrite.getListRewrite(handled.getASTObject(), TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
