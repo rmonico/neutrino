@@ -56,6 +56,10 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 		TestBattery battery = doTestParsing(environment);
 
 		refactoringObject = createRefactoringObject();
+		
+		if (refactoringObject == null) {
+			throw new ActionException("Method \"" + getClass().getName() + ".createRefactoringObject()\" must return non null value.");
+		}
 
 		refactoringObject.setBattery(battery);
 		refactoringObject.setTargetFragment(battery.getSelection().getSelectedFragment());
