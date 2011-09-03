@@ -17,6 +17,7 @@ import org.ita.neutrino.codeparser.SourceFile;
 import org.ita.neutrino.codeparser.Statement;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.VariableDeclarationStatement;
+import org.ita.neutrino.debug.ConsoleVisitor;
 
 class BlockParser {
 
@@ -51,7 +52,7 @@ class BlockParser {
 
 	private void parseStatement(ASTNode node) throws ParserException {
 //		Debug purposes
-//		ConsoleVisitor.showNodes(node);
+		ConsoleVisitor.showNodes(node);
 
 		Statement statement = null;
 
@@ -147,7 +148,7 @@ class BlockParser {
 
 		variableDeclaration.setVariableType(variableType);
 
-		variableDeclaration.setASTObject(variableFragment);
+		variableDeclaration.setASTObject(node);
 
 		// Inicialização da variável
 		if (fragmentNodes.size() > 1) {
