@@ -63,6 +63,8 @@ public class AddFixtureRefactoring extends AbstractRefactoring {
 					// somente a chamada.
 					for (int j = 0; j < smallerList.size(); j++) {
 						List<TestStatement> novoStatement = new ArrayList<TestStatement>();
+						
+						// TODO Está dando NullPointerException
 						novoStatement.add(getTestStatementWithNoDeclaration(this.targetAction));
 						if (smallerList.get(j).equals(this.targetAction)) {
 							testMethod.removeStatements(j, 1);
