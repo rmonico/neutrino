@@ -82,6 +82,7 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 	 * @param fieldName
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public Field createNewField(Type fieldType, String fieldName) {
 		ASTContainer compilationUnitASTContainer = handled.getParent().getASTObject();
 
@@ -91,6 +92,10 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 		fragment.setName(ast.newSimpleName(fieldName));
 		FieldDeclaration fieldDeclaration = ast.newFieldDeclaration(fragment);
 		fieldDeclaration.setType(ast.newSimpleType(ast.newSimpleName(fieldType.getName())));
+		
+		@SuppressWarnings("rawtypes")
+		List modifiers = fieldDeclaration.modifiers();
+		modifiers.add(ast.newModifier(Modifier.ModifierKeyword.PRIVATE_KEYWORD));
 
 		ASTRewrite rewrite = compilationUnitASTContainer.getRewrite();
 		ListRewrite lrw = rewrite.getListRewrite(handled.getASTObject(), TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
