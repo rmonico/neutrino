@@ -8,14 +8,14 @@ import org.ita.neutrino.codeparser.MutableMethod;
 public interface TestMethod extends TestElement<Method> {
 
 	public abstract String getName();
-	
+
 	public abstract TestSuite getParent();
 
 	public abstract List<? extends TestStatement> getStatements();
 
 	public abstract void addStatements(List<TestStatement> statements, int index);
-	
+
 	public MutableMethod getCodeElement();
 
-	public abstract void removeStatements(int count, int i);
+	public abstract void removeStatements(int index, int count);
 }
