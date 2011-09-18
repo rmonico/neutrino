@@ -3,6 +3,7 @@ package org.ita.neutrino.junitgenericparser;
 import java.util.List;
 
 import org.ita.neutrino.abstracttestparser.Assertion;
+import org.ita.neutrino.abstracttestparser.TestStatement;
 import org.ita.neutrino.codeparser.Environment;
 import org.ita.neutrino.codeparser.Expression;
 import org.ita.neutrino.codeparser.ExpressionFactory;
@@ -127,5 +128,11 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 	@Override
 	public boolean equals(Object obj) {
 		return handler.equals(obj);
+	}
+	
+	@Override
+	public TestStatement getStatement() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -6,4 +6,6 @@ public interface TestStatement extends TestElement<Statement> {
 	
 	@Override
 	public TestMethod getParent();
+	
+	public TestStatement getStatement();
 }

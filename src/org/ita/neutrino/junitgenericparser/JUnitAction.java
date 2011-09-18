@@ -1,6 +1,7 @@
 package org.ita.neutrino.junitgenericparser;
 
 import org.ita.neutrino.abstracttestparser.Action;
+import org.ita.neutrino.abstracttestparser.TestStatement;
 import org.ita.neutrino.codeparser.Statement;
 
 public abstract class JUnitAction implements JUnitTestStatement, Action {
@@ -45,5 +46,12 @@ public abstract class JUnitAction implements JUnitTestStatement, Action {
 	@Override
 	public boolean equals(Object obj) {
 		return handler.equals(obj);
+	}
+	
+	@Override
+	public TestStatement getStatement() {
+		// TODO Auto-generated method stub
+		
+		return null;
 	}
 }
