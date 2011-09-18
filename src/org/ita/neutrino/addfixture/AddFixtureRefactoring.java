@@ -99,6 +99,8 @@ public class AddFixtureRefactoring extends AbstractRefactoring {
 		
 		TestStatement to = from.getStatement();
 		ASTVariableDeclarationStatement i = (ASTVariableDeclarationStatement) from.getCodeElement();
+		i.removeDeclaration();
+		
 		ASTNode astNode = i.getASTObject();
 		ConsoleVisitor.showNodes(astNode);
 		

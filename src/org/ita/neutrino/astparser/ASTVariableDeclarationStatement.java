@@ -42,6 +42,7 @@ public class ASTVariableDeclarationStatement extends ASTAbstractStatement<ASTNod
 	public void removeDeclaration() {
 		// TODO Auto-generated method stub
 		ASTNode nodo = getASTObject();
+
 	}
 
 }
