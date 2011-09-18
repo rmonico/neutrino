@@ -7,4 +7,7 @@ public interface VariableDeclarationStatement extends Statement {
 	public String getVariableName();
 	
 	public Expression getInitialization();
+	
+	public void removeDeclaration();
+	
 }

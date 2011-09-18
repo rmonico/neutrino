@@ -33,9 +33,15 @@ public class ASTVariableDeclarationStatement extends ASTAbstractStatement<ASTNod
 	public Expression getInitialization() {
 		return initializationExpression;
 	}
-	
+
 	protected void setInitializationExpression(Expression initializationExpression) {
 		this.initializationExpression = initializationExpression;
+	}
+
+	@Override
+	public void removeDeclaration() {
+		// TODO Auto-generated method stub
+		ASTNode nodo = getASTObject();
 	}
 
 }

@@ -33,4 +33,5 @@ class ASTAbstractStatement<T extends ASTNode> extends AbstractCodeElement implem
 	public String toString() {
 		return getASTObject().toString();
 	}
+
 }
