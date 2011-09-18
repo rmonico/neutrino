@@ -50,6 +50,8 @@ public class ASTVariableDeclarationStatement extends ASTAbstractStatement<ASTNod
 		ConsoleVisitor.showNodes(node);
 
 		fragment = getFragment(node);
+		
+		setASTObject(fragment);
 
 	}
 	

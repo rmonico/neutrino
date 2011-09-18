@@ -63,7 +63,7 @@ public class AddFixtureRefactoring extends AbstractRefactoring {
 					// somente a chamada.
 					for (int j = 0; j < smallerList.size(); j++) {
 						List<TestStatement> novoStatement = new ArrayList<TestStatement>();
-						
+
 						// TODO Está dando NullPointerException
 						novoStatement.add(getTestStatementWithNoDeclaration(this.targetAction));
 						if (smallerList.get(j).equals(this.targetAction)) {
@@ -92,18 +92,12 @@ public class AddFixtureRefactoring extends AbstractRefactoring {
 				}
 			}
 		}
-
 	}
 
 	private TestStatement getTestStatementWithNoDeclaration(TestStatement from) {
-		
-		TestStatement to = from.getStatement();
-		ASTVariableDeclarationStatement i = (ASTVariableDeclarationStatement) from.getCodeElement();
-		i.removeDeclaration();
-		
-		ASTNode astNode = i.getASTObject();
-		ConsoleVisitor.showNodes(astNode);
-		
-		return to;
+		ASTVariableDeclarationStatement element = (ASTVariableDeclarationStatement) from.getCodeElement();
+		element.removeDeclaration();
+
+		return from;
 	}
 }
