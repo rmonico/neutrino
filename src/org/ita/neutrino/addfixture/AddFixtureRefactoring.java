@@ -3,7 +3,6 @@ package org.ita.neutrino.addfixture;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.core.dom.ASTNode;
 import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
 import org.ita.neutrino.abstracrefactoring.RefactoringException;
 import org.ita.neutrino.abstracttestparser.Action;
@@ -13,7 +12,6 @@ import org.ita.neutrino.abstracttestparser.TestSuite;
 import org.ita.neutrino.astparser.ASTVariableDeclarationStatement;
 import org.ita.neutrino.codeparser.Statement;
 import org.ita.neutrino.codeparser.VariableDeclarationStatement;
-import org.ita.neutrino.debug.ConsoleVisitor;
 
 public class AddFixtureRefactoring extends AbstractRefactoring {
 
