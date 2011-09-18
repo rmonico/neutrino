@@ -48,21 +48,23 @@ public class ASTVariableDeclarationStatement extends ASTAbstractStatement<ASTNod
 		// TODO Auto-generated method stub
 		ASTNode node = getASTObject();
 		ConsoleVisitor.showNodes(node);
-
-		fragment = getFragment(node);
 		
-		setASTObject(fragment);
+		fragment = getFragment(node);
 
+		setASTObject(fragment);
 	}
-	
-	private VariableDeclarationFragment getFragment(ASTNode node){
+
+	private VariableDeclarationFragment getFragment(ASTNode node) {
 		QuickVisitor visitor = new QuickVisitor();
 		List<ASTNode> nodes = visitor.quickVisit(node);
 		if (nodes != null && nodes.size() > 0) {
-			for (int i = 0; i < nodes.size(); i++) {
-				if (nodes.get(i) instanceof VariableDeclarationFragment) {
-					return (VariableDeclarationFragment) nodes.get(i);
-				}
+			for (ASTNode i : nodes) {
+				if (i instanceof VariableDeclarationFragment) {
+					VariableDeclarationFragment temp = (VariableDeclarationFragment) i;
+					ConsoleVisitor.showNodes(temp);
+					return temp;
+				} 
+				//else {					i = null;				}
 			}
 		}
 		return null;
