@@ -47,15 +47,16 @@ public class ASTVariableDeclarationStatement extends ASTAbstractStatement<ASTNod
 
 	@Override
 	public void removeDeclaration() {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub	
+		
 		ASTNode node = getASTObject();
 		ConsoleVisitor.showNodes(node);
-
+		
+		AST objAst = node.getAST();
 		fragment = getFragment(node);
-
-		AST x = node.getAST();
-
-		org.eclipse.jdt.core.dom.VariableDeclarationStatement statement = x.newVariableDeclarationStatement(fragment);
+		ASTNode newNode = fragment.copySubtree(objAst, fragment);
+		
+		org.eclipse.jdt.core.dom.VariableDeclarationStatement statement = objAst.newVariableDeclarationStatement((VariableDeclarationFragment) newNode);
 
 		setASTObject(statement);
 		// setASTObject(fragment);
