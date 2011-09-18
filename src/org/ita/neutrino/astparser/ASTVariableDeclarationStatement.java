@@ -2,8 +2,10 @@ package org.ita.neutrino.astparser;
 
 import java.util.List;
 
+import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.ita.neutrino.codeparser.Expression;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.VariableDeclarationStatement;
@@ -48,10 +50,16 @@ public class ASTVariableDeclarationStatement extends ASTAbstractStatement<ASTNod
 		// TODO Auto-generated method stub
 		ASTNode node = getASTObject();
 		ConsoleVisitor.showNodes(node);
-		
+
 		fragment = getFragment(node);
 
-		setASTObject(fragment);
+		AST x = node.getAST();
+
+		org.eclipse.jdt.core.dom.VariableDeclarationStatement statement = x.newVariableDeclarationStatement(fragment);
+
+		setASTObject(statement);
+		// setASTObject(fragment);
+
 	}
 
 	private VariableDeclarationFragment getFragment(ASTNode node) {
@@ -63,8 +71,8 @@ public class ASTVariableDeclarationStatement extends ASTAbstractStatement<ASTNod
 					VariableDeclarationFragment temp = (VariableDeclarationFragment) i;
 					ConsoleVisitor.showNodes(temp);
 					return temp;
-				} 
-				//else {					i = null;				}
+				}
+				// else { i = null; }
 			}
 		}
 		return null;
