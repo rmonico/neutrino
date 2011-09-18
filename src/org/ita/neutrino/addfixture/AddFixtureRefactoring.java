@@ -49,11 +49,10 @@ public class AddFixtureRefactoring extends AbstractRefactoring {
 
 		String metodoCorrente = this.targetAction.getParent().getName();
 		TestSuite suite = this.targetAction.getParent().getParent();
-		List<? extends TestMethod> testMethods = suite.getTestMethodList();
 		VariableDeclarationStatement targetVar = (VariableDeclarationStatement) this.targetAction.getCodeElement();
 
-		for (int i = 0; i < testMethods.size(); i++) {
-			TestMethod testMethod = testMethods.get(i);
+		for (TestMethod testMethod : suite.getTestMethodList()) {
+			
 			List<? extends TestStatement> smallerList;
 			if (testMethod.getStatements().size() > 0) {
 				smallerList = testMethod.getStatements();
