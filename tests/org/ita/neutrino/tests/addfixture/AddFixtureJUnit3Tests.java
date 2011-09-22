@@ -20,82 +20,12 @@ public class AddFixtureJUnit3Tests extends RefactoringAbstractTests {
 	protected void prepareTests() throws JavaModelException, ParserException, TestParserException {
 		List<ICompilationUnit> compilationUnits = new ArrayList<ICompilationUnit>();
 
-		StringBuilder beforeRefactoringSource = new StringBuilder();
-
-		beforeRefactoringSource.append("package org.ita.neutrino.addfixturerefactoring;\n");
-		beforeRefactoringSource.append("\n");
-		beforeRefactoringSource.append("import junit.framework.TestCase;\n");
-		beforeRefactoringSource.append("\n");
-		beforeRefactoringSource.append("import org.ita.neutrino.businessclasses.Connect;\n");
-		beforeRefactoringSource.append("\n");
-		beforeRefactoringSource.append("public class TestConnectJUnit3 extends TestCase {\n");
-		beforeRefactoringSource.append("    \n");
-		beforeRefactoringSource.append("    public void testConecta() {\n");
-		beforeRefactoringSource.append("        Connect connect = new Connect();\n");
-		beforeRefactoringSource.append("        connect.setPorta(8080);\n");
-		beforeRefactoringSource.append("        connect.setIP(\"127.0.0.1\");\n");
-		beforeRefactoringSource.append("        connect.estabelecerConexao();\n");
-		beforeRefactoringSource.append("        assertTrue(\"Conexão Estabelecida\", connect.isConectado());\n");
-		beforeRefactoringSource.append("        assertFalse(\"Esperando Conexão\", connect.isListen());\n");
-		beforeRefactoringSource.append("        connect.fecharConexao();\n");
-		beforeRefactoringSource.append("    }\n");
-		beforeRefactoringSource.append("\n");
-		beforeRefactoringSource.append("    public void testListen() {\n");
-		beforeRefactoringSource.append("        Connect connect = new Connect();\n");
-		beforeRefactoringSource.append("        connect.setPorta(8080);\n");
-		beforeRefactoringSource.append("        connect.setIP(\"127.0.0.1\");\n");
-		beforeRefactoringSource.append("        connect.escutarConexao();\n");
-		beforeRefactoringSource.append("        assertFalse(\"â€œConexão Estabelecida\", connect.isConectado());\n");
-		beforeRefactoringSource.append("        assertTrue(\"Esperando Conexão\", connect.isListen());\n");
-		beforeRefactoringSource.append("        connect.fecharConexao();\n");
-		beforeRefactoringSource.append("    }\n");
-		beforeRefactoringSource.append("}\n");
+		StringBuilder beforeRefactoringSource = getOriginTestSource();
 
 		refactoredCompilationUnit = createSourceFile("org.ita.neutrino.addfixturerefactoring", "TestConnectJUnit3.java", beforeRefactoringSource);
 		compilationUnits.add(refactoredCompilationUnit);
 
-		StringBuilder productionClassCode = new StringBuilder();
-
-		productionClassCode.append("package org.ita.neutrino.businessclasses;\n");
-		productionClassCode.append("\n");
-		productionClassCode.append("public class Connect {\n");
-		productionClassCode.append("\n");
-		productionClassCode.append("    public void setPorta(int i) {\n");
-		productionClassCode.append("        // TODO Auto-generated method stub\n");
-		productionClassCode.append("        \n");
-		productionClassCode.append("    }\n");
-		productionClassCode.append("\n");
-		productionClassCode.append("    public void setIP(String string) {\n");
-		productionClassCode.append("        // TODO Auto-generated method stub\n");
-		productionClassCode.append("        \n");
-		productionClassCode.append("    }\n");
-		productionClassCode.append("\n");
-		productionClassCode.append("    public void estabelecerConexao() {\n");
-		productionClassCode.append("        // TODO Auto-generated method stub\n");
-		productionClassCode.append("        \n");
-		productionClassCode.append("    }\n");
-		productionClassCode.append("\n");
-		productionClassCode.append("    public boolean isConectado() {\n");
-		productionClassCode.append("        // TODO Auto-generated method stub\n");
-		productionClassCode.append("        return false;\n");
-		productionClassCode.append("    }\n");
-		productionClassCode.append("\n");
-		productionClassCode.append("    public boolean isListen() {\n");
-		productionClassCode.append("        // TODO Auto-generated method stub\n");
-		productionClassCode.append("        return false;\n");
-		productionClassCode.append("    }\n");
-		productionClassCode.append("\n");
-		productionClassCode.append("    public void fecharConexao() {\n");
-		productionClassCode.append("        // TODO Auto-generated method stub\n");
-		productionClassCode.append("        \n");
-		productionClassCode.append("    }\n");
-		productionClassCode.append("\n");
-		productionClassCode.append("    public void escutarConexao() {\n");
-		productionClassCode.append("        // TODO Auto-generated method stub\n");
-		productionClassCode.append("        \n");
-		productionClassCode.append("    }\n");
-		productionClassCode.append("\n");
-		productionClassCode.append("}\n");
+		StringBuilder productionClassCode = getProductionSource();
 
 		compilationUnits.add(createSourceFile("org.ita.neutrino.businessclasses", "Connect.java", productionClassCode));
 
@@ -154,6 +84,88 @@ public class AddFixtureJUnit3Tests extends RefactoringAbstractTests {
 		expectedSource.append("}\n");
 
 		return expectedSource;
+	}
+
+	private StringBuilder getOriginTestSource() {
+		StringBuilder beforeRefactoringSource = new StringBuilder();
+
+		beforeRefactoringSource.append("package org.ita.neutrino.addfixturerefactoring;\n");
+		beforeRefactoringSource.append("\n");
+		beforeRefactoringSource.append("import junit.framework.TestCase;\n");
+		beforeRefactoringSource.append("\n");
+		beforeRefactoringSource.append("import org.ita.neutrino.businessclasses.Connect;\n");
+		beforeRefactoringSource.append("\n");
+		beforeRefactoringSource.append("public class TestConnectJUnit3 extends TestCase {\n");
+		beforeRefactoringSource.append("    \n");
+		beforeRefactoringSource.append("    public void testConecta() {\n");
+		beforeRefactoringSource.append("        Connect connect = new Connect();\n");
+		beforeRefactoringSource.append("        connect.setPorta(8080);\n");
+		beforeRefactoringSource.append("        connect.setIP(\"127.0.0.1\");\n");
+		beforeRefactoringSource.append("        connect.estabelecerConexao();\n");
+		beforeRefactoringSource.append("        assertTrue(\"Conexão Estabelecida\", connect.isConectado());\n");
+		beforeRefactoringSource.append("        assertFalse(\"Esperando Conexão\", connect.isListen());\n");
+		beforeRefactoringSource.append("        connect.fecharConexao();\n");
+		beforeRefactoringSource.append("    }\n");
+		beforeRefactoringSource.append("\n");
+		beforeRefactoringSource.append("    public void testListen() {\n");
+		beforeRefactoringSource.append("        Connect connect = new Connect();\n");
+		beforeRefactoringSource.append("        connect.setPorta(8080);\n");
+		beforeRefactoringSource.append("        connect.setIP(\"127.0.0.1\");\n");
+		beforeRefactoringSource.append("        connect.escutarConexao();\n");
+		beforeRefactoringSource.append("        assertFalse(\"â€œConexão Estabelecida\", connect.isConectado());\n");
+		beforeRefactoringSource.append("        assertTrue(\"Esperando Conexão\", connect.isListen());\n");
+		beforeRefactoringSource.append("        connect.fecharConexao();\n");
+		beforeRefactoringSource.append("    }\n");
+		beforeRefactoringSource.append("}\n");
+
+		return beforeRefactoringSource;
+	}
+
+	private StringBuilder getProductionSource() {
+		StringBuilder productionClassCode = new StringBuilder();
+
+		productionClassCode.append("package org.ita.neutrino.businessclasses;\n");
+		productionClassCode.append("\n");
+		productionClassCode.append("public class Connect {\n");
+		productionClassCode.append("\n");
+		productionClassCode.append("    public void setPorta(int i) {\n");
+		productionClassCode.append("        // TODO Auto-generated method stub\n");
+		productionClassCode.append("        \n");
+		productionClassCode.append("    }\n");
+		productionClassCode.append("\n");
+		productionClassCode.append("    public void setIP(String string) {\n");
+		productionClassCode.append("        // TODO Auto-generated method stub\n");
+		productionClassCode.append("        \n");
+		productionClassCode.append("    }\n");
+		productionClassCode.append("\n");
+		productionClassCode.append("    public void estabelecerConexao() {\n");
+		productionClassCode.append("        // TODO Auto-generated method stub\n");
+		productionClassCode.append("        \n");
+		productionClassCode.append("    }\n");
+		productionClassCode.append("\n");
+		productionClassCode.append("    public boolean isConectado() {\n");
+		productionClassCode.append("        // TODO Auto-generated method stub\n");
+		productionClassCode.append("        return false;\n");
+		productionClassCode.append("    }\n");
+		productionClassCode.append("\n");
+		productionClassCode.append("    public boolean isListen() {\n");
+		productionClassCode.append("        // TODO Auto-generated method stub\n");
+		productionClassCode.append("        return false;\n");
+		productionClassCode.append("    }\n");
+		productionClassCode.append("\n");
+		productionClassCode.append("    public void fecharConexao() {\n");
+		productionClassCode.append("        // TODO Auto-generated method stub\n");
+		productionClassCode.append("        \n");
+		productionClassCode.append("    }\n");
+		productionClassCode.append("\n");
+		productionClassCode.append("    public void escutarConexao() {\n");
+		productionClassCode.append("        // TODO Auto-generated method stub\n");
+		productionClassCode.append("        \n");
+		productionClassCode.append("    }\n");
+		productionClassCode.append("\n");
+		productionClassCode.append("}\n");
+
+		return productionClassCode;
 	}
 
 	@Override
