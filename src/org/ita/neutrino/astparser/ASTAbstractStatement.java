@@ -10,8 +10,8 @@ class ASTAbstractStatement<T extends ASTNode> extends AbstractCodeElement implem
 	private T astObject;
 	
 	@Override
-	public Block getParent() {
-		return (Block) super.getParent();
+	public ASTBlock getParent() {
+		return (ASTBlock) super.getParent();
 	}
 	
 	protected void setParent(Block block) {
