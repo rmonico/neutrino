@@ -8,13 +8,11 @@ public abstract class GroupSimilarTests extends RefactoringAbstractTests {
 
 	@Override
 	protected AbstractRefactoring instantiateRefactoring() {
-		// TODO Auto-generated method stub
 		return new GroupSimilarTestsRefactoring();
 	}
 
 	@Override
 	protected String getRefactoringName() {
-		// TODO Auto-generated method stub
 		return "Group Similar Tests";
 	}
 
@@ -26,7 +24,7 @@ public abstract class GroupSimilarTests extends RefactoringAbstractTests {
 
 	protected StringBuilder getProductionSource() {
 		StringBuilder productionClassCode = new StringBuilder();
-		
+
 		productionClassCode.append("package org.ita.neutrino.businessclasses;\n");
 		productionClassCode.append("\n");
 		productionClassCode.append("public class CalculadorImposto {\n");

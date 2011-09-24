@@ -2,7 +2,6 @@ package org.ita.neutrino.tests.groupsimilar;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
 import org.ita.neutrino.abstracttestparser.TestParserException;

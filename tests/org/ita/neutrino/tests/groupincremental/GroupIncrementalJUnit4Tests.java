@@ -48,78 +48,79 @@ public class GroupIncrementalJUnit4Tests extends GroupIncrementalTests {
 
 	@Override
 	protected StringBuilder getExpectedSource() {
-		StringBuilder expectedSource = new StringBuilder();
+		StringBuilder sb = new StringBuilder();
 
-		expectedSource.append("package org.ita.neutrino.groupincrementalrefactoring;\n");
-		expectedSource.append("\n");
-		expectedSource.append("import junit.framework.Assert;\n");
-		expectedSource.append("import org.ita.neutrino.businessclasses.Carrinho;\n");
-		expectedSource.append("import org.junit.Before;\n");
-		expectedSource.append("import org.junit.Test;\n");
-		expectedSource.append("\n");
-		expectedSource.append("public class TestCarrinhoJUnit4Expected {\n");
-		expectedSource.append("	Carrinho carrinho;\n");
-		expectedSource.append("\n");
-		expectedSource.append("	@Before\n");
-		expectedSource.append("	public void setUp() {\n");
-		expectedSource.append("		carrinho = new Carrinho();\n");
-		expectedSource.append("	}\n");
-		expectedSource.append("\n");
-		expectedSource.append("	@Test\n");
-		expectedSource.append("	public void testAdicaoDeItens() {\n");
-		expectedSource.append("		carrinho.adicionarItem(100);\n");
-		expectedSource.append("		Assert.assertEquals(\"Item + Entrega\", 115, carrinho.totalCompra());\n");
-		expectedSource.append("		carrinho.adicionarItem(100);\n");
-		expectedSource.append("		Assert.assertEquals(\"Itens sem taxa\", 200, carrinho.totalCompra());\n");
-		expectedSource.append("		carrinho.adicionarItem(100);\n");
-		expectedSource.append("		Assert.assertEquals(\"Itens menos 5%\", 285, carrinho.totalCompra());\n");
-		expectedSource.append("	}\n");
-		expectedSource.append("}\n");
+		sb.append("package org.ita.neutrino.groupincrementalrefactoring;\n");
+		sb.append("\n");
+		sb.append("import junit.framework.Assert;\n");
+		sb.append("import org.ita.neutrino.businessclasses.Carrinho;\n");
+		sb.append("import org.junit.Before;\n");
+		sb.append("import org.junit.Test;\n");
+		sb.append("\n");
+		sb.append("public class TestCarrinhoJUnit4Expected {\n");
+		sb.append("    Carrinho carrinho;\n");
+		sb.append("\n");
+		sb.append("    @Before\n");
+		sb.append("    public void setUp() {\n");
+		sb.append("        carrinho = new Carrinho();\n");
+		sb.append("    }\n");
+		sb.append("\n");
+		sb.append("    @Test\n");
+		sb.append("    public void testAdicaoDeItens() {\n");
+		sb.append("        carrinho.adicionarItem(100);\n");
+		sb.append("        Assert.assertEquals(\"Item + Entrega\", 115, carrinho.totalCompra());\n");
+		sb.append("        carrinho.adicionarItem(100);\n");
+		sb.append("        Assert.assertEquals(\"Itens sem taxa\", 200, carrinho.totalCompra());\n");
+		sb.append("        carrinho.adicionarItem(100);\n");
+		sb.append("        Assert.assertEquals(\"Itens menos 5%\", 285, carrinho.totalCompra());\n");
+		sb.append("    }\n");
+		sb.append("}\n");
 
-		return expectedSource;
+		return sb;
 	}
 
 	private StringBuilder getOriginTestSource() {
-		StringBuilder beforeRefactoringSource = new StringBuilder();
+		StringBuilder sb = new StringBuilder();
 
-		beforeRefactoringSource.append("package org.ita.neutrino.groupincrementalrefactoring;\n");
-		beforeRefactoringSource.append("\n");
-		beforeRefactoringSource.append("import junit.framework.Assert;\n");
-		beforeRefactoringSource.append("import org.ita.neutrino.businessclasses.Carrinho;\n");
-		beforeRefactoringSource.append("import org.junit.Before;\n");
-		beforeRefactoringSource.append("import org.junit.Test;\n");
-		beforeRefactoringSource.append("\n");
-		beforeRefactoringSource.append("public class TestCarrinhoJUnit4 {\n");
-		beforeRefactoringSource.append("	Carrinho carrinho;\n");
-		beforeRefactoringSource.append("\n");
-		beforeRefactoringSource.append("	@Before\n");
-		beforeRefactoringSource.append("	public void setUp() {\n");
-		beforeRefactoringSource.append("		carrinho = new Carrinho();\n");
-		beforeRefactoringSource.append("	}\n");
-		beforeRefactoringSource.append("\n");
-		beforeRefactoringSource.append("	@Test\n");
-		beforeRefactoringSource.append("	public void testUmItem() {\n");
-		beforeRefactoringSource.append("		carrinho.adicionarItem(100);\n");
-		beforeRefactoringSource.append("		Assert.assertEquals(\"Item + Entrega\", 115, carrinho.totalCompra());\n");
-		beforeRefactoringSource.append("	}\n");
-		beforeRefactoringSource.append("\n");
-		beforeRefactoringSource.append("	@Test\n");
-		beforeRefactoringSource.append("	public void testDoisItens() {\n");
-		beforeRefactoringSource.append("		carrinho.adicionarItem(100);\n");
-		beforeRefactoringSource.append("		carrinho.adicionarItem(100);\n");
-		beforeRefactoringSource.append("		Assert.assertEquals(\"Itens sem taxa\", 200, carrinho.totalCompra());\n");
-		beforeRefactoringSource.append("	}\n");
-		beforeRefactoringSource.append("\n");
-		beforeRefactoringSource.append("	@Test\n");
-		beforeRefactoringSource.append("	public void testTresItens() {\n");
-		beforeRefactoringSource.append("		carrinho.adicionarItem(100);\n");
-		beforeRefactoringSource.append("		carrinho.adicionarItem(100);\n");
-		beforeRefactoringSource.append("		carrinho.adicionarItem(100);\n");
-		beforeRefactoringSource.append("		Assert.assertEquals(\"Itens menos 5%\", 285, carrinho.totalCompra());\n");
-		beforeRefactoringSource.append("	}\n");
-		beforeRefactoringSource.append("}\n");
+		sb.append("package org.ita.neutrino.groupincrementalrefactoring;\n");
+		sb.append("\n");
+		sb.append("import junit.framework.Assert;\n");
+		sb.append("import org.ita.neutrino.businessclasses.Carrinho;\n");
+		sb.append("import org.junit.Before;\n");
+		sb.append("import org.junit.Test;\n");
+		sb.append("\n");
+		sb.append("public class TestCarrinhoJUnit4 {\n");
+		sb.append("    Carrinho carrinho;\n");
+		sb.append("\n");
+		sb.append("    @Before\n");
+		sb.append("    public void setUp() {\n");
+		sb.append("        carrinho = new Carrinho();\n");
+		sb.append("    }\n");
+		sb.append("\n");
+		sb.append("    @Test\n");
+		sb.append("    public void testUmItem() {\n");
+		sb.append("        carrinho.adicionarItem(100);\n");
+		sb.append("        Assert.assertEquals(\"Item + Entrega\", 115, carrinho.totalCompra());\n");
+		sb.append("    }\n");
+		sb.append("\n");
+		sb.append("    @Test\n");
+		sb.append("    public void testDoisItens() {\n");
+		sb.append("        carrinho.adicionarItem(100);\n");
+		sb.append("        carrinho.adicionarItem(100);\n");
+		sb.append("        Assert.assertEquals(\"Itens sem taxa\", 200, carrinho.totalCompra());\n");
+		sb.append("    }\n");
+		sb.append("\n");
+		sb.append("    @Test\n");
+		sb.append("    public void testTresItens() {\n");
+		sb.append("        carrinho.adicionarItem(100);\n");
+		sb.append("        carrinho.adicionarItem(100);\n");
+		sb.append("        carrinho.adicionarItem(100);\n");
+		sb.append("        Assert.assertEquals(\"Itens menos 5%\", 285, carrinho.totalCompra());\n");
+		sb.append("    }\n");
+		sb.append("}\n");
 
-		return beforeRefactoringSource;
+
+		return sb;
 	}
 
 }

@@ -25,20 +25,20 @@ public abstract class GroupIncrementalTests extends RefactoringAbstractTests {
 	}
 
 	protected StringBuilder getProductionSource() {
-		StringBuilder productionClassCode = new StringBuilder();
+		StringBuilder sb = new StringBuilder();
 
-		productionClassCode.append("package org.ita.neutrino.businessclasses;\n");
-		productionClassCode.append("\n");
-		productionClassCode.append("public class Carrinho {\n");
-		productionClassCode.append("	public void adicionarItem(int i) {\n");
-		productionClassCode.append("	}\n");
-		productionClassCode.append("\n");
-		productionClassCode.append("	public double totalCompra() {\n");
-		productionClassCode.append("		return 0;\n");
-		productionClassCode.append("	}\n");
-		productionClassCode.append("}\n");
+		sb.append("package org.ita.neutrino.businessclasses;\n");
+		sb.append("\n");
+		sb.append("public class Carrinho {\n");
+		sb.append("    public void adicionarItem(int i) {\n");
+		sb.append("    }\n");
+		sb.append("\n");
+		sb.append("    public double totalCompra() {\n");
+		sb.append("        return 0;\n");
+		sb.append("    }\n");
+		sb.append("}\n");
 
-		return productionClassCode;
+		return sb;
 	}
 
 }

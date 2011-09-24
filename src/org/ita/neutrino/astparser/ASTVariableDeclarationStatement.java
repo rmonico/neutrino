@@ -105,9 +105,9 @@ public class ASTVariableDeclarationStatement extends ASTAbstractStatement<ASTNod
 		// setASTObject(fragment);
 		// blkParent.statements().add(es);
 		// setInitializationExpression(cie);
-		testFragment(node);
-		//testeStatement(node);
-		// testeAssignement(node);
+		// testFragment(node);
+		// testeStatement(node);
+		testAssignement2(node);
 	}
 
 	ASTConstructorInvocationExpression cie;
@@ -128,29 +128,29 @@ public class ASTVariableDeclarationStatement extends ASTAbstractStatement<ASTNod
 		setASTObject(statement);
 	}
 
-	private void testFragment(ASTNode node) {		
+	private void testFragment(ASTNode node) {
 		VariableDeclarationFragment fragment = getFragment(node);
 		setASTObject(fragment);
 	}
-	
+
 	private VariableDeclarationFragment getFragment(ASTNode node) {
 		QuickVisitor visitor = new QuickVisitor();
 		List<ASTNode> nodes = visitor.quickVisit(node);
-		
+
 		if (nodes != null && nodes.size() > 0) {
 			for (ASTNode i : nodes) {
 				if (i instanceof VariableDeclarationFragment) {
 					VariableDeclarationFragment temp = (VariableDeclarationFragment) i;
-					/*					
-					ConsoleVisitor.showNodes(temp);
-					CompilationUnit nCompilationUnit = (CompilationUnit) getASTObject().getParent().getParent().getParent().getParent();
-					List<ASTNode> nodes2 = visitor.quickVisit(i);
-					for (ASTNode j : nodes2) {
-						if (j instanceof ClassInstanceCreation) {
-							testTransformFragment((ClassInstanceCreation) j, nCompilationUnit);
-						}
-					}
-					*/
+					/*
+					 * ConsoleVisitor.showNodes(temp); CompilationUnit
+					 * nCompilationUnit = (CompilationUnit)
+					 * getASTObject().getParent
+					 * ().getParent().getParent().getParent(); List<ASTNode>
+					 * nodes2 = visitor.quickVisit(i); for (ASTNode j : nodes2)
+					 * { if (j instanceof ClassInstanceCreation) {
+					 * testTransformFragment((ClassInstanceCreation) j,
+					 * nCompilationUnit); } }
+					 */
 					return temp;
 				}
 
@@ -159,7 +159,7 @@ public class ASTVariableDeclarationStatement extends ASTAbstractStatement<ASTNod
 		return null;
 	}
 
-	private void testeAssignement(ASTNode node) {
+	private void testAssignement(ASTNode node) {
 		Block blkParent = (Block) node.getParent();
 		Assignment a = blkParent.getAST().newAssignment();
 		a.setOperator(Assignment.Operator.ASSIGN);
@@ -181,6 +181,39 @@ public class ASTVariableDeclarationStatement extends ASTAbstractStatement<ASTNod
 
 		setASTObject(ess);
 
+	}
+
+	private void testAssignement2(ASTNode node) {
+		// get AST block
+		Block blkParent = (Block) node.getParent();
+
+		// STATEMENT: MISSING = MISSING
+		Assignment a = blkParent.getAST().newAssignment();
+		a.setOperator(Assignment.Operator.ASSIGN);
+
+		// STATEMENT: this.varName = MISSING
+		FieldAccess fa = blkParent.getAST().newFieldAccess();
+		fa.setExpression(blkParent.getAST().newThisExpression());
+		fa.setName(blkParent.getAST().newSimpleName("varName"));
+		a.setLeftHandSide(fa);
+
+		// STATEMENT: new StringBuilder();
+		ClassInstanceCreation cic = null;
+		cic = blkParent.getAST().newClassInstanceCreation();
+		//it does not work but many examples on net leed to it.
+		cic.setName(blkParent.getAST().newSimpleName("StringBuilder")); 
+																		
+		// STATEMENT: this.varName = new MISSING()
+		fa = blkParent.getAST().newFieldAccess();
+		fa.setExpression(blkParent.getAST().newThisExpression());
+		fa.setName(blkParent.getAST().newSimpleName(cic.toString()));
+		a.setRightHandSide(fa);
+
+		// ENCAPSULATE THE ASSIGNEMENT INSERTING A SEMICOLUMN
+		// STATEMENT: this.varName = new MISSING();
+		ExpressionStatement ess = blkParent.getAST().newExpressionStatement(a);
+
+		setASTObject(ess);
 	}
 
 	private void testTransformFragment(ClassInstanceCreation astNode, CompilationUnit cu) {
@@ -265,7 +298,5 @@ public class ASTVariableDeclarationStatement extends ASTAbstractStatement<ASTNod
 		}
 		return (String[]) list.toArray(new String[list.size()]);
 	}
-
-	
 
 }
