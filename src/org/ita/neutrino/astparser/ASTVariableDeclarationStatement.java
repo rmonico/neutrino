@@ -107,10 +107,63 @@ public class ASTVariableDeclarationStatement extends ASTAbstractStatement<ASTNod
 		// setInitializationExpression(cie);
 		// testFragment(node);
 		// testeStatement(node);
-		testAssignement2(node);
+		// testAssignement2(node);
+		// testFragmentExpression(node);
+		testFragmentExpression2(node);
 	}
 
 	ASTConstructorInvocationExpression cie;
+
+	private void testFragmentExpression(ASTNode node) {
+		// get AST block
+		Block blkParent = (Block) node.getParent();
+
+		VariableDeclarationFragment fragment = getFragment(node);
+
+		// STATEMENT: MISSING = MISSING
+		Assignment a = blkParent.getAST().newAssignment();
+		a.setOperator(Assignment.Operator.ASSIGN);
+
+		// STATEMENT: this.varName = MISSING
+		FieldAccess faL = blkParent.getAST().newFieldAccess();
+		faL.setExpression(blkParent.getAST().newThisExpression());
+		faL.setName(blkParent.getAST().newSimpleName("varName"));
+		a.setLeftHandSide(faL);
+
+		// STATEMENT: this.varName = new MISSING()
+		FieldAccess faR = blkParent.getAST().newFieldAccess();
+		org.eclipse.jdt.core.dom.Expression exp = fragment.getInitializer();
+		try {
+			faR.setExpression(exp);
+		} catch (Exception e) {
+			String s = e.toString();
+			// TODO: handle exception
+		}
+		a.setRightHandSide(faR);
+
+		// ENCAPSULATE THE ASSIGNEMENT INSERTING A SEMICOLUMN
+		// STATEMENT: this.varName = new MISSING();
+		ExpressionStatement ess = blkParent.getAST().newExpressionStatement(a);
+
+		setASTObject(ess);
+	}
+
+	private void testFragmentExpression2(ASTNode node) {
+		// get AST block
+		Block blkParent = (Block) node.getParent();
+
+		VariableDeclarationFragment fragment = getFragment(node);
+
+		// STATEMENT: MISSING = MISSING
+		Assignment a = blkParent.getAST().newAssignment();
+		a.setOperator(Assignment.Operator.ASSIGN);
+
+		// ENCAPSULATE THE ASSIGNEMENT INSERTING A SEMICOLUMN
+		// STATEMENT: this.varName = new MISSING();
+		ExpressionStatement ess = blkParent.getAST().newExpressionStatement(fragment.getInitializer());
+
+		setASTObject(ess);
+	}
 
 	private void testeTiposObjetos(ASTNode node) {
 		AST objAst = node.getAST();
@@ -200,9 +253,9 @@ public class ASTVariableDeclarationStatement extends ASTAbstractStatement<ASTNod
 		// STATEMENT: new StringBuilder();
 		ClassInstanceCreation cic = null;
 		cic = blkParent.getAST().newClassInstanceCreation();
-		//it does not work but many examples on net leed to it.
-		cic.setName(blkParent.getAST().newSimpleName("StringBuilder")); 
-																		
+		// it does not work but many examples on net leed to it.
+		cic.setName(blkParent.getAST().newSimpleName("StringBuilder"));
+
 		// STATEMENT: this.varName = new MISSING()
 		fa = blkParent.getAST().newFieldAccess();
 		fa.setExpression(blkParent.getAST().newThisExpression());
