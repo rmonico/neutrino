@@ -22,7 +22,7 @@
 				</separator>
 			</menu>
 
-         <action
+        <action
                label="JUnit 4 - Add explanation to assertion"
                menubarPath="org.ita.neutrino.menu/junit4"
                class="org.ita.neutrino.eclipseaction.ActionController"
@@ -69,6 +69,18 @@
                menubarPath="org.ita.neutrino.menu/junit3"
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.addfixture.AddFixtureJUnit3">
+         </action>
+         <action
+               label="JUnit 4 - Group Incremental Tests"
+               menubarPath="org.ita.neutrino.menu/junit4"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.groupincrementaltests.GroupIncrementalTestsJUnit4">
+         </action>
+         <action
+               label="JUnit 3 - Group Incremental Tests"
+               menubarPath="org.ita.neutrino.menu/junit3"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.groupincrementaltests.GroupIncrementalTestsJUnit3">
          </action>
          <action
                label="Run JUnits"
