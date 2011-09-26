@@ -52,39 +52,27 @@ public class AddFixtureRefactoring extends AbstractRefactoring {
 
 		for (int i = 0; i < testMethods.size(); i++) {
 			TestMethod testMethod = testMethods.get(i);
-			List<? extends TestStatement> smallerList;
+			List<? extends TestStatement> statementList;
 			if (testMethod.getStatements().size() > 0) {
-				smallerList = testMethod.getStatements();
+				statementList = testMethod.getStatements();
 
 				if (testMethod.getName().equals(metodoCorrente)) {
 					// replace on variable declacation statement to expressionStatement.
-					for (int j = 0; j < smallerList.size(); j++) {
-						List<TestStatement> novoStatement = new ArrayList<TestStatement>();
-
-						// TODO: Declaração de variável não é statement, isso gera erro.
-						novoStatement.add(getTestStatementWithNoDeclaration(this.targetAction, null));
-						if (smallerList.get(j).equals(this.targetAction)) {
-							testMethod.removeStatements(j, 1);
-							testMethod.addStatements(novoStatement, j);
+					for (int j = 0; j < statementList.size(); j++) {
+						if (statementList.get(j).equals(this.targetAction)) {
+							VariableDeclarationStatement var = (VariableDeclarationStatement) this.targetAction.getCodeElement();
+							changeStatements(var, statementList, testMethod, j, targetVar.getVariableName());
 							break;
 						}
 					}
 
 				} else {
 					// Replace on the variable declaration with same type and name.
-					for (int j = 0; j < smallerList.size(); j++) {
-						if (smallerList.get(j).getCodeElement() instanceof VariableDeclarationStatement) {
-							VariableDeclarationStatement var = (VariableDeclarationStatement) smallerList.get(j).getCodeElement();
+					for (int j = 0; j < statementList.size(); j++) {
+						if (statementList.get(j).getCodeElement() instanceof VariableDeclarationStatement) {
+							VariableDeclarationStatement var = (VariableDeclarationStatement) statementList.get(j).getCodeElement();
 							if (var.getVariableType().equals(targetVar.getVariableType()) && var.getVariableName().equals(targetVar.getVariableName())) {
-
-								List<TestStatement> novoStatement = new ArrayList<TestStatement>();
-								novoStatement.add(getTestStatementWithNoDeclaration(smallerList.get(j), targetVar.getVariableName()));
-								testMethod.removeStatements(j, 1);
-								testMethod.addStatements(novoStatement, j);
-
-								if (var.getInitialization() == null) {
-									// TODO: remove the line.
-								}
+								changeStatements(var, statementList, testMethod, j, targetVar.getVariableName());
 								break;
 							}
 						}
@@ -92,6 +80,16 @@ public class AddFixtureRefactoring extends AbstractRefactoring {
 				}
 			}
 		}
+	}
+
+	private void changeStatements(VariableDeclarationStatement var, List<? extends TestStatement> statementList, TestMethod testMethod, int statementIndex, String variableName) {
+		List<TestStatement> novoStatement = new ArrayList<TestStatement>();
+		if (var.getInitialization() != null) {
+			novoStatement.add(getTestStatementWithNoDeclaration(statementList.get(statementIndex), variableName));
+		}
+
+		testMethod.removeStatements(statementIndex, 1);
+		testMethod.addStatements(novoStatement, statementIndex);
 	}
 
 	private TestStatement getTestStatementWithNoDeclaration(TestStatement from, String variableName) {
