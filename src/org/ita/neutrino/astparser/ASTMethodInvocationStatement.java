@@ -39,4 +39,10 @@ public class ASTMethodInvocationStatement extends ASTAbstractStatement<org.eclip
 	public void parseFinished() {
 		mih.parseFinished();
 	}
+
+	@Override
+	public boolean isAssert() {
+		// TODO Auto-generated method stub
+		return mih.getCalledMethod().getParent().getQualifiedName().equals("org.junit.Assert");
+	}
 }
