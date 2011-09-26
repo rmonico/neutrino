@@ -46,24 +46,34 @@ public class ASTVariableDeclarationStatement extends ASTAbstractStatement<ASTNod
 	}
 
 	@Override
-	public void removeDeclaration() {
+	public void transformInExpression() {
+		transformInExpression(this.variableName);
+	}
+
+	@Override
+	public void transformInExpression(String variableName) {
 		ASTNode node = getASTObject();
 		// ConsoleVisitor.showNodes(node);
 
 		AST ast = node.getAST();
 
 		Assignment assignment = ast.newAssignment();
+		assignment.setOperator(Assignment.Operator.ASSIGN);
+
+		//FieldAccess fa = ast.newFieldAccess();
+		//fa.setExpression(ast.newThisExpression());
 		SimpleName variable = ast.newSimpleName(variableName);
+		//fa.setName(variable);
 		assignment.setLeftHandSide(variable);
 
 		org.eclipse.jdt.core.dom.Expression initializationExpression = getInitializationExpression();
+		ExpressionStatement expression = null;
 
-		org.eclipse.jdt.core.dom.Expression copyOfinitializationExpression = (org.eclipse.jdt.core.dom.Expression) ASTNode.copySubtree(ast, initializationExpression);
-
-		assignment.setRightHandSide(copyOfinitializationExpression);
-
-		ExpressionStatement expression = ast.newExpressionStatement(assignment);
-
+		if (initializationExpression != null) {
+			org.eclipse.jdt.core.dom.Expression copyOfinitializationExpression = (org.eclipse.jdt.core.dom.Expression) ASTNode.copySubtree(ast, initializationExpression);
+			assignment.setRightHandSide(copyOfinitializationExpression);
+			expression = ast.newExpressionStatement(assignment);
+		}
 		setASTObject(expression);
 	}
 
@@ -76,8 +86,11 @@ public class ASTVariableDeclarationStatement extends ASTAbstractStatement<ASTNod
 
 		List<ASTNode> variableDeclarationNodes = quickVisitor.quickVisit(variableDeclarationFragment);
 
-		org.eclipse.jdt.core.dom.Expression initializationExpression = (org.eclipse.jdt.core.dom.Expression) variableDeclarationNodes.get(1);
+		org.eclipse.jdt.core.dom.Expression initializationExpression = null;
 
+		if (variableDeclarationNodes.size() > 1) {
+			initializationExpression = (org.eclipse.jdt.core.dom.Expression) variableDeclarationNodes.get(1);
+		}
 		return initializationExpression;
 	}
 }

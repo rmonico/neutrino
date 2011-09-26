@@ -8,6 +8,7 @@ public interface VariableDeclarationStatement extends Statement {
 	
 	public Expression getInitialization();
 	
-	public void removeDeclaration();
+	public void transformInExpression();
 	
+	public void transformInExpression(String variableName);
 }

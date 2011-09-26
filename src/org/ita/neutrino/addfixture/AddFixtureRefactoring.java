@@ -57,13 +57,12 @@ public class AddFixtureRefactoring extends AbstractRefactoring {
 				smallerList = testMethod.getStatements();
 
 				if (testMethod.getName().equals(metodoCorrente)) {
-					// remove declaração do statement selecionado. Deixando
-					// somente a chamada.
+					// replace on variable declacation statement to expressionStatement.
 					for (int j = 0; j < smallerList.size(); j++) {
 						List<TestStatement> novoStatement = new ArrayList<TestStatement>();
 
-						// TODO Está dando NullPointerException
-						novoStatement.add(getTestStatementWithNoDeclaration(this.targetAction));
+						// TODO: Declaração de variável não é statement, isso gera erro.
+						novoStatement.add(getTestStatementWithNoDeclaration(this.targetAction, null));
 						if (smallerList.get(j).equals(this.targetAction)) {
 							testMethod.removeStatements(j, 1);
 							testMethod.addStatements(novoStatement, j);
@@ -72,30 +71,36 @@ public class AddFixtureRefactoring extends AbstractRefactoring {
 					}
 
 				} else {
-					// Remove primeira ocorrencia do statement selecionado.
+					// Replace on the variable declaration with same type and name.
 					for (int j = 0; j < smallerList.size(); j++) {
 						if (smallerList.get(j).getCodeElement() instanceof VariableDeclarationStatement) {
 							VariableDeclarationStatement var = (VariableDeclarationStatement) smallerList.get(j).getCodeElement();
-							if (var.getVariableType().equals(targetVar.getVariableType())) {
-								// TODO: salva o nome da variavel a dar replace.
+							if (var.getVariableType().equals(targetVar.getVariableType()) && var.getVariableName().equals(targetVar.getVariableName())) {
+
+								List<TestStatement> novoStatement = new ArrayList<TestStatement>();
+								novoStatement.add(getTestStatementWithNoDeclaration(smallerList.get(j), targetVar.getVariableName()));
+								testMethod.removeStatements(j, 1);
+								testMethod.addStatements(novoStatement, j);
 
 								if (var.getInitialization() == null) {
-									// TODO: remove a linha.
+									// TODO: remove the line.
 								}
 								break;
 							}
 						}
 					}
-					// TODO: replace em todas ocorrencias da variavel.
 				}
 			}
 		}
 	}
 
-	private TestStatement getTestStatementWithNoDeclaration(TestStatement from) {
+	private TestStatement getTestStatementWithNoDeclaration(TestStatement from, String variableName) {
 		ASTVariableDeclarationStatement element = (ASTVariableDeclarationStatement) from.getCodeElement();
-		element.removeDeclaration();
-
+		if (variableName == null) {
+			element.transformInExpression();
+		} else {
+			element.transformInExpression(variableName);
+		}
 		return from;
 	}
 }
