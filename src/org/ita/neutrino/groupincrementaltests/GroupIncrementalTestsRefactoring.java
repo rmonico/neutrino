@@ -11,7 +11,7 @@ import org.ita.neutrino.codeparser.Statement;
 import org.ita.neutrino.codeparser.VariableDeclarationStatement;
 
 public class GroupIncrementalTestsRefactoring extends AbstractRefactoring {
-	private Action targetAction;
+	private TestMethod targetAction;
 	
 	@Override
 	public List<String> checkInitialConditions() {
@@ -20,14 +20,8 @@ public class GroupIncrementalTestsRefactoring extends AbstractRefactoring {
 		if ((!(getTargetFragment() instanceof TestMethod)) || (getTargetFragment() == null)) {
 			problems.add("Selection is not valid. Select a method.");
 		} else {
-			targetAction = (Action) getTargetFragment();
-			
-			Statement statement = targetAction.getCodeElement();
-			if (!(statement instanceof VariableDeclarationStatement)) {
-				problems.add("Selection must be a method.");
-			} else {
-				
-			}
+			targetAction = (TestMethod) getTargetFragment();
+						
 		}
 
 		return problems;

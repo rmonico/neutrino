@@ -16,7 +16,9 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.ita.neutrino.abstracttestparser.AbstractTestParser;
 import org.ita.neutrino.abstracttestparser.TestBattery;
+import org.ita.neutrino.abstracttestparser.TestElement;
 import org.ita.neutrino.abstracttestparser.TestParserException;
+import org.ita.neutrino.abstracttestparser.TestSelection;
 import org.ita.neutrino.astparser.ASTParser;
 import org.ita.neutrino.astparser.ASTSelection;
 import org.ita.neutrino.codeparser.Environment;
@@ -63,7 +65,9 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 		}
 
 		refactoringObject.setBattery(battery);
-		refactoringObject.setTargetFragment(battery.getSelection().getSelectedFragment());
+		TestSelection selection = battery.getSelection();
+		TestElement<?> element = selection.getSelectedFragment();
+		refactoringObject.setTargetFragment(element);
 
 		verifyInitialConditions();
 

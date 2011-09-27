@@ -3,13 +3,11 @@ package org.ita.neutrino.extractfinalizationmethod;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.core.dom.AssertStatement;
 import org.ita.neutrino.abstracrefactoring.RefactoringException;
 import org.ita.neutrino.abstracttestparser.TestMethod;
 import org.ita.neutrino.abstracttestparser.TestStatement;
 import org.ita.neutrino.abstracttestparser.TestSuite;
 import org.ita.neutrino.astparser.ASTMethodInvocationStatement;
-import org.ita.neutrino.codeparser.VariableDeclarationStatement;
 import org.ita.neutrino.extractmethod.AbstractExtractMethodRefactoring;
 
 public class ExtractFinalizationMethodRefactoring extends AbstractExtractMethodRefactoring {
@@ -43,9 +41,7 @@ public class ExtractFinalizationMethodRefactoring extends AbstractExtractMethodR
 		if (commomStatements != null && commomStatements.size() > 0) {
 			int i = 0;
 			for (i = commomStatements.size() - 1; i > -1; i--) {
-				if (commomStatements.get(i).getCodeElement() instanceof VariableDeclarationStatement) {
-					break;
-				} else if (commomStatements.get(i).getCodeElement() instanceof ASTMethodInvocationStatement) {
+				if (commomStatements.get(i).getCodeElement() instanceof ASTMethodInvocationStatement) {
 					ASTMethodInvocationStatement statement = (ASTMethodInvocationStatement) commomStatements.get(i).getCodeElement();
 					if (statement.isAssert()) {
 						break;

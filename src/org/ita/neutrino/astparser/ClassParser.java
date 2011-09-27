@@ -1,6 +1,7 @@
 package org.ita.neutrino.astparser;
 
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
@@ -12,9 +13,11 @@ import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.ita.neutrino.codeparser.Annotation;
 import org.ita.neutrino.codeparser.Class;
+import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.TypeKind;
+import org.ita.neutrino.debug.ConsoleVisitor;
 
 class ClassParser implements ASTTypeParser<ASTClass> {
 
@@ -63,7 +66,7 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 				String typeName = ASTEnvironment.extractTypeName(fieldTypeQualifiedName);
 
 				ITypeBinding typeBinding = fieldDeclaration.getType().resolveBinding();
-				
+
 				if (typeBinding.isClass()) {
 					fieldType = environment.createDummyClass(typeName);
 				} else if (typeBinding.isAnnotation()) {
@@ -125,14 +128,14 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 			method.setAccessModifier(accessModifier);
 
 			method.setNonAccessModifier(nonAccessModifier);
-			
+
 			// Se o método não for abstrato, processa seu bloco
 			if (!method.getNonAccessModifier().isAbstract()) {
 				ASTBlock block = method.getBody();
 
 				block.setASTObject(methodDeclaration.getBody());
 			}
-			
+
 			// Processa as anotações do método
 			for (IAnnotationBinding ab : methodDeclaration.resolveBinding().getAnnotations()) {
 				ASTEnvironment environment = (ASTEnvironment) clazz.getParent().getParent().getParent();
@@ -140,12 +143,12 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 				String annotationQualifiedName = ab.getAnnotationType().getQualifiedName();
 				Type type = environment.getTypeCache().get(annotationQualifiedName);
 				Annotation annotation = null;
-				
+
 				if (type.getKind() == TypeKind.UNKNOWN) {
 					DummyAnnotation dummyAnnotation = environment.createDummyAnnotation(annotationQualifiedName);
-					
+
 					type.promote(dummyAnnotation);
-					
+
 					annotation = dummyAnnotation;
 				} else if (type.getKind() == TypeKind.ANNOTATION) {
 					annotation = (Annotation) type;
@@ -156,11 +159,9 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 						throw new Error(e);
 					}
 				}
-				
+
 				method.getAnnotations().add(annotation);
 			}
-
-
 
 			return false;
 		}
@@ -210,6 +211,20 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 
 		// TODO: Popular os modificadores da classe
 		clazz.getASTObject().accept(visitor);
+		
+		findMethodSelection(environment);
 	}
 
+	private void findMethodSelection(ASTEnvironment environment) {
+		ConsoleVisitor.showNodes((ASTNode) clazz.getASTObject());
+		ASTSelection selection = environment.getSelection();
+
+		if (clazz != null && clazz.getMethodList().size() > 0) {
+			for (Map.Entry<String, Method> item : clazz.getMethodList().entrySet()) {
+				if (item.getValue() instanceof ASTMethod && selection.isOverNode(((ASTMethod) item.getValue()).getASTObject())) {
+					selection.setSelectedElement(item.getValue());
+				}
+			}
+		}
+	}
 }
