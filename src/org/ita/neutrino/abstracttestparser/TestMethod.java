@@ -5,7 +5,7 @@ import java.util.List;
 import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.MutableMethod;
 
-public interface TestMethod extends TestElement<Method> {
+public interface TestMethod extends TestElement<Method>, Comparable<Object> {
 
 	public abstract String getName();
 

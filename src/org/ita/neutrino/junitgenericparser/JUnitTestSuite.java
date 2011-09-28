@@ -76,8 +76,7 @@ public abstract class JUnitTestSuite implements TestSuite {
 	}
 
 	/**
-	 * Devolve o método executado antes dos testes. Não há setter correspondente
-	 * pois o createBeforeMethod já faz isso.
+	 * Devolve o método executado antes dos testes. Não há setter correspondente pois o createBeforeMethod já faz isso.
 	 */
 	@Override
 	public List<? extends JUnitTestMethod> getBeforeMethodList() {
@@ -90,8 +89,7 @@ public abstract class JUnitTestSuite implements TestSuite {
 	}
 
 	/**
-	 * Devolve o método executado após os testes. Não há setter correspondente
-	 * pois o createAfterMethod já faz isso.
+	 * Devolve o método executado após os testes. Não há setter correspondente pois o createAfterMethod já faz isso.
 	 */
 	@Override
 	public List<? extends JUnitTestMethod> getAfterMethodList() {
@@ -149,5 +147,11 @@ public abstract class JUnitTestSuite implements TestSuite {
 	public void createNewFixture(Type variableType, String variableName) {
 		this.getCodeElement().createNewField(variableType, variableName);
 
+	}
+
+	@Override
+	public void removeTestMethods(int index, int count) {
+		// TODO: IMPLEMENTAR METODO.
+		this.getCodeElement().removeTestMethods(index, count);
 	}
 }

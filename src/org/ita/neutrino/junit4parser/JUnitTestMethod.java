@@ -40,4 +40,11 @@ public class JUnitTestMethod extends org.ita.neutrino.junitgenericparser.JUnitTe
 		super.setParent(parent);
 	}
 
+	@Override
+	public int compareTo(Object o) {
+		JUnitTestMethod corrente = (JUnitTestMethod) o;
+		Integer size = this.getStatements().size();
+		return size.compareTo(corrente.getStatements().size());
+	}
+
 }

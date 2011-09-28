@@ -46,4 +46,10 @@ public class DummyClass extends org.ita.neutrino.codeparser.DummyClass {
 		return handler.createMethod(methodSignature);
 	}
 
+	@Override
+	public void removeTestMethods(int index, int count) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

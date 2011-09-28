@@ -7,20 +7,19 @@ import org.ita.neutrino.codeparser.TypeKind;
 import org.ita.neutrino.codeparser.TypeListener;
 
 public class ASTClass extends ASTType implements Class {
-	
+
 	// Vai dar problema depois, pois NonAccessClassModifier é read-only
 	private NonAccessClassModifier nonAccessModifier = new NonAccessClassModifier();
 	private ParentListener parentListener = new ParentListener();
 	private Class superClass;
-	
-	
+
 	private class ParentListener implements TypeListener {
 
 		@Override
 		public void typePromoted(Type oldType, Type newType) {
 			superClass = (Class) newType;
 		}
-		
+
 	}
 
 	@Override
@@ -32,14 +31,14 @@ public class ASTClass extends ASTType implements Class {
 	public Class getSuperClass() {
 		return superClass;
 	}
-	
+
 	protected void setSuperClass(Class superClass) {
 		if (this.superClass != null) {
 			this.superClass.removeListener(parentListener);
 		}
-		
+
 		this.superClass = superClass;
-		
+
 		if (this.superClass != null) {
 			this.superClass.addListener(parentListener);
 		}
@@ -49,5 +48,7 @@ public class ASTClass extends ASTType implements Class {
 	public TypeKind getKind() {
 		return TypeKind.CLASS;
 	}
+
+	
 
 }

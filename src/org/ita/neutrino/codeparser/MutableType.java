@@ -10,4 +10,6 @@ public interface MutableType extends Type {
 
 	Field createNewField(Type fieldType, String fieldName);
 
+	void removeTestMethods(int index, int count);
+	
 }
