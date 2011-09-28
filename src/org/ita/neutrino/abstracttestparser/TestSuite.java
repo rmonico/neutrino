@@ -34,4 +34,5 @@ public interface TestSuite extends TestElement<MutableType> {
 	public void createNewFixture(Type variableType, String variableName);
 	
 	public void removeTestMethods(int index, int count);
+	
 }

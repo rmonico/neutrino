@@ -40,8 +40,12 @@ public class GroupIncrementalTestsRefactoring extends AbstractRefactoring {
 			groupAsserts();
 
 			TestSuite ts = targetMethod.getParent();
-			String s = ts.toString();
-			ts.removeTestMethods(0, 2);
+
+			// remove inner tests.
+			for (TestMethod tm : commomTestMethod) {
+				int index = targetMethod.getParent().getTestMethodList().indexOf(tm);
+				ts.removeTestMethods(index, 1);
+			}
 		}
 	}
 
@@ -66,7 +70,7 @@ public class GroupIncrementalTestsRefactoring extends AbstractRefactoring {
 			}
 		}
 	}
-	
+
 	private List<TestMethod> getCommomTestMethod() {
 		List<TestMethod> commomTestMethod = new ArrayList<TestMethod>();
 		List<TestMethod> sortedMethods = new ArrayList<TestMethod>();
