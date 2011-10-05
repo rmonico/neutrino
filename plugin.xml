@@ -83,11 +83,111 @@
                id="org.ita.neutrino.groupincrementaltests.GroupIncrementalTestsJUnit3">
          </action>
          <action
+               label="JUnit 4 - Group Similar Tests"
+               menubarPath="org.ita.neutrino.menu/junit4"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.groupsimilartests.GroupSimilarTestsJUnit4">
+         </action>
+         <action
+               label="JUnit 3 - Group Similar Tests"
+               menubarPath="org.ita.neutrino.menu/junit3"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.groupsimilartests.GroupSimilarTestsJUnit3">
+         </action>
+         <action
                label="Run JUnits"
                menubarPath="org.ita.neutrino.menu/testGroup1"
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.tests.JUnitMain">
          </action>
+         
       </actionSet>
+   </extension>
+  
+    <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="refatoringTest"
+            objectClass="org.eclipse.ui.IEditorInput">
+         <menu
+               id="Test Refactorings"
+               label="Test Refactorings">
+            <separator name="Test Class Refactorings"/>
+         </menu>
+         
+        <action
+               label="JUnit 4 - Add explanation to assertion"
+               menubarPath="Test Refactorings/junit4"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.addexplanation.AddExplanationJUnit4">
+         </action>
+         <action
+               label="JUnit 3 - Add Explanation To Assertion"
+               menubarPath="Test Refactorings/junit3"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.addexplanation.AddExplanationJUnit3">
+         </action>
+         <action
+               label="JUnit 4 - Extract Initialization Method"
+               menubarPath="Test Refactorings/junit4"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.extractinitializationmethod.ExtractInitializationMethodJUnit4">
+         </action>
+         <action
+               label="JUnit 3 - Extract Initialization Method"
+               menubarPath="Test Refactorings/junit3"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.extractinitializationmethod.ExtractInitializationMethodJUnit3">
+         </action>
+         <action
+               label="JUnit 4 - Extract Finalization Method"
+               menubarPath="Test Refactorings/junit4"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.extractfinalizationmethod.ExtractFinalizationMethodJUnit4">
+         </action>
+         <action
+               label="JUnit 3 - Extract Finalization Method"
+               menubarPath="Test Refactorings/junit3"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.extractfinalizationmethod.ExtractFinalizationMethodJUnit3">
+         </action>
+          <action
+               label="JUnit 4 - Add Fixture Method"
+               menubarPath="Test Refactorings/junit4"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.addfixture.AddFixtureJUnit4">
+         </action>
+         <action
+               label="JUnit 3 - Add Fixture Method"
+               menubarPath="Test Refactorings/junit3"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.addfixture.AddFixtureJUnit3">
+         </action>
+         <action
+               label="JUnit 4 - Group Incremental Tests"
+               menubarPath="Test Refactorings/junit4"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.groupincrementaltests.GroupIncrementalTestsJUnit4">
+         </action>
+         <action
+               label="JUnit 3 - Group Incremental Tests"
+               menubarPath="Test Refactorings/junit3"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.groupincrementaltests.GroupIncrementalTestsJUnit3">
+         </action>
+         <action
+               label="JUnit 4 - Group Similar Tests"
+               menubarPath="Test Refactorings/junit4"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.groupsimilartests.GroupSimilarTestsJUnit4">
+         </action>
+         <action
+               label="JUnit 3 - Group Similar Tests"
+               menubarPath="Test Refactorings/junit3"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.groupsimilartests.GroupSimilarTestsJUnit3">
+         </action>
+         
+      </objectContribution>
    </extension>
 </plugin>

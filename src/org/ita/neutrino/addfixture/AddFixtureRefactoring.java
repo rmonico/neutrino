@@ -22,6 +22,7 @@ public class AddFixtureRefactoring extends AbstractRefactoring {
 	public List<String> checkInitialConditions() {
 		List<String> problems = new ArrayList<String>();
 
+
 		if ((!(getTargetFragment() instanceof Action)) || (getTargetFragment() == null)) {
 			problems.add("Selection is not valid. Select a variable.");
 		} else {

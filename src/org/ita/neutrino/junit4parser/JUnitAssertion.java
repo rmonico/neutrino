@@ -1,6 +1,5 @@
 package org.ita.neutrino.junit4parser;
 
-import org.ita.neutrino.abstracttestparser.TestStatement;
 
 public class JUnitAssertion extends org.ita.neutrino.junitgenericparser.JUnitAssertion {
 

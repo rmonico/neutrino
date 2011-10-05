@@ -3,7 +3,6 @@ package org.ita.neutrino.junitgenericparser;
 import java.util.List;
 
 import org.ita.neutrino.abstracttestparser.TestElement;
-import org.ita.neutrino.abstracttestparser.TestMethod;
 import org.ita.neutrino.abstracttestparser.TestSuite;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.MutableMethod;

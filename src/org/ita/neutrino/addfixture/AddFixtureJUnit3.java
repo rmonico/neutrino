@@ -11,4 +11,5 @@ public class AddFixtureJUnit3 extends AddFixtureAction {
 		return new JUnit3Parser();
 	}
 
+
 }
