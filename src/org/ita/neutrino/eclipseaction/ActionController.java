@@ -46,7 +46,11 @@ public class ActionController implements IWorkbenchWindowActionDelegate, IObject
 	@Override
 	public void selectionChanged(IAction action, ISelection selection2) {
 		// this.selection = selection2;
-		this.selection = Activator.getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().getEditorSite().getSelectionProvider().getSelection();
+		try {
+			this.selection = Activator.getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().getEditorSite().getSelectionProvider().getSelection();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	@Override
