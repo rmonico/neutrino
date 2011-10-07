@@ -31,6 +31,9 @@ public class GroupIncrementalTestsRefactoring extends AbstractRefactoring {
 			}
 		}
 
+		if (problems != null && problems.size() > 0) {
+			problems.add("Note: Select the bigger method wich groups smaller ones, press group incremental tests, all asserts will be brought to the selected method, the smaller methods will be removed.");
+		}
 		return problems;
 	}
 

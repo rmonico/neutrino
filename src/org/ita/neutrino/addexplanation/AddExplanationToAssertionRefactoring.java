@@ -8,14 +8,14 @@ import org.ita.neutrino.abstracrefactoring.RefactoringException;
 import org.ita.neutrino.abstracttestparser.Assertion;
 
 public class AddExplanationToAssertionRefactoring extends AbstractRefactoring {
-	
+
 	private String explanationString;
 	private Assertion targetAssertion;
-	
+
 	@Override
 	public List<String> checkInitialConditions() {
 		List<String> problems = new ArrayList<String>();
-		
+
 		if ((!(getTargetFragment() instanceof Assertion)) || (getTargetFragment() == null)) {
 			problems.add("Target is not a valid assertion.");
 		} else {
@@ -26,7 +26,9 @@ public class AddExplanationToAssertionRefactoring extends AbstractRefactoring {
 			}
 		}
 
-		
+		if (problems != null && problems.size() > 0) {
+			problems.add("Note: Select an assert statement, press add explanation to assertion, write the explanation for the current assertion.");
+		}
 		return problems;
 	}
 

@@ -32,7 +32,10 @@ public class ExtractFinalizationMethodRefactoring extends AbstractExtractMethodR
 				problems.add("Methods have no commom finalization. Unable to extract finalization method.");
 			}
 		}
-
+		
+		if (problems != null && problems.size() > 0) {
+			problems.add("Note: Select the class name of the test suite, press extract finalization method, all test methods must have at least the last line in commom, the commom lines up to the last assert will be extracted to a tear down method.");
+		}
 		return problems;
 	}
 

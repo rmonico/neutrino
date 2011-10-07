@@ -31,6 +31,9 @@ public class ExtractInitializationMethodRefactoring extends AbstractExtractMetho
 			}
 		}
 
+		if (problems != null && problems.size() > 0) {
+			problems.add("Note: Select the class name of the test suite, press extract initialization method, all test methods must have at least the first line in commom, the commom lines will be extracted to a setup method.");
+		}
 		return problems;
 	}
 

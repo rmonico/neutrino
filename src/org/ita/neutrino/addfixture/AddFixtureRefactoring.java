@@ -22,7 +22,6 @@ public class AddFixtureRefactoring extends AbstractRefactoring {
 	public List<String> checkInitialConditions() {
 		List<String> problems = new ArrayList<String>();
 
-
 		if ((!(getTargetFragment() instanceof Action)) || (getTargetFragment() == null)) {
 			problems.add("Selection is not valid. Select a variable.");
 		} else {
@@ -33,6 +32,10 @@ public class AddFixtureRefactoring extends AbstractRefactoring {
 			} else {
 				variableDeclaration = (VariableDeclarationStatement) statement;
 			}
+		}
+
+		if (problems != null && problems.size() > 0) {
+			problems.add("Note: Select a variable declaration, press add fixture, the fixture will work for every test methods in class with the same declaration.");
 		}
 
 		return problems;

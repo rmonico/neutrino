@@ -75,6 +75,7 @@ public class GroupSimilarTestsRefactoring extends AbstractRefactoring {
 		return similarTestMethod;
 	}
 
+	@SuppressWarnings("unused")
 	private boolean similarTestStatement(TestStatement ts1, TestStatement ts2) {
 		if (ts1.getCodeElement().getClass() == ts2.getCodeElement().getClass()) {
 			QuickVisitor qs = new QuickVisitor();
@@ -97,9 +98,7 @@ public class GroupSimilarTestsRefactoring extends AbstractRefactoring {
 				lst2 = qs.quickVisit(mis2.getASTObject());
 
 				ConsoleVisitor.showNodes(mis1.getASTObject());
-			} else {
-				int i = 0;
-			}
+			} 
 
 			return true;
 		}
