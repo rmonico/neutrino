@@ -2,6 +2,7 @@ package org.ita.neutrino.testsmells.core;
 
 import org.ita.neutrino.abstracttestparser.AbstractTestParser;
 import org.ita.neutrino.junit4parser.JUnit4Parser;
+import org.ita.neutrino.testsmells.smells.AssertionNotExplainedSmell;
 import org.ita.neutrino.testsmells.smells.TestCodeSmell;
 
 import com.google.common.collect.ImmutableList;
@@ -19,8 +20,9 @@ public class TestSmellDetectorGuiceModule extends AbstractModule {
 	}
 	
 	@Provides
-	public Iterable<? extends TestCodeSmell> allCodeSmells() {
-		return ImmutableList.of();
+	public Iterable<? extends TestCodeSmell> allCodeSmells(
+			AssertionNotExplainedSmell assertionNotExplained) {
+		return ImmutableList.of(assertionNotExplained);
 	}	
 	
 	@Provides
