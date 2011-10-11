@@ -6,16 +6,11 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.WorkbenchWindow;
-
-// import com.google.inject.Guice;
-// import com.google.inject.Injector;
+import org.ita.neutrino.testsmells.core.Injector;
 
 public class TestSmellDetectionBuilder extends IncrementalProjectBuilder {
 	
 	public static final String BUILDER_ID = TestSmellDetectionBuilder.class.getCanonicalName();
-//	private static final Injector guiceInjector = Guice.createInjector(new TestCodeAnalysisGuiceModule());
 	
 	public TestSmellDetectionBuilder() {
 		super();
@@ -24,8 +19,14 @@ public class TestSmellDetectionBuilder extends IncrementalProjectBuilder {
 	@Override
 	protected IProject[] build(int kind, @SuppressWarnings("rawtypes") Map args, IProgressMonitor monitor)
 			throws CoreException {
-		new TestSmellDetector().run(this.getProject(), this.getDelta(this.getProject()), monitor);
+		
+		IProject project = this.getProject();
+		if (!project.isNatureEnabled("org.eclipse.jdt.core.javanature")) {
+			return null;
+		}
+		
+		Injector.createTestSmellDetector().run(
+				this.getProject(), this.getDelta(this.getProject()), monitor);
 		return null;
 	}
-
 }

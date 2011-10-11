@@ -1,12 +1,17 @@
 package org.ita.neutrino.testsmells;
 
 import org.eclipse.ui.IStartup;
-import org.eclipse.ui.PlatformUI;
 
+/**
+ * Needed to initialize the state of the smell detection menus under
+ * "Test Refactorings"
+ *
+ * @author rsalmeidafl
+ */
 public class TestSmellPluginStartup implements IStartup {
 
 	@Override
 	public void earlyStartup() {
-		// PlatformUI.getWorkbench().addWindowListener(new CommandHandler());
+		// Intentionally left blank
 	}
 }

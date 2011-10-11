@@ -9,7 +9,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jdt.core.ITypeRoot;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -21,12 +20,15 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.ita.neutrino.eclipseaction.Activator;
+import org.ita.neutrino.testsmells.core.Injector;
+import org.ita.neutrino.testsmells.core.TestSmellDetector;
+
+import com.google.common.collect.Lists;
 
 public class ActionController implements IWorkbenchWindowActionDelegate {
 
-	private LinkedList<IProject> selection = new LinkedList<IProject>();
+	private LinkedList<IProject> selection = Lists.newLinkedList();
 	private Boolean automaticBuildEnabled;
-	private IAction toggleNature;
 
 	@Override
 	public void run(IAction action) {
@@ -35,8 +37,7 @@ public class ActionController implements IWorkbenchWindowActionDelegate {
 		}
 
 		if (action.getId().endsWith("ToggleNature")) {
-			toggleNature = action;
-			toggleNature(action.isChecked());
+			toggleNature(action.isChecked());			
 		} else if (action.getId().endsWith("RunDetection")) {
 			runDetection();
 		}
@@ -44,44 +45,49 @@ public class ActionController implements IWorkbenchWindowActionDelegate {
 	
 
 	private void runDetection() {
-		TestSmellDetector detector = new TestSmellDetector();
+		TestSmellDetector detector = Injector.createTestSmellDetector();
 		for (IProject project : selection) {
-			detector.run(project, /* resourceDelta */null, /* progressMonitor */
-					null);
+			try {
+				detector.run(project, /* resourceDelta */null, /* progressMonitor */
+						null);
+			} catch (CoreException e) {
+				throw new RuntimeException(e);
+			}
 		}
 	}
 
-	private void toggleNature(boolean checked) {
+	private void toggleNature(boolean natureShouldBeEnabled) {
 		for (IProject project : selection) {
 			try {
 				IProjectDescription description = project.getDescription();
 				String[] natures = description.getNatureIds();
+				boolean natureFound = false; 
 
 				for (int i = 0; i < natures.length; ++i) {
 					if (TestSmellDetectionNature.NATURE_ID.equals(natures[i])) {
-						// Remove the nature
-						String[] newNatures = new String[natures.length - 1];
-						System.arraycopy(natures, 0, newNatures, 0, i);
-						System.arraycopy(natures, i + 1, newNatures, i,
-								natures.length - i - 1);
-						description.setNatureIds(newNatures);
-						project.setDescription(description, null);
+						natureFound = true;
 						
-						if (toggleNature != null) {
-							toggleNature.setChecked(false);
+						if (!natureShouldBeEnabled) {
+							// Remove the nature
+							String[] newNatures = new String[natures.length - 1];
+							System.arraycopy(natures, 0, newNatures, 0, i);
+							System.arraycopy(natures, i + 1, newNatures, i,
+									natures.length - i - 1);
+							description.setNatureIds(newNatures);
+							project.setDescription(description, null);
 						}
-						return;
+						
+						break;
 					}
 				}
 
 				// Add the nature
-				String[] newNatures = new String[natures.length + 1];
-				System.arraycopy(natures, 0, newNatures, 0, natures.length);
-				newNatures[natures.length] = TestSmellDetectionNature.NATURE_ID;
-				description.setNatureIds(newNatures);
-				project.setDescription(description, null);
-				if (toggleNature != null) {
-					toggleNature.setChecked(true);
+				if (!natureFound && natureShouldBeEnabled) {
+					String[] newNatures = new String[natures.length + 1];
+					System.arraycopy(natures, 0, newNatures, 0, natures.length);
+					newNatures[natures.length] = TestSmellDetectionNature.NATURE_ID;
+					description.setNatureIds(newNatures);
+					project.setDescription(description, null);
 				}
 			} catch (CoreException e) {
 			}
@@ -90,8 +96,6 @@ public class ActionController implements IWorkbenchWindowActionDelegate {
 
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
-		System.out.println("!!!SELu");
-		
 		this.selection.clear();
 		this.automaticBuildEnabled = null;
 		
@@ -131,7 +135,6 @@ public class ActionController implements IWorkbenchWindowActionDelegate {
 
 	@Override
 	public void init(IWorkbenchWindow window) {
-		System.out.println("!!INIT!!");
 	}
 	
 	private IProject getActiveProject() {
@@ -160,7 +163,9 @@ public class ActionController implements IWorkbenchWindowActionDelegate {
 	private void maybeAddProjectToSelection(IProject project) {
 		try {
 			if (project.isNatureEnabled("org.eclipse.jdt.core.javanature")) {
-				this.selection.add(project);
+				if (!this.selection.contains(project)) {
+					this.selection.add(project);
+				}
 				if (!project.isNatureEnabled(TestSmellDetectionNature.NATURE_ID)) {
 					this.automaticBuildEnabled = false;
 				} else if (this.automaticBuildEnabled == null) {
