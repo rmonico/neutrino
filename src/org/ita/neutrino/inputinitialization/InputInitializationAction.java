@@ -1,4 +1,4 @@
-package org.ita.neutrino.addfixture;
+package org.ita.neutrino.inputinitialization;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,15 +6,16 @@ import java.util.List;
 import org.ita.neutrino.abstracrefactoring.AbstractEclipseRefactoringAction;
 import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
 
-public abstract class AddFixtureAction extends AbstractEclipseRefactoringAction  {
+public abstract class InputInitializationAction extends AbstractEclipseRefactoringAction {
 
-	private AddFixtureRefactoring refactoring;
+	private InputInitializationRefactoring refactoring;
 
 	@Override
 	protected String getRefactoringName() {
 		// TODO Auto-generated method stub
-		return "Add Fixture";
+		return "Input Initialization Method";
 	}
+
 
 	@Override
 	protected List<String> checkPreConditions() {
@@ -28,8 +29,9 @@ public abstract class AddFixtureAction extends AbstractEclipseRefactoringAction 
 	protected AbstractRefactoring createRefactoringObject() {
 		// TODO Auto-generated method stub
 		System.out.println("createRefactoringObject");
-		refactoring = new AddFixtureRefactoring();
+		refactoring = new InputInitializationRefactoring();
 		return refactoring;
 	}
+
 
 }

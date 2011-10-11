@@ -35,4 +35,5 @@ public interface TestSuite extends TestElement<MutableType> {
 	
 	public void removeTestMethods(int index, int count);
 	
+	public List<? extends TestMethod> getAllTestMethodList();
 }

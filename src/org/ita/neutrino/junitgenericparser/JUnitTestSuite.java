@@ -16,6 +16,7 @@ public abstract class JUnitTestSuite implements TestSuite {
 	private List<? extends JUnitTestMethod> beforeMethodList = instantiateMethodList();
 	private List<? extends JUnitTestMethod> testMethodList = instantiateMethodList();
 	private List<? extends JUnitTestMethod> afterMethodList = instantiateMethodList();
+	private List<? extends JUnitTestMethod> allTestMethodList = instantiateMethodList();
 
 	private JUnitTestBattery parent;
 	private TestElement<?> selectedFragment;
@@ -44,7 +45,7 @@ public abstract class JUnitTestSuite implements TestSuite {
 		method.setCodeElement(element);
 
 		((List<JUnitTestMethod>) destList).add(method);
-
+		((List<JUnitTestMethod>) allTestMethodList).add(method);
 		return method;
 	}
 
@@ -151,8 +152,11 @@ public abstract class JUnitTestSuite implements TestSuite {
 
 	@Override
 	public void removeTestMethods(int index, int count) {
-		// TODO: IMPLEMENTAR METODO.
+
 		this.getCodeElement().removeTestMethods(index, count);
 	}
 
+	public List<? extends JUnitTestMethod> getAllTestMethodList() {
+		return allTestMethodList;
+	}
 }
