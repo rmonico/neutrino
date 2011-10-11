@@ -66,7 +66,7 @@ public class TestSmellDetector {
 	private final DebugOutputSink debugOutputSink;
 
 	@Inject
-	public TestSmellDetector(MarkerManager markerManager,
+	public TestSmellDetector(EclipseMarkerManager markerManager,
 			TestCodeSmellLibrary testCodeSmellLibrary,
 			Provider<ASTParser> codeParserProvider,
 			Provider<AbstractTestParser> testParserProvider,

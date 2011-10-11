@@ -1,6 +1,6 @@
 package org.ita.neutrino.astparser;
 
-interface ASTWrapper<T> {
+public interface ASTWrapper<T> {
 
 	void setASTObject(T astObject);
 

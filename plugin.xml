@@ -129,6 +129,14 @@
       </runtime>
       <builder id="org.ita.neutrino.testsmells.TestSmellDetectionBuilder">
       </builder>
+   </extension>
+   <extension
+         id="org.ita.neutrino.testsmells.marker"
+         name="Test code smell"
+         point="org.eclipse.core.resources.markers">
+      <persistent value="true" />
+      <super type="org.eclipse.core.resources.problemmarker" /> 
+      <attribute name="smellType" />
    </extension>  
   
     <extension
