@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
+   <extension point="org.eclipse.ui.startup">
+     <startup class="org.ita.neutrino.testsmells.TestSmellPluginStartup"/>
+   </extension>
+
    <extension
          point="org.eclipse.ui.actionSets">
       <actionSet
@@ -20,6 +24,8 @@
 				<separator
 					name="testGroup1">
 				</separator>
+				<separator
+					name="testsmells" />					
 			</menu>
           
          <action
@@ -90,8 +96,40 @@
                id="org.ita.neutrino.tests.JUnitMain">
          </action>
          
+         <action
+         	   label="Detect smells automatically"
+         	   menubarPath="org.ita.neutrino.menu/testsmells"
+         	   class="org.ita.neutrino.testsmells.ActionController"
+         	   id="org.ita.neutrino.testsmells.ToggleNature" />
+        <action
+         	   label="(Re)run smell detection"
+         	   menubarPath="org.ita.neutrino.menu/testsmells"
+         	   class="org.ita.neutrino.testsmells.ActionController"
+         	   id="org.ita.neutrino.testsmells.RunDetection" />  
       </actionSet>
    </extension>
+  
+      
+       <extension
+         id="org.ita.neutrino.testsmells.TestSmellDetectionBuilder"
+         name="Test Smell Detection Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder hasNature="true">
+         <run class="org.ita.neutrino.testsmells.TestSmellDetectionBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="org.ita.neutrino.testsmells.TestSmellDetectionNature"
+         name="Test Smell Detection Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run class="org.ita.neutrino.testsmells.TestSmellDetectionNature">
+         </run>
+      </runtime>
+      <builder id="org.ita.neutrino.testsmells.TestSmellDetectionBuilder">
+      </builder>
+   </extension>  
   
     <extension
          point="org.eclipse.ui.popupMenus">
