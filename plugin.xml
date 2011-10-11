@@ -138,6 +138,14 @@
       <super type="org.eclipse.core.resources.problemmarker" /> 
       <attribute name="smellType" />
    </extension>  
+   <extension
+         id="org.ita.plugins.testsmells.markerresolutionextension"
+         name="Quick Fixes for Test Code Smells"
+         point="org.eclipse.ui.ide.markerResolution">
+     <markerResolutionGenerator
+        markerType="org.ita.neutrino.testsmells.marker"
+        class="org.ita.neutrino.testsmells.QuickFixGenerator" />
+   </extension>
   
     <extension
          point="org.eclipse.ui.popupMenus">
