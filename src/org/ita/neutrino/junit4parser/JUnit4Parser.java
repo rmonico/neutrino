@@ -3,10 +3,9 @@ package org.ita.neutrino.junit4parser;
 import org.ita.neutrino.abstracttestparser.AbstractTestParser;
 import org.ita.neutrino.codeparser.Class;
 import org.ita.neutrino.codeparser.CodeSelection;
-import org.ita.neutrino.codeparser.Method;
+import org.ita.neutrino.codeparser.MutableType;
 import org.ita.neutrino.generictestparser.AbstractTestParserTestSuiteParser;
 import org.ita.neutrino.generictestparser.TestSuiteParser;
-import org.ita.neutrino.junitgenericparser.BatteryParser.TestMethodKind;
 import org.ita.neutrino.junitgenericparser.JUnitGenericParser;
 
 public class JUnit4Parser extends JUnitGenericParser {
@@ -36,15 +35,8 @@ public class JUnit4Parser extends JUnitGenericParser {
 			
 			@Override
 			public boolean canParse(Class clazz) {
-				BatteryParser batteryParser = createBatteryParser();
-				
-				for (Method method : clazz.getMethodList().values()) {
-					if (batteryParser.getTestMethodKind(method) == TestMethodKind.TEST_METHOD) {
-						return true;
-					}
-				}
-				
-				return false;
+				return clazz instanceof MutableType &&
+					new BatteryParser().canParse((MutableType)clazz);
 			}
 		};
 	}

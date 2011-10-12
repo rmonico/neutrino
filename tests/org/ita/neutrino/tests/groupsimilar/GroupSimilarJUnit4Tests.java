@@ -9,7 +9,7 @@ import org.ita.neutrino.abstracttestparser.TestParserException;
 import org.ita.neutrino.astparser.ASTParser;
 import org.ita.neutrino.codeparser.CodeSelection;
 import org.ita.neutrino.codeparser.ParserException;
-import org.ita.neutrino.junit3parser.JUnit3Parser;
+import org.ita.neutrino.junit4parser.JUnit4Parser;
 
 public class GroupSimilarJUnit4Tests extends GroupSimilarTests {
 
@@ -39,7 +39,7 @@ public class GroupSimilarJUnit4Tests extends GroupSimilarTests {
 
 		codeParser.parse();
 
-		testParser = new JUnit3Parser();
+		testParser = new JUnit4Parser();
 
 		testParser.setEnvironment(codeParser.getEnvironment());
 

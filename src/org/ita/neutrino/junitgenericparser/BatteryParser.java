@@ -39,18 +39,16 @@ public abstract class BatteryParser {
 		List<MutableType> knownTypes = getKnownTypesList();
 
 		for (MutableType t : knownTypes) {
-			// Não sei se a classe será uma suite de teste nesse momento
-			JUnitTestSuite suite = null;
+			if (!canParse(t)) {
+				continue;
+			}
+			JUnitTestSuite suite = battery.createSuite(t);
 
 			for (MutableMethod m : t.getMutableMethodList().values()) {
 				TestMethodKind methodKind = getTestMethodKind(m);
 
 				if (methodKind == TestMethodKind.NOT_TEST_METHOD) {
 					continue;
-				}
-
-				if (suite == null) {
-					suite = battery.createSuite(t);
 				}
 
 				JUnitTestMethod testMethod = null;
@@ -76,6 +74,8 @@ public abstract class BatteryParser {
 			}
 		}
 	}
+
+	protected abstract boolean canParse(MutableType t);
 
 	private void populateFixtureList() {
 		for (JUnitTestSuite suite : battery.getSuiteList()) {
@@ -114,7 +114,7 @@ public abstract class BatteryParser {
 		return knownTypes;
 	}
 
-	public enum TestMethodKind {
+	protected enum TestMethodKind {
 		NOT_TEST_METHOD, BEFORE_METHOD, TEST_METHOD, AFTER_METHOD;
 	}
 
