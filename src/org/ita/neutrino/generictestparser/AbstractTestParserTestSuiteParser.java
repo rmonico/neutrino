@@ -44,6 +44,7 @@ public abstract class AbstractTestParserTestSuiteParser implements TestSuitePars
 		AbstractTestParser testParser = getAbstractTestParser();
 		testParser.setEnvironment(new ProxiedEnvironment(environment, clazz));
 		testParser.parse();
+		this.selection = testParser.getBattery().getSelection();
 		
 		return Iterables.getOnlyElement(testParser.getBattery().getSuiteList());
 	}

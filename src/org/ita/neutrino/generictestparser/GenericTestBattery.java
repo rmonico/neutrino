@@ -78,8 +78,12 @@ public class GenericTestBattery implements TestBattery {
 					this.testSuiteList.add(suite);
 					
 					TestSelection testSelection = impl.getSelection();
-					if (testSelection != null) {
-						this.testSelection = testSelection;
+					if (testSelection != null && testSelection.getSelectedFragment() != null) {
+						if (this.testSelection != null) {
+							throw new RuntimeException("Two selections found");
+						} else {
+							this.testSelection = testSelection;
+						}
 					}
 				}
 			}
