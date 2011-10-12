@@ -44,4 +44,11 @@ class ASTAbstractStatement<T extends ASTNode> extends AbstractCodeElement implem
 		ASTMatcher astMatcher = new ASTMatcher();
 		return this.getASTObject().subtreeMatch(astMatcher, ((ASTWrapper<?>)obj).getASTObject());
 	}
+	
+	@Override
+	public boolean isBranchStatement() {
+		return this.getASTObject() != null && ( 
+			this.getASTObject().getNodeType() == ASTNode.IF_STATEMENT ||
+			this.getASTObject().getNodeType() == ASTNode.SWITCH_STATEMENT);
+	}
 }
