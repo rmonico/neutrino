@@ -6,7 +6,7 @@ package org.ita.neutrino.codeparser;
  * @author Rafael Monico
  *
  */
-public interface Expression {
+public interface Expression extends CodeElement {
 	
 	/**
 	 * Indica o type resultante da expressão.
