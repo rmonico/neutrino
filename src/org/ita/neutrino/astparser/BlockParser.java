@@ -9,7 +9,6 @@ import org.eclipse.jdt.core.dom.PrefixExpression;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.ita.neutrino.codeparser.Invokable;
-import org.ita.neutrino.codeparser.LiteralExpression;
 import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.Package;
 import org.ita.neutrino.codeparser.ParserException;
