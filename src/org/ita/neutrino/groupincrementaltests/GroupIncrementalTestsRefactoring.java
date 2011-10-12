@@ -46,8 +46,7 @@ public class GroupIncrementalTestsRefactoring extends AbstractRefactoring {
 
 			// remove inner tests.
 			for (TestMethod tm : commomTestMethod) {
-				int index = targetMethod.getParent().getTestMethodList().indexOf(tm);
-				ts.removeTestMethods(index, 1);
+				ts.removeTestMethod(tm);
 			}
 		}
 	}

@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
+import org.ita.neutrino.abstracttestparser.TestMethod;
 import org.ita.neutrino.codeparser.AbstractCodeElement;
 import org.ita.neutrino.codeparser.Constructor;
 import org.ita.neutrino.codeparser.Field;
@@ -210,13 +212,16 @@ public abstract class ASTType extends AbstractCodeElement implements MutableType
 	}
 
 	@Override
-	public void removeTestMethods(int index, int count) {
+	public void removeTestMethod(TestMethod testMethod) {
 		ASTRewrite rewrite = getParent().getASTObject().getRewrite();
 		ListRewrite listRewrite = rewrite.getListRewrite(getASTObject(), TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
-
-		for (int i = index; i < (index + count); i++) {
-			listRewrite.remove(getASTObject().getMethods()[i], null);
+		MethodDeclaration search = ((ASTMethod) testMethod.getCodeElement()).getASTObject();
+		
+		for (MethodDeclaration md : getASTObject().getMethods()) {
+			if (md.equals(search)) {
+				listRewrite.remove(md, null);
+				break;
+			}
 		}
 	}
-
 }

@@ -18,4 +18,8 @@ public interface TestMethod extends TestElement<Method>, Comparable<Object> {
 	public MutableMethod getCodeElement();
 
 	public abstract void removeStatements(int index, int count);
+	
+	public boolean hasAfterAnnotation();
+	
+	public boolean isTestMethod();
 }

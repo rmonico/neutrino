@@ -2,6 +2,8 @@ package org.ita.neutrino.abstracttestparser;
 
 import java.util.List;
 
+import javax.activity.InvalidActivityException;
+
 import org.ita.neutrino.codeparser.MutableType;
 import org.ita.neutrino.codeparser.Type;
 
@@ -33,7 +35,10 @@ public interface TestSuite extends TestElement<MutableType> {
 
 	public void createNewFixture(Type variableType, String variableName);
 	
-	public void removeTestMethods(int index, int count);
+	public void createNewFixture(Action action) throws InvalidActivityException ;
+	
+	public void removeTestMethod(TestMethod testMethod);
 	
 	public List<? extends TestMethod> getAllTestMethodList();
+	
 }
