@@ -8,16 +8,22 @@ import org.ita.neutrino.junit4parser.JUnit4Parser;
 import org.ita.neutrino.testsmells.smells.AssertionNotExplainedSmell;
 import org.ita.neutrino.testsmells.smells.DuplicatedSetUpCodeSmell;
 import org.ita.neutrino.testsmells.smells.DuplicatedTearDownCodeSmell;
-import org.ita.neutrino.testsmells.smells.DuplicatedTearDownCodeSmell.DuplicatedTearDownCodeQuickFix;
+import org.ita.neutrino.testsmells.smells.EagerTestSmell;
 import org.ita.neutrino.testsmells.smells.TestCodeSmell;
 
 import com.google.common.collect.ImmutableList;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.google.inject.name.Named;
 
 public class TestSmellDetectorGuiceModule extends AbstractModule {
 	@Override
-	protected void configure() {		
+	protected void configure() {
+	}
+	
+	@Provides @Named("maxVerificationsPerTest")
+	public int maxVerificationsPerTest_thresholdForEagerTest() {
+		return 2;
 	}
 	
 	@Provides
@@ -36,10 +42,12 @@ public class TestSmellDetectorGuiceModule extends AbstractModule {
 	public Iterable<? extends TestCodeSmell> allCodeSmells(
 			AssertionNotExplainedSmell assertionNotExplained,
 			DuplicatedSetUpCodeSmell duplicatedSetUp,
-			DuplicatedTearDownCodeSmell duplicatedTearDown) {
+			DuplicatedTearDownCodeSmell duplicatedTearDown,
+			EagerTestSmell eagerTest) {
 		return ImmutableList.of(assertionNotExplained,
 				duplicatedSetUp,
-				duplicatedTearDown);
+				duplicatedTearDown,
+				eagerTest);
 	}	
 	
 	@Provides
