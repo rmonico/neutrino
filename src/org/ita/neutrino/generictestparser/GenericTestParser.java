@@ -6,11 +6,11 @@ import org.ita.neutrino.abstracttestparser.TestParserException;
 import org.ita.neutrino.codeparser.Environment;
 
 public class GenericTestParser extends AbstractTestParser {
-	private final Iterable<TestSuiteParser> implementations;
+	private final Iterable<TestFramework> implementations;
 	private Environment environment;
 	private TestBattery battery;
 	
-	public GenericTestParser(Iterable<TestSuiteParser> implementations) {
+	public GenericTestParser(Iterable<TestFramework> implementations) {
 		this.implementations = implementations;
 	}
 
