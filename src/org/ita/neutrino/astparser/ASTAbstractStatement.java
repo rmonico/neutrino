@@ -1,5 +1,6 @@
 package org.ita.neutrino.astparser;
 
+import org.eclipse.jdt.core.dom.ASTMatcher;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.ita.neutrino.codeparser.AbstractCodeElement;
 import org.ita.neutrino.codeparser.Block;
@@ -34,4 +35,13 @@ class ASTAbstractStatement<T extends ASTNode> extends AbstractCodeElement implem
 		return getASTObject().toString();
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof ASTWrapper)) {
+			return false;
+		}
+		
+		ASTMatcher astMatcher = new ASTMatcher();
+		return this.getASTObject().subtreeMatch(astMatcher, ((ASTWrapper<?>)obj).getASTObject());
+	}
 }
