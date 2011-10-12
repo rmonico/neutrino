@@ -26,6 +26,9 @@ import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.eclipseaction.ActionException;
 import org.ita.neutrino.eclipseaction.Activator;
 import org.ita.neutrino.eclipseaction.IAction;
+import org.ita.neutrino.generictestparser.GenericTestParser;
+import org.ita.neutrino.junit3parser.JUnit3Parser;
+import org.ita.neutrino.junit4parser.JUnit4Parser;
 
 public abstract class AbstractEclipseRefactoringAction implements IAction {
 
@@ -132,7 +135,11 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 		return codeParser.getEnvironment();
 	}
 
-	protected abstract AbstractTestParser instantiateParser();
+	protected AbstractTestParser instantiateParser() {
+		return new GenericTestParser(
+				new JUnit3Parser().asTestSuiteParser(),
+				new JUnit4Parser().asTestSuiteParser());
+	}
 
 	private TestBattery doTestParsing(Environment environment) throws ActionException {
 		AbstractTestParser testParser = instantiateParser();

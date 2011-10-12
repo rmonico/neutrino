@@ -6,7 +6,7 @@ import java.util.List;
 import org.ita.neutrino.abstracrefactoring.AbstractEclipseRefactoringAction;
 import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
 
-public abstract class AddFixtureAction extends AbstractEclipseRefactoringAction  {
+public class AddFixtureAction extends AbstractEclipseRefactoringAction  {
 
 	private AddFixtureRefactoring refactoring;
 

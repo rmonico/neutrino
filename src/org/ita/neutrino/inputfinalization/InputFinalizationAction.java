@@ -6,7 +6,7 @@ import java.util.List;
 import org.ita.neutrino.abstracrefactoring.AbstractEclipseRefactoringAction;
 import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
 
-public abstract class InputFinalizationAction extends AbstractEclipseRefactoringAction {
+public class InputFinalizationAction extends AbstractEclipseRefactoringAction {
 
 	private InputFinalizationRefactoring refactoring;
 

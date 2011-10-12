@@ -1,5 +1,7 @@
 package org.ita.neutrino.generictestparser;
 
+import java.util.Arrays;
+
 import org.ita.neutrino.abstracttestparser.AbstractTestParser;
 import org.ita.neutrino.abstracttestparser.TestBattery;
 import org.ita.neutrino.abstracttestparser.TestParserException;
@@ -9,6 +11,10 @@ public class GenericTestParser extends AbstractTestParser {
 	private final Iterable<TestFramework> implementations;
 	private Environment environment;
 	private TestBattery battery;
+	
+	public GenericTestParser(TestFramework... implementations) {
+		this(Arrays.asList(implementations));
+	}
 	
 	public GenericTestParser(Iterable<TestFramework> implementations) {
 		this.implementations = implementations;
