@@ -1,4 +1,4 @@
-package org.ita.neutrino.addfixture;
+package org.ita.neutrino.decomposeassertion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,14 +6,14 @@ import java.util.List;
 import org.ita.neutrino.abstracrefactoring.AbstractEclipseRefactoringAction;
 import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
 
-public abstract class AddFixtureAction extends AbstractEclipseRefactoringAction  {
+public abstract class DecomposeAssertionAction extends AbstractEclipseRefactoringAction {
 
-	private AddFixtureRefactoring refactoring;
+	private DecomposeAssertionRefactoring refactoring;
 
 	@Override
 	protected String getRefactoringName() {
 		// TODO Auto-generated method stub
-		return "Add Fixture";
+		return "Decompose Assertion";
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public abstract class AddFixtureAction extends AbstractEclipseRefactoringAction 
 	protected AbstractRefactoring createRefactoringObject() {
 		// TODO Auto-generated method stub
 		System.out.println("createRefactoringObject");
-		refactoring = new AddFixtureRefactoring();
+		refactoring = new DecomposeAssertionRefactoring();
 		return refactoring;
 	}
 
