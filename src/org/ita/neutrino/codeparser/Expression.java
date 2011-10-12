@@ -21,4 +21,6 @@ public interface Expression extends CodeElement {
 	 * @return
 	 */
 	String getValue();
+
+	boolean isLogicalExpression();
 }

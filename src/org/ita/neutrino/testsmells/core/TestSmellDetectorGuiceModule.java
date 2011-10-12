@@ -6,6 +6,7 @@ import org.ita.neutrino.generictestparser.TestSuiteParser;
 import org.ita.neutrino.junit3parser.JUnit3Parser;
 import org.ita.neutrino.junit4parser.JUnit4Parser;
 import org.ita.neutrino.testsmells.smells.AssertionNotExplainedSmell;
+import org.ita.neutrino.testsmells.smells.CompositeAssertionSmell;
 import org.ita.neutrino.testsmells.smells.ConditionalFlowSmell;
 import org.ita.neutrino.testsmells.smells.DuplicatedSetUpCodeSmell;
 import org.ita.neutrino.testsmells.smells.DuplicatedTearDownCodeSmell;
@@ -45,12 +46,14 @@ public class TestSmellDetectorGuiceModule extends AbstractModule {
 			DuplicatedSetUpCodeSmell duplicatedSetUp,
 			DuplicatedTearDownCodeSmell duplicatedTearDown,
 			EagerTestSmell eagerTest,
-			ConditionalFlowSmell conditionalFlow) {
+			ConditionalFlowSmell conditionalFlow,
+			CompositeAssertionSmell compositeAssertion) {
 		return ImmutableList.of(assertionNotExplained,
 				duplicatedSetUp,
 				duplicatedTearDown,
 				eagerTest,
-				conditionalFlow);
+				conditionalFlow,
+				compositeAssertion);
 	}	
 	
 	@Provides
