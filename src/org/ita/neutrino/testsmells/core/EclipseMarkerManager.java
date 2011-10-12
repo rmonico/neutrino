@@ -9,9 +9,12 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.ita.neutrino.abstracttestparser.TestSuite;
+import org.ita.neutrino.astparser.ASTClass;
+import org.ita.neutrino.astparser.ASTMethod;
 import org.ita.neutrino.astparser.ASTType;
 import org.ita.neutrino.astparser.ASTWrapper;
 import org.ita.neutrino.codeparser.CodeElement;
+import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.testsmells.smells.TestCodeSmell;
 
 import com.google.common.collect.Lists;
@@ -51,7 +54,13 @@ public class EclipseMarkerManager implements MarkerManager {
 	
 	@SuppressWarnings("unchecked")
 	private ASTNode astNodeFromCodeElement(CodeElement element) {
-		return ((ASTWrapper<? extends ASTNode>)element).getASTObject();
+		if (element instanceof org.ita.neutrino.codeparser.Class) {
+			return ((ASTClass)element).getASTObject().getName();
+		} else if (element instanceof Method) {
+			return ((ASTMethod)element).getASTObject().getName();
+		} else {
+			return ((ASTWrapper<? extends ASTNode>)element).getASTObject();
+		}
 	}
 	
 	private CompilationUnit getCompilationUnit(ASTNode node) {
