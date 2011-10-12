@@ -1,6 +1,9 @@
 package org.ita.neutrino.testsmells.core;
 
 import org.ita.neutrino.abstracttestparser.AbstractTestParser;
+import org.ita.neutrino.generictestparser.GenericTestParser;
+import org.ita.neutrino.generictestparser.TestSuiteParser;
+import org.ita.neutrino.junit3parser.JUnit3Parser;
 import org.ita.neutrino.junit4parser.JUnit4Parser;
 import org.ita.neutrino.testsmells.smells.AssertionNotExplainedSmell;
 import org.ita.neutrino.testsmells.smells.TestCodeSmell;
@@ -15,8 +18,15 @@ public class TestSmellDetectorGuiceModule extends AbstractModule {
 	}
 	
 	@Provides
-	public AbstractTestParser testParser() {
-		return new JUnit4Parser();
+	public AbstractTestParser testParser(Iterable<TestSuiteParser> implementations) {
+		return new GenericTestParser(implementations);
+	}
+	
+	@Provides
+	public Iterable<TestSuiteParser> allTestFrameworks() {
+		return ImmutableList.of(
+				new JUnit4Parser().asTestSuiteParser(),
+				new JUnit3Parser().asTestSuiteParser());
 	}
 	
 	@Provides

@@ -114,7 +114,7 @@ public abstract class BatteryParser {
 		return knownTypes;
 	}
 
-	protected enum TestMethodKind {
+	public enum TestMethodKind {
 		NOT_TEST_METHOD, BEFORE_METHOD, TEST_METHOD, AFTER_METHOD;
 	}
 
