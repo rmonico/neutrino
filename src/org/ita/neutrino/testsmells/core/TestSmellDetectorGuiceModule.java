@@ -11,6 +11,7 @@ import org.ita.neutrino.testsmells.smells.ConditionalFlowSmell;
 import org.ita.neutrino.testsmells.smells.DuplicatedSetUpCodeSmell;
 import org.ita.neutrino.testsmells.smells.DuplicatedTearDownCodeSmell;
 import org.ita.neutrino.testsmells.smells.EagerTestSmell;
+import org.ita.neutrino.testsmells.smells.SequentialAssertionsSmell;
 import org.ita.neutrino.testsmells.smells.TestCodeSmell;
 
 import com.google.common.collect.ImmutableList;
@@ -26,6 +27,11 @@ public class TestSmellDetectorGuiceModule extends AbstractModule {
 	@Provides @Named("maxVerificationsPerTest")
 	public int maxVerificationsPerTest_thresholdForEagerTest() {
 		return 2;
+	}
+	
+	@Provides @Named("maxNumberOfConsecutiveAssertions")
+	public int maxNumberOfConsecutiveAssertions_thresholdForSequentialAssertions() {
+		return 3;
 	}
 	
 	@Provides
@@ -47,13 +53,15 @@ public class TestSmellDetectorGuiceModule extends AbstractModule {
 			DuplicatedTearDownCodeSmell duplicatedTearDown,
 			EagerTestSmell eagerTest,
 			ConditionalFlowSmell conditionalFlow,
-			CompositeAssertionSmell compositeAssertion) {
+			CompositeAssertionSmell compositeAssertion,
+			SequentialAssertionsSmell sequentialAssertions) {
 		return ImmutableList.of(assertionNotExplained,
 				duplicatedSetUp,
 				duplicatedTearDown,
 				eagerTest,
 				conditionalFlow,
-				compositeAssertion);
+				compositeAssertion,
+				sequentialAssertions);
 	}	
 	
 	@Provides
