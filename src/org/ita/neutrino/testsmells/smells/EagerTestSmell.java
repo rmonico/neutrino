@@ -37,8 +37,7 @@ public class EagerTestSmell extends MethodTestCodeSmell {
 		int verificationsFoundSoFar = 0;
 		
 		for (TestStatement statement : testMethod.getStatements()) {
-			boolean isAssertion = statement instanceof Assertion;
-			if (isAssertion) {
+			if (statement.isAssertion()) {
 				if (currentState != VERIFICATION) {
 					currentState = VERIFICATION;
 					++verificationsFoundSoFar;

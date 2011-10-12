@@ -54,4 +54,9 @@ public abstract class JUnitAction implements JUnitTestStatement, Action {
 		
 		return null;
 	}
+	
+	@Override
+	public boolean isAssertion() {
+		return false;
+	}
 }

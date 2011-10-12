@@ -16,7 +16,7 @@ public abstract class MethodTestCodeSmell extends TestCodeSmell {
 	protected final static Predicate<TestStatement> isAssertionFilter = new Predicate<TestStatement>() {
 		@Override
 		public boolean apply(TestStatement input) {
-			return input instanceof Assertion;
+			return input.isAssertion();
 		}
 	};
 }

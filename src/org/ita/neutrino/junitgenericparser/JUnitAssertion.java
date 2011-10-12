@@ -141,4 +141,10 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public boolean isAssertion() {
+		return true;
+	}
 }

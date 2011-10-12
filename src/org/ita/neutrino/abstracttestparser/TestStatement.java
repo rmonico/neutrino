@@ -8,4 +8,6 @@ public interface TestStatement extends TestElement<Statement> {
 	public TestMethod getParent();
 	
 	public TestStatement getStatement();
+
+	public boolean isAssertion();
 }
