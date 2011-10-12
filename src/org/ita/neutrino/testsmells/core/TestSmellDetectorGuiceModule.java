@@ -70,7 +70,6 @@ public class TestSmellDetectorGuiceModule extends AbstractModule {
 			@Override
 			public void println(Object o) {
 				// Ignore and do not print anything
-				System.out.println(o);
 			}
 		};
 	}
