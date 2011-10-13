@@ -32,7 +32,7 @@ public class DuplicatedTearDownCodeSmell extends TestClassLevelCodeSmell {
 		List<TestStatement> duplicatedCode =
 			duplicatedCodeFinder.listCommonStatements(testClass, /* fromBegin */ false);
 		
-		if (!duplicatedCode.isEmpty()) {
+		if (!duplicatedCode.isEmpty() && testClass.getTestMethodList().size() > 1) {
 			markerManager.addMarker(testClass.getCodeElement(), 
 					"Duplicated tear down code", this.getClass());
 		}

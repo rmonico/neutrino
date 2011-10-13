@@ -32,7 +32,7 @@ public class DuplicatedSetUpCodeSmell extends TestClassLevelCodeSmell {
 		List<TestStatement> duplicatedCode =
 			duplicatedCodeFinder.listCommonStatements(testClass, /* fromBegin */ true);
 		
-		if (!duplicatedCode.isEmpty()) {
+		if (!duplicatedCode.isEmpty() && testClass.getTestMethodList().size() > 1) {
 			markerManager.addMarker(testClass.getCodeElement(), 
 					"Duplicated set up code", this.getClass());
 		}
