@@ -7,7 +7,6 @@ import org.ita.neutrino.abstracrefactoring.RefactoringException;
 import org.ita.neutrino.abstracttestparser.TestMethod;
 import org.ita.neutrino.abstracttestparser.TestStatement;
 import org.ita.neutrino.abstracttestparser.TestSuite;
-import org.ita.neutrino.codeparser.Annotation;
 import org.ita.neutrino.extractmethod.AbstractExtractMethodRefactoring;
 import org.ita.neutrino.junit4parser.JUnitTestMethod;
 
@@ -23,7 +22,7 @@ public class InputFinalizationRefactoring extends AbstractExtractMethodRefactori
 			problems.add("Selection is not valid. Select a finalization test method.");
 		} else {
 			targetMethod = (JUnitTestMethod) getTargetFragment();
-			if (!(hasAfterAnnotation(targetMethod))) {
+			if (! targetMethod.hasAfterAnnotation()) {
 				problems.add("Selection must be a variable declaration.");
 			}
 		}
@@ -35,21 +34,12 @@ public class InputFinalizationRefactoring extends AbstractExtractMethodRefactori
 		return problems;
 	}
 
-	public boolean hasAfterAnnotation(JUnitTestMethod targetMethod) {
-		for (Annotation item : targetMethod.getCodeElement().getAnnotations()) {
-			if (item.getQualifiedName().equals("org.junit.After")) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	@Override
 	protected void doRefactor() throws RefactoringException {
 		TestSuite ts = targetMethod.getParent();
 
 		for (TestMethod tm : targetMethod.getParent().getAllTestMethodList()) {
-			if (isTestMethod(tm, ts)) {
+			if (tm.isTestMethod()) {
 				List<TestStatement> finalizationStatements = new ArrayList<TestStatement>();
 				finalizationStatements.addAll(targetMethod.getStatements());
 
@@ -57,11 +47,6 @@ public class InputFinalizationRefactoring extends AbstractExtractMethodRefactori
 			}
 		}
 
-		ts.removeTestMethods(ts.getAllTestMethodList().indexOf(targetMethod), 1);
+		ts.removeTestMethod(targetMethod);
 	}
-
-	private boolean isTestMethod(TestMethod tm, TestSuite ts) {
-		return ts.getTestMethodList().indexOf(tm) > -1;
-	}
-
 }

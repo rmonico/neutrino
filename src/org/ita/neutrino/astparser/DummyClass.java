@@ -1,5 +1,6 @@
 package org.ita.neutrino.astparser;
 
+import org.ita.neutrino.abstracttestparser.TestMethod;
 import org.ita.neutrino.codeparser.Constructor;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.Method;
@@ -47,7 +48,7 @@ public class DummyClass extends org.ita.neutrino.codeparser.DummyClass {
 	}
 
 	@Override
-	public void removeTestMethods(int index, int count) {
+	public void removeTestMethod(TestMethod testMethod) {
 		// TODO Auto-generated method stub
 		
 	}

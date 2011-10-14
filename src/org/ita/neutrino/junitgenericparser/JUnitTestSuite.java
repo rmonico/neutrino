@@ -2,12 +2,17 @@ package org.ita.neutrino.junitgenericparser;
 
 import java.util.List;
 
+import javax.activity.InvalidActivityException;
+
+import org.ita.neutrino.abstracttestparser.Action;
 import org.ita.neutrino.abstracttestparser.TestElement;
+import org.ita.neutrino.abstracttestparser.TestMethod;
 import org.ita.neutrino.abstracttestparser.TestSuite;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.MutableMethod;
 import org.ita.neutrino.codeparser.MutableType;
 import org.ita.neutrino.codeparser.Type;
+import org.ita.neutrino.codeparser.VariableDeclarationStatement;
 
 public abstract class JUnitTestSuite implements TestSuite {
 
@@ -147,16 +152,25 @@ public abstract class JUnitTestSuite implements TestSuite {
 	@Override
 	public void createNewFixture(Type variableType, String variableName) {
 		this.getCodeElement().createNewField(variableType, variableName);
-
 	}
 
 	@Override
-	public void removeTestMethods(int index, int count) {
-
-		this.getCodeElement().removeTestMethods(index, count);
+	public void removeTestMethod(TestMethod testMethod) {
+		this.getCodeElement().removeTestMethod(testMethod);
 	}
 
 	public List<? extends JUnitTestMethod> getAllTestMethodList() {
 		return allTestMethodList;
 	}
+
+	@Override
+	public void createNewFixture(Action action) throws InvalidActivityException {
+		if (action.isVariableDeclarationStatement()) {
+			VariableDeclarationStatement vds = (VariableDeclarationStatement) action.getCodeElement();
+			this.getCodeElement().createNewField(vds.getVariableType(), vds.getVariableName());
+		} else {
+			throw new InvalidActivityException("activity is only valid for VariableDeclarationStatement!");
+		}
+	}
+
 }

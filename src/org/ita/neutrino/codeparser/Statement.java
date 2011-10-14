@@ -1,5 +1,7 @@
 package org.ita.neutrino.codeparser;
 
+import org.ita.neutrino.abstracttestparser.Action;
+
 /**
  * Classe que representa uma linha de código.
  * 
@@ -12,4 +14,8 @@ public interface Statement extends CodeElement {
 	public Block getParent();
 
 	public boolean isBranchStatement();	
+	
+	public boolean isVariableDeclaration();
+	
+	public boolean similarDeclaration(Action action);
 }

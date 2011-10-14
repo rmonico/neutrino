@@ -2,6 +2,7 @@ package org.ita.neutrino.junitgenericparser;
 
 import java.util.List;
 
+import org.ita.neutrino.abstracttestparser.Action;
 import org.ita.neutrino.abstracttestparser.Assertion;
 import org.ita.neutrino.abstracttestparser.TestStatement;
 import org.ita.neutrino.codeparser.Environment;
@@ -9,6 +10,8 @@ import org.ita.neutrino.codeparser.Expression;
 import org.ita.neutrino.codeparser.ExpressionFactory;
 import org.ita.neutrino.codeparser.MethodInvocationStatement;
 import org.ita.neutrino.codeparser.Type;
+
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 
@@ -142,9 +145,16 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 		return null;
 	}
 
-
 	@Override
 	public boolean isAssertion() {
 		return true;
+	}
+
+	public void transformInExpression() {
+		transformInExpression(null);
+	}
+
+	public void transformInExpression(Action baseAction) {
+		throw new NotImplementedException();
 	}
 }

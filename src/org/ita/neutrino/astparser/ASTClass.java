@@ -50,5 +50,6 @@ public class ASTClass extends ASTType implements Class {
 	}
 
 	
+	
 
 }

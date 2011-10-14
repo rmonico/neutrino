@@ -3,19 +3,18 @@ package org.ita.neutrino.addfixture;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.activity.InvalidActivityException;
+
 import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
 import org.ita.neutrino.abstracrefactoring.RefactoringException;
 import org.ita.neutrino.abstracttestparser.Action;
 import org.ita.neutrino.abstracttestparser.TestMethod;
 import org.ita.neutrino.abstracttestparser.TestStatement;
 import org.ita.neutrino.abstracttestparser.TestSuite;
-import org.ita.neutrino.astparser.ASTVariableDeclarationStatement;
-import org.ita.neutrino.codeparser.Statement;
-import org.ita.neutrino.codeparser.VariableDeclarationStatement;
 
 public class AddFixtureRefactoring extends AbstractRefactoring {
 
-	private VariableDeclarationStatement variableDeclaration;
+	// private VariableDeclarationStatement variableDeclaration;
 	private Action targetAction;
 
 	@Override
@@ -26,11 +25,8 @@ public class AddFixtureRefactoring extends AbstractRefactoring {
 			problems.add("Selection is not valid. Select a variable.");
 		} else {
 			targetAction = (Action) getTargetFragment();
-			Statement statement = targetAction.getCodeElement();
-			if (!(statement instanceof VariableDeclarationStatement)) {
+			if (!targetAction.isVariableDeclarationStatement()) {
 				problems.add("Selection must be a variable declation.");
-			} else {
-				variableDeclaration = (VariableDeclarationStatement) statement;
 			}
 		}
 
@@ -47,38 +43,33 @@ public class AddFixtureRefactoring extends AbstractRefactoring {
 		TestSuite ts = tm.getParent();
 
 		// declara variavel no contexto de classe.
-		ts.createNewFixture(variableDeclaration.getVariableType(), variableDeclaration.getVariableName());
+		try {
+			ts.createNewFixture(targetAction);
+		} catch (InvalidActivityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		String metodoCorrente = this.targetAction.getParent().getName();
 		TestSuite suite = this.targetAction.getParent().getParent();
 		List<? extends TestMethod> testMethods = suite.getTestMethodList();
-		VariableDeclarationStatement targetVar = (VariableDeclarationStatement) this.targetAction.getCodeElement();
 
-		for (int i = 0; i < testMethods.size(); i++) {
-			TestMethod testMethod = testMethods.get(i);
-			List<? extends TestStatement> statementList;
+		for (TestMethod testMethod : testMethods) {
 			if (testMethod.getStatements().size() > 0) {
-				statementList = testMethod.getStatements();
-
 				if (testMethod.getName().equals(metodoCorrente)) {
 					// replace on variable declacation statement to expressionStatement.
-					for (int j = 0; j < statementList.size(); j++) {
-						if (statementList.get(j).equals(this.targetAction)) {
-							VariableDeclarationStatement var = (VariableDeclarationStatement) this.targetAction.getCodeElement();
-							changeStatements(var, statementList, testMethod, j, targetVar.getVariableName());
+					for (TestStatement item : testMethod.getStatements()) {
+						if (item.equals(this.targetAction)) {
+							item.transformInExpression();
 							break;
 						}
 					}
-
 				} else {
 					// Replace on the variable declaration with same type and name.
-					for (int j = 0; j < statementList.size(); j++) {
-						if (statementList.get(j).getCodeElement() instanceof VariableDeclarationStatement) {
-							VariableDeclarationStatement var = (VariableDeclarationStatement) statementList.get(j).getCodeElement();
-							if (var.getVariableType().equals(targetVar.getVariableType()) && var.getVariableName().equals(targetVar.getVariableName())) {
-								changeStatements(var, statementList, testMethod, j, targetVar.getVariableName());
-								break;
-							}
+					for (TestStatement item : testMethod.getStatements()) {
+						if (item.getCodeElement().isVariableDeclaration() && item.getCodeElement().similarDeclaration(targetAction)) {
+							item.transformInExpression(targetAction);
+							break;
 						}
 					}
 				}
@@ -86,23 +77,4 @@ public class AddFixtureRefactoring extends AbstractRefactoring {
 		}
 	}
 
-	private void changeStatements(VariableDeclarationStatement var, List<? extends TestStatement> statementList, TestMethod testMethod, int statementIndex, String variableName) {
-		List<TestStatement> novoStatement = new ArrayList<TestStatement>();
-		if (var.getInitialization() != null) {
-			novoStatement.add(getTestStatementWithNoDeclaration(statementList.get(statementIndex), variableName));
-		}
-
-		testMethod.removeStatements(statementIndex, 1);
-		testMethod.addStatements(novoStatement, statementIndex);
-	}
-
-	private TestStatement getTestStatementWithNoDeclaration(TestStatement from, String variableName) {
-		ASTVariableDeclarationStatement element = (ASTVariableDeclarationStatement) from.getCodeElement();
-		if (variableName == null) {
-			element.transformInExpression();
-		} else {
-			element.transformInExpression(variableName);
-		}
-		return from;
-	}
 }

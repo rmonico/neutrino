@@ -9,5 +9,9 @@ public interface TestStatement extends TestElement<Statement> {
 	
 	public TestStatement getStatement();
 
+	public void transformInExpression();
+	
+	public void transformInExpression(Action baseAction);
+	
 	public boolean isAssertion();
 }

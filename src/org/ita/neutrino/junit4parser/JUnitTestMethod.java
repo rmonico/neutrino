@@ -24,7 +24,7 @@ public class JUnitTestMethod extends org.ita.neutrino.junitgenericparser.JUnitTe
 	protected JUnitAssertion instantiateAssertion() {
 		return new JUnitAssertion();
 	};
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<JUnitTestStatement> getStatements() {
