@@ -12,16 +12,22 @@ import com.google.inject.name.Named;
 public class EagerTestSmell extends MethodTestCodeSmell {
 
 	private final int maxVerificationsPerTest;
+	private final int requiredNumberOfTestStatements;
 	
 	@Inject
 	public EagerTestSmell(
-			@Named("maxVerificationsPerTest") int maxVerificationsPerTest) {
+			@Named("maxVerificationsPerTest") int maxVerificationsPerTest,
+			@Named("requiredNumberOfTestStatements") int requiredNumberOfTestStatements) {
 		this.maxVerificationsPerTest = maxVerificationsPerTest;
+		this.requiredNumberOfTestStatements = requiredNumberOfTestStatements;
 	}
 	
 	@Override
 	public void checkForPresence(TestMethod method, MarkerManager markerManager)
 			throws JavaModelException, CoreException {
+		if (method.getStatements().size() < this.requiredNumberOfTestStatements) {
+			return;
+		}
 		if (getApproximateNumberOfVerifications(method) > this.maxVerificationsPerTest) {
 			markerManager.addMarker(method.getCodeElement(),
 					"Eager test (too much functionality being assessed in a single test)",

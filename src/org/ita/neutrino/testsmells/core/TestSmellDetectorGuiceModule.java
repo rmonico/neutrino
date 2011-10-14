@@ -29,6 +29,11 @@ public class TestSmellDetectorGuiceModule extends AbstractModule {
 		return 2;
 	}
 	
+	@Provides @Named("requiredNumberOfTestStatements")
+	public int requiredNumberOfTestStatements_thresholdForEagerTest() {
+		return 16;
+	}
+	
 	@Provides @Named("maxNumberOfConsecutiveAssertions")
 	public int maxNumberOfConsecutiveAssertions_thresholdForSequentialAssertions() {
 		return 3;
