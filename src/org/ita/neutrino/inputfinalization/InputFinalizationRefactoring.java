@@ -22,8 +22,8 @@ public class InputFinalizationRefactoring extends AbstractExtractMethodRefactori
 			problems.add("Selection is not valid. Select a finalization test method.");
 		} else {
 			targetMethod = (JUnitTestMethod) getTargetFragment();
-			if (! targetMethod.hasAfterAnnotation()) {
-				problems.add("Selection must be a variable declaration.");
+			if (! targetMethod.isAfterTestMethod()) {
+				problems.add("Selection must be a test method.");
 			}
 		}
 

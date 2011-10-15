@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.ita.neutrino.abstracttestparser.TestMethod;
 import org.ita.neutrino.abstracttestparser.TestStatement;
-import org.ita.neutrino.codeparser.Annotation;
 import org.ita.neutrino.codeparser.MethodInvocationStatement;
 import org.ita.neutrino.codeparser.MutableMethod;
 import org.ita.neutrino.codeparser.Statement;
@@ -99,17 +98,6 @@ public abstract class JUnitTestMethod implements TestMethod {
 		}
 
 		getCodeElement().addStatements(codeStatements, index);
-	}
-
-	@Override
-	public boolean hasAfterAnnotation() {
-		for (Annotation item : element.getAnnotations()) {
-			if (item.getQualifiedName().equals("org.junit.After")) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	@Override

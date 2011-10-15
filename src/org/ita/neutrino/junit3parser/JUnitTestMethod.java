@@ -39,6 +39,18 @@ public class JUnitTestMethod extends org.ita.neutrino.junitgenericparser.JUnitTe
 	void setParent(JUnitTestSuite parent) {
 		super.setParent(parent);
 	}
+	
+	public boolean isAfterTestMethod() {
+		//TODO: ACERTAR PRA JUNIT 3
+		/*
+		for (Annotation item : getCodeElement().getAnnotations()) {
+			if (item.getQualifiedName().equals("org.junit.After")) {
+				return true;
+			}
+		}
+*/
+		return false;
+	}
 
 	@Override
 	public int compareTo(Object o) {

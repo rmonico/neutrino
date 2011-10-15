@@ -19,7 +19,7 @@ public interface TestMethod extends TestElement<Method>, Comparable<Object> {
 
 	public abstract void removeStatements(int index, int count);
 	
-	public boolean hasAfterAnnotation();
+	public boolean isAfterTestMethod();
 	
 	public boolean isTestMethod();
 }

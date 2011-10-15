@@ -3,6 +3,7 @@ package org.ita.neutrino.junit4parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ita.neutrino.codeparser.Annotation;
 import org.ita.neutrino.junitgenericparser.JUnitTestStatement;
 
 public class JUnitTestMethod extends org.ita.neutrino.junitgenericparser.JUnitTestMethod {
@@ -38,6 +39,16 @@ public class JUnitTestMethod extends org.ita.neutrino.junitgenericparser.JUnitTe
 
 	void setParent(JUnitTestSuite parent) {
 		super.setParent(parent);
+	}
+	
+	public boolean isAfterTestMethod() {
+		for (Annotation item : getCodeElement().getAnnotations()) {
+			if (item.getQualifiedName().equals("org.junit.After")) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	@Override
