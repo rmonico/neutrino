@@ -50,6 +50,16 @@ public class JUnitTestMethod extends org.ita.neutrino.junitgenericparser.JUnitTe
 
 		return false;
 	}
+	
+	public boolean isBeforeTestMethod(){
+		for (Annotation item : getCodeElement().getAnnotations()) {
+			if (item.getQualifiedName().equals("org.junit.Before")) {
+				return true;
+			}
+		}
+
+		return false;		
+	}
 
 	@Override
 	public int compareTo(Object o) {

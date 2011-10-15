@@ -21,5 +21,7 @@ public interface TestMethod extends TestElement<Method>, Comparable<Object> {
 	
 	public boolean isAfterTestMethod();
 	
+	public boolean isBeforeTestMethod();
+	
 	public boolean isTestMethod();
 }

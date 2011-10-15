@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ita.neutrino.abstracrefactoring.RefactoringException;
+import org.ita.neutrino.abstracttestparser.TestMethod;
+import org.ita.neutrino.abstracttestparser.TestStatement;
+import org.ita.neutrino.abstracttestparser.TestSuite;
 import org.ita.neutrino.extractmethod.AbstractExtractMethodRefactoring;
 import org.ita.neutrino.junit4parser.JUnitTestMethod;
 
@@ -19,8 +22,8 @@ public class InputInitializationRefactoring extends AbstractExtractMethodRefacto
 			problems.add("Selection is not valid. Select a initialization test method.");
 		} else {
 			targetMethod = (JUnitTestMethod) getTargetFragment();
-			if (! targetMethod.isAfterTestMethod()) {
-				problems.add("Selection must be a test method.");
+			if (! targetMethod.isBeforeTestMethod()) {
+				problems.add("Selection must be a before test method.");
 			}
 		}
 
@@ -33,8 +36,18 @@ public class InputInitializationRefactoring extends AbstractExtractMethodRefacto
 
 	@Override
 	protected void doRefactor() throws RefactoringException {
-		// TODO Auto-generated method stub
+		TestSuite ts = targetMethod.getParent();
 
+		for (TestMethod tm : targetMethod.getParent().getAllTestMethodList()) {
+			if (tm.isTestMethod()) {
+				List<TestStatement> finalizationStatements = new ArrayList<TestStatement>();
+				finalizationStatements.addAll(targetMethod.getStatements());
+				
+				tm.addStatements(finalizationStatements, 0);
+			}
+		}
+
+		ts.removeTestMethod(targetMethod);
 	}
 
 }
