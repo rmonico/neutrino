@@ -2,17 +2,41 @@ package org.ita.neutrino.junitgenericparser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.MethodInvocationStatement;
 import org.ita.neutrino.codeparser.Statement;
 import org.ita.neutrino.codeparser.Type;
 
+import com.google.common.collect.ImmutableSet;
+
 public class BlockParser {
 
 	private JUnitTestBattery battery;
 	private List<JUnitTestMethod> concreteMethodList;
+	private static final Set<String> assertionMethods = ImmutableSet.of(
+			"org.junit.Assert.assertArrayEquals",
+			"org.junit.Assert.assertArrayEquals",
+			"org.junit.Assert.assertEquals",
+			"org.junit.Assert.assertTrue",
+			"org.junit.Assert.assertFalse",
+			"org.junit.Assert.assertNull",
+			"org.junit.Assert.assertNotNull",
+			"org.junit.Assert.assertSame",
+			"org.junit.Assert.assertNotSame",
+			"org.junit.Assert.assertThat",
+			"org.junit.Assert.fail",
+			"junit.framework.Assert.assertEquals",
+			"junit.framework.Assert.assertTrue",
+			"junit.framework.Assert.assertFalse",
+			"junit.framework.Assert.assertNull",
+			"junit.framework.Assert.assertNotNull",
+			"junit.framework.Assert.assertSame",
+			"junit.framework.Assert.assertNotSame",
+			"junit.framework.Assert.fail");
 
+			
 	public void setBattery(JUnitTestBattery battery) {
 		this.battery = battery;
 	}
@@ -78,7 +102,7 @@ public class BlockParser {
 			battery.getSelection().setSelectedFragment(testStatement);
 		}
 	}
-
+	
 	private boolean isAssertion(Statement statement) {
 		
 		if (!(statement instanceof MethodInvocationStatement)) {
@@ -89,28 +113,7 @@ public class BlockParser {
 		
 		Type methodType = methodInvocation.getCalledMethod().getParent();
 		String fullName = methodType.getQualifiedName() + "." + methodInvocation.getCalledMethod().getName();
-
-		if (fullName.equals("org.junit.Assert.assertArrayEquals")
-				|| fullName.equals("org.junit.Assert.assertEquals")
-				|| fullName.equals("org.junit.Assert.assertTrue")
-				|| fullName.equals("org.junit.Assert.assertFalse")
-				|| fullName.equals("org.junit.Assert.assertNull")
-				|| fullName.equals("org.junit.Assert.assertNotNull")
-				|| fullName.equals("org.junit.Assert.assertSame")
-				|| fullName.equals("org.junit.Assert.assertNotSame")
-				|| fullName.equals("org.junit.Assert.assertThat")
-
-				|| fullName.equals("junit.framework.Assert.assertEquals")
-				|| fullName.equals("junit.framework.Assert.assertTrue")
-				|| fullName.equals("junit.framework.Assert.assertFalse")
-				|| fullName.equals("junit.framework.Assert.assertNull")
-				|| fullName.equals("junit.framework.Assert.assertNotNull")
-				|| fullName.equals("junit.framework.Assert.assertSame")
-				|| fullName.equals("junit.framework.Assert.assertNotSame")) {
-			return true;
-		} else {
-			return false;
-		}
+		return assertionMethods.contains(fullName);
 	}
 
 }

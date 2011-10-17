@@ -85,6 +85,12 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 		} else if (methodName.equals("assertThat")) {
 			// Não suporta explicação
 			return null;
+		} else if (methodName.equals("fail")) {
+			if (parameterList.size() == 0) {
+				return null;
+			} else {
+				return candidateExpression;
+			}
 		} else {
 			// Asserção desconhecida
 			return null;
@@ -139,6 +145,11 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 		return null;
 	}
 
+	@Override
+	public boolean isAssertion() {
+		return true;
+	}
+
 	public void transformInExpression() {
 		transformInExpression(null);
 	}
@@ -146,7 +157,4 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 	public void transformInExpression(Action baseAction) {
 		throw new NotImplementedException();
 	}
-
-	
-
 }

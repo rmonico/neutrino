@@ -1,6 +1,8 @@
 package org.ita.neutrino.junit3parser;
 
+import org.ita.neutrino.codeparser.Class;
 import org.ita.neutrino.codeparser.Method;
+import org.ita.neutrino.codeparser.MutableType;
 
 /**
  * Responsável por localizar as Suites de testes e seus respectivos métodos.
@@ -22,4 +24,20 @@ class BatteryParser extends org.ita.neutrino.junitgenericparser.BatteryParser {
 		}
 	}
 
+	@Override
+	protected boolean canParse(MutableType t) {
+		if (!(t instanceof Class)) {
+			return false;
+		}
+		Class clazz = (Class) t;
+		
+		while (clazz != null) {
+			if (clazz.getQualifiedName().equals("junit.framework.TestCase")) {
+				return true;
+			}
+			clazz = clazz.getSuperClass();
+		}
+		
+		return false;
+	}
 }

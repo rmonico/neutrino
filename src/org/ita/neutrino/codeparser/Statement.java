@@ -12,9 +12,10 @@ public interface Statement extends CodeElement {
 	
 	@Override
 	public Block getParent();
+
+	public boolean isBranchStatement();	
 	
 	public boolean isVariableDeclaration();
 	
 	public boolean similarDeclaration(Action action);
-	
 }

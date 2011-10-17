@@ -6,7 +6,7 @@ import java.util.List;
 import org.ita.neutrino.abstracrefactoring.AbstractEclipseRefactoringAction;
 import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
 
-public abstract class DecomposeAssertionAction extends AbstractEclipseRefactoringAction {
+public class DecomposeAssertionAction extends AbstractEclipseRefactoringAction {
 
 	private DecomposeAssertionRefactoring refactoring;
 
