@@ -10,4 +10,8 @@ public interface Assertion extends TestStatement {
 	public String getExplanation();
 	
 	public void setExplanation(String explanation);
+	
+	public boolean hasMultipleChecks();
+	
+	public void decomposeAssertion();
 }
