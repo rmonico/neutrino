@@ -2,6 +2,7 @@ package org.ita.neutrino.codeparser;
 
 import java.util.List;
 
+import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
 public interface MutableMethod extends Method {
@@ -12,5 +13,5 @@ public interface MutableMethod extends Method {
 
 	void removeStatements(int index, int count);
 	
-	void createNewAssertStatement(List<MethodInvocation> methods);
+	void createNewAssertStatement(ExpressionStatement es, List<MethodInvocation> methods);
 }

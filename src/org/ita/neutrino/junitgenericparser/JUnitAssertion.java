@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.BooleanLiteral;
+import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.InfixExpression;
 import org.eclipse.jdt.core.dom.InfixExpression.Operator;
 import org.eclipse.jdt.core.dom.MethodInvocation;
@@ -14,7 +15,9 @@ import org.eclipse.jdt.core.dom.StringLiteral;
 import org.ita.neutrino.abstracttestparser.Action;
 import org.ita.neutrino.abstracttestparser.Assertion;
 import org.ita.neutrino.abstracttestparser.TestStatement;
+import org.ita.neutrino.astparser.ASTBlock;
 import org.ita.neutrino.astparser.ASTMethod;
+import org.ita.neutrino.astparser.ASTMethodInvocationStatement;
 import org.ita.neutrino.astparser.GenericExpression;
 import org.ita.neutrino.astparser.QuickVisitor;
 import org.ita.neutrino.codeparser.Environment;
@@ -175,37 +178,31 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 	}
 
 	public void decomposeAssertion() {
-
-		List<MethodInvocation> ret = new ArrayList<MethodInvocation>();
+		List<MethodInvocation> newMethodInvocation = new ArrayList<MethodInvocation>();
 		QuickVisitor qv = new QuickVisitor();
-		ast = ((ASTMethod) getCodeElement().getParent().getParent()).getASTObject().getAST();
+		ASTMethod am = (ASTMethod) getCodeElement().getParent().getParent();
+		ast = am.getASTObject().getAST();
+
+		ExpressionStatement currentStatement = getExpressionStatement();
+
 		for (Expression item : getCodeElement().getParameterList()) {
 			if (item instanceof GenericExpression) {
-
 				InfixExpression expr = (InfixExpression) ((GenericExpression) item).getASTObject();
-				getAssertionParts(ret, expr, qv);
+				getAssertionParts(newMethodInvocation, expr, qv);
 
-				x(ret);
-
+				am.createNewAssertStatement(currentStatement, newMethodInvocation);
 			}
 		}
 	}
 
-	private void x(List<MethodInvocation> nodos) {
-		/*
-		 * QuickVisitor qv = new QuickVisitor(); ConsoleVisitor.showNodes(((org.ita.neutrino.astparser.ASTBlock) getCodeElement().getParent()).getASTObject()); List<ASTNode> nodos = qv.quickVisit(((org.ita.neutrino.astparser.ASTBlock)
-		 * getCodeElement().getParent()).getASTObject()); List<ASTNode> nodos2 = qv.quickVisit(((org.eclipse.jdt.core.dom.ExpressionStatement)nodos.get(2))); List<ASTNode> nodos3 =
-		 * qv.quickVisit(((org.eclipse.jdt.core.dom.ExpressionStatement)nodos.get(2)).getExpression());
-		 * 
-		 * 
-		 * //org.eclipse.jdt.core.dom.MethodInvocation mi = getCodeElement().getParent().c ASTGenericStatement genS = ((org.ita.neutrino.astparser.ASTBlock) getCodeElement().getParent()).createGenericStatement(); genS.setASTObject(item);
-		 */
-
-		ASTMethod am = (ASTMethod) getCodeElement().getParent().getParent();
-
-		am.createNewAssertStatement(nodos);
-
-		// am.addStatements(codeStatements, index)
+	private ExpressionStatement getExpressionStatement() {
+		if (getCodeElement().getParent() instanceof ASTBlock) {
+			int indice = ((ASTBlock) getCodeElement().getParent()).getStatementList().indexOf(getCodeElement());
+			ASTMethodInvocationStatement statement = (ASTMethodInvocationStatement) ((ASTBlock) getCodeElement().getParent()).getStatementList().get(indice);
+			ExpressionStatement currentStatement = (ExpressionStatement) statement.getASTObject();
+			return currentStatement;
+		}
+		return null;
 	}
 
 	private boolean getAssertionParts(List<MethodInvocation> parts, InfixExpression expr, QuickVisitor qv) {
@@ -239,88 +236,78 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 
 	@SuppressWarnings("unchecked")
 	private MethodInvocation getMethodInvocation(ASTNode item) {
-		// TODO: MELHORAR A CARA DESSE METODO.
 		MethodInvocation mi = ast.newMethodInvocation();
 		mi.setExpression(ast.newSimpleName("Assert"));
 		StringLiteral lit = ast.newStringLiteral();
+		lit.setLiteralValue("[explanation string]");
 		mi.arguments().add(lit);
 		if (item instanceof InfixExpression) {
 			InfixExpression ieOrigin = (InfixExpression) item;
 
 			if (ieOrigin.getLeftOperand() instanceof org.eclipse.jdt.core.dom.NullLiteral) {
-				if (ieOrigin.getOperator() == Operator.EQUALS) {
-					mi.setName(ast.newSimpleName("assertNull"));
-				} else {
-					mi.setName(ast.newSimpleName("assertNotNull"));
-				}
-
-				mi.arguments().add(ASTNode.copySubtree(ast, ieOrigin.getRightOperand()));
+				setAssertNullNotNull(mi, ieOrigin.getOperator(), ieOrigin.getRightOperand());
 			} else if (ieOrigin.getRightOperand() instanceof org.eclipse.jdt.core.dom.NullLiteral) {
-				if (ieOrigin.getOperator() == Operator.EQUALS) {
-					mi.setName(ast.newSimpleName("assertNull"));
-				} else {
-					mi.setName(ast.newSimpleName("assertNotNull"));
-				}
-
-				mi.arguments().add(ASTNode.copySubtree(ast, ieOrigin.getLeftOperand()));
+				setAssertNullNotNull(mi, ieOrigin.getOperator(), ieOrigin.getLeftOperand());
+			} else if (ieOrigin.getLeftOperand() instanceof BooleanLiteral) {
+				setAssertTrueFalse(mi, ieOrigin.getOperator(), ieOrigin.getRightOperand(), ((BooleanLiteral) ieOrigin.getLeftOperand()));
+			} else if (ieOrigin.getRightOperand() instanceof BooleanLiteral) {
+				setAssertTrueFalse(mi, ieOrigin.getOperator(), ieOrigin.getLeftOperand(), ((BooleanLiteral) ieOrigin.getRightOperand()));
 			} else if (ieOrigin.getOperator() == Operator.EQUALS) {
-				if (ieOrigin.getLeftOperand() instanceof BooleanLiteral) {
-					if (((BooleanLiteral) ieOrigin.getLeftOperand()).booleanValue()) {
-						mi.setName(ast.newSimpleName("assertTrue"));
-
-						mi.arguments().add((Object) ASTNode.copySubtree(ast, ieOrigin.getRightOperand()));
-					} else {
-						mi.setName(ast.newSimpleName("assertFalse"));
-
-						mi.arguments().add((Object) ASTNode.copySubtree(ast, ieOrigin.getRightOperand()));
-					}
-				} else if (ieOrigin.getRightOperand() instanceof BooleanLiteral) {
-					mi.setName(ast.newSimpleName("assertFalse"));
-
-					mi.arguments().add((Object) ASTNode.copySubtree(ast, ieOrigin.getLeftOperand()));
-				} else {
-					mi.setName(ast.newSimpleName("assertEquals"));
-
-					mi.arguments().add((Object) ASTNode.copySubtree(ast, ieOrigin.getLeftOperand()));
-					mi.arguments().add((Object) ASTNode.copySubtree(ast, ieOrigin.getRightOperand()));
-				}
-			} else if (ieOrigin.getOperator() == Operator.NOT_EQUALS) {
-				if (ieOrigin.getLeftOperand() instanceof BooleanLiteral) {
-					if (((BooleanLiteral) ieOrigin.getLeftOperand()).booleanValue()) {
-						mi.setName(ast.newSimpleName("assertFalse"));
-						mi.arguments().add((Object) ASTNode.copySubtree(ast, ieOrigin.getRightOperand()));
-					} else {
-						mi.setName(ast.newSimpleName("assertTrue"));
-						mi.arguments().add((Object) ASTNode.copySubtree(ast, ieOrigin.getRightOperand()));
-					}
-				} else if (ieOrigin.getRightOperand() instanceof BooleanLiteral) {
-					if (((BooleanLiteral) ieOrigin.getRightOperand()).booleanValue()) {
-						mi.setName(ast.newSimpleName("assertFalse"));
-						mi.arguments().add((Object) ASTNode.copySubtree(ast, ieOrigin.getLeftOperand()));
-					} else {
-						mi.setName(ast.newSimpleName("assertTrue"));
-						mi.arguments().add((Object) ASTNode.copySubtree(ast, ieOrigin.getLeftOperand()));
-					}
-				} else {
-					mi.setName(ast.newSimpleName("assertTrue"));
-					mi.arguments().add(ASTNode.copySubtree(ast, ieOrigin));
-				}
+				setAssertEquals(mi, ieOrigin.getLeftOperand(), ieOrigin.getRightOperand());
 			} else {
-				mi.setName(ast.newSimpleName("assertTrue"));
-				mi.arguments().add(ASTNode.copySubtree(ast, ieOrigin));
+				setAssertTrue(mi, item);
 			}
 		} else if (item instanceof PrefixExpression) {
 			if (((PrefixExpression) item).getOperator() == PrefixExpression.Operator.NOT) {
-				mi.setName(ast.newSimpleName("assertFalse"));
-				mi.arguments().add(ASTNode.copySubtree(ast, ((PrefixExpression) item).getOperand()));
+				setAssertFalse(mi, ((PrefixExpression) item).getOperand());
 			} else {
-				mi.setName(ast.newSimpleName("assertTrue"));
-				mi.arguments().add(ASTNode.copySubtree(ast, item));
+				setAssertTrue(mi, item);
 			}
 		} else {
-			mi.setName(ast.newSimpleName("assertTrue"));
-			mi.arguments().add(ASTNode.copySubtree(ast, item));
+			setAssertTrue(mi, item);
 		}
 		return mi;
 	}
+
+	@SuppressWarnings("unchecked")
+	private void setAssertNullNotNull(MethodInvocation mi, Operator operador, org.eclipse.jdt.core.dom.Expression expression) {
+		if (operador == Operator.EQUALS) {
+			mi.setName(ast.newSimpleName("assertNull"));
+		} else {
+			mi.setName(ast.newSimpleName("assertNotNull"));
+		}
+
+		mi.arguments().add(ASTNode.copySubtree(ast, expression));
+	}
+
+	@SuppressWarnings("unchecked")
+	private void setAssertTrueFalse(MethodInvocation mi, Operator operador, org.eclipse.jdt.core.dom.Expression expression, BooleanLiteral boolLiteral) {
+		if (boolLiteral.booleanValue()) {
+			mi.setName(ast.newSimpleName(operador == Operator.EQUALS ? "assertTrue" : "assertFalse"));
+		} else {
+			mi.setName(ast.newSimpleName(operador == Operator.EQUALS ? "assertFalse" : "assertTrue"));
+		}
+
+		mi.arguments().add((Object) ASTNode.copySubtree(ast, expression));
+	}
+
+	@SuppressWarnings("unchecked")
+	private void setAssertTrue(MethodInvocation mi, ASTNode expression) {
+		mi.setName(ast.newSimpleName("assertTrue"));
+		mi.arguments().add(ASTNode.copySubtree(ast, expression));
+	}
+
+	@SuppressWarnings("unchecked")
+	private void setAssertFalse(MethodInvocation mi, org.eclipse.jdt.core.dom.Expression node) {
+		mi.setName(ast.newSimpleName("assertFalse"));
+		mi.arguments().add(ASTNode.copySubtree(ast, node));
+	}
+
+	@SuppressWarnings("unchecked")
+	private void setAssertEquals(MethodInvocation mi, org.eclipse.jdt.core.dom.Expression left, org.eclipse.jdt.core.dom.Expression right) {
+		mi.setName(ast.newSimpleName("assertEquals"));
+		mi.arguments().add((Object) ASTNode.copySubtree(ast, left));
+		mi.arguments().add((Object) ASTNode.copySubtree(ast, right));
+	}
+
 }
