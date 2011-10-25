@@ -13,7 +13,7 @@ public class JUnitTestMethod extends org.ita.neutrino.junitgenericparser.JUnitTe
 		return new ArrayList<JUnitTestStatement>();
 	}
 
-	JUnitTestMethod() {
+	public JUnitTestMethod() {
 		super();
 	}
 

@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Test refactorings
+Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: org.ita.neutrino;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Activator: org.ita.neutrino.eclipseaction.Activator
-Bundle-Vendor: Rafael Monico
+Bundle-Vendor: %Bundle-Vendor
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt,
  org.eclipse.jdt.core,
@@ -20,3 +20,34 @@ Import-Package: org.eclipse.jdt.launching,
  org.eclipse.jface.text
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
+Export-Package: org.ita.neutrino.abstracrefactoring,
+ org.ita.neutrino.abstracttestparser,
+ org.ita.neutrino.addexplanation,
+ org.ita.neutrino.addfixture,
+ org.ita.neutrino.astparser,
+ org.ita.neutrino.codeparser,
+ org.ita.neutrino.debug,
+ org.ita.neutrino.decomposeassertion,
+ org.ita.neutrino.eclipseaction,
+ org.ita.neutrino.extractfinalizationmethod,
+ org.ita.neutrino.extractinitializationmethod,
+ org.ita.neutrino.extractmethod,
+ org.ita.neutrino.groupincrementaltests,
+ org.ita.neutrino.groupsimilartests,
+ org.ita.neutrino.inputfinalization,
+ org.ita.neutrino.inputinitialization,
+ org.ita.neutrino.junit3parser,
+ org.ita.neutrino.junit4parser,
+ org.ita.neutrino.junitgenericparser,
+ org.ita.neutrino.splitincrementaltests,
+ org.ita.neutrino.tests,
+ org.ita.neutrino.tests.addexplanation,
+ org.ita.neutrino.tests.addfixture,
+ org.ita.neutrino.tests.astparser,
+ org.ita.neutrino.tests.extractfinalizationmethod,
+ org.ita.neutrino.tests.extractinitializationmethod,
+ org.ita.neutrino.tests.groupincremental,
+ org.ita.neutrino.tests.groupsimilar,
+ org.ita.neutrino.tests.junitparsers,
+ org.zero.utils,
+ org.zero.utils.tests

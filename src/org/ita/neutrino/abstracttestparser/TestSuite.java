@@ -25,20 +25,20 @@ public interface TestSuite extends TestElement<MutableType> {
 	public TestMethod getMethodByName(String methodName);
 
 	/**
-	 * Deve criar um novo método de testes. Deve ser utilizado pelo usuário após
-	 * o parsing parar que um novo método seja criado após aplicar as
-	 * alterações.
+	 * Deve criar um novo método de testes. Deve ser utilizado pelo usuário após o parsing parar que um novo método seja criado após aplicar as alterações.
 	 */
 	public TestMethod createNewBeforeTestsMethod();
 
 	public TestMethod createNewAfterTestsMethod();
 
+	public TestMethod createNewTestMethod(String newMethodName);
+
 	public void createNewFixture(Type variableType, String variableName);
-	
-	public void createNewFixture(Action action) throws InvalidActivityException ;
-	
+
+	public void createNewFixture(Action action) throws InvalidActivityException;
+
 	public void removeTestMethod(TestMethod testMethod);
-	
+
 	public List<? extends TestMethod> getAllTestMethodList();
-	
+
 }

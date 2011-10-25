@@ -26,13 +26,13 @@
                label="JUnit 4 - Split Incrementals"
                menubarPath="org.ita.neutrino.menu/junit4"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.splitincrementals.SplitIncrementalsJUnit4">
+               id="org.ita.neutrino.splitincrementaltests.SplitIncrementalTestsJUnit4">
          </action>
          <action
                label="JUnit 3 - Split Incrementals"
                menubarPath="org.ita.neutrino.menu/junit3"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.splitincrementals.SplitIncrementalsJUnit3">
+               id="org.ita.neutrino.splitincrementaltests.SplitIncrementalTestsJUnit3">
          </action> 
          <action
                label="JUnit 4 - Input Initialization"
@@ -156,13 +156,13 @@
                label="JUnit 4 - Split Incrementals"
                menubarPath="Test Refactorings/junit4"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.splitincrementals.SplitIncrementalsJUnit4">
+               id="org.ita.neutrino.splitincrementaltests.SplitIncrementalTestsJUnit4">
          </action>
          <action
                label="JUnit 3 - Split Incrementals"
                menubarPath="Test Refactorings/junit3"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.splitincrementals.SplitIncrementalsJUnit3">
+               id="org.ita.neutrino.splitincrementaltests.SplitIncrementalTestsJUnit3">
          </action> 
          <action
                label="JUnit 4 - Input Initialization"
