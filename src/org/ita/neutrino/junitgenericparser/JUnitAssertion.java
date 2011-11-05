@@ -309,5 +309,13 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 		mi.arguments().add((Object) ASTNode.copySubtree(ast, left));
 		mi.arguments().add((Object) ASTNode.copySubtree(ast, right));
 	}
+	
+
+	@Override
+	public boolean isAssertion() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 
 }

@@ -51,14 +51,14 @@ public abstract class JUnitAction implements JUnitTestStatement, Action {
 	public boolean equals(Object obj) {
 		return handler.equals(obj);
 	}
-
+	
 	@Override
 	public TestStatement getStatement() {
 		// TODO Auto-generated method stub
-
+		
 		return null;
 	}
-
+	
 	@Override
 	public boolean isVariableDeclarationStatement() {
 		Statement st = getCodeElement();
@@ -106,5 +106,9 @@ public abstract class JUnitAction implements JUnitTestStatement, Action {
 		}
 		return from;
 	}
-
+		
+	@Override
+	public boolean isAssertion() {
+		return false;
+	}
 }

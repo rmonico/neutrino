@@ -4,5 +4,8 @@
 	<classpathentry kind="src" path="tests"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="lib" path="C:/Users/BRD/JavaWorkspace/Neutrino/lib/guava-r09.jar"/>
+	<classpathentry kind="lib" path="C:/Users/BRD/JavaWorkspace/Neutrino/lib/guice-3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/BRD/JavaWorkspace/Neutrino/OSGI-INF/l10n/bundle.properties"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

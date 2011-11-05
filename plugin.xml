@@ -138,8 +138,58 @@
                id="org.ita.neutrino.tests.JUnitMain">
          </action>
          
+         
+      <action
+          label="Detect smells automatically"
+          menubarPath="org.ita.neutrino.menu/testsmells"
+          class="org.ita.neutrino.testsmells.ActionController"
+          id="org.ita.neutrino.testsmells.ToggleNature" />
+      <action
+           label="(Re)run smell detection"
+           menubarPath="org.ita.neutrino.menu/testsmells"
+           class="org.ita.neutrino.testsmells.ActionController"
+           id="org.ita.neutrino.testsmells.RunDetection" />
       </actionSet>
    </extension>
+   
+   
+  <extension
+    id="org.ita.neutrino.testsmells.TestSmellDetectionBuilder"
+    name="Test Smell Detection Builder"
+    point="org.eclipse.core.resources.builders">
+    <builder hasNature="true">
+      <run class="org.ita.neutrino.testsmells.TestSmellDetectionBuilder">
+      </run>
+    </builder>
+  </extension>
+  <extension
+        id="org.ita.neutrino.testsmells.TestSmellDetectionNature"
+        name="Test Smell Detection Nature"
+        point="org.eclipse.core.resources.natures">
+    <runtime>
+      <run class="org.ita.neutrino.testsmells.TestSmellDetectionNature">
+      </run>
+    </runtime>
+    <builder id="org.ita.neutrino.testsmells.TestSmellDetectionBuilder">
+    </builder>
+  </extension>
+  <extension
+        id="org.ita.neutrino.testsmells.marker"
+        name="Test code smell"
+        point="org.eclipse.core.resources.markers">
+    <persistent value="true" />
+    <super type="org.eclipse.core.resources.problemmarker" />
+    <attribute name="smellType" />
+  </extension>
+  <extension
+        id="org.ita.plugins.testsmells.markerresolutionextension"
+        name="Quick Fixes for Test Code Smells"
+        point="org.eclipse.ui.ide.markerResolution">
+    <markerResolutionGenerator
+       markerType="org.ita.neutrino.testsmells.marker"
+       class="org.ita.neutrino.testsmells.QuickFixGenerator" />
+  </extension>
+   
   
     <extension
          point="org.eclipse.ui.popupMenus">

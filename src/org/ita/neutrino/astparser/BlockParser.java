@@ -9,7 +9,6 @@ import org.eclipse.jdt.core.dom.PrefixExpression;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.ita.neutrino.codeparser.Invokable;
-import org.ita.neutrino.codeparser.LiteralExpression;
 import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.Package;
 import org.ita.neutrino.codeparser.ParserException;
@@ -181,8 +180,11 @@ class BlockParser {
 
 				// Variável inicializada com null
 			} else if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.NullLiteral) {
-				variableDeclaration.setInitializationExpression(LiteralExpression.NULL_EXPRESSION);
-
+				ASTNullExpression nullExpression = new ASTNullExpression();
+				
+				nullExpression.setASTObject((org.eclipse.jdt.core.dom.NullLiteral) fragmentNodes.get(1));
+				
+				variableDeclaration.setInitializationExpression(nullExpression);
 			} else if (fragmentNodes.get(1) instanceof org.eclipse.jdt.core.dom.ClassInstanceCreation) {
 				org.eclipse.jdt.core.dom.ClassInstanceCreation astNode = (org.eclipse.jdt.core.dom.ClassInstanceCreation) fragmentNodes.get(1);
 

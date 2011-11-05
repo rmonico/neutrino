@@ -6,7 +6,7 @@ import java.util.List;
 import org.ita.neutrino.abstracrefactoring.AbstractEclipseRefactoringAction;
 import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
 
-public abstract class SplitIncrementalTestsAction extends AbstractEclipseRefactoringAction {
+public class SplitIncrementalTestsAction extends AbstractEclipseRefactoringAction {
 
 	private SplitIncrementalTestsRefactoring refactoring;
 

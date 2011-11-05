@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %Bundle-Name
+Bundle-Name: Test refactorings
 Bundle-SymbolicName: org.ita.neutrino;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Activator: org.ita.neutrino.eclipseaction.Activator
-Bundle-Vendor: %Bundle-Vendor
+Bundle-Vendor: Rafael Monico
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt,
  org.eclipse.jdt.core,
@@ -14,12 +14,18 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.filebuffers,
  org.eclipse.core.resources,
  org.junit,
- org.eclipse.jdt.junit.core
+ org.eclipse.jdt.junit.core,
+ org.eclipse.ui.ide,
+ org.eclipse.core.expressions,
+ org.eclipse.ui.workbench.texteditor
 Import-Package: org.eclipse.jdt.launching,
  org.eclipse.jdt.ui,
  org.eclipse.jface.text
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: lib/guava-r09.jar,
+ .,
+ lib/guice-3.0.jar
 Export-Package: org.ita.neutrino.abstracrefactoring,
  org.ita.neutrino.abstracttestparser,
  org.ita.neutrino.addexplanation,
@@ -32,6 +38,7 @@ Export-Package: org.ita.neutrino.abstracrefactoring,
  org.ita.neutrino.extractfinalizationmethod,
  org.ita.neutrino.extractinitializationmethod,
  org.ita.neutrino.extractmethod,
+ org.ita.neutrino.generictestparser,
  org.ita.neutrino.groupincrementaltests,
  org.ita.neutrino.groupsimilartests,
  org.ita.neutrino.inputfinalization,
@@ -49,5 +56,8 @@ Export-Package: org.ita.neutrino.abstracrefactoring,
  org.ita.neutrino.tests.groupincremental,
  org.ita.neutrino.tests.groupsimilar,
  org.ita.neutrino.tests.junitparsers,
+ org.ita.neutrino.testsmells,
+ org.ita.neutrino.testsmells.core,
+ org.ita.neutrino.testsmells.smells,
  org.zero.utils,
  org.zero.utils.tests

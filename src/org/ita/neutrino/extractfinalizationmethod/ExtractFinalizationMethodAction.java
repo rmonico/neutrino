@@ -7,7 +7,7 @@ import org.eclipse.jface.text.ITextSelection;
 import org.ita.neutrino.abstracrefactoring.AbstractEclipseRefactoringAction;
 import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
 
-public abstract class ExtractFinalizationMethodAction extends AbstractEclipseRefactoringAction {
+public class ExtractFinalizationMethodAction extends AbstractEclipseRefactoringAction {
 
 	@Override
 	protected String getRefactoringName() {

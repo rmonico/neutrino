@@ -3,6 +3,7 @@ package org.ita.neutrino.astparser;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jdt.core.dom.ASTMatcher;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.ita.neutrino.abstracttestparser.Action;
 import org.ita.neutrino.abstracttestparser.TestMethod;
@@ -15,12 +16,12 @@ import org.ita.neutrino.codeparser.VariableDeclarationStatement;
 class ASTAbstractStatement<T extends ASTNode> extends AbstractCodeElement implements Statement, ASTWrapper<T> {
 
 	private T astObject;
-
+	
 	@Override
 	public ASTBlock getParent() {
 		return (ASTBlock) super.getParent();
 	}
-
+	
 	protected void setParent(Block block) {
 		parent = block;
 	}
@@ -28,7 +29,7 @@ class ASTAbstractStatement<T extends ASTNode> extends AbstractCodeElement implem
 	@Override
 	public void setASTObject(T astObject) {
 		this.astObject = astObject;
-
+		
 	}
 
 	@Override
@@ -93,5 +94,22 @@ class ASTAbstractStatement<T extends ASTNode> extends AbstractCodeElement implem
 			return (var.getVariableType().equals(varComparer.getVariableType()) && var.getVariableName().equals(varComparer.getVariableName()));
 		}
 		return false;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof ASTWrapper)) {
+			return false;
+		}
+		
+		ASTMatcher astMatcher = new ASTMatcher();
+		return this.getASTObject().subtreeMatch(astMatcher, ((ASTWrapper<?>)obj).getASTObject());
+	}
+	
+	@Override
+	public boolean isBranchStatement() {
+		return this.getASTObject() != null && ( 
+			this.getASTObject().getNodeType() == ASTNode.IF_STATEMENT ||
+			this.getASTObject().getNodeType() == ASTNode.SWITCH_STATEMENT);
 	}
 }
