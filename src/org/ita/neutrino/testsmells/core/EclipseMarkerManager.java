@@ -33,7 +33,7 @@ public class EclipseMarkerManager implements MarkerManager {
 	}
 
 	@Override
-	public void addMarker(List<CodeElement> range, String markerText, Class<? extends TestCodeSmell> smellType) throws CoreException {
+	public void addMarker(List<CodeElement> range, String markerText, Class<? extends TestCodeSmell<?>> smellType) throws CoreException {
 		ASTNode rangeStart = astNodeFromCodeElement(range.get(0));
 		ASTNode rangeEnd = astNodeFromCodeElement(range.get(range.size() - 1));
 		
@@ -51,7 +51,7 @@ public class EclipseMarkerManager implements MarkerManager {
 	}
 	
 	@Override
-	public void addMarker(CodeElement codeElement, String markerText, Class<? extends TestCodeSmell> smellType) throws JavaModelException, CoreException {
+	public void addMarker(CodeElement codeElement, String markerText, Class<? extends TestCodeSmell<?>> smellType) throws JavaModelException, CoreException {
 		addMarker(Lists.newArrayList(codeElement), markerText, smellType);
 	}
 	

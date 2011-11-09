@@ -15,7 +15,7 @@ import com.google.inject.Inject;
 		value=ExtractInitializationMethodAction.class,
 		title="Extract to setup method",
 		description="Extracts the repeated initialization code into a setup method")
-public class DuplicatedSetUpCodeSmell extends TestClassLevelCodeSmell {
+public class DuplicatedSetUpCodeSmell implements TestCodeSmell<TestSuite> {
 	
 	private final CommonStatementFinder duplicatedCodeFinder;
 	

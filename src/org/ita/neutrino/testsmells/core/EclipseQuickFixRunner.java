@@ -47,7 +47,7 @@ public class EclipseQuickFixRunner implements IMarkerResolution2 {
 
 	private void maybeRemoveMarker(IMarker marker) {
 		try {
-			Injector.createTestSmellDetector().run(
+			Injector.createEclipseTestSmellDetector().run(
 					ImmutableList.of(JavaCore.createCompilationUnitFrom((IFile) marker.getResource())), 
 					null);
 		} catch (CoreException e) {

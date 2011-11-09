@@ -37,7 +37,7 @@ public class TestSmellDetectorGuiceModule extends AbstractModule {
 	@Provides @Named("maxNumberOfConsecutiveAssertions")
 	public int maxNumberOfConsecutiveAssertions_thresholdForSequentialAssertions() {
 		return 3;
-	}
+	}	
 	
 	@Provides
 	public AbstractTestParser testParser(Iterable<TestFramework> implementations) {
@@ -52,7 +52,7 @@ public class TestSmellDetectorGuiceModule extends AbstractModule {
 	}
 	
 	@Provides
-	public Iterable<? extends TestCodeSmell> allCodeSmells(
+	public Iterable<? extends TestCodeSmell<?>> allCodeSmells(
 			AssertionNotExplainedSmell assertionNotExplained,
 			DuplicatedSetUpCodeSmell duplicatedSetUp,
 			DuplicatedTearDownCodeSmell duplicatedTearDown,

@@ -9,7 +9,7 @@ import org.ita.neutrino.testsmells.core.MarkerManager;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-public class EagerTestSmell extends MethodTestCodeSmell {
+public class EagerTestSmell implements TestCodeSmell<TestMethod> {
 
 	private final int maxVerificationsPerTest;
 	private final int requiredNumberOfTestStatements;

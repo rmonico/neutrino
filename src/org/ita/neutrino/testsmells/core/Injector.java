@@ -11,7 +11,7 @@ public class Injector {
 		return injector;
 	}
 	
-	public static TestSmellDetector createTestSmellDetector() {
-		return getInjector().getInstance(TestSmellDetector.class);
+	public static EclipseTestSmellDetector createEclipseTestSmellDetector() {
+		return getInjector().getInstance(EclipseTestSmellDetector.class);
 	}
 }

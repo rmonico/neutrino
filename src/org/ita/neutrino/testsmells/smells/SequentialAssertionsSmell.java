@@ -15,7 +15,7 @@ import com.google.inject.name.Named;
 
 @CustomEclipseQuickFix(value = ExtractMethodEclipseQuickFix.class,
 		title = "Extract assertion method")
-public class SequentialAssertionsSmell extends MethodTestCodeSmell {
+public class SequentialAssertionsSmell implements TestCodeSmell<TestMethod> {
 
 	private final int maxNumberOfConsecutiveAssertions;
 
