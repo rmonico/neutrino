@@ -4,11 +4,15 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaModelException;
 import org.ita.neutrino.abstracttestparser.TestMethod;
 import org.ita.neutrino.abstracttestparser.TestStatement;
+import org.ita.neutrino.splitincrementaltests.SplitIncrementalTestsAction;
 import org.ita.neutrino.testsmells.core.MarkerManager;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
+@NeutrinoRefactoringForEclipse(description = "Splits this test into multiple ones",
+		title="Split test",
+		value=SplitIncrementalTestsAction.class)
 public class EagerTestSmell implements TestCodeSmell<TestMethod> {
 
 	private final int maxVerificationsPerTest;
