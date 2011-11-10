@@ -18,7 +18,7 @@ import org.ita.neutrino.codeparser.Statement;
 import org.ita.neutrino.eclipseaction.ActionException;
 import org.ita.neutrino.testsmells.core.MarkerManager;
 
-@CustomEclipseQuickFix(ConditionalFlowSmell.QuickFix.class)
+@CustomRefactoringForEclipse(ConditionalFlowSmell.QuickFix.class)
 public class ConditionalFlowSmell implements TestCodeSmell<TestMethod> {
 
 	@Override

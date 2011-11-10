@@ -13,7 +13,7 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-@CustomEclipseQuickFix(value = ExtractMethodEclipseQuickFix.class,
+@CustomRefactoringForEclipse(value = ExtractMethodEclipseQuickFix.class,
 		title = "Extract assertion method")
 public class SequentialAssertionsSmell implements TestCodeSmell<TestMethod> {
 

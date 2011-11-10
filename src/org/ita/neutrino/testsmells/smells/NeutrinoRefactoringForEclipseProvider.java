@@ -2,14 +2,14 @@ package org.ita.neutrino.testsmells.smells;
 import org.eclipse.jface.viewers.ISelection;
 import org.ita.neutrino.abstracrefactoring.AbstractEclipseRefactoringAction;
 import org.ita.neutrino.eclipseaction.ActionException;
-import org.ita.neutrino.testsmells.core.EclipseQuickFix;
+import org.ita.neutrino.testsmells.core.EclipseRefactoring;
 import org.ita.neutrino.testsmells.core.Injector;
 
-public class EclipseRefactoringProvider implements IEclipseQuickFixProvider<EclipseRefactoring> {
+public class NeutrinoRefactoringForEclipseProvider implements IEclipseRefactoringProvider<NeutrinoRefactoringForEclipse> {
 
 	@Override
-	public EclipseQuickFix getQuickFix(final EclipseRefactoring configuration) {
-		return new EclipseQuickFix() {
+	public EclipseRefactoring getRefactoringFromAnnotation(final NeutrinoRefactoringForEclipse configuration) {
+		return new EclipseRefactoring() {
 			
 			@Override
 			public String title() {

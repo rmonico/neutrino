@@ -11,7 +11,7 @@ import org.ita.neutrino.testsmells.core.MarkerManager;
 
 import com.google.inject.Inject;
 
-@EclipseRefactoring(
+@NeutrinoRefactoringForEclipse(
 		value=ExtractInitializationMethodAction.class,
 		title="Extract to setup method",
 		description="Extracts the repeated initialization code into a setup method")

@@ -12,9 +12,9 @@ import com.google.common.collect.ImmutableList;
 
 public class EclipseQuickFixRunner implements IMarkerResolution2 {
 
-	private final EclipseQuickFix quickFix;
+	private final EclipseRefactoring quickFix;
 	
-	public EclipseQuickFixRunner(EclipseQuickFix quickFix) {
+	public EclipseQuickFixRunner(EclipseRefactoring quickFix) {
 		this.quickFix = quickFix;
 	}
 	

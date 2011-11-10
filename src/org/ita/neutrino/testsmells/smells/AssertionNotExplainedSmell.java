@@ -12,7 +12,7 @@ import org.ita.neutrino.testsmells.core.MarkerManager;
 import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
 
-@EclipseRefactoring(value=AddExplanationAction.class,
+@NeutrinoRefactoringForEclipse(value=AddExplanationAction.class,
 		title="Add explanation",
 		description="Opens the refactoring assistant to add an explanation to this assertion")
 public class AssertionNotExplainedSmell implements TestCodeSmell<TestMethod> {
