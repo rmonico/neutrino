@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.ita.neutrino.abstracttestparser.TestMethod;
 import org.ita.neutrino.codeparser.MutableMethod;
-import org.ita.neutrino.junit4parser.JUnitTestMethod;
 
 public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTestSuite {
 
