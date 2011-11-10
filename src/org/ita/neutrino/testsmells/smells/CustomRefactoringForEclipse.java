@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 import org.ita.neutrino.testsmells.core.EclipseRefactoring;
 
-@ProvidesEclipseQuickFix(CustomRefactoringForEclipseProvider.class)
+@ProvidesEclipseRefactoring(CustomRefactoringForEclipseProvider.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface CustomRefactoringForEclipse {

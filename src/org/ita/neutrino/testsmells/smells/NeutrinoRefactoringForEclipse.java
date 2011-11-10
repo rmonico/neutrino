@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 import org.ita.neutrino.abstracrefactoring.AbstractEclipseRefactoringAction;
 
-@ProvidesEclipseQuickFix(NeutrinoRefactoringForEclipseProvider.class)
+@ProvidesEclipseRefactoring(NeutrinoRefactoringForEclipseProvider.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface NeutrinoRefactoringForEclipse {

@@ -10,7 +10,7 @@ import org.ita.neutrino.testsmells.core.EclipseRefactoring;
 import org.ita.neutrino.testsmells.core.EclipseQuickFixRunner;
 import org.ita.neutrino.testsmells.core.Injector;
 import org.ita.neutrino.testsmells.smells.IEclipseRefactoringProvider;
-import org.ita.neutrino.testsmells.smells.ProvidesEclipseQuickFix;
+import org.ita.neutrino.testsmells.smells.ProvidesEclipseRefactoring;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -30,7 +30,7 @@ public class QuickFixGenerator implements IMarkerResolutionGenerator {
 				List<EclipseRefactoring> quickFixes = Lists.newLinkedList();
 				
 				for (Annotation annotation : testCodeSmell.getAnnotations()) {
-					ProvidesEclipseQuickFix provider = annotation.annotationType().getAnnotation(ProvidesEclipseQuickFix.class);
+					ProvidesEclipseRefactoring provider = annotation.annotationType().getAnnotation(ProvidesEclipseRefactoring.class);
 					if (provider != null) {
 						IEclipseRefactoringProvider providerImpl = injector.getInstance(provider.value());
 						quickFixes.add(providerImpl.getRefactoringFromAnnotation(annotation));
