@@ -42,16 +42,49 @@ public class StringUtils {
 	}
 
 	public static String extractPackageName(String fullQualifiedName) {
-		int lastIndexOf = fullQualifiedName.lastIndexOf('.');
-
-		if (lastIndexOf == -1) {
-			lastIndexOf = 0;
+		if (fullQualifiedName == null) {
+			return null;
 		}
 		
-		return fullQualifiedName.substring(0, lastIndexOf);
+		int lessSignalIndex = fullQualifiedName.indexOf('<');
+		
+		
+		if (lessSignalIndex > -1) {
+			fullQualifiedName = fullQualifiedName.substring(0, lessSignalIndex);
+		}
+		
+		int lastDotIndexOf = fullQualifiedName.lastIndexOf('.');
+
+		if (lastDotIndexOf == -1) {
+			lastDotIndexOf = 0;
+		}
+		
+		String packageName = fullQualifiedName.substring(0, lastDotIndexOf);
+		
+		return packageName;
 	}
 
 	public static String extractTypeName(String fullQualifiedName) {
-		return fullQualifiedName.substring(fullQualifiedName.lastIndexOf('.') + 1, fullQualifiedName.length());
+		if (fullQualifiedName == null) {
+			return null;
+		}
+
+		int lessSignalIndex = fullQualifiedName.indexOf('<');
+		
+		String typeParameter = null;
+		
+		if (lessSignalIndex > -1) {
+			typeParameter = fullQualifiedName.substring(lessSignalIndex);
+			fullQualifiedName = fullQualifiedName.substring(0, lessSignalIndex);
+		}
+
+		String typeName = fullQualifiedName.substring(fullQualifiedName.lastIndexOf('.') + 1, fullQualifiedName.length());
+		
+		if (lessSignalIndex > -1) {
+			typeName = typeName.concat(typeParameter);
+		}
+		
+		return typeName;
 	}
+
 }
