@@ -28,4 +28,30 @@ public class StringUtilsTests {
 		
 		assertEquals("Extração do nome do tipo.", "Object", typeName);
 	}
+
+	@Test
+	public void testExtractQualifiedNamePartsForGenerics() {
+		String fullQualifiedName = "java.util.List<java.lang.Integer>";
+		
+		String packageName = StringUtils.extractPackageName(fullQualifiedName);
+		
+		assertEquals("Extração do nome do pacote", "java.util", packageName);
+		
+		String typeName = StringUtils.extractTypeName(fullQualifiedName);
+		
+		assertEquals("Extração do nome do tipo.", "List<java.lang.Integer>", typeName);
+	}
+
+	@Test
+	public void testExtractQualifiedNamePartsForGenerics2() {
+		String fullQualifiedName = "java.util.List<? extends br.somepackage.SomeClass>";
+		
+		String packageName = StringUtils.extractPackageName(fullQualifiedName);
+		
+		assertEquals("Extração do nome do pacote", "java.util", packageName);
+		
+		String typeName = StringUtils.extractTypeName(fullQualifiedName);
+		
+		assertEquals("Extração do nome do tipo.", "List<? extends br.somepackage.SomeClass>", typeName);
+	}
 }
