@@ -36,7 +36,7 @@ class SourceFileParser {
 
 			ITypeBinding typeBinding;
 
-			if (node.isStatic()) {
+			if (node.resolveBinding() instanceof IMethodBinding) {
 				IMethodBinding methodBinding = (IMethodBinding) node.resolveBinding();
 
 				typeBinding = methodBinding.getDeclaringClass();
