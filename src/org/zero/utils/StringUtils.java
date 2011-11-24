@@ -1,6 +1,8 @@
 package org.zero.utils;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class StringUtils {
@@ -107,26 +109,26 @@ public class StringUtils {
 		return typeName;
 	}
 
-//	/**
-//	 * "java.util.Map<java.lang.Integer, java.lang.String>" =>
-//	 * "java.lang.Integer", "java.lang.String"
-//	 * 
-//	 * @param fullQualifiedName
-//	 * @return
-//	 */
-//	private static List<String> getGenericParameterList(String fullQualifiedName) {
-//		if (fullQualifiedName == null) {
-//			return null;
-//		}
-//
-//		int lessSignalIndex = fullQualifiedName.indexOf('<');
-//
-//		String genericParameters = fullQualifiedName.substring(lessSignalIndex, fullQualifiedName.length() - 1);
-//
-//		List<String> genericParameterList = Arrays.asList(genericParameters.split(","));
-//
-//		return genericParameterList;
-//	}
+	/**
+	 * "java.util.Map<java.lang.Integer, java.lang.String>" =>
+	 * "java.lang.Integer", "java.lang.String"
+	 * 
+	 * @param fullQualifiedName
+	 * @return
+	 */
+	public static List<String> getGenericParameterList(String fullQualifiedName) {
+		if (fullQualifiedName == null) {
+			return null;
+		}
+
+		int lessSignalIndex = fullQualifiedName.indexOf('<');
+
+		String genericParameters = fullQualifiedName.substring(lessSignalIndex, fullQualifiedName.length() - 1);
+
+		List<String> genericParameterList = Arrays.asList(genericParameters.split(","));
+
+		return genericParameterList;
+	}
 
 	/**
 	 * "java.util.Map<java.lang.Integer, java.lang.String>" =>
