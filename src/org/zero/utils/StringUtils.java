@@ -123,7 +123,7 @@ public class StringUtils {
 
 		int lessSignalIndex = fullQualifiedName.indexOf('<');
 
-		String genericParameters = fullQualifiedName.substring(lessSignalIndex, fullQualifiedName.length() - 1);
+		String genericParameters = fullQualifiedName.substring(lessSignalIndex+1, fullQualifiedName.length() - 1);
 
 		List<String> genericParameterList = Arrays.asList(genericParameters.split(","));
 
