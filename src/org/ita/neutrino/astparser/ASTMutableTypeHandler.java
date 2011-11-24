@@ -17,6 +17,7 @@ import org.ita.neutrino.astparser.ASTSourceFile.ASTContainer;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.MutableMethod;
 import org.ita.neutrino.codeparser.Type;
+import org.zero.utils.StringUtils;
 
 public class ASTMutableTypeHandler extends ASTTypeHandler {
 
@@ -93,18 +94,24 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 		fragment.setName(ast.newSimpleName(fieldName));
 		FieldDeclaration fieldDeclaration = ast.newFieldDeclaration(fragment);
 		
-		if (isGeneric(fieldType.getQualifiedName())) {
-			ParameterizedType type = ast.newParameterizedType(ast.newSimpleType(ast.newSimpleName(getGenericBaseType(fieldType.getQualifiedName()))));
+		org.eclipse.jdt.core.dom.Type type;
+		if (StringUtils.isGenericTypeName(fieldType.getQualifiedName())) {
+			ParameterizedType parametrizedType = ast.newParameterizedType(ast.newSimpleType(ast.newSimpleName(StringUtils.getGenericBaseType(fieldType.getName()))));
 			
-			List<String> genericParameters = getGenericParameters(fieldType.getQualifiedName());
+			List<String> genericParameters = StringUtils.getGenericParameterList(fieldType.getQualifiedName());
 			
 			for (String genericParameter : genericParameters) {
-				type.typeArguments().add(ast.newSimpleType(ast.newSimpleName(genericParameter)));
+				String genericParameterTypeName = StringUtils.extractTypeName(genericParameter);
+				parametrizedType.typeArguments().add(ast.newSimpleType(ast.newSimpleName(genericParameterTypeName)));
 			}
+			
+			type = parametrizedType;
 		} else {
-			fieldDeclaration.setType(ast.newSimpleType(ast.newSimpleName(fieldType.getName())));
+			type = ast.newSimpleType(ast.newSimpleName(fieldType.getName()));
 		}
 		
+		fieldDeclaration.setType(type);
+
 		@SuppressWarnings("rawtypes")
 		List modifiers = fieldDeclaration.modifiers();
 		modifiers.add(ast.newModifier(Modifier.ModifierKeyword.PRIVATE_KEYWORD));
@@ -121,18 +128,4 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 		return f;
 	}
 
-	private List<String> getGenericParameters(String qualifiedName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private String getGenericBaseType(String qualifiedName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private boolean isGeneric(String qualifiedName) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }
