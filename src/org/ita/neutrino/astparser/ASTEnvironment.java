@@ -18,7 +18,8 @@ import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.TypeCache;
 import org.ita.neutrino.codeparser.TypeListener;
-import org.zero.utils.StringUtils;
+
+import br.zero.utils.StringUtils;
 
 public class ASTEnvironment extends AbstractCodeElement implements Environment, TypeListener {
 

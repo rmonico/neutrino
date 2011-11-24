@@ -17,7 +17,8 @@ import org.ita.neutrino.astparser.ASTSourceFile.ASTContainer;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.MutableMethod;
 import org.ita.neutrino.codeparser.Type;
-import org.zero.utils.StringUtils;
+
+import br.zero.utils.StringUtils;
 
 public class ASTMutableTypeHandler extends ASTTypeHandler {
 

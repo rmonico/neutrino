@@ -1,7 +1,10 @@
 package org.ita.neutrino.tests;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -33,17 +36,14 @@ public class PluginAbstractTests {
 	private IProject project;
 	private boolean deleteTestProject;
 
-	protected IPackageFragment getPackageByName(String packageName)
-			throws JavaModelException {
+	protected IPackageFragment getPackageByName(String packageName) throws JavaModelException {
 		if (knownPackages.containsKey(packageName)) {
 			return knownPackages.get(packageName);
 		} else {
 			// Se não encontrou o pacote solicitado, cria um novo com o mesmo
 			// nome
-			IPackageFragmentRoot root = javaProject
-					.getPackageFragmentRoot(project);
-			IPackageFragment newPackage = root.createPackageFragment(
-					packageName, false, null);
+			IPackageFragmentRoot root = javaProject.getPackageFragmentRoot(project);
+			IPackageFragment newPackage = root.createPackageFragment(packageName, false, null);
 
 			knownPackages.put(packageName, newPackage);
 
@@ -71,23 +71,38 @@ public class PluginAbstractTests {
 
 		javaProject = JavaCore.create(project);
 
+		String jUnitJarPath = getJUnitJarPath();
+
 		// Cria as entradas no classpath....
-		IClasspathEntry[] cpentry = new IClasspathEntry[] {
-				JavaCore.newSourceEntry(javaProject.getPath()),
-				JavaRuntime.getDefaultJREContainerEntry(),
-				JavaCore.newLibraryEntry(
-						new Path(
-								"C:\\Program Files\\eclipse\\plugins\\org.junit_4.8.1.v4_8_1_v20100427-1100\\junit.jar"),
-						null, null) };
+		IClasspathEntry[] cpentry = new IClasspathEntry[] { JavaCore.newSourceEntry(javaProject.getPath()), JavaRuntime.getDefaultJREContainerEntry(), JavaCore.newLibraryEntry(new Path(jUnitJarPath), null, null) };
 		javaProject.setRawClasspath(cpentry, javaProject.getPath(), null);
 		Map options = new HashMap();
-		options.put(DefaultCodeFormatterConstants.FORMATTER_TAB_CHAR,
-				JavaCore.SPACE);
+		options.put(DefaultCodeFormatterConstants.FORMATTER_TAB_CHAR, JavaCore.SPACE);
 		options.put(DefaultCodeFormatterConstants.FORMATTER_TAB_SIZE, "4");
 		javaProject.setOptions(options);
 
 		// Apaga o projeto de testes após rodar cada teste.
 		setDeleteTestProject(true);
+	}
+
+	private String getJUnitJarPath() {
+
+		Properties props = new Properties();
+
+		// try retrieve data from file
+		try {
+
+			props.load(new FileInputStream(ResourcesPlugin.getWorkspace().getRoot().getLocation().toPortableString() + "/neutrino_test.properties"));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		String junitPath = props.getProperty("junit.path");
+
+		// "C:\\Program Files\\eclipse\\plugins\\org.junit_4.8.1.v4_8_1_v20100427-1100\\junit.jar";
+
+		return junitPath;
 	}
 
 	@After
@@ -101,10 +116,8 @@ public class PluginAbstractTests {
 		deleteTestProject = value;
 	}
 
-	protected ICompilationUnit createSourceFile(String packageName,
-			String fileName, StringBuilder source) throws JavaModelException {
-		ICompilationUnit compilationUnit = getPackageByName(packageName)
-				.createCompilationUnit(fileName, source.toString(), false, null);
+	protected ICompilationUnit createSourceFile(String packageName, String fileName, StringBuilder source) throws JavaModelException {
+		ICompilationUnit compilationUnit = getPackageByName(packageName).createCompilationUnit(fileName, source.toString(), false, null);
 		return compilationUnit;
 	}
 
