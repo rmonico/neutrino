@@ -2,7 +2,6 @@ package org.ita.neutrino.codeparser;
 
 import java.util.Map;
 
-
 public interface Type extends CodeElement {
 
 	/**
@@ -26,6 +25,19 @@ public interface Type extends CodeElement {
 	 */
 	String getName();
 
+	// boolean isGeneric();
+
+	/**
+	 * 
+	 * TODO Este método
+	 * 
+	 * Parâmetros genéricos. Só devem ser permitidos para classes e interfaces.
+	 * No caso de enum's e annotations sempre deve devolver null.
+	 * 
+	 * @return
+	 */
+	// List<GenericParameter> getGenericParameters();
+
 	/**
 	 * Modificador de acesso
 	 */
@@ -40,18 +52,19 @@ public interface Type extends CodeElement {
 
 	/**
 	 * Lista de construtores. A chave do Map é a string com os parâmetros
-	 * recebidos pelo construtor. Por exemplo:
-	 * (param1package.Param1Class, param2package.Param2Class)
+	 * recebidos pelo construtor. Por exemplo: (param1package.Param1Class,
+	 * param2package.Param2Class)
 	 * 
 	 * @return
 	 */
 	Map<String, Constructor> getConstructorList();
 
 	/**
-	 * Lista de métodos. A chave do Map é o nome do método, por exemplo: 
+	 * Lista de métodos. A chave do Map é o nome do método, por exemplo:
 	 * doSomethingMethod
 	 * 
-	 * TODO: mudar a chave do Map para o nome do método seguido de seus parâmetros, por exemplo:
+	 * TODO: mudar a chave do Map para o nome do método seguido de seus
+	 * parâmetros, por exemplo:
 	 * 
 	 * doSomethingMethod(param1package.Param1Class, param2package.Param2Class);
 	 * 

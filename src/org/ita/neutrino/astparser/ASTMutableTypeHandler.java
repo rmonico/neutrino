@@ -7,6 +7,7 @@ import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
+import org.eclipse.jdt.core.dom.ParameterizedType;
 import org.eclipse.jdt.core.dom.PrimitiveType;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
@@ -91,7 +92,18 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 		VariableDeclarationFragment fragment = ast.newVariableDeclarationFragment();
 		fragment.setName(ast.newSimpleName(fieldName));
 		FieldDeclaration fieldDeclaration = ast.newFieldDeclaration(fragment);
-		fieldDeclaration.setType(ast.newSimpleType(ast.newSimpleName(fieldType.getName())));
+		
+		if (isGeneric(fieldType.getQualifiedName())) {
+			ParameterizedType type = ast.newParameterizedType(ast.newSimpleType(ast.newSimpleName(getGenericBaseType(fieldType.getQualifiedName()))));
+			
+			List<String> genericParameters = getGenericParameters(fieldType.getQualifiedName());
+			
+			for (String genericParameter : genericParameters) {
+				type.typeArguments().add(ast.newSimpleType(ast.newSimpleName(genericParameter)));
+			}
+		} else {
+			fieldDeclaration.setType(ast.newSimpleType(ast.newSimpleName(fieldType.getName())));
+		}
 		
 		@SuppressWarnings("rawtypes")
 		List modifiers = fieldDeclaration.modifiers();
@@ -107,5 +119,20 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 		f.setASTObject(fieldDeclaration);
 
 		return f;
+	}
+
+	private List<String> getGenericParameters(String qualifiedName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private String getGenericBaseType(String qualifiedName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private boolean isGeneric(String qualifiedName) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

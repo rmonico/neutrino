@@ -96,6 +96,9 @@ class SourceFileParser {
 				// É interface
 				type = interfaceFound(node);
 			}
+			
+			// TODO Popular as informações de tipagem genérica aqui
+			// Verificar o que tem no node.typeDeclaration()
 
 			// Se encontrou alguma coisa, verifica se está dentro da seleção
 			if (type != null) {
