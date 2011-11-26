@@ -1,7 +1,9 @@
 package org.ita.neutrino.tests;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -85,22 +87,28 @@ public class PluginAbstractTests {
 		setDeleteTestProject(true);
 	}
 
-	private String getJUnitJarPath() {
+	private String getJUnitJarPath() throws CoreException {
 
 		Properties props = new Properties();
-
+		
+		InputStream fis = null;
+		
+		try {
+			fis = new FileInputStream(ResourcesPlugin.getWorkspace().getRoot().getLocation().toPortableString() + "/neutrino_test.properties");
+		} catch (FileNotFoundException e1) {
+			throw new RuntimeException("Arquivo de configuração de testes não encontrado...", e1);
+		}
+		
 		// try retrieve data from file
 		try {
 
-			props.load(new FileInputStream(ResourcesPlugin.getWorkspace().getRoot().getLocation().toPortableString() + "/neutrino_test.properties"));
+			props.load(fis);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException("Erro lendo arquivo de configuração de testes...", e);
 		}
 
 		String junitPath = props.getProperty("junit.path");
-
-		// "C:\\Program Files\\eclipse\\plugins\\org.junit_4.8.1.v4_8_1_v20100427-1100\\junit.jar";
 
 		return junitPath;
 	}
