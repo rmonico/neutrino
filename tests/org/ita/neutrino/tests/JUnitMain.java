@@ -19,9 +19,6 @@ import org.ita.neutrino.tests.extractinitializationmethod.ExtractInitializationM
 import org.ita.neutrino.tests.junitparsers.JUnit3ParserTests;
 import org.ita.neutrino.tests.junitparsers.JUnit4ParserTests;
 import org.junit.runner.JUnitCore;
-import org.zero.utils.tests.JUnitUtilsTests;
-import org.zero.utils.tests.ListenerTests;
-import org.zero.utils.tests.StringUtilsTests;
 
 public class JUnitMain implements IAction {
 	
@@ -59,11 +56,6 @@ public class JUnitMain implements IAction {
 		
 //		Demo de como fazer JUnit para plugin no Eclipse
 //		classesToTest.add(ASTRewriteExample.class);
-		
-//		Testes de org.zero.utils
-		classesToTest.add(JUnitUtilsTests.class);
-		classesToTest.add(StringUtilsTests.class);
-		classesToTest.add(ListenerTests.class);
 		
 		classesToTest.add(TestSupportedBlockSintax.class);
 		classesToTest.add(TestPackageParsing.class);

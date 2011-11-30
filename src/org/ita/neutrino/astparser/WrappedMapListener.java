@@ -1,7 +1,8 @@
 package org.ita.neutrino.astparser;
 
 import org.ita.neutrino.codeparser.TypeListener;
-import org.zero.utils.IMapListener;
+
+import br.zero.utils.IMapListener;
 
 public class WrappedMapListener implements IMapListener<String, ASTType> {
 
