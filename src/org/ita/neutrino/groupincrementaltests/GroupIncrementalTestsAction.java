@@ -2,10 +2,8 @@ package org.ita.neutrino.groupincrementaltests;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.ita.neutrino.abstracrefactoring.AbstractEclipseRefactoringAction;
 import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
-import org.ita.neutrino.abstracttestparser.AbstractTestParser;
 
 public class GroupIncrementalTestsAction extends AbstractEclipseRefactoringAction {
 	private GroupIncrementalTestsRefactoring refactoring;
@@ -21,12 +19,6 @@ public class GroupIncrementalTestsAction extends AbstractEclipseRefactoringActio
 		System.out.println("checkPreConditions");
 		List<String> lst = new ArrayList<String>();
 		return lst;
-	}
-
-	@Override
-	protected AbstractTestParser instantiateParser() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
