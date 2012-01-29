@@ -8,20 +8,19 @@ import org.ita.neutrino.abstracttestparser.TestMethod;
 import org.ita.neutrino.abstracttestparser.TestStatement;
 import org.ita.neutrino.abstracttestparser.TestSuite;
 import org.ita.neutrino.extractmethod.AbstractExtractMethodRefactoring;
-import org.ita.neutrino.junit4parser.JUnitTestMethod;
 
 public class InputFinalizationRefactoring extends AbstractExtractMethodRefactoring {
 
-	private JUnitTestMethod targetMethod;
+	private TestMethod targetMethod;
 
 	@Override
 	public List<String> checkInitialConditions() {
 		List<String> problems = new ArrayList<String>();
 
-		if ((!(getTargetFragment() instanceof org.ita.neutrino.junit4parser.JUnitTestMethod)) || (getTargetFragment() == null)) {
+		if ((!(getTargetFragment() instanceof TestMethod)) || (getTargetFragment() == null)) {
 			problems.add("Selection is not valid. Select a finalization test method.");
 		} else {
-			targetMethod = (JUnitTestMethod) getTargetFragment();
+			targetMethod = (TestMethod) getTargetFragment();
 			if (! targetMethod.isAfterTestMethod()) {
 				problems.add("Selection must be a test method.");
 			}
