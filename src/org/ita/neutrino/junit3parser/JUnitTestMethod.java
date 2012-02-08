@@ -42,11 +42,11 @@ public class JUnitTestMethod extends
   }
 
   public boolean isAfterTestMethod() {
-    return this.getName().equalsIgnoreCase("teardown");
+    return this.getName().equalsIgnoreCase("tearDown");
   }
 
   public boolean isBeforeTestMethod() {
-    return this.getName().equalsIgnoreCase("setup");
+    return this.getName().equalsIgnoreCase("setUp");
   }
 
   @Override

@@ -77,14 +77,14 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 
 	@Override
 	public TestMethod createNewBeforeTestsMethod() {
-		MutableMethod newMethod = getCodeElement().createNewMethod("setup", 0);
+		MutableMethod newMethod = getCodeElement().createNewMethod("setUp", 0);
 
 		return parseBeforeMethod(newMethod);
 	}
 
 	@Override
 	public TestMethod createNewAfterTestsMethod() {
-		MutableMethod newMethod = getCodeElement().createNewMethod("teardown", -1);
+		MutableMethod newMethod = getCodeElement().createNewMethod("tearDown", -1);
 
 		return parseAfterMethod(newMethod);
 	}

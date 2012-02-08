@@ -96,7 +96,7 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 		return parseBeforeMethod(newMethod);
 	}
 
-	private static final String defaultBeforeMethodName = "setup";
+	private static final String defaultBeforeMethodName = "setUp";
 
 	private String getNewBeforeMethodName() {
 		boolean hasSetup = false;
@@ -132,7 +132,7 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 		return parseAfterMethod(newMethod);
 	}
 
-	private static final String defaultAfterMethodName = "teardown";
+	private static final String defaultAfterMethodName = "tearDown";
 
 	private String getNewAfterMethodName() {
 		boolean hasTeardown = false;
