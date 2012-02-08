@@ -8,6 +8,7 @@ import org.ita.neutrino.abstracrefactoring.RefactoringException;
 import org.ita.neutrino.abstracttestparser.Assertion;
 import org.ita.neutrino.abstracttestparser.TestMethod;
 import org.ita.neutrino.abstracttestparser.TestStatement;
+import org.ita.neutrino.abstracttestparser.TestSuite;
 
 public class SplitIncrementalTestsRefactoring extends AbstractRefactoring {
 	private TestMethod targetMethod;
@@ -53,6 +54,9 @@ public class SplitIncrementalTestsRefactoring extends AbstractRefactoring {
 		if (lastWasAssert) {
 			createMethod(commomStatements);
 		}
+		
+		TestSuite ts = targetMethod.getParent();
+		ts.removeTestMethod(targetMethod);
 	}
 
 	private void createMethod(List<TestStatement> statements) {
