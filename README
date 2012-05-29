@@ -1,5 +1,3 @@
 Projeto Neutrino
 
-Ferramenta open-source para automação de refatoração de código de testes, independente de framework.
-
-Outro ponto.
+Ferramenta open-source para automação de refatoração de código de testes desacoplada de framework de testes.
