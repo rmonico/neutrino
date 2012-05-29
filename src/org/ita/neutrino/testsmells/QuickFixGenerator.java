@@ -1,4 +1,4 @@
-package org.ita.neutrino.testsmells;
+	package org.ita.neutrino.testsmells;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -6,11 +6,11 @@ import java.util.List;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.ui.IMarkerResolution;
 import org.eclipse.ui.IMarkerResolutionGenerator;
-import org.ita.neutrino.testsmells.core.EclipseQuickFix;
+import org.ita.neutrino.testsmells.core.EclipseRefactoring;
 import org.ita.neutrino.testsmells.core.EclipseQuickFixRunner;
 import org.ita.neutrino.testsmells.core.Injector;
-import org.ita.neutrino.testsmells.smells.IEclipseQuickFixProvider;
-import org.ita.neutrino.testsmells.smells.ProvidesEclipseQuickFix;
+import org.ita.neutrino.testsmells.smells.IEclipseRefactoringProvider;
+import org.ita.neutrino.testsmells.smells.ProvidesEclipseRefactoring;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -27,20 +27,20 @@ public class QuickFixGenerator implements IMarkerResolutionGenerator {
 		if (!Strings.isNullOrEmpty(smellType)) {
 			try {
 				Class<?> testCodeSmell = Class.forName(smellType);
-				List<EclipseQuickFix> quickFixes = Lists.newLinkedList();
+				List<EclipseRefactoring> quickFixes = Lists.newLinkedList();
 				
 				for (Annotation annotation : testCodeSmell.getAnnotations()) {
-					ProvidesEclipseQuickFix provider = annotation.annotationType().getAnnotation(ProvidesEclipseQuickFix.class);
+					ProvidesEclipseRefactoring provider = annotation.annotationType().getAnnotation(ProvidesEclipseRefactoring.class);
 					if (provider != null) {
-						IEclipseQuickFixProvider providerImpl = injector.getInstance(provider.value());
-						quickFixes.add(providerImpl.getQuickFix(annotation));
+						IEclipseRefactoringProvider providerImpl = injector.getInstance(provider.value());
+						quickFixes.add(providerImpl.getRefactoringFromAnnotation(annotation));
 					}
 				}
 				
 				IMarkerResolution[] quickFixesImplementations = new IMarkerResolution[quickFixes.size()];
 				int count = 0;
 				
-				for (EclipseQuickFix quickFix : quickFixes) {
+				for (EclipseRefactoring quickFix : quickFixes) {
 					quickFixesImplementations[count++] = new EclipseQuickFixRunner(quickFix);
 				}
 				return quickFixesImplementations;

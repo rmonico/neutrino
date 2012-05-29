@@ -14,8 +14,9 @@ import org.ita.neutrino.codeparser.Enum;
 import org.ita.neutrino.codeparser.SourceFile;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.TypeListener;
-import org.zero.utils.IMapWrapper;
-import org.zero.utils.MapWrapper;
+
+import br.zero.utils.IMapWrapper;
+import br.zero.utils.MapWrapper;
 
 public class ASTSourceFile extends AbstractCodeElement implements SourceFile,
 		ASTWrapper<ASTSourceFile.ASTContainer>, TypeListener {

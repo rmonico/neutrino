@@ -9,9 +9,9 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.services.IEvaluationService;
 import org.ita.neutrino.eclipseaction.ActionException;
-import org.ita.neutrino.testsmells.core.EclipseQuickFix;
+import org.ita.neutrino.testsmells.core.EclipseRefactoring;
 
-public class ExtractMethodEclipseQuickFix implements EclipseQuickFix {
+public class ExtractMethodEclipseQuickFix implements EclipseRefactoring {
 	@Override
 	public String title() {
 		return "Extract method";

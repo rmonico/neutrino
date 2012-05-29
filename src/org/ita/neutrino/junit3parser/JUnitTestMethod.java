@@ -5,70 +5,55 @@ import java.util.List;
 
 import org.ita.neutrino.junitgenericparser.JUnitTestStatement;
 
-public class JUnitTestMethod extends org.ita.neutrino.junitgenericparser.JUnitTestMethod {
+public class JUnitTestMethod extends
+    org.ita.neutrino.junitgenericparser.JUnitTestMethod {
 
-	@Override
-	protected List<JUnitTestStatement> instantiateStatementList() {
-		return new ArrayList<JUnitTestStatement>();
-	}
+  @Override
+  protected List<JUnitTestStatement> instantiateStatementList() {
+    return new ArrayList<JUnitTestStatement>();
+  }
 
-	JUnitTestMethod() {
-		super();
-	}
+  JUnitTestMethod() {
+    super();
+  }
 
-	@Override
-	protected JUnitAction instantiateAction() {
-		return new JUnitAction();
-	}
+  @Override
+  protected JUnitAction instantiateAction() {
+    return new JUnitAction();
+  }
 
-	protected JUnitAssertion instantiateAssertion() {
-		return new JUnitAssertion();
-	};
+  protected JUnitAssertion instantiateAssertion() {
+    return new JUnitAssertion();
+  };
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<JUnitTestStatement> getStatements() {
-		return (List<JUnitTestStatement>) super.getStatements();
-	}
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<JUnitTestStatement> getStatements() {
+    return (List<JUnitTestStatement>) super.getStatements();
+  }
 
-	@Override
-	public JUnitTestSuite getParent() {
-		return (JUnitTestSuite) super.getParent();
-	}
+  @Override
+  public JUnitTestSuite getParent() {
+    return (JUnitTestSuite) super.getParent();
+  }
 
-	void setParent(JUnitTestSuite parent) {
-		super.setParent(parent);
-	}
-	
-	public boolean isAfterTestMethod() {
-		//TODO: ACERTAR PRA JUNIT 3
-		/*
-		for (Annotation item : getCodeElement().getAnnotations()) {
-			if (item.getQualifiedName().equals("org.junit.After")) {
-				return true;
-			}
-		}
-*/
-		return false;
-	}
-	
-	public boolean isBeforeTestMethod(){
-		//TODO: ACERTAR PRA JUNIT 3
-		/*
-		for (Annotation item : getCodeElement().getAnnotations()) {
-			if (item.getQualifiedName().equals("org.junit.Before")) {
-				return true;
-			}
-		}
-*/
-		return false;		
-	}
+  void setParent(JUnitTestSuite parent) {
+    super.setParent(parent);
+  }
 
-	@Override
-	public int compareTo(Object o) {
-		JUnitTestMethod corrente = (JUnitTestMethod) o;
-		Integer size = this.getStatements().size();
-		return size.compareTo(corrente.getStatements().size());
-	}
+  public boolean isAfterTestMethod() {
+    return this.getName().equalsIgnoreCase("tearDown");
+  }
+
+  public boolean isBeforeTestMethod() {
+    return this.getName().equalsIgnoreCase("setUp");
+  }
+
+  @Override
+  public int compareTo(Object o) {
+    JUnitTestMethod corrente = (JUnitTestMethod) o;
+    Integer size = this.getStatements().size();
+    return size.compareTo(corrente.getStatements().size());
+  }
 
 }

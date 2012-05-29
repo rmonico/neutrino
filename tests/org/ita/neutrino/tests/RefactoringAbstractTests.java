@@ -1,6 +1,6 @@
 package org.ita.neutrino.tests;
 
-import static org.zero.utils.JUnitUtils.assertBlockEquals;
+import static br.zero.utils.JUnitUtils.assertBlockEquals;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;

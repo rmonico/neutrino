@@ -11,11 +11,11 @@ import org.ita.neutrino.testsmells.core.MarkerManager;
 
 import com.google.inject.Inject;
 
-@EclipseRefactoring(
+@NeutrinoRefactoringForEclipse(
 		value=ExtractFinalizationMethodAction.class,
 		title="Extract to teardown method",
 		description="Extracts the repeated initialization code into a teardown method")
-public class DuplicatedTearDownCodeSmell extends TestClassLevelCodeSmell {
+public class DuplicatedTearDownCodeSmell implements TestCodeSmell<TestSuite> {
 
 	private final CommonStatementFinder duplicatedCodeFinder;
 	

@@ -4,7 +4,8 @@ import org.ita.neutrino.codeparser.Annotation;
 import org.ita.neutrino.codeparser.Class;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.TypeCache;
-import org.zero.utils.MapWrapper;
+
+import br.zero.utils.MapWrapper;
 
 public class TypeCacheWrapper extends MapWrapper<String, Type> implements TypeCache {
 

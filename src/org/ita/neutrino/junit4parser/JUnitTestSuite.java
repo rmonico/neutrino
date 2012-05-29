@@ -35,8 +35,7 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 	}
 
 	/**
-	 * Devolve o método executado antes dos testes. Não há setter correspondente
-	 * pois o createBeforeMethod já faz isso.
+	 * Devolve o método executado antes dos testes. Não há setter correspondente pois o createBeforeMethod já faz isso.
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -54,8 +53,7 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 	}
 
 	/**
-	 * Devolve o método executado após os testes. Não há setter correspondente
-	 * pois o createAfterMethod já faz isso.
+	 * Devolve o método executado após os testes. Não há setter correspondente pois o createAfterMethod já faz isso.
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -86,19 +84,19 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 	@Override
 	public TestMethod createNewBeforeTestsMethod() {
 		String newMethodName = getNewBeforeMethodName();
-		
+
 		MutableMethod newMethod = getCodeElement().createNewMethod(newMethodName, 0);
-		
+
 		Environment environment = getCodeElement().getPackage().getParent();
-		
+
 		Type junit4BeforeAnnotation = (Type) environment.getTypeCache().get("org.junit.Before");
-		
+
 		newMethod.addAnnotation(junit4BeforeAnnotation);
 
 		return parseBeforeMethod(newMethod);
 	}
 
-	private static final String defaultBeforeMethodName = "setup";
+	private static final String defaultBeforeMethodName = "setUp";
 
 	private String getNewBeforeMethodName() {
 		boolean hasSetup = false;
@@ -122,19 +120,19 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 	@Override
 	public TestMethod createNewAfterTestsMethod() {
 		String newMethodName = getNewAfterMethodName();
-		
+
 		MutableMethod newMethod = getCodeElement().createNewMethod(newMethodName, -1);
-		
+
 		Environment environment = getCodeElement().getPackage().getParent();
-		
+
 		Type junit4AfterAnnotation = (Type) environment.getTypeCache().get("org.junit.After");
-		
+
 		newMethod.addAnnotation(junit4AfterAnnotation);
 
 		return parseAfterMethod(newMethod);
 	}
 
-	private static final String defaultAfterMethodName = "teardown";
+	private static final String defaultAfterMethodName = "tearDown";
 
 	private String getNewAfterMethodName() {
 		boolean hasTeardown = false;
@@ -155,5 +153,17 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 		throw new NotImplementedYetException();
 	}
 
+	@Override
+	public TestMethod createNewTestMethod(String newMethodName) {
+		MutableMethod newMethod = getCodeElement().createNewMethod(newMethodName, -1);
+
+		Environment environment = getCodeElement().getPackage().getParent();
+
+		Type junit4TestAnnotation = (Type) environment.getTypeCache().get("org.junit.Test");
+
+		newMethod.addAnnotation(junit4TestAnnotation);
+
+		return parseTestMethod(newMethod);
+	}
 
 }

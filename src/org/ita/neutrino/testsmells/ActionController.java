@@ -21,7 +21,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.ita.neutrino.eclipseaction.Activator;
 import org.ita.neutrino.testsmells.core.Injector;
-import org.ita.neutrino.testsmells.core.TestSmellDetector;
+import org.ita.neutrino.testsmells.core.EclipseTestSmellDetector;
 
 import com.google.common.collect.Lists;
 
@@ -45,7 +45,7 @@ public class ActionController implements IWorkbenchWindowActionDelegate {
 	
 
 	private void runDetection() {
-		TestSmellDetector detector = Injector.createTestSmellDetector();
+		EclipseTestSmellDetector detector = Injector.createEclipseTestSmellDetector();
 		for (IProject project : selection) {
 			try {
 				detector.run(project, /* resourceDelta */null, /* progressMonitor */

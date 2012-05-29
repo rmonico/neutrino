@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
-   <extension point="org.eclipse.ui.startup">
-     <startup class="org.ita.neutrino.testsmells.TestSmellPluginStartup"/>
-   </extension>
-
    <extension
          point="org.eclipse.ui.actionSets">
       <actionSet
@@ -16,125 +12,66 @@
 				label="Test Refactorings"
 				id="org.ita.neutrino.menu">
 				<separator
-					name="junit4">
-				</separator>
-				<separator
-					name="junit3">
+					name="refactorings">
 				</separator>
 				<separator
 					name="testGroup1">
 				</separator>
-				<separator
-					name="testsmells" />					
 			</menu>
           
          <action
-               label="JUnit 4 - Split Incrementals"
-               menubarPath="org.ita.neutrino.menu/junit4"
+               label="Split Incrementals"
+               menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.splitincrementals.SplitIncrementalsJUnit4">
+               id="org.ita.neutrino.splitincrementaltests.SplitIncrementalTestsAction">
          </action>
          <action
-               label="JUnit 3 - Split Incrementals"
-               menubarPath="org.ita.neutrino.menu/junit3"
+               label="Input Initialization"
+               menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.splitincrementals.SplitIncrementalsJUnit3">
-         </action> 
-         <action
-               label="JUnit 4 - Input Initialization"
-               menubarPath="org.ita.neutrino.menu/junit4"
-               class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.inputinitialization.InputInitializationJUnit4">
+               id="org.ita.neutrino.inputinitialization.InputInitializationAction">
          </action>
          <action
-               label="JUnit 3 - Input Initialization"
-               menubarPath="org.ita.neutrino.menu/junit3"
+               label="Input Finalization"
+               menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.inputinitialization.InputInitializationJUnit3">
-         </action> 
-         <action
-               label="JUnit 4 - Input Finalization"
-               menubarPath="org.ita.neutrino.menu/junit4"
-               class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.inputfinalization.InputFinalizationJUnit4">
+               id="org.ita.neutrino.inputfinalization.InputFinalizationAction">
          </action>
          <action
-               label="JUnit 3 - Input Finalization"
-               menubarPath="org.ita.neutrino.menu/junit3"
+               label="Group Incremental Tests"
+               menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.inputfinalization.InputFinalizationJUnit3">
-         </action>  
-         <action
-               label="JUnit 4 - Group Incremental Tests"
-               menubarPath="org.ita.neutrino.menu/junit4"
-               class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.groupincrementaltests.GroupIncrementalTestsJUnit4">
+               id="org.ita.neutrino.groupincrementaltests.GroupIncrementalTestsAction">
          </action>
          <action
-               label="JUnit 3 - Group Incremental Tests"
-               menubarPath="org.ita.neutrino.menu/junit3"
+               label="Extract Initialization Method"
+               menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.groupincrementaltests.GroupIncrementalTestsJUnit3">
-         </action>         
-         <action
-               label="JUnit 4 - Extract Initialization Method"
-               menubarPath="org.ita.neutrino.menu/junit4"
-               class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.extractinitializationmethod.ExtractInitializationMethodJUnit4">
+               id="org.ita.neutrino.extractinitializationmethod.ExtractInitializationMethodAction">
          </action>
          <action
-               label="JUnit 3 - Extract Initialization Method"
-               menubarPath="org.ita.neutrino.menu/junit3"
+               label="Extract Finalization Method"
+               menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.extractinitializationmethod.ExtractInitializationMethodJUnit3">
+               id="org.ita.neutrino.extractfinalizationmethod.ExtractFinalizationMethodAction">
          </action>
          <action
-               label="JUnit 4 - Extract Finalization Method"
-               menubarPath="org.ita.neutrino.menu/junit4"
+               label="Decompose Assertion"
+               menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.extractfinalizationmethod.ExtractFinalizationMethodJUnit4">
+               id="org.ita.neutrino.decomposeassertion.DecomposeAssertionAction">
          </action>
          <action
-               label="JUnit 3 - Extract Finalization Method"
-               menubarPath="org.ita.neutrino.menu/junit3"
+               label="Add Fixture Method"
+               menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.extractfinalizationmethod.ExtractFinalizationMethodJUnit3">
-         </action>         
-         <action
-               label="JUnit 4 - Decompose Assertion"
-               menubarPath="org.ita.neutrino.menu/junit4"
-               class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.decomposeassertion.DecomposeAssertionJUnit4">
+               id="org.ita.neutrino.addfixture.AddFixtureAction">
          </action>
          <action
-               label="JUnit 3 - Decompose Assertion"
-               menubarPath="org.ita.neutrino.menu/junit3"
+               label="Add explanation to assertion"
+               menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.decomposeassertion.DecomposeAssertionJUnit3">
-         </action>         
-         <action
-               label="JUnit 4 - Add Fixture Method"
-               menubarPath="org.ita.neutrino.menu/junit4"
-               class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.addfixture.AddFixtureJUnit4">
-         </action>
-         <action
-               label="JUnit 3 - Add Fixture Method"
-               menubarPath="org.ita.neutrino.menu/junit3"
-               class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.addfixture.AddFixtureJUnit3">
-         </action>
-         <action
-               label="JUnit 4 - Add explanation to assertion"
-               menubarPath="org.ita.neutrino.menu/junit4"
-               class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.addexplanation.AddExplanationJUnit4">
-         </action>
-         <action
-               label="JUnit 3 - Add Explanation To Assertion"
-               menubarPath="org.ita.neutrino.menu/junit3"
-               class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.addexplanation.AddExplanationJUnit3">
+               id="org.ita.neutrino.addexplanation.AddExplanationAction">
          </action>
          
          <action
@@ -144,56 +81,58 @@
                id="org.ita.neutrino.tests.JUnitMain">
          </action>
          
-         <action
-         	   label="Detect smells automatically"
-         	   menubarPath="org.ita.neutrino.menu/testsmells"
-         	   class="org.ita.neutrino.testsmells.ActionController"
-         	   id="org.ita.neutrino.testsmells.ToggleNature" />
-        <action
-         	   label="(Re)run smell detection"
-         	   menubarPath="org.ita.neutrino.menu/testsmells"
-         	   class="org.ita.neutrino.testsmells.ActionController"
-         	   id="org.ita.neutrino.testsmells.RunDetection" />  
+         
+      <action
+          label="Detect smells automatically"
+          menubarPath="org.ita.neutrino.menu/testsmells"
+          class="org.ita.neutrino.testsmells.ActionController"
+          id="org.ita.neutrino.testsmells.ToggleNature" />
+      <action
+           label="(Re)run smell detection"
+           menubarPath="org.ita.neutrino.menu/testsmells"
+           class="org.ita.neutrino.testsmells.ActionController"
+           id="org.ita.neutrino.testsmells.RunDetection" />
       </actionSet>
    </extension>
-  
-      
-       <extension
-         id="org.ita.neutrino.testsmells.TestSmellDetectionBuilder"
-         name="Test Smell Detection Builder"
-         point="org.eclipse.core.resources.builders">
-      <builder hasNature="true">
-         <run class="org.ita.neutrino.testsmells.TestSmellDetectionBuilder">
-         </run>
-      </builder>
-   </extension>
-   <extension
-         id="org.ita.neutrino.testsmells.TestSmellDetectionNature"
-         name="Test Smell Detection Nature"
-         point="org.eclipse.core.resources.natures">
-      <runtime>
-         <run class="org.ita.neutrino.testsmells.TestSmellDetectionNature">
-         </run>
-      </runtime>
-      <builder id="org.ita.neutrino.testsmells.TestSmellDetectionBuilder">
-      </builder>
-   </extension>
-   <extension
-         id="org.ita.neutrino.testsmells.marker"
-         name="Test code smell"
-         point="org.eclipse.core.resources.markers">
-      <persistent value="true" />
-      <super type="org.eclipse.core.resources.problemmarker" /> 
-      <attribute name="smellType" />
-   </extension>  
-   <extension
-         id="org.ita.plugins.testsmells.markerresolutionextension"
-         name="Quick Fixes for Test Code Smells"
-         point="org.eclipse.ui.ide.markerResolution">
-     <markerResolutionGenerator
-        markerType="org.ita.neutrino.testsmells.marker"
-        class="org.ita.neutrino.testsmells.QuickFixGenerator" />
-   </extension>
+   
+   
+  <extension
+    id="org.ita.neutrino.testsmells.TestSmellDetectionBuilder"
+    name="Test Smell Detection Builder"
+    point="org.eclipse.core.resources.builders">
+    <builder hasNature="true">
+      <run class="org.ita.neutrino.testsmells.TestSmellDetectionBuilder">
+      </run>
+    </builder>
+  </extension>
+  <extension
+        id="org.ita.neutrino.testsmells.TestSmellDetectionNature"
+        name="Test Smell Detection Nature"
+        point="org.eclipse.core.resources.natures">
+    <runtime>
+      <run class="org.ita.neutrino.testsmells.TestSmellDetectionNature">
+      </run>
+    </runtime>
+    <builder id="org.ita.neutrino.testsmells.TestSmellDetectionBuilder">
+    </builder>
+  </extension>
+  <extension
+        id="org.ita.neutrino.testsmells.marker"
+        name="Test code smell"
+        point="org.eclipse.core.resources.markers">
+    <persistent value="true" />
+    <super type="org.eclipse.core.resources.problemmarker" />
+    <attribute name="smellType" />
+  </extension>
+  <extension
+        id="org.ita.plugins.testsmells.markerresolutionextension"
+        name="Quick Fixes for Test Code Smells"
+        point="org.eclipse.ui.ide.markerResolution">
+    <markerResolutionGenerator
+       markerType="org.ita.neutrino.testsmells.marker"
+       class="org.ita.neutrino.testsmells.QuickFixGenerator" />
+  </extension>
+   
   
     <extension
          point="org.eclipse.ui.popupMenus">
@@ -204,58 +143,59 @@
                id="Test Refactorings"
                label="Test Refactorings">
             <separator name="Test Class Refactorings"/>
-         </menu>         
+         </menu>
+         
          <action
                label="Split Incrementals"
-               menubarPath="Test Refactorings/junit4"
+               menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.splitincrementals.SplitIncrementalsAction">
+               id="org.ita.neutrino.splitincrementaltests.SplitIncrementalTestsAction">
          </action>
          <action
                label="Input Initialization"
-               menubarPath="Test Refactorings/junit4"
+               menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.inputinitialization.InputInitializationAction">
          </action>
          <action
                label="Input Finalization"
-               menubarPath="Test Refactorings/junit4"
+               menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.inputfinalization.InputFinalizationAction">
          </action>
          <action
                label="Group Incremental Tests"
-               menubarPath="Test Refactorings/junit4"
+               menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.groupincrementaltests.GroupIncrementalTestsAction">
-         </action>      
+         </action>     
          <action
                label="Extract Initialization Method"
-               menubarPath="Test Refactorings/junit4"
+               menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.extractinitializationmethod.ExtractInitializationMethodAction">
          </action>
          <action
                label="Extract Finalization Method"
-               menubarPath="Test Refactorings/junit4"
+               menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.extractfinalizationmethod.ExtractFinalizationMethodAction">
-         </action>       
-         <action
-               label="Decompose Assertion"
-               menubarPath="Test Refactorings/junit4"
-               class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.decomposeassertion.DecomposeAssertionAction">
          </action>        
          <action
+               label="Decompose Assertion"
+               menubarPath="Test Refactorings/refactorings"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.decomposeassertion.DecomposeAssertionAction">
+         </action>       
+         <action
                label="Add Fixture Method"
-               menubarPath="Test Refactorings/junit4"
+               menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.addfixture.AddFixtureAction">
          </action>
          <action
                label="Add explanation to assertion"
-               menubarPath="Test Refactorings/junit4"
+               menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.addexplanation.AddExplanationAction">
          </action>                  

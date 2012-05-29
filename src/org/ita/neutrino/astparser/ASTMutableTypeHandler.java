@@ -7,6 +7,7 @@ import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
+import org.eclipse.jdt.core.dom.ParameterizedType;
 import org.eclipse.jdt.core.dom.PrimitiveType;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
@@ -16,6 +17,8 @@ import org.ita.neutrino.astparser.ASTSourceFile.ASTContainer;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.MutableMethod;
 import org.ita.neutrino.codeparser.Type;
+
+import br.zero.utils.StringUtils;
 
 public class ASTMutableTypeHandler extends ASTTypeHandler {
 
@@ -91,8 +94,25 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 		VariableDeclarationFragment fragment = ast.newVariableDeclarationFragment();
 		fragment.setName(ast.newSimpleName(fieldName));
 		FieldDeclaration fieldDeclaration = ast.newFieldDeclaration(fragment);
-		fieldDeclaration.setType(ast.newSimpleType(ast.newSimpleName(fieldType.getName())));
 		
+		org.eclipse.jdt.core.dom.Type type;
+		if (StringUtils.isGenericTypeName(fieldType.getQualifiedName())) {
+			ParameterizedType parametrizedType = ast.newParameterizedType(ast.newSimpleType(ast.newSimpleName(StringUtils.getGenericBaseType(fieldType.getName()))));
+			
+			List<String> genericParameters = StringUtils.getGenericParameterList(fieldType.getQualifiedName());
+			
+			for (String genericParameter : genericParameters) {
+				String genericParameterTypeName = StringUtils.extractTypeName(genericParameter);
+				parametrizedType.typeArguments().add(ast.newSimpleType(ast.newSimpleName(genericParameterTypeName)));
+			}
+			
+			type = parametrizedType;
+		} else {
+			type = ast.newSimpleType(ast.newSimpleName(fieldType.getName()));
+		}
+		
+		fieldDeclaration.setType(type);
+
 		@SuppressWarnings("rawtypes")
 		List modifiers = fieldDeclaration.modifiers();
 		modifiers.add(ast.newModifier(Modifier.ModifierKeyword.PRIVATE_KEYWORD));
@@ -108,4 +128,5 @@ public class ASTMutableTypeHandler extends ASTTypeHandler {
 
 		return f;
 	}
+
 }

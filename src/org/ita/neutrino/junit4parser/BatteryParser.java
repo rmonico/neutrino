@@ -1,6 +1,7 @@
 package org.ita.neutrino.junit4parser;
 
 import org.ita.neutrino.codeparser.Annotation;
+import org.ita.neutrino.codeparser.Class;
 import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.MutableType;
 
@@ -32,10 +33,31 @@ class BatteryParser extends org.ita.neutrino.junitgenericparser.BatteryParser {
 
 	@Override
 	protected boolean canParse(MutableType t) {
+		
+		if (isJUnit3TestCase(t)) {
+			return false;
+		}
+		
 		for (Method method : t.getMethodList().values()) {
 			if (getTestMethodKind(method) == TestMethodKind.TEST_METHOD) {
 				return true;
 			}
+		}
+		
+		return false;
+	}
+	
+	private boolean isJUnit3TestCase(MutableType t) {
+		if (!(t instanceof Class)) {
+			return false;
+		}
+		Class clazz = (Class) t;
+		
+		while (clazz != null) {
+			if (clazz.getQualifiedName().equals("junit.framework.TestCase")) {
+				return true;
+			}
+			clazz = clazz.getSuperClass();
 		}
 		
 		return false;

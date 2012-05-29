@@ -25,7 +25,7 @@ public class TestSmellDetectionBuilder extends IncrementalProjectBuilder {
 			return null;
 		}
 		
-		Injector.createTestSmellDetector().run(
+		Injector.createEclipseTestSmellDetector().run(
 				this.getProject(), this.getDelta(this.getProject()), monitor);
 		return null;
 	}

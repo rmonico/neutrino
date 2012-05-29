@@ -11,7 +11,7 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 	protected JUnitTestSuite() {
 		super();
 	}
-	
+
 	@Override
 	protected JUnitTestMethod instantiateTestMethod() {
 		return new JUnitTestMethod();
@@ -25,15 +25,14 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 	protected JUnitFixture instantiateFixture() {
 		return new JUnitFixture();
 	};
-	
+
 	@Override
 	protected List<JUnitFixture> instantiateFixtureList() {
 		return new ArrayList<JUnitFixture>();
 	}
 
 	/**
-	 * Devolve o método executado antes dos testes. Não há setter correspondente
-	 * pois o createBeforeMethod já faz isso.
+	 * Devolve o método executado antes dos testes. Não há setter correspondente pois o createBeforeMethod já faz isso.
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -48,8 +47,7 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 	}
 
 	/**
-	 * Devolve o método executado após os testes. Não há setter correspondente
-	 * pois o createAfterMethod já faz isso.
+	 * Devolve o método executado após os testes. Não há setter correspondente pois o createAfterMethod já faz isso.
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -79,15 +77,22 @@ public class JUnitTestSuite extends org.ita.neutrino.junitgenericparser.JUnitTes
 
 	@Override
 	public TestMethod createNewBeforeTestsMethod() {
-		MutableMethod newMethod = getCodeElement().createNewMethod("setup", 0);
-		
+		MutableMethod newMethod = getCodeElement().createNewMethod("setUp", 0);
+
 		return parseBeforeMethod(newMethod);
 	}
 
 	@Override
 	public TestMethod createNewAfterTestsMethod() {
-		MutableMethod newMethod = getCodeElement().createNewMethod("teardown", -1);
-		
+		MutableMethod newMethod = getCodeElement().createNewMethod("tearDown", -1);
+
 		return parseAfterMethod(newMethod);
+	}
+
+	@Override
+	public TestMethod createNewTestMethod(String newMethodName) {
+		MutableMethod newMethod = getCodeElement().createNewMethod(newMethodName, -1);
+
+		return parseTestMethod(newMethod);
 	}
 }
