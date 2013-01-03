@@ -2,7 +2,7 @@ package org.ita.neutrino.codeparser;
 
 import java.util.Map;
 
-import org.ita.neutrino.abstracttestparser.TestMethod;
+import org.ita.neutrino.tparsers.abstracttestparser.TestMethod;
 
 public interface MutableType extends Type {
 

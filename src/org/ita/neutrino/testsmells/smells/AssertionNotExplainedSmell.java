@@ -4,10 +4,10 @@ import java.util.Collection;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaModelException;
-import org.ita.neutrino.abstracttestparser.Assertion;
-import org.ita.neutrino.abstracttestparser.TestMethod;
-import org.ita.neutrino.addexplanation.AddExplanationAction;
+import org.ita.neutrino.refactorings.addexplanation.AddExplanationAction;
 import org.ita.neutrino.testsmells.core.MarkerManager;
+import org.ita.neutrino.tparsers.abstracttestparser.Assertion;
+import org.ita.neutrino.tparsers.abstracttestparser.TestMethod;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;

@@ -1,7 +1,7 @@
 package org.ita.neutrino.tests.groupincremental;
 
-import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
-import org.ita.neutrino.groupincrementaltests.GroupIncrementalTestsRefactoring;
+import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
+import org.ita.neutrino.refactorings.groupincrementaltests.GroupIncrementalTestsRefactoring;
 import org.ita.neutrino.tests.RefactoringAbstractTests;
 
 public abstract class GroupIncrementalTests extends RefactoringAbstractTests {

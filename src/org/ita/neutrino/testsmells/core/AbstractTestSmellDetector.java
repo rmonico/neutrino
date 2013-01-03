@@ -2,16 +2,16 @@ package org.ita.neutrino.testsmells.core;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaModelException;
-import org.ita.neutrino.abstracttestparser.AbstractTestParser;
-import org.ita.neutrino.abstracttestparser.Assertion;
-import org.ita.neutrino.abstracttestparser.TestBattery;
-import org.ita.neutrino.abstracttestparser.TestMethod;
-import org.ita.neutrino.abstracttestparser.TestParserException;
-import org.ita.neutrino.abstracttestparser.TestStatement;
-import org.ita.neutrino.abstracttestparser.TestSuite;
 import org.ita.neutrino.codeparser.Environment;
 import org.ita.neutrino.testsmells.smells.TestCodeSmell;
 import org.ita.neutrino.testsmells.smells.TestCodeSmellLibrary;
+import org.ita.neutrino.tparsers.abstracttestparser.AbstractTestParser;
+import org.ita.neutrino.tparsers.abstracttestparser.Assertion;
+import org.ita.neutrino.tparsers.abstracttestparser.TestBattery;
+import org.ita.neutrino.tparsers.abstracttestparser.TestMethod;
+import org.ita.neutrino.tparsers.abstracttestparser.TestParserException;
+import org.ita.neutrino.tparsers.abstracttestparser.TestStatement;
+import org.ita.neutrino.tparsers.abstracttestparser.TestSuite;
 
 import com.google.inject.Provider;
 

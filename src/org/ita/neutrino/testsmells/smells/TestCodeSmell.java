@@ -2,9 +2,9 @@ package org.ita.neutrino.testsmells.smells;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaModelException;
-import org.ita.neutrino.abstracttestparser.TestElement;
-import org.ita.neutrino.abstracttestparser.TestStatement;
 import org.ita.neutrino.testsmells.core.MarkerManager;
+import org.ita.neutrino.tparsers.abstracttestparser.TestElement;
+import org.ita.neutrino.tparsers.abstracttestparser.TestStatement;
 
 import com.google.common.base.Predicate;
 

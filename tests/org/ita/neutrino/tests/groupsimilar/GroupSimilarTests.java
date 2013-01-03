@@ -1,7 +1,7 @@
 package org.ita.neutrino.tests.groupsimilar;
 
-import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
-import org.ita.neutrino.groupsimilartests.GroupSimilarTestsRefactoring;
+import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
+import org.ita.neutrino.refactorings.groupsimilartests.GroupSimilarTestsRefactoring;
 import org.ita.neutrino.tests.RefactoringAbstractTests;
 
 public abstract class GroupSimilarTests extends RefactoringAbstractTests {

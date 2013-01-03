@@ -1,6 +1,6 @@
 package org.ita.neutrino.codeparser;
 
-import org.ita.neutrino.abstracttestparser.Action;
+import org.ita.neutrino.tparsers.abstracttestparser.Action;
 
 /**
  * Classe que representa uma linha de código.

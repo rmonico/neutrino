@@ -20,58 +20,76 @@
 			</menu>
           
          <action
+               label="Pull up test in hierarchy"
+               menubarPath="org.ita.neutrino.menu/refactorings"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.refactorings.pulluptest.PullUpTestAction">
+         </action>
+         <action
+               label="Pull down test in hierarchy"
+               menubarPath="org.ita.neutrino.menu/refactorings"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.refactorings.pulldowntest.PullDownTestAction">
+         </action> 
+         <action
                label="Split Incrementals"
                menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.splitincrementaltests.SplitIncrementalTestsAction">
+               id="org.ita.neutrino.refactorings.splitincrementaltests.SplitIncrementalTestsAction">
          </action>
          <action
                label="Input Initialization"
                menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.inputinitialization.InputInitializationAction">
+               id="org.ita.neutrino.refactorings.inputinitialization.InputInitializationAction">
          </action>
          <action
                label="Input Finalization"
                menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.inputfinalization.InputFinalizationAction">
+               id="org.ita.neutrino.refactorings.inputfinalization.InputFinalizationAction">
          </action>
          <action
                label="Group Incremental Tests"
                menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.groupincrementaltests.GroupIncrementalTestsAction">
+               id="org.ita.neutrino.refactorings.groupincrementaltests.GroupIncrementalTestsAction">
          </action>
          <action
                label="Extract Initialization Method"
                menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.extractinitializationmethod.ExtractInitializationMethodAction">
+               id="org.ita.neutrino.refactorings.extractinitializationmethod.ExtractInitializationMethodAction">
          </action>
          <action
                label="Extract Finalization Method"
                menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.extractfinalizationmethod.ExtractFinalizationMethodAction">
+               id="org.ita.neutrino.refactorings.extractfinalizationmethod.ExtractFinalizationMethodAction">
          </action>
          <action
                label="Decompose Assertion"
                menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.decomposeassertion.DecomposeAssertionAction">
+               id="org.ita.neutrino.refactorings.decomposeassertion.DecomposeAssertionAction">
          </action>
          <action
                label="Add Fixture Method"
                menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.addfixture.AddFixtureAction">
+               id="org.ita.neutrino.refactorings.addfixture.AddFixtureAction">
          </action>
          <action
                label="Add explanation to assertion"
                menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.addexplanation.AddExplanationAction">
+               id="org.ita.neutrino.refactorings.addexplanation.AddExplanationAction">
+         </action>
+         <action
+               label="Split class"
+               menubarPath="org.ita.neutrino.menu/refactorings"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.refactorings.splitclass.SplitClassAction">
          </action>
          
          <action
@@ -94,7 +112,6 @@
            id="org.ita.neutrino.testsmells.RunDetection" />
       </actionSet>
    </extension>
-   
    
   <extension
     id="org.ita.neutrino.testsmells.TestSmellDetectionBuilder"
@@ -146,59 +163,71 @@
          </menu>
          
          <action
+               label="Pull up test in hierarchy"
+               menubarPath="Test Refactorings/refactorings"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.refactorings.pulluptest.PullUpTestAction">
+         </action>
+         <action
+               label="Pull down test in hierarchy"
+               menubarPath="Test Refactorings/refactorings"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.refactorings.pulldowntest.PullDownTestAction">
+         </action>
+         <action
                label="Split Incrementals"
                menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.splitincrementaltests.SplitIncrementalTestsAction">
+               id="org.ita.neutrino.refactorings.splitincrementaltests.SplitIncrementalTestsAction">
          </action>
          <action
                label="Input Initialization"
                menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.inputinitialization.InputInitializationAction">
+               id="org.ita.neutrino.refactorings.inputinitialization.InputInitializationAction">
          </action>
          <action
                label="Input Finalization"
                menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.inputfinalization.InputFinalizationAction">
+               id="org.ita.neutrino.refactorings.inputfinalization.InputFinalizationAction">
          </action>
          <action
                label="Group Incremental Tests"
                menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.groupincrementaltests.GroupIncrementalTestsAction">
+               id="org.ita.neutrino.refactorings.groupincrementaltests.GroupIncrementalTestsAction">
          </action>     
          <action
                label="Extract Initialization Method"
                menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.extractinitializationmethod.ExtractInitializationMethodAction">
+               id="org.ita.neutrino.refactorings.extractinitializationmethod.ExtractInitializationMethodAction">
          </action>
          <action
                label="Extract Finalization Method"
                menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.extractfinalizationmethod.ExtractFinalizationMethodAction">
+               id="org.ita.neutrino.refactorings.extractfinalizationmethod.ExtractFinalizationMethodAction">
          </action>        
          <action
                label="Decompose Assertion"
                menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.decomposeassertion.DecomposeAssertionAction">
+               id="org.ita.neutrino.refactorings.decomposeassertion.DecomposeAssertionAction">
          </action>       
          <action
                label="Add Fixture Method"
                menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.addfixture.AddFixtureAction">
+               id="org.ita.neutrino.refactorings.addfixture.AddFixtureAction">
          </action>
          <action
                label="Add explanation to assertion"
                menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
-               id="org.ita.neutrino.addexplanation.AddExplanationAction">
-         </action>                  
+               id="org.ita.neutrino.refactorings.addexplanation.AddExplanationAction">
+         </action>
       </objectContribution>
    </extension>
     <extension

@@ -12,11 +12,11 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaCore;
-import org.ita.neutrino.abstracttestparser.AbstractTestParser;
-import org.ita.neutrino.astparser.ASTParser;
 import org.ita.neutrino.codeparser.Environment;
 import org.ita.neutrino.codeparser.ParserException;
+import org.ita.neutrino.codeparser.astparser.ASTParser;
 import org.ita.neutrino.testsmells.smells.TestCodeSmellLibrary;
+import org.ita.neutrino.tparsers.abstracttestparser.AbstractTestParser;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;

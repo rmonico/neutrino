@@ -10,15 +10,15 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.IfStatement;
 import org.eclipse.jdt.core.dom.SwitchStatement;
-import org.ita.neutrino.abstracttestparser.TestSuite;
-import org.ita.neutrino.astparser.ASTClass;
-import org.ita.neutrino.astparser.ASTMethod;
-import org.ita.neutrino.astparser.ASTType;
-import org.ita.neutrino.astparser.ASTWrapper;
 import org.ita.neutrino.codeparser.CodeElement;
 import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.Statement;
+import org.ita.neutrino.codeparser.astparser.ASTClass;
+import org.ita.neutrino.codeparser.astparser.ASTMethod;
+import org.ita.neutrino.codeparser.astparser.ASTType;
+import org.ita.neutrino.codeparser.astparser.ASTWrapper;
 import org.ita.neutrino.testsmells.smells.TestCodeSmell;
+import org.ita.neutrino.tparsers.abstracttestparser.TestSuite;
 
 import com.google.common.collect.Lists;
 

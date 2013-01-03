@@ -4,12 +4,12 @@ import static br.zero.utils.JUnitUtils.assertBlockEquals;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
-import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
-import org.ita.neutrino.abstracrefactoring.RefactoringException;
-import org.ita.neutrino.abstracttestparser.TestBattery;
-import org.ita.neutrino.abstracttestparser.TestParserException;
 import org.ita.neutrino.codeparser.ParserException;
-import org.ita.neutrino.junitgenericparser.JUnitGenericParser;
+import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
+import org.ita.neutrino.refactorings.abstracrefactoring.RefactoringException;
+import org.ita.neutrino.tparsers.abstracttestparser.TestBattery;
+import org.ita.neutrino.tparsers.abstracttestparser.TestParserException;
+import org.ita.neutrino.tparsers.junitgenericparser.JUnitGenericParser;
 import org.junit.Test;
 
 public abstract class RefactoringAbstractTests extends PluginAbstractTests {

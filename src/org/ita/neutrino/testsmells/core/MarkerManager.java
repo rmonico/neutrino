@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaModelException;
-import org.ita.neutrino.abstracttestparser.TestSuite;
 import org.ita.neutrino.codeparser.CodeElement;
 import org.ita.neutrino.testsmells.smells.TestCodeSmell;
+import org.ita.neutrino.tparsers.abstracttestparser.TestSuite;
 
 public interface MarkerManager {
 

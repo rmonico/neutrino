@@ -1,6 +1,6 @@
 package org.ita.neutrino.codeparser;
 
-import org.ita.neutrino.abstracttestparser.TestMethod;
+import org.ita.neutrino.tparsers.abstracttestparser.TestMethod;
 
 public interface Class extends Type {
 

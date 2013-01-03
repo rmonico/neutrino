@@ -6,7 +6,6 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="lib" path="lib/guava-r09.jar"/>
 	<classpathentry kind="lib" path="lib/guice-3.0.jar"/>
-	<classpathentry kind="lib" path="OSGI-INF/l10n/bundle.properties"/>
 	<classpathentry kind="lib" path="lib/Utils.jar" sourcepath="/Utils/src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.ita.neutrino.abstracrefactoring.AbstractEclipseRefactoringAction;
+import org.ita.neutrino.refactorings.abstracrefactoring.AbstractEclipseRefactoringAction;
 
 @ProvidesEclipseRefactoring(NeutrinoRefactoringForEclipseProvider.class)
 @Retention(RetentionPolicy.RUNTIME)

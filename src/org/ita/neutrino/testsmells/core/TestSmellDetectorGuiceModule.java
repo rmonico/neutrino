@@ -1,10 +1,5 @@
 package org.ita.neutrino.testsmells.core;
 
-import org.ita.neutrino.abstracttestparser.AbstractTestParser;
-import org.ita.neutrino.generictestparser.GenericTestParser;
-import org.ita.neutrino.generictestparser.TestFramework;
-import org.ita.neutrino.junit3parser.JUnit3Parser;
-import org.ita.neutrino.junit4parser.JUnit4Parser;
 import org.ita.neutrino.testsmells.smells.AssertionNotExplainedSmell;
 import org.ita.neutrino.testsmells.smells.CompositeAssertionSmell;
 import org.ita.neutrino.testsmells.smells.ConditionalFlowSmell;
@@ -13,6 +8,11 @@ import org.ita.neutrino.testsmells.smells.DuplicatedTearDownCodeSmell;
 import org.ita.neutrino.testsmells.smells.EagerTestSmell;
 import org.ita.neutrino.testsmells.smells.SequentialAssertionsSmell;
 import org.ita.neutrino.testsmells.smells.TestCodeSmell;
+import org.ita.neutrino.tparsers.abstracttestparser.AbstractTestParser;
+import org.ita.neutrino.tparsers.generictestparser.GenericTestParser;
+import org.ita.neutrino.tparsers.generictestparser.TestFramework;
+import org.ita.neutrino.tparsers.junit3parser.JUnit3Parser;
+import org.ita.neutrino.tparsers.junit4parser.JUnit4Parser;
 
 import com.google.common.collect.ImmutableList;
 import com.google.inject.AbstractModule;

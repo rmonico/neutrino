@@ -3,7 +3,7 @@ package org.ita.neutrino.testsmells.smells;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import org.ita.neutrino.abstracttestparser.TestElement;
+import org.ita.neutrino.tparsers.abstracttestparser.TestElement;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
-import org.ita.neutrino.abstracttestparser.TestParserException;
-import org.ita.neutrino.astparser.ASTParser;
 import org.ita.neutrino.codeparser.CodeSelection;
 import org.ita.neutrino.codeparser.ParserException;
-import org.ita.neutrino.junit3parser.JUnit3Parser;
+import org.ita.neutrino.codeparser.astparser.ASTParser;
+import org.ita.neutrino.tparsers.abstracttestparser.TestParserException;
+import org.ita.neutrino.tparsers.junit3parser.JUnit3Parser;
 
 public class GroupSimilarJUnit3Tests extends GroupSimilarTests {
 

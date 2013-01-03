@@ -2,10 +2,10 @@ package org.ita.neutrino.testsmells.smells;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaModelException;
-import org.ita.neutrino.abstracttestparser.Assertion;
 import org.ita.neutrino.codeparser.Expression;
-import org.ita.neutrino.decomposeassertion.DecomposeAssertionAction;
+import org.ita.neutrino.refactorings.decomposeassertion.DecomposeAssertionAction;
 import org.ita.neutrino.testsmells.core.MarkerManager;
+import org.ita.neutrino.tparsers.abstracttestparser.Assertion;
 
 @NeutrinoRefactoringForEclipse(description = "Splits this assertion into multiple ones",
 		title="Decompose assertion",

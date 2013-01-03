@@ -14,4 +14,6 @@ public interface MutableMethod extends Method {
 	void removeStatements(int index, int count);
 	
 	void createNewAssertStatement(ExpressionStatement es, List<MethodInvocation> methods);
+	
+	void setAbstract();
 }

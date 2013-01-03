@@ -1,7 +1,7 @@
 package org.ita.neutrino.tests.addexplanation;
 
-import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
-import org.ita.neutrino.addexplanation.AddExplanationToAssertionRefactoring;
+import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
+import org.ita.neutrino.refactorings.addexplanation.AddExplanationToAssertionRefactoring;
 import org.ita.neutrino.tests.RefactoringAbstractTests;
 
 public abstract class AddExplanationToAssertionTests extends RefactoringAbstractTests {

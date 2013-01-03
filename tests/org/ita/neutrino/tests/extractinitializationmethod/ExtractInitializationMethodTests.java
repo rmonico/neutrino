@@ -1,7 +1,7 @@
 package org.ita.neutrino.tests.extractinitializationmethod;
 
-import org.ita.neutrino.abstracrefactoring.AbstractRefactoring;
-import org.ita.neutrino.extractinitializationmethod.ExtractInitializationMethodRefactoring;
+import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
+import org.ita.neutrino.refactorings.extractinitializationmethod.ExtractInitializationMethodRefactoring;
 import org.ita.neutrino.tests.RefactoringAbstractTests;
 
 public abstract class ExtractInitializationMethodTests extends RefactoringAbstractTests {

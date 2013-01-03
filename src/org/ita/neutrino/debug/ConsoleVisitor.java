@@ -3,7 +3,7 @@ package org.ita.neutrino.debug;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
-import org.ita.neutrino.astparser.QuickVisitor;
+import org.ita.neutrino.codeparser.astparser.QuickVisitor;
 
 
 /**

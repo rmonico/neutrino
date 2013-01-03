@@ -4,13 +4,13 @@ import static org.junit.Assert.assertEquals;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
-import org.ita.neutrino.astparser.ASTParser;
 import org.ita.neutrino.codeparser.CodeElement;
 import org.ita.neutrino.codeparser.ParserException;
-import org.ita.neutrino.junit3parser.JUnit3Parser;
-import org.ita.neutrino.junit3parser.JUnitAssertion;
-import org.ita.neutrino.junit3parser.JUnitAction;
-import org.ita.neutrino.junitgenericparser.JUnitGenericParser;
+import org.ita.neutrino.codeparser.astparser.ASTParser;
+import org.ita.neutrino.tparsers.junit3parser.JUnit3Parser;
+import org.ita.neutrino.tparsers.junit3parser.JUnitAction;
+import org.ita.neutrino.tparsers.junit3parser.JUnitAssertion;
+import org.ita.neutrino.tparsers.junitgenericparser.JUnitGenericParser;
 
 public class JUnit3ParserTests extends JUnitParserTests {
 	

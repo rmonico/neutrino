@@ -14,14 +14,14 @@ public class ActionController implements IWorkbenchWindowActionDelegate, IObject
 	@Override
 	public void run(IAction act) {
 		String iActionName = act.getId();
-
-		System.out.println("A√ß√£o id: \"" + iActionName + "\" disparada.");
+		
+		System.out.println("AÁ„o id: \"" + iActionName + "\" disparada.");
 
 		Object action = null;
 		try {
 			action = Class.forName(iActionName).newInstance();
 		} catch (ClassNotFoundException e) {
-			throw new IllegalArgumentException("Classe n√£o encontrada: \"" + iActionName + "\"");
+			throw new IllegalArgumentException("Classe n„o encontrada: \"" + iActionName + "\"");
 		} catch (InstantiationException e) {
 			throw new IllegalArgumentException("Erro instanciando a classe \"" + iActionName + "\"", e);
 		} catch (IllegalAccessException e) {

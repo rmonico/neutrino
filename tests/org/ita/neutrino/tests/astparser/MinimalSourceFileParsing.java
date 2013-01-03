@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
-import org.ita.neutrino.astparser.ASTEnvironment;
-import org.ita.neutrino.astparser.ASTPackage;
-import org.ita.neutrino.astparser.ASTParser;
-import org.ita.neutrino.astparser.ASTSourceFile;
 import org.ita.neutrino.codeparser.ParserException;
+import org.ita.neutrino.codeparser.astparser.ASTEnvironment;
+import org.ita.neutrino.codeparser.astparser.ASTPackage;
+import org.ita.neutrino.codeparser.astparser.ASTParser;
+import org.ita.neutrino.codeparser.astparser.ASTSourceFile;
 import org.ita.neutrino.tests.PluginAbstractTests;
 import org.junit.Test;
 

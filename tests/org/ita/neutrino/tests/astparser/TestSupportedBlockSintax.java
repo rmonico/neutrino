@@ -5,14 +5,14 @@ import static org.junit.Assert.assertTrue;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
-import org.ita.neutrino.astparser.ASTEnvironment;
-import org.ita.neutrino.astparser.ASTParser;
 import org.ita.neutrino.codeparser.Block;
 import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.MethodInvocationExpression;
 import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.VariableDeclarationStatement;
+import org.ita.neutrino.codeparser.astparser.ASTEnvironment;
+import org.ita.neutrino.codeparser.astparser.ASTParser;
 import org.ita.neutrino.tests.PluginAbstractTests;
 import org.junit.Test;
 

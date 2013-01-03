@@ -1,7 +1,7 @@
 package org.ita.neutrino.testsmells.smells;
 import org.eclipse.jface.viewers.ISelection;
-import org.ita.neutrino.abstracrefactoring.AbstractEclipseRefactoringAction;
 import org.ita.neutrino.eclipseaction.ActionException;
+import org.ita.neutrino.refactorings.abstracrefactoring.AbstractEclipseRefactoringAction;
 import org.ita.neutrino.testsmells.core.EclipseRefactoring;
 import org.ita.neutrino.testsmells.core.Injector;
 

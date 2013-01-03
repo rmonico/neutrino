@@ -9,14 +9,14 @@ import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.ITextEditor;
-import org.ita.neutrino.abstracttestparser.TestMethod;
-import org.ita.neutrino.astparser.ASTParser;
-import org.ita.neutrino.astparser.ASTWrapper;
 import org.ita.neutrino.codeparser.Block;
 import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.codeparser.Statement;
+import org.ita.neutrino.codeparser.astparser.ASTParser;
+import org.ita.neutrino.codeparser.astparser.ASTWrapper;
 import org.ita.neutrino.eclipseaction.ActionException;
 import org.ita.neutrino.testsmells.core.MarkerManager;
+import org.ita.neutrino.tparsers.abstracttestparser.TestMethod;
 
 @CustomRefactoringForEclipse(ConditionalFlowSmell.QuickFix.class)
 public class ConditionalFlowSmell implements TestCodeSmell<TestMethod> {

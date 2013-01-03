@@ -7,14 +7,14 @@ import java.util.Map;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
-import org.ita.neutrino.astparser.ASTClass;
-import org.ita.neutrino.astparser.ASTEnvironment;
-import org.ita.neutrino.astparser.ASTPackage;
-import org.ita.neutrino.astparser.ASTParser;
-import org.ita.neutrino.astparser.ASTSourceFile;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.ParserException;
+import org.ita.neutrino.codeparser.astparser.ASTClass;
+import org.ita.neutrino.codeparser.astparser.ASTEnvironment;
+import org.ita.neutrino.codeparser.astparser.ASTPackage;
+import org.ita.neutrino.codeparser.astparser.ASTParser;
+import org.ita.neutrino.codeparser.astparser.ASTSourceFile;
 import org.ita.neutrino.tests.PluginAbstractTests;
 import org.junit.Test;
 

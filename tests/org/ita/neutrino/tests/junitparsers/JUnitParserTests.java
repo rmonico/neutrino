@@ -6,17 +6,17 @@ import static org.junit.Assert.assertNull;
 import java.util.List;
 
 import org.eclipse.jdt.core.JavaModelException;
-import org.ita.neutrino.abstracttestparser.TestParserException;
-import org.ita.neutrino.astparser.ASTParser;
 import org.ita.neutrino.codeparser.ParserException;
-import org.ita.neutrino.junitgenericparser.JUnitAction;
-import org.ita.neutrino.junitgenericparser.JUnitAssertion;
-import org.ita.neutrino.junitgenericparser.JUnitGenericParser;
-import org.ita.neutrino.junitgenericparser.JUnitTestBattery;
-import org.ita.neutrino.junitgenericparser.JUnitTestMethod;
-import org.ita.neutrino.junitgenericparser.JUnitTestStatement;
-import org.ita.neutrino.junitgenericparser.JUnitTestSuite;
+import org.ita.neutrino.codeparser.astparser.ASTParser;
 import org.ita.neutrino.tests.PluginAbstractTests;
+import org.ita.neutrino.tparsers.abstracttestparser.TestParserException;
+import org.ita.neutrino.tparsers.junitgenericparser.JUnitAction;
+import org.ita.neutrino.tparsers.junitgenericparser.JUnitAssertion;
+import org.ita.neutrino.tparsers.junitgenericparser.JUnitGenericParser;
+import org.ita.neutrino.tparsers.junitgenericparser.JUnitTestBattery;
+import org.ita.neutrino.tparsers.junitgenericparser.JUnitTestMethod;
+import org.ita.neutrino.tparsers.junitgenericparser.JUnitTestStatement;
+import org.ita.neutrino.tparsers.junitgenericparser.JUnitTestSuite;
 import org.junit.Test;
 
 public abstract class JUnitParserTests extends PluginAbstractTests {
