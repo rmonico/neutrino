@@ -91,6 +91,12 @@
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.refactorings.splitclass.SplitClassAction">
          </action>
+         <action
+               label="Test LTK-Neutrino Refactoring"
+               menubarPath="org.ita.neutrino.menu/refactorings"
+               class="org.ita.neutrino.eclipseaction.ActionController"
+               id="org.ita.neutrino.refactorings.testrefactoring.TestRefactoringAction">
+         </action>
          
          <action
                label="Run JUnits"

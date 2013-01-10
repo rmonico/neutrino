@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.ita.neutrino.eclipseaction.ActionException;
 import org.ita.neutrino.eclipseaction.IAction;
 import org.ita.neutrino.tests.addexplanation.AddExplanationToAssertionJUnit3Tests;
@@ -76,6 +77,18 @@ public class JUnitMain implements IAction {
 		classesToTest.toArray(result);
 
 		return result;
+	}
+
+	@Override
+	public IWorkbenchWindow getWindow() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWindow(IWorkbenchWindow window) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

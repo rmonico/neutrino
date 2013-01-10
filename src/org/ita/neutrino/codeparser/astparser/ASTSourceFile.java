@@ -35,7 +35,7 @@ public class ASTSourceFile extends AbstractCodeElement implements SourceFile,
 	private Map<String, ASTType> typeList;
 	private String fileName;
 	private ASTContainer astObject;
-
+	private long modificationCount;
 
 	class ASTContainer {
 		private CompilationUnit compilationUnit;
@@ -97,7 +97,17 @@ public class ASTSourceFile extends AbstractCodeElement implements SourceFile,
 	public ASTContainer getASTObject() {
 		return astObject;
 	}
+	
+	// TODO: XGO alert
+	public ASTRewrite getRewrite() {
+		return astObject.getRewrite();
+	}
 
+	// TODO: XGO alert
+	public ICompilationUnit getUnit() {
+		return astObject.getICompilationUnit();
+	}
+	
 	@Override
 	public String getFileName() {
 		return fileName;
@@ -134,6 +144,7 @@ public class ASTSourceFile extends AbstractCodeElement implements SourceFile,
 		ASTClass clazz = null;
 		
 	    try {
+	    	// TODO
 	    	IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject("NeutrinoTest");
 			IJavaProject javaProject = JavaCore.create(project);
 		    
@@ -228,5 +239,14 @@ public class ASTSourceFile extends AbstractCodeElement implements SourceFile,
 		ASTType astNewType = (ASTType) newType;
 		typeList.put(astNewType.getQualifiedName(), astNewType);
 	}
-
+	
+	public void beginModification() {
+		modificationCount = this.getASTObject().getCompilationUnit().getAST().modificationCount();
+	}
+	
+	public boolean isModified() {
+		if(modificationCount < this.getASTObject().getCompilationUnit().getAST().modificationCount()) 
+			return true;
+		else return false;
+	}
 }

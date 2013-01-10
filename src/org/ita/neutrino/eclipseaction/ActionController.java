@@ -10,12 +10,13 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 public class ActionController implements IWorkbenchWindowActionDelegate, IObjectActionDelegate {
 
 	private ISelection selection;
+	private IWorkbenchWindow window;
 
 	@Override
 	public void run(IAction act) {
 		String iActionName = act.getId();
 		
-		System.out.println("Ação id: \"" + iActionName + "\" disparada.");
+		//System.out.println("Ação id: \"" + iActionName + "\" disparada.");
 
 		Object action = null;
 		try {
@@ -35,6 +36,7 @@ public class ActionController implements IWorkbenchWindowActionDelegate, IObject
 		org.ita.neutrino.eclipseaction.IAction iAction = (org.ita.neutrino.eclipseaction.IAction) action;
 
 		iAction.setSelection(selection);
+		iAction.setWindow(window);
 
 		try {
 			iAction.run();
@@ -59,6 +61,7 @@ public class ActionController implements IWorkbenchWindowActionDelegate, IObject
 
 	@Override
 	public void init(IWorkbenchWindow arg0) {
+		this.window = arg0;
 	}
 
 	int i = 0;

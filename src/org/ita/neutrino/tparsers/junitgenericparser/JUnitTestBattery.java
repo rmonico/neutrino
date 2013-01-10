@@ -2,6 +2,7 @@ package org.ita.neutrino.tparsers.junitgenericparser;
 
 import java.util.List;
 
+import org.eclipse.ltk.core.refactoring.Change;
 import org.ita.neutrino.codeparser.CodeSelection;
 import org.ita.neutrino.codeparser.Environment;
 import org.ita.neutrino.codeparser.MutablePackage;
@@ -90,6 +91,7 @@ public abstract class JUnitTestBattery implements TestBattery {
 	
 	@Override
 	public TestSuite createNewSuite(String suiteName, String packageName) {
+		// TODO
 		MutablePackage classPackage = (MutablePackage) getCodeElement().getPackageList().get(packageName);
 		classPackage.createNewClass(suiteName, null);
 		/*
@@ -99,5 +101,10 @@ public abstract class JUnitTestBattery implements TestBattery {
 			e.printStackTrace();
 		}*/
 		return null;
+	}
+	
+	@Override
+	public Change getChange() {
+		return environment.getChange();
 	}
 }

@@ -9,6 +9,9 @@ import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ltk.core.refactoring.Refactoring;
+import org.eclipse.ltk.ui.refactoring.RefactoringWizard;
+import org.eclipse.ltk.ui.refactoring.RefactoringWizardOpenOperation;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
@@ -33,7 +36,18 @@ import org.ita.neutrino.tparsers.junit4parser.JUnit4Parser;
 public abstract class AbstractEclipseRefactoringAction implements IAction {
 
 	private ISelection selection;
+	private IWorkbenchWindow window;
+	
+	public IWorkbenchWindow getWindow() {
+		return window;
+	}
+
+	public void setWindow(IWorkbenchWindow window) {
+		this.window = window;
+	}
+
 	private AbstractRefactoring refactoringObject;
+	private RefactoringWizard refactoringWizard;
 
 	@Override
 	public ISelection getSelection() {
@@ -44,6 +58,8 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 	public void setSelection(ISelection selection) {
 		this.selection = selection;
 	}
+	
+	
 
 	/**
 	 * Deve devolver um nome amigável para a refatoração, esse valor será
@@ -53,16 +69,49 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 	 */
 	protected abstract String getRefactoringName();
 
+//	@Override
+//	public void run() throws ActionException {
+//		verifyPreConditions();
+//
+//		Environment environment = doCodeParsing();
+//		
+//		TestBattery battery = doTestParsing(environment);
+//
+//		refactoringObject = createRefactoringObject();
+//
+//		if (refactoringObject == null) {
+//			throw new ActionException("Method \"" + getClass().getName() + ".createRefactoringObject()\" must return non null value.");
+//		}
+//
+//		refactoringObject.setBattery(battery);
+//		TestSelection selection = battery.getSelection();
+//		TestElement<?> element = selection.getSelectedFragment();
+//		refactoringObject.setTargetFragment(element);
+//
+//		verifyInitialConditions();
+//
+//		if (!prepareRefactoringObject()) {
+//			return;
+//		}
+//
+//		try {
+//			refactoringObject.refactor();
+//		} catch (RefactoringException e) {
+//			throw new ActionException(e);
+//		}
+//	}
+	
 	@Override
 	public void run() throws ActionException {
 		verifyPreConditions();
-
-		Environment environment = doCodeParsing();
 		
+		Environment environment = doCodeParsing();
+	
 		TestBattery battery = doTestParsing(environment);
-
+		
 		refactoringObject = createRefactoringObject();
-
+		refactoringWizard = createRefactoringWizard(refactoringObject);
+		
 		if (refactoringObject == null) {
 			throw new ActionException("Method \"" + getClass().getName() + ".createRefactoringObject()\" must return non null value.");
 		}
@@ -71,17 +120,12 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 		TestSelection selection = battery.getSelection();
 		TestElement<?> element = selection.getSelectedFragment();
 		refactoringObject.setTargetFragment(element);
-
-		verifyInitialConditions();
-
-		if (!prepareRefactoringObject()) {
-			return;
-		}
-
+		
+		RefactoringWizardOpenOperation operation = new RefactoringWizardOpenOperation(refactoringWizard);
 		try {
-			refactoringObject.refactor();
-		} catch (RefactoringException e) {
-			throw new ActionException(e);
+			operation.run(window.getShell(), getRefactoringName());
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -162,21 +206,23 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 	 * @return
 	 */
 	protected abstract AbstractRefactoring createRefactoringObject();
+	
+	protected abstract RefactoringWizard createRefactoringWizard(Refactoring refactoring);
 
-	private void verifyInitialConditions() throws ActionException {
-		List<String> errors = refactoringObject.checkInitialConditions();
-
-		// TODO: Verificar se errors veio nulo, checkInitialConditions pode
-		// devolver um valor nulo indicando que não houver erros
-
-		if (errors.size() > 0) {
-			String message = RefactoringException.getMessageForProblemList(errors);
-
-			MessageDialog.openWarning(null, getRefactoringName(), message);
-
-			throw new ActionException(message);
-		}
-	}
+//	private void verifyInitialConditions() throws ActionException {
+//		List<String> errors = refactoringObject.checkInitialConditions();
+//
+//		// TODO: Verificar se errors veio nulo, checkInitialConditions pode
+//		// devolver um valor nulo indicando que não houver erros
+//
+//		if (errors.size() > 0) {
+//			String message = RefactoringException.getMessageForProblemList(errors);
+//
+//			MessageDialog.openWarning(null, getRefactoringName(), message);
+//
+//			throw new ActionException(message);
+//		}
+//	}
 
 	/**
 	 * Preparação final do objeto de refatoração. Deve devolver true caso a

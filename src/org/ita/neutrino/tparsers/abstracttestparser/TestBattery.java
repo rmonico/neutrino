@@ -2,6 +2,7 @@ package org.ita.neutrino.tparsers.abstracttestparser;
 
 import java.util.List;
 
+import org.eclipse.ltk.core.refactoring.Change;
 import org.ita.neutrino.codeparser.Environment;
 
 public interface TestBattery extends TestElement<Environment> {
@@ -23,4 +24,6 @@ public interface TestBattery extends TestElement<Environment> {
 	public abstract void applyChanges() throws TestParserException;
 	
 	public abstract TestSuite createNewSuite(String suiteName, String packageName);
+	
+	public Change getChange();
 }

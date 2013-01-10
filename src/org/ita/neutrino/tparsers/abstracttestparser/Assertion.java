@@ -14,4 +14,5 @@ public interface Assertion extends TestStatement {
 	public boolean hasMultipleChecks();
 	
 	public void decomposeAssertion();
+	
 }

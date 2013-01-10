@@ -3,6 +3,7 @@ package org.ita.neutrino.tparsers.generictestparser;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.ltk.core.refactoring.Change;
 import org.ita.neutrino.codeparser.Environment;
 import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.tparsers.abstracttestparser.TestBattery;
@@ -92,4 +93,8 @@ class GenericTestBattery implements TestBattery {
 		return null;
 	}
 
+	@Override
+	public Change getChange() {
+		return environment.getChange();
+	}
 }

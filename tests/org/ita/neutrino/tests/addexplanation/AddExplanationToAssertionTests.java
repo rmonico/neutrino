@@ -1,18 +1,18 @@
 package org.ita.neutrino.tests.addexplanation;
 
 import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
-import org.ita.neutrino.refactorings.addexplanation.AddExplanationToAssertionRefactoring;
+import org.ita.neutrino.refactorings.addexplanation.AddExplanationRefactoring;
 import org.ita.neutrino.tests.RefactoringAbstractTests;
 
 public abstract class AddExplanationToAssertionTests extends RefactoringAbstractTests {
 
 	protected AbstractRefactoring instantiateRefactoring() {
-		return new AddExplanationToAssertionRefactoring();
+		return new AddExplanationRefactoring();
 	}
 
 	@Override
 	protected void setupRefactoring() {
-		((AddExplanationToAssertionRefactoring) refactoring).setExplanationString("Média da turma");
+		((AddExplanationRefactoring) refactoring).setExplanationString("Média da turma");
 	}
 	
 	@Override

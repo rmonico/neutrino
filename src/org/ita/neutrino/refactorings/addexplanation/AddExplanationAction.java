@@ -3,15 +3,16 @@ package org.ita.neutrino.refactorings.addexplanation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.text.ITextSelection;
+import org.eclipse.ltk.core.refactoring.Refactoring;
+import org.eclipse.ltk.ui.refactoring.RefactoringWizard;
 import org.ita.neutrino.refactorings.abstracrefactoring.AbstractEclipseRefactoringAction;
 import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
 
 public class AddExplanationAction extends AbstractEclipseRefactoringAction {
 
-	private String explanationString;
-	private AddExplanationToAssertionRefactoring refactoring;
+//	private String explanationString;
+//	private AddExplanationRefactoring refactoring;
 
 	@Override
 	protected String getRefactoringName() {
@@ -30,24 +31,29 @@ public class AddExplanationAction extends AbstractEclipseRefactoringAction {
 
 	@Override
 	protected AbstractRefactoring createRefactoringObject() {
-		return refactoring = new AddExplanationToAssertionRefactoring();
+		return new AddExplanationRefactoring();
 	}
 	
+//	@Override
+//	protected boolean prepareRefactoringObject() {
+//		super.prepareRefactoringObject();
+//		
+//		InputDialog id = new InputDialog(null, "Add explanation to assertion", "Enter a explanation string", "explanation string", null);
+//
+//		if (id.open() == InputDialog.CANCEL) {
+//			return false;
+//		}
+//
+//		explanationString = id.getValue();
+//		
+//		refactoring.setExplanationString(explanationString);
+//		
+//		return true;
+//	}
+
 	@Override
-	protected boolean prepareRefactoringObject() {
-		super.prepareRefactoringObject();
-		
-		InputDialog id = new InputDialog(null, "Add explanation to assertion", "Enter a explanation string", "explanation string", null);
-
-		if (id.open() == InputDialog.CANCEL) {
-			return false;
-		}
-
-		explanationString = id.getValue();
-		
-		refactoring.setExplanationString(explanationString);
-		
-		return true;
+	protected RefactoringWizard createRefactoringWizard(Refactoring refactoring) {
+		return new AddExplanationWizard((AddExplanationRefactoring) refactoring, refactoring.getName());
 	}
 	
 }

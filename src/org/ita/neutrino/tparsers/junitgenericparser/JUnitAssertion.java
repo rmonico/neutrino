@@ -35,7 +35,7 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 	private JUnitTestMethod parent;
 	private JUnitTestStatementHandler handler = new JUnitTestStatementHandler(this);
 	private AST ast;
-
+	
 	protected JUnitAssertion() {
 		super();
 	}

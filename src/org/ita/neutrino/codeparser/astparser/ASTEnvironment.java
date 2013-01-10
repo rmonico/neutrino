@@ -5,11 +5,18 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.eclipse.ltk.core.refactoring.Change;
+import org.eclipse.ltk.core.refactoring.CompositeChange;
+import org.eclipse.ltk.core.refactoring.TextFileChange;
+import org.eclipse.text.edits.MalformedTreeException;
+import org.eclipse.text.edits.TextEdit;
 import org.ita.neutrino.codeparser.AbstractCodeElement;
 import org.ita.neutrino.codeparser.CodeElement;
 import org.ita.neutrino.codeparser.Constructor;
@@ -352,5 +359,36 @@ public class ASTEnvironment extends AbstractCodeElement implements Environment, 
 			}
 		}
 	}
-
+	
+	public void beginModification() {
+		for (ASTPackage pack : packageList.values()) 
+			for (ASTSourceFile sourceFile : pack.getSourceFileList().values())
+				sourceFile.beginModification();
+	}
+	
+	public Change getChange() {
+		CompositeChange compositeChange = new CompositeChange("Environment change");
+		
+		for (ASTPackage pack : packageList.values()) {
+			for (ASTSourceFile sourceFile : pack.getSourceFileList().values()) {
+				if(sourceFile.isModified())
+					try {
+						TextEdit edit = sourceFile.getASTObject().getRewrite().rewriteAST();
+						ICompilationUnit unit = sourceFile.getASTObject().getICompilationUnit();
+						TextFileChange change = new TextFileChange(unit.getElementName(), (IFile) unit.getResource());
+						change.setEdit(edit);
+						change.setTextType("java");
+						compositeChange.add(change);
+					} catch (MalformedTreeException e) {
+						e.printStackTrace();
+					} catch (JavaModelException e) {
+						e.printStackTrace();
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					}
+			}
+		}
+		
+		return compositeChange;
+	}
 }

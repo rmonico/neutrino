@@ -2,6 +2,8 @@ package org.ita.neutrino.codeparser;
 
 import java.util.Map;
 
+import org.eclipse.ltk.core.refactoring.Change;
+
 /**
  * Representa o nível mais alto da representação abstrata de código fonte. Notar
  * que para as classes que implementam essa interface o método getParent
@@ -73,4 +75,8 @@ public interface Environment extends CodeElement {
 	 * @throws ParserException
 	 */
 	void applyChanges() throws ParserException;
+	
+	public Change getChange();
+	
+	public void beginModification();
 }

@@ -1,6 +1,7 @@
 package org.ita.neutrino.eclipseaction;
 
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.IWorkbenchWindow;
 
 public interface IAction {
 	
@@ -17,4 +18,8 @@ public interface IAction {
 	 * Chamado quando a ação é executada
 	 */
 	public void run() throws ActionException;
+	
+	public IWorkbenchWindow getWindow();
+	
+	public void setWindow(IWorkbenchWindow window);
 }
