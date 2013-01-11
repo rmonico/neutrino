@@ -4,6 +4,7 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
 import org.eclipse.jdt.core.dom.IMethodBinding;
+import org.eclipse.jdt.core.dom.IPackageBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.ImportDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
@@ -40,6 +41,9 @@ class SourceFileParser {
 				IMethodBinding methodBinding = (IMethodBinding) node.resolveBinding();
 
 				typeBinding = methodBinding.getDeclaringClass();
+			} else if(node.resolveBinding() instanceof IPackageBinding) {
+				// TODO: O que fazer com o asterisco?
+				return false;
 			} else {
 				typeBinding = (ITypeBinding) node.resolveBinding();
 			}

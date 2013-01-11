@@ -2,7 +2,7 @@ package org.ita.neutrino.refactorings.extractmethod;
 
 import java.util.List;
 
-import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
+import org.ita.neutrino.refactorings.AbstractRefactoring;
 import org.ita.neutrino.tparsers.abstracttestparser.TestStatement;
 import org.ita.neutrino.tparsers.abstracttestparser.TestSuite;
 

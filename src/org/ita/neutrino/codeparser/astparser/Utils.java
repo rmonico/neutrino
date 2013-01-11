@@ -93,7 +93,7 @@ class Utils {
 	 * @param list
 	 * @param newOrder
 	 */
-	public static void rearrangeArray(List<ASTNode> list, Class<? extends ASTNode>... newOrder) {
+	public static void rearrangeArray(List<ASTNode> list, @SuppressWarnings("unchecked") Class<? extends ASTNode>... newOrder) {
 
 		for (int destIndex = 0; destIndex < newOrder.length; destIndex++) {
 			Class<? extends ASTNode> nodeClass = newOrder[destIndex];

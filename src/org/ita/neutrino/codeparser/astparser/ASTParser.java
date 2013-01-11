@@ -87,6 +87,7 @@ public class ASTParser implements CodeParser {
 	 * @param activeCompilationUnit
 	 */
 	private void doASTParsing() {
+		@SuppressWarnings("deprecation")
 		org.eclipse.jdt.core.dom.ASTParser parser = org.eclipse.jdt.core.dom.ASTParser.newParser(AST.JLS3);
 		parser.setKind(org.eclipse.jdt.core.dom.ASTParser.K_COMPILATION_UNIT);
 		parser.setSource(activeCompilationUnit);

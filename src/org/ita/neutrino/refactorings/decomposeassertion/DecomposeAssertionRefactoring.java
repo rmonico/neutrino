@@ -4,7 +4,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
-import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
+import org.ita.neutrino.refactorings.AbstractRefactoring;
 import org.ita.neutrino.tparsers.abstracttestparser.Assertion;
 
 public class DecomposeAssertionRefactoring extends AbstractRefactoring {

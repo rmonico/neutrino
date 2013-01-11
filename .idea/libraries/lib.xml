@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/guava-r09.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Utils.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/guice-3.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

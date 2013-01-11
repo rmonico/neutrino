@@ -1,6 +1,6 @@
 package org.ita.neutrino.tests.extractinitializationmethod;
 
-import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
+import org.ita.neutrino.refactorings.AbstractRefactoring;
 import org.ita.neutrino.refactorings.extractinitializationmethod.ExtractInitializationMethodRefactoring;
 import org.ita.neutrino.tests.RefactoringAbstractTests;
 

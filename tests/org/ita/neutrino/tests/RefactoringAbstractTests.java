@@ -2,11 +2,13 @@ package org.ita.neutrino.tests;
 
 import static br.zero.utils.JUnitUtils.assertBlockEquals;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
 import org.ita.neutrino.codeparser.ParserException;
-import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
-import org.ita.neutrino.refactorings.abstracrefactoring.RefactoringException;
+import org.ita.neutrino.refactorings.AbstractRefactoring;
+import org.ita.neutrino.refactorings.RefactoringException;
 import org.ita.neutrino.tparsers.abstracttestparser.TestBattery;
 import org.ita.neutrino.tparsers.abstracttestparser.TestParserException;
 import org.ita.neutrino.tparsers.junitgenericparser.JUnitGenericParser;
@@ -42,7 +44,15 @@ public abstract class RefactoringAbstractTests extends PluginAbstractTests {
 		// Define em que arquivo fonte e local será feita a refatoração
 		refactoring.setTargetFragment(battery.getSelection().getSelectedFragment());
 
-		refactoring.refactor();
+		try {
+			refactoring.checkFinalConditions(null);
+		} catch (OperationCanceledException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		// Verificação
 		String afterRefactoringSource = refactoredCompilationUnit.getSource();

@@ -1,6 +1,6 @@
 package org.ita.neutrino.tests.extractfinalizationmethod;
 
-import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
+import org.ita.neutrino.refactorings.AbstractRefactoring;
 import org.ita.neutrino.refactorings.extractfinalizationmethod.ExtractFinalizationMethodRefactoring;
 import org.ita.neutrino.tests.RefactoringAbstractTests;
 

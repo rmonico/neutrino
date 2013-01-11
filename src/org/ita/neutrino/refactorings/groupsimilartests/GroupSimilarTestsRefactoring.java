@@ -4,43 +4,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 import org.ita.neutrino.codeparser.astparser.ASTMethodInvocationStatement;
 import org.ita.neutrino.codeparser.astparser.ASTVariableDeclarationStatement;
 import org.ita.neutrino.codeparser.astparser.QuickVisitor;
 import org.ita.neutrino.debug.ConsoleVisitor;
-import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
-import org.ita.neutrino.refactorings.abstracrefactoring.RefactoringException;
+import org.ita.neutrino.refactorings.AbstractRefactoring;
 import org.ita.neutrino.tparsers.abstracttestparser.TestMethod;
 import org.ita.neutrino.tparsers.abstracttestparser.TestStatement;
 
 public class GroupSimilarTestsRefactoring extends AbstractRefactoring {
 	private TestMethod targetMethod;
 	private List<TestMethod> commomTestMethod;
-
-	@Override
-	public List<String> checkInitialConditions() {
-		List<String> problems = new ArrayList<String>();
-
-		if ((!(getTargetFragment() instanceof TestMethod)) || (getTargetFragment() == null)) {
-			problems.add("Selection is not valid. Select a method.");
-		} else {
-			targetMethod = (TestMethod) getTargetFragment();
-
-			commomTestMethod = getCommomTestMethod();
-			if (commomTestMethod.size() < 1) {
-				problems.add("There is no common interaction tests");
-			}
-		}
-
-		return problems;
-	}
-
-	@Override
-	protected void doRefactor() throws RefactoringException {
-		// TODO Auto-generated method stub
-
-	}
 
 	private List<TestMethod> getCommomTestMethod() {
 		List<TestMethod> similarTestMethod = new ArrayList<TestMethod>();
@@ -103,5 +82,36 @@ public class GroupSimilarTestsRefactoring extends AbstractRefactoring {
 			return true;
 		}
 		return true;
+	}
+
+	@Override
+	public String getName() {
+		return "Group incremental tests";
+	}
+
+	@Override
+	public RefactoringStatus checkInitialConditions(IProgressMonitor pm)
+			throws CoreException, OperationCanceledException {
+		RefactoringStatus status = new RefactoringStatus();
+
+		if ((!(getTargetFragment() instanceof TestMethod)) || (getTargetFragment() == null)) {
+			status.merge(RefactoringStatus.createFatalErrorStatus("Selection is not valid. Select a method."));
+		} else {
+			targetMethod = (TestMethod) getTargetFragment();
+
+			commomTestMethod = getCommomTestMethod();
+			if (commomTestMethod.size() < 1) {
+				status.merge(RefactoringStatus.createFatalErrorStatus("There is no common interaction tests"));
+			}
+		}
+
+		return status;
+	}
+
+	@Override
+	public RefactoringStatus checkFinalConditions(IProgressMonitor pm)
+			throws CoreException, OperationCanceledException {
+		// TODO Auto-generated method stub
+		return new RefactoringStatus();
 	}
 }

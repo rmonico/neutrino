@@ -44,7 +44,7 @@ Export-Package: org.ita.neutrino.codeparser;uses:="org.ita.neutrino.abstracttest
    org.eclipse.ui.plugin,
    org.eclipse.jface.viewers,
    org.osgi.framework",
- org.ita.neutrino.refactorings.abstracrefactoring;
+ org.ita.neutrino.refactorings;
   uses:="org.ita.neutrino.abstracttestparser,
    org.eclipse.jdt.core.dom,
    org.eclipse.jdt.core,

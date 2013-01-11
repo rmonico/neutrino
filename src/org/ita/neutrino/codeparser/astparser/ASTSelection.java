@@ -5,7 +5,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.ita.neutrino.codeparser.CodeElement;
 import org.ita.neutrino.codeparser.CodeSelection;
-import org.ita.neutrino.refactorings.abstracrefactoring.RefactoringUtils;
+import org.ita.neutrino.refactorings.RefactoringUtils;
 
 public class ASTSelection implements CodeSelection {
 

@@ -8,7 +8,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.ita.neutrino.codeparser.CodeSelection;
 import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.codeparser.astparser.ASTParser;
-import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
+import org.ita.neutrino.refactorings.AbstractRefactoring;
 import org.ita.neutrino.refactorings.addfixture.AddFixtureRefactoring;
 import org.ita.neutrino.tests.RefactoringAbstractTests;
 import org.ita.neutrino.tparsers.abstracttestparser.TestParserException;

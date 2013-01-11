@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.text.ITextSelection;
-import org.ita.neutrino.refactorings.abstracrefactoring.AbstractEclipseRefactoringAction;
-import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
+import org.eclipse.ltk.core.refactoring.Refactoring;
+import org.eclipse.ltk.ui.refactoring.RefactoringWizard;
+import org.ita.neutrino.refactorings.AbstractEclipseRefactoringAction;
+import org.ita.neutrino.refactorings.AbstractRefactoring;
+import org.ita.neutrino.refactorings.NoInputWizard;
 
 public class ExtractInitializationMethodAction extends AbstractEclipseRefactoringAction {
 
@@ -32,6 +35,11 @@ public class ExtractInitializationMethodAction extends AbstractEclipseRefactorin
 		ExtractInitializationMethodRefactoring refactoring = new ExtractInitializationMethodRefactoring();
 		
 		return refactoring;
+	}
+
+	@Override
+	protected RefactoringWizard createRefactoringWizard(Refactoring refactoring) {
+		return new NoInputWizard(refactoring, refactoring.getName());
 	}
 
 }

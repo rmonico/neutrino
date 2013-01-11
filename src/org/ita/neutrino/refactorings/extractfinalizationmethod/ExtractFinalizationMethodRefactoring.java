@@ -1,10 +1,12 @@
 package org.ita.neutrino.refactorings.extractfinalizationmethod;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 import org.ita.neutrino.codeparser.astparser.ASTMethodInvocationStatement;
-import org.ita.neutrino.refactorings.abstracrefactoring.RefactoringException;
 import org.ita.neutrino.refactorings.extractmethod.AbstractExtractMethodRefactoring;
 import org.ita.neutrino.tparsers.abstracttestparser.TestMethod;
 import org.ita.neutrino.tparsers.abstracttestparser.TestStatement;
@@ -14,30 +16,6 @@ public class ExtractFinalizationMethodRefactoring extends AbstractExtractMethodR
 
 	private TestSuite targetSuite;
 	private List<TestStatement> commomStatements;
-
-	@Override
-	public List<String> checkInitialConditions() {
-		List<String> problems = new ArrayList<String>();
-
-		if ((!(getTargetFragment() instanceof TestSuite)) || (getTargetFragment() == null)) {
-			problems.add("Selection must be a test suite (selection: \"" + getTargetFragment() + "\").");
-		} else {
-			targetSuite = (TestSuite) getTargetFragment();
-
-			commomStatements = listCommonStatements(targetSuite, false);
-
-			removeInvalidStatements();
-
-			if (commomStatements.isEmpty()) {
-				problems.add("Methods have no commom finalization. Unable to extract finalization method.");
-			}
-		}
-		
-		if (problems != null && problems.size() > 0) {
-			problems.add("Note: Select the class name of the test suite, press extract finalization method, all test methods must have at least the last line in commom, the commom lines up to the last assert will be extracted to a tear down method.");
-		}
-		return problems;
-	}
 
 	private void removeInvalidStatements() {
 		// Only statements after assignement which are expressions, should be moved.
@@ -60,8 +38,39 @@ public class ExtractFinalizationMethodRefactoring extends AbstractExtractMethodR
 	}
 
 	@Override
-	protected void doRefactor() throws RefactoringException {
+	public String getName() {
+		return "Extract finalization method";
+	}
 
+	@Override
+	public RefactoringStatus checkInitialConditions(IProgressMonitor pm)
+			throws CoreException, OperationCanceledException {
+		RefactoringStatus status = new RefactoringStatus();
+		
+		if ((!(getTargetFragment() instanceof TestSuite)) || (getTargetFragment() == null)) {
+			status.merge(RefactoringStatus.createFatalErrorStatus("Selection must be a test suite (selection: \"" + getTargetFragment() + "\")."));
+		} else {
+			targetSuite = (TestSuite) getTargetFragment();
+
+			commomStatements = listCommonStatements(targetSuite, false);
+
+			removeInvalidStatements();
+
+			if (commomStatements.isEmpty()) {
+				status.merge(RefactoringStatus.createFatalErrorStatus("Methods have no commom finalization. Unable to extract finalization method."));
+			}
+		}
+		
+		if (status.hasEntries()) {
+			status.merge(RefactoringStatus.createFatalErrorStatus("Note: Select the class name of the test suite, press extract finalization method, all test methods must have at least the last line in commom, the commom lines up to the last assert will be extracted to a tear down method."));
+		}
+		
+		return status;
+	}
+
+	@Override
+	public RefactoringStatus checkFinalConditions(IProgressMonitor pm)
+			throws CoreException, OperationCanceledException {
 		TestMethod afterMethod;
 
 		if (targetSuite.getAfterMethodList().isEmpty()) {
@@ -76,6 +85,8 @@ public class ExtractFinalizationMethodRefactoring extends AbstractExtractMethodR
 		for (TestMethod testMethod : targetSuite.getTestMethodList()) {
 			testMethod.removeStatements(testMethod.getStatements().size() - commomStatements.size(), commomStatements.size());
 		}
+		
+		return new RefactoringStatus();
 	}
 
 }

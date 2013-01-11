@@ -1,6 +1,6 @@
 package org.ita.neutrino.tests.addexplanation;
 
-import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
+import org.ita.neutrino.refactorings.AbstractRefactoring;
 import org.ita.neutrino.refactorings.addexplanation.AddExplanationRefactoring;
 import org.ita.neutrino.tests.RefactoringAbstractTests;
 

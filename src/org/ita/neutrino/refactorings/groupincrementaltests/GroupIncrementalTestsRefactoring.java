@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 import org.ita.neutrino.codeparser.astparser.ASTMethodInvocationStatement;
-import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
-import org.ita.neutrino.refactorings.abstracrefactoring.RefactoringException;
+import org.ita.neutrino.refactorings.AbstractRefactoring;
 import org.ita.neutrino.tparsers.abstracttestparser.TestMethod;
 import org.ita.neutrino.tparsers.abstracttestparser.TestStatement;
 import org.ita.neutrino.tparsers.abstracttestparser.TestSuite;
@@ -14,47 +17,12 @@ import org.ita.neutrino.tparsers.junitgenericparser.JUnitAssertion;
 
 public class GroupIncrementalTestsRefactoring extends AbstractRefactoring {
 	private TestMethod targetMethod;
-	private List<TestMethod> commomTestMethod;
-
-	@Override
-	public List<String> checkInitialConditions() {
-		List<String> problems = new ArrayList<String>();
-
-		if ((!(getTargetFragment() instanceof TestMethod)) || (getTargetFragment() == null)) {
-			problems.add("Selection is not valid. Select a method.");
-		} else {
-			targetMethod = (TestMethod) getTargetFragment();
-
-			commomTestMethod = getCommomTestMethod();
-			if (commomTestMethod.size() < 1) {
-				problems.add("There is no common interaction tests");
-			}
-		}
-
-		if (problems != null && problems.size() > 0) {
-			problems.add("Note: Select the bigger method wich groups smaller ones, press group incremental tests, all asserts will be brought to the selected method, the smaller methods will be removed.");
-		}
-		return problems;
-	}
-
-	@Override
-	protected void doRefactor() throws RefactoringException {
-		if (commomTestMethod != null && commomTestMethod.size() > 0) {
-			groupAsserts();
-
-			TestSuite ts = targetMethod.getParent();
-
-			// remove inner tests.
-			for (TestMethod tm : commomTestMethod) {
-				ts.removeTestMethod(tm);
-			}
-		}
-	}
+	private List<TestMethod> commonTestMethod;
 
 	private void groupAsserts() {
 		int originalCursor = 0;
 		int modifiedCursor = 0;
-		for (TestMethod tm : commomTestMethod) {
+		for (TestMethod tm : commonTestMethod) {
 			List<TestStatement> temp = new ArrayList<TestStatement>();
 			temp.addAll(tm.getStatements());
 
@@ -110,5 +78,49 @@ public class GroupIncrementalTestsRefactoring extends AbstractRefactoring {
 			}
 		}
 		return commomTestMethod;
+	}
+
+	@Override
+	public String getName() {
+		return "Group incremental tests";
+	}
+
+	@Override
+	public RefactoringStatus checkInitialConditions(IProgressMonitor pm)
+			throws CoreException, OperationCanceledException {
+		RefactoringStatus status = new RefactoringStatus();
+
+		if ((!(getTargetFragment() instanceof TestMethod)) || (getTargetFragment() == null)) {
+			status.merge(RefactoringStatus.createFatalErrorStatus("Selection is not valid. Select a method."));
+		} else {
+			targetMethod = (TestMethod) getTargetFragment();
+
+			commonTestMethod = getCommomTestMethod();
+			if (commonTestMethod.size() < 1) {
+				status.merge(RefactoringStatus.createFatalErrorStatus("There is no common interaction tests"));
+			}
+		}
+
+		if (status.hasEntries()) {
+			status.merge(RefactoringStatus.createInfoStatus("Note: Select the bigger method wich groups smaller ones, press group incremental tests, all asserts will be brought to the selected method, the smaller methods will be removed."));
+		}
+		return status;
+	}
+
+	@Override
+	public RefactoringStatus checkFinalConditions(IProgressMonitor pm)
+			throws CoreException, OperationCanceledException {
+		if (commonTestMethod != null && commonTestMethod.size() > 0) {
+			groupAsserts();
+
+			TestSuite ts = targetMethod.getParent();
+
+			// remove inner tests.
+			for (TestMethod tm : commonTestMethod) {
+				ts.removeTestMethod(tm);
+			}
+		}
+		
+		return new RefactoringStatus();
 	}
 }

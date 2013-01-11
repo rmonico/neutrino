@@ -6,9 +6,9 @@ import java.util.List;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.ltk.core.refactoring.Refactoring;
 import org.eclipse.ltk.ui.refactoring.RefactoringWizard;
-import org.ita.neutrino.refactorings.abstracrefactoring.AbstractEclipseRefactoringAction;
-import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
-import org.ita.neutrino.refactorings.abstracrefactoring.NoInputWizard;
+import org.ita.neutrino.refactorings.AbstractEclipseRefactoringAction;
+import org.ita.neutrino.refactorings.AbstractRefactoring;
+import org.ita.neutrino.refactorings.NoInputWizard;
 
 public class AddFixtureAction extends AbstractEclipseRefactoringAction  {
 

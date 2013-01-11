@@ -1,6 +1,6 @@
 package org.ita.neutrino.tests.groupsimilar;
 
-import org.ita.neutrino.refactorings.abstracrefactoring.AbstractRefactoring;
+import org.ita.neutrino.refactorings.AbstractRefactoring;
 import org.ita.neutrino.refactorings.groupsimilartests.GroupSimilarTestsRefactoring;
 import org.ita.neutrino.tests.RefactoringAbstractTests;
 
