@@ -98,16 +98,6 @@ public class ASTSourceFile extends AbstractCodeElement implements SourceFile,
 		return astObject;
 	}
 	
-	// TODO: XGO alert
-	public ASTRewrite getRewrite() {
-		return astObject.getRewrite();
-	}
-
-	// TODO: XGO alert
-	public ICompilationUnit getUnit() {
-		return astObject.getICompilationUnit();
-	}
-	
 	@Override
 	public String getFileName() {
 		return fileName;
