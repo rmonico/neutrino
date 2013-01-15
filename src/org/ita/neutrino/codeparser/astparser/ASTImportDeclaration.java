@@ -8,6 +8,7 @@ import org.ita.neutrino.codeparser.TypeListener;
 public class ASTImportDeclaration extends AbstractCodeElement implements ImportDeclaration, ASTWrapper<org.eclipse.jdt.core.dom.ImportDeclaration> {
 
 	private boolean isStatic;
+	private boolean isPackage;
 	private Type importedType;
 	private TypeListener importedTypeListener = new ImportedTypeListener();
 	private org.eclipse.jdt.core.dom.ImportDeclaration astObject;
@@ -85,6 +86,16 @@ public class ASTImportDeclaration extends AbstractCodeElement implements ImportD
 		sb.append(importedType.getQualifiedName() + ";");
 
 		return sb.toString();
+	}
+
+	@Override
+	public boolean isPackage() {
+		return isPackage;
+	}
+
+	@Override
+	public void setPackage(boolean isPack) {
+		isPackage = isPack;
 	}
 
 }

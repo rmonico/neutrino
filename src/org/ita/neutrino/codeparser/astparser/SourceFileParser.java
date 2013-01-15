@@ -42,20 +42,22 @@ class SourceFileParser {
 
 				typeBinding = methodBinding.getDeclaringClass();
 			} else if(node.resolveBinding() instanceof IPackageBinding) {
-				// TODO: O que fazer com o asterisco?
-				return false;
+				typeBinding = null;
 			} else {
 				typeBinding = (ITypeBinding) node.resolveBinding();
 			}
 
 			Type type;
-
-			if (typeBinding.isClass()) {
-				type = environment.getTypeCache().getOrCreateClass(node.getName().getFullyQualifiedName());
-			} else if (typeBinding.isAnnotation()) {
-				type = environment.getTypeCache().getOrCreateAnnotation(node.getName().getFullyQualifiedName());
+			if(typeBinding != null) {
+				if (typeBinding.isClass()) {
+					type = environment.getTypeCache().getOrCreateClass(node.getName().getFullyQualifiedName());
+				} else if (typeBinding.isAnnotation()) {
+					type = environment.getTypeCache().getOrCreateAnnotation(node.getName().getFullyQualifiedName());
+				} else {
+					type = environment.getTypeCache().get(node.getName());
+				}
 			} else {
-				type = environment.getTypeCache().get(node.getName());
+				type = null;
 			}
 
 			_import.setType(type);

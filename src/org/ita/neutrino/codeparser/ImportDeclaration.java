@@ -7,4 +7,8 @@ public interface ImportDeclaration extends CodeElement {
 	Type getType();
 	
 	SourceFile getParent();
+	
+	boolean isPackage();
+	
+	void setPackage(boolean isPack);
 }
