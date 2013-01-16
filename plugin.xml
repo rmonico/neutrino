@@ -74,7 +74,7 @@
                id="org.ita.neutrino.refactorings.decomposeassertion.DecomposeAssertionAction">
          </action>
          <action
-               label="Add Fixture Method"
+               label="Add Fixture"
                menubarPath="org.ita.neutrino.menu/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.refactorings.addfixture.AddFixtureAction">
@@ -211,7 +211,7 @@
                id="org.ita.neutrino.refactorings.decomposeassertion.DecomposeAssertionAction">
          </action>       
          <action
-               label="Add Fixture Method"
+               label="Add Fixture"
                menubarPath="Test Refactorings/refactorings"
                class="org.ita.neutrino.eclipseaction.ActionController"
                id="org.ita.neutrino.refactorings.addfixture.AddFixtureAction">

@@ -18,8 +18,7 @@ public class InputFinalizationRefactoring extends AbstractExtractMethodRefactori
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Input finalization";
 	}
 
 	@Override

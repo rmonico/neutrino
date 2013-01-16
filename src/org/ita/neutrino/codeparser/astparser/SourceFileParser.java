@@ -56,11 +56,9 @@ class SourceFileParser {
 				} else {
 					type = environment.getTypeCache().get(node.getName());
 				}
-			} else {
-				type = null;
+				_import.setType(type);
 			}
-
-			_import.setType(type);
+			else _import.setType(null);
 
 			_import.setASTObject(node);
 

@@ -3,10 +3,7 @@ package org.ita.neutrino.codeparser.astparser;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JOptionPane;
-
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
@@ -23,7 +20,6 @@ import org.ita.neutrino.codeparser.Constructor;
 import org.ita.neutrino.codeparser.Environment;
 import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.Package;
-import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.TypeCache;
 import org.ita.neutrino.codeparser.TypeListener;
@@ -342,23 +338,23 @@ public class ASTEnvironment extends AbstractCodeElement implements Environment, 
 		return expressionFactory;
 	}
 
-	@Override
-	public void applyChanges() throws ParserException {
-		for (ASTPackage pack : packageList.values()) {
-			for (ASTSourceFile sourceFile : pack.getSourceFileList().values()) {
-				try {
-					if(sourceFile.getASTObject() == null) JOptionPane.showMessageDialog(null, "astobject " + sourceFile.getFileName());
-					if(sourceFile.getASTObject().getICompilationUnit() == null) JOptionPane.showMessageDialog(null, "icompilationunit " + sourceFile.getFileName());
-					if(sourceFile.getASTObject().getRewrite() == null) JOptionPane.showMessageDialog(null, "rewrite " + sourceFile.getFileName());
-					sourceFile.getASTObject().getICompilationUnit().applyTextEdit(sourceFile.getASTObject().getRewrite().rewriteAST(), new NullProgressMonitor());
-				} catch (JavaModelException e) {
-					throw new ParserException(e);
-				} catch (IllegalArgumentException e) {
-					throw new ParserException(e);
-				}
-			}
-		}
-	}
+//	@Override
+//	public void applyChanges() throws ParserException {
+//		for (ASTPackage pack : packageList.values()) {
+//			for (ASTSourceFile sourceFile : pack.getSourceFileList().values()) {
+//				try {
+//					if(sourceFile.getASTObject() == null) JOptionPane.showMessageDialog(null, "astobject " + sourceFile.getFileName());
+//					if(sourceFile.getASTObject().getICompilationUnit() == null) JOptionPane.showMessageDialog(null, "icompilationunit " + sourceFile.getFileName());
+//					if(sourceFile.getASTObject().getRewrite() == null) JOptionPane.showMessageDialog(null, "rewrite " + sourceFile.getFileName());
+//					sourceFile.getASTObject().getICompilationUnit().applyTextEdit(sourceFile.getASTObject().getRewrite().rewriteAST(), new NullProgressMonitor());
+//				} catch (JavaModelException e) {
+//					throw new ParserException(e);
+//				} catch (IllegalArgumentException e) {
+//					throw new ParserException(e);
+//				}
+//			}
+//		}
+//	}
 	
 	public void beginModification() {
 		for (ASTPackage pack : packageList.values()) 
@@ -371,13 +367,15 @@ public class ASTEnvironment extends AbstractCodeElement implements Environment, 
 		
 		for (ASTPackage pack : packageList.values()) {
 			for (ASTSourceFile sourceFile : pack.getSourceFileList().values()) {
-				if(sourceFile.isModified())
+				if(sourceFile.isModified()) {
 					try {
 						TextEdit edit = sourceFile.getASTObject().getRewrite().rewriteAST();
 						ICompilationUnit unit = sourceFile.getASTObject().getICompilationUnit();
 						TextFileChange change = new TextFileChange(unit.getElementName(), (IFile) unit.getResource());
+						
 						change.setEdit(edit);
 						change.setTextType("java");
+						
 						compositeChange.add(change);
 					} catch (MalformedTreeException e) {
 						e.printStackTrace();
@@ -386,6 +384,7 @@ public class ASTEnvironment extends AbstractCodeElement implements Environment, 
 					} catch (IllegalArgumentException e) {
 						e.printStackTrace();
 					}
+				}
 			}
 		}
 		

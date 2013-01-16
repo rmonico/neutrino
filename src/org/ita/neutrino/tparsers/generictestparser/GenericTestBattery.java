@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.eclipse.ltk.core.refactoring.Change;
 import org.ita.neutrino.codeparser.Environment;
-import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.tparsers.abstracttestparser.TestBattery;
 import org.ita.neutrino.tparsers.abstracttestparser.TestElement;
 import org.ita.neutrino.tparsers.abstracttestparser.TestParserException;
@@ -57,14 +56,13 @@ class GenericTestBattery implements TestBattery {
 		return this.environment;
 	}
 
-	@Override
-	public void applyChanges() throws TestParserException {
-		try {
-			environment.applyChanges();
-		} catch (ParserException e) {
-			throw new TestParserException(e);
-		}		
-	}
+//	public void applyChanges() throws TestParserException {
+//		try {
+//			environment.applyChanges();
+//		} catch (ParserException e) {
+//			throw new TestParserException(e);
+//		}		
+//	}
 	
 	private void parse() throws TestParserException {
 		for (TestFramework fx : this.implementations) {
@@ -85,12 +83,6 @@ class GenericTestBattery implements TestBattery {
 				this.testSelection = results.testSelection;
 			}
 		}
-	}
-
-	@Override
-	public TestSuite createNewSuite(String suiteName, String packageName) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

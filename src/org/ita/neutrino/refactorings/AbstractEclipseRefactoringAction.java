@@ -17,6 +17,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.ita.neutrino.codeparser.Environment;
 import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.codeparser.astparser.ASTParser;
@@ -109,6 +110,8 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 	
 		TestBattery battery = doTestParsing(environment);
 		
+		environment.beginModification();
+		
 		refactoringObject = createRefactoringObject();
 		refactoringWizard = createRefactoringWizard(refactoringObject);
 		
@@ -122,6 +125,9 @@ public abstract class AbstractEclipseRefactoringAction implements IAction {
 		refactoringObject.setTargetFragment(element);
 		
 		RefactoringWizardOpenOperation operation = new RefactoringWizardOpenOperation(refactoringWizard);
+		
+		if(window == null)
+			window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		try {
 			operation.run(window.getShell(), getRefactoringName());
 		} catch (InterruptedException e) {

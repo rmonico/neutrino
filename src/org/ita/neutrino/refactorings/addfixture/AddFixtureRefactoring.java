@@ -55,7 +55,6 @@ public class AddFixtureRefactoring extends AbstractRefactoring {
 		try {
 			ts.createNewFixture(targetAction);
 		} catch (InvalidActivityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

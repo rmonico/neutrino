@@ -235,6 +235,13 @@ public class ASTSourceFile extends AbstractCodeElement implements SourceFile,
 	}
 	
 	public boolean isModified() {
+/*		StringBuilder sb = new StringBuilder();
+		sb.append(modificationCount);
+		sb.append(" < ");
+		sb.append(this.getASTObject().getCompilationUnit().getAST().modificationCount());
+		sb.append(" ?");
+		System.out.println(sb.toString());*/
+		
 		if(modificationCount < this.getASTObject().getCompilationUnit().getAST().modificationCount()) 
 			return true;
 		else return false;

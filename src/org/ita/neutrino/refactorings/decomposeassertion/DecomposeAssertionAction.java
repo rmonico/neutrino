@@ -20,14 +20,12 @@ public class DecomposeAssertionAction extends AbstractEclipseRefactoringAction {
 
 	@Override
 	protected List<String> checkPreConditions() {
-		System.out.println("checkPreConditions");
 		List<String> lst = new ArrayList<String>();
 		return lst;
 	}
 
 	@Override
 	protected AbstractRefactoring createRefactoringObject() {
-		System.out.println("createRefactoringObject");
 		refactoring = new DecomposeAssertionRefactoring();
 		return refactoring;
 	}

@@ -21,9 +21,7 @@ public interface TestBattery extends TestElement<Environment> {
 	@Override
 	public abstract Environment getCodeElement();
 
-	public abstract void applyChanges() throws TestParserException;
-	
-	public abstract TestSuite createNewSuite(String suiteName, String packageName);
+	//public abstract void applyChanges() throws TestParserException;
 	
 	public Change getChange();
 }

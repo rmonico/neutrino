@@ -74,7 +74,7 @@ public interface Environment extends CodeElement {
 	 * 
 	 * @throws ParserException
 	 */
-	void applyChanges() throws ParserException;
+	// void applyChanges() throws ParserException;
 	
 	public Change getChange();
 	

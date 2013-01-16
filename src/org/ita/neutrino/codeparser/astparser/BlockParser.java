@@ -51,7 +51,7 @@ class BlockParser {
 
 	private void parseStatement(ASTNode node) throws ParserException {
 //		Debug purposes
-		ConsoleVisitor.showNodes(node);
+		//ConsoleVisitor.showNodes(node);
 
 		Statement statement = null;
 

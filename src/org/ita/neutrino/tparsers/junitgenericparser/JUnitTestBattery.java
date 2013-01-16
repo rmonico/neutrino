@@ -5,13 +5,9 @@ import java.util.List;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.ita.neutrino.codeparser.CodeSelection;
 import org.ita.neutrino.codeparser.Environment;
-import org.ita.neutrino.codeparser.MutablePackage;
 import org.ita.neutrino.codeparser.MutableType;
-import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.tparsers.abstracttestparser.TestBattery;
 import org.ita.neutrino.tparsers.abstracttestparser.TestElement;
-import org.ita.neutrino.tparsers.abstracttestparser.TestParserException;
-import org.ita.neutrino.tparsers.abstracttestparser.TestSuite;
 
 public abstract class JUnitTestBattery implements TestBattery {
 
@@ -75,31 +71,17 @@ public abstract class JUnitTestBattery implements TestBattery {
 		return selection;
 	}
 
-	@Override
-	public void applyChanges() throws TestParserException {
-		try {
-			environment.applyChanges();
-		} catch (ParserException e) {
-			throw new TestParserException(e);
-		}
-	}
+//	@Override
+//	public void applyChanges() throws TestParserException {
+//		try {
+//			environment.applyChanges();
+//		} catch (ParserException e) {
+//			throw new TestParserException(e);
+//		}
+//	}
 
 	@Override
 	public TestElement<?> getParent() {
-		return null;
-	}
-	
-	@Override
-	public TestSuite createNewSuite(String suiteName, String packageName) {
-		// TODO
-		MutablePackage classPackage = (MutablePackage) getCodeElement().getPackageList().get(packageName);
-		classPackage.createNewClass(suiteName, null);
-		/*
-		try {
-			applyChanges();
-		} catch (TestParserException e) {
-			e.printStackTrace();
-		}*/
 		return null;
 	}
 	

@@ -23,7 +23,6 @@ public class InputInitializationAction extends AbstractEclipseRefactoringAction 
 	@Override
 	protected List<String> checkPreConditions() {
 		// TODO Auto-generated method stub
-		System.out.println("checkPreConditions");
 		List<String> lst = new ArrayList<String>();
 		return lst;
 	}
@@ -31,7 +30,6 @@ public class InputInitializationAction extends AbstractEclipseRefactoringAction 
 	@Override
 	protected AbstractRefactoring createRefactoringObject() {
 		// TODO Auto-generated method stub
-		System.out.println("createRefactoringObject");
 		refactoring = new InputInitializationRefactoring();
 		return refactoring;
 	}

@@ -216,7 +216,7 @@ class ClassParser implements ASTTypeParser<ASTClass> {
 	}
 
 	private void findMethodSelection(ASTEnvironment environment) {
-		ConsoleVisitor.showNodes((ASTNode) clazz.getASTObject());
+		//ConsoleVisitor.showNodes((ASTNode) clazz.getASTObject());
 		ASTSelection selection = environment.getSelection();
 
 		if (clazz != null && clazz.getMethodList().size() > 0) {

@@ -20,7 +20,6 @@ public class GroupSimilarTestsAction extends AbstractEclipseRefactoringAction {
 
 	@Override
 	protected List<String> checkPreConditions() {
-		System.out.println("checkPreConditions");
 		List<String> lst = new ArrayList<String>();
 		return lst;
 	}
@@ -33,7 +32,6 @@ public class GroupSimilarTestsAction extends AbstractEclipseRefactoringAction {
 
 	@Override
 	protected AbstractRefactoring createRefactoringObject() {
-		System.out.println("createRefactoringObject");
 		refactoring = new GroupSimilarTestsRefactoring();
 		return refactoring;
 	}

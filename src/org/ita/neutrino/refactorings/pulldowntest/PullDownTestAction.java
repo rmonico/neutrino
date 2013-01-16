@@ -20,7 +20,6 @@ public class PullDownTestAction extends AbstractEclipseRefactoringAction {
 
 	@Override
 	protected List<String> checkPreConditions() {
-		System.out.println("checkPreConditions");
 		// TODO stub
 		List<String> lst = new ArrayList<String>();
 		return lst;
@@ -28,7 +27,6 @@ public class PullDownTestAction extends AbstractEclipseRefactoringAction {
 
 	@Override
 	protected AbstractRefactoring createRefactoringObject() {
-		System.out.println("createRefactoringObject");
 		refactoring = new PullDownTestRefactoring();
 		return refactoring;
 	}
