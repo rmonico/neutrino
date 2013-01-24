@@ -17,7 +17,6 @@ import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.TypeKind;
-import org.ita.neutrino.debug.ConsoleVisitor;
 
 class ClassParser implements ASTTypeParser<ASTClass> {
 
