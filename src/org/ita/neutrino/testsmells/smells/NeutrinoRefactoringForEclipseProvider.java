@@ -1,7 +1,8 @@
 package org.ita.neutrino.testsmells.smells;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.viewers.ISelection;
 import org.ita.neutrino.eclipseaction.ActionException;
-import org.ita.neutrino.refactorings.AbstractEclipseRefactoringAction;
+import org.ita.neutrino.refactorings.AbstractEclipseRefactoringCommandHandler;
 import org.ita.neutrino.testsmells.core.EclipseRefactoring;
 import org.ita.neutrino.testsmells.core.Injector;
 
@@ -18,10 +19,13 @@ public class NeutrinoRefactoringForEclipseProvider implements IEclipseRefactorin
 
 			@Override
 			public void run(ISelection selection) throws ActionException {	
-				AbstractEclipseRefactoringAction action = 
+				AbstractEclipseRefactoringCommandHandler action = 
 					Injector.getInjector().getInstance(configuration.value());
-				action.setSelection(selection);
-				action.run();
+				try {
+					action.execute(null);
+				} catch (ExecutionException e) {
+					e.printStackTrace();
+				}
 			}
 
 			@Override

@@ -3,7 +3,7 @@ package org.ita.neutrino.testsmells.smells;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
-import org.ita.neutrino.refactorings.extractinitializationmethod.ExtractInitializationMethodAction;
+import org.ita.neutrino.refactorings.extractinitializationmethod.ExtractInitializationMethodHandler;
 import org.ita.neutrino.refactorings.extractmethod.CommonStatementFinder;
 import org.ita.neutrino.testsmells.core.MarkerManager;
 import org.ita.neutrino.tparsers.abstracttestparser.TestStatement;
@@ -12,7 +12,7 @@ import org.ita.neutrino.tparsers.abstracttestparser.TestSuite;
 import com.google.inject.Inject;
 
 @NeutrinoRefactoringForEclipse(
-		value=ExtractInitializationMethodAction.class,
+		value=ExtractInitializationMethodHandler.class,
 		title="Extract to setup method",
 		description="Extracts the repeated initialization code into a setup method")
 public class DuplicatedSetUpCodeSmell implements TestCodeSmell<TestSuite> {

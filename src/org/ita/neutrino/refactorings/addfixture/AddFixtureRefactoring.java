@@ -21,7 +21,7 @@ public class AddFixtureRefactoring extends AbstractRefactoring {
 
 	@Override
 	public String getName() {
-		return "Add fixture";
+		return "Add Fixture";
 	}
 
 	@Override

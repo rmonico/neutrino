@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
+	<!-- DEPRECATED 
    <extension
          point="org.eclipse.ui.actionSets">
       <actionSet
@@ -86,6 +87,8 @@
                id="org.ita.neutrino.refactorings.addexplanation.AddExplanationAction">
          </action>
          
+         
+         DEBUG
          <action
                label="Run JUnits"
                menubarPath="org.ita.neutrino.menu/testGroup1"
@@ -98,6 +101,8 @@
           label="Detect smells automatically"
           menubarPath="org.ita.neutrino.menu/testsmells"
           class="org.ita.neutrino.testsmells.ActionController"
+          style="toggle"
+          state="false"
           id="org.ita.neutrino.testsmells.ToggleNature" />
       <action
            label="(Re)run smell detection"
@@ -106,7 +111,10 @@
            id="org.ita.neutrino.testsmells.RunDetection" />
       </actionSet>
    </extension>
+-->
    
+
+  <!-- Smell detection builder -->
   <extension
     id="org.ita.neutrino.testsmells.TestSmellDetectionBuilder"
     name="Test Smell Detection Builder"
@@ -116,6 +124,8 @@
       </run>
     </builder>
   </extension>
+
+  <!-- Smell detection nature -->
   <extension
         id="org.ita.neutrino.testsmells.TestSmellDetectionNature"
         name="Test Smell Detection Nature"
@@ -127,6 +137,8 @@
     <builder id="org.ita.neutrino.testsmells.TestSmellDetectionBuilder">
     </builder>
   </extension>
+
+  <!-- Smell detection marker -->
   <extension
         id="org.ita.neutrino.testsmells.marker"
         name="Test code smell"
@@ -135,6 +147,8 @@
     <super type="org.eclipse.core.resources.problemmarker" />
     <attribute name="smellType" />
   </extension>
+	
+  <!-- Smell detection marker resolution -->
   <extension
         id="org.ita.plugins.testsmells.markerresolutionextension"
         name="Quick Fixes for Test Code Smells"
@@ -144,7 +158,7 @@
        class="org.ita.neutrino.testsmells.QuickFixGenerator" />
   </extension>
    
-  
+  <!-- DEPRECATED
     <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
@@ -224,6 +238,9 @@
          </action>
       </objectContribution>
    </extension>
+   -->
+
+   <!-- Neutrino Product -->
     <extension
           id="ITANeutrinoProduct"
           point="org.eclipse.core.runtime.products">
@@ -236,4 +253,180 @@
           </property>
        </product>
     </extension>
+    
+	<!-- Commands -->
+	<extension
+			point="org.eclipse.ui.commands">
+			<command
+				id="org.ita.neutrino.refactorings.addexplanation"
+				name="Add Explanation">
+				<defaultHandler
+					class="org.ita.neutrino.refactorings.addexplanation.AddExplanationHandler">
+				</defaultHandler>
+			</command>
+			<command
+				id="org.ita.neutrino.refactorings.addfixture"
+				name="Add Fixture">
+				<defaultHandler
+					class="org.ita.neutrino.refactorings.addfixture.AddFixtureHandler">
+				</defaultHandler>
+			</command>
+			<command
+				id="org.ita.neutrino.refactorings.decomposeassertion"
+				name="Decompose Assertion">
+				<defaultHandler
+					class="org.ita.neutrino.refactorings.decomposeassertion.DecomposeAssertionHandler">
+				</defaultHandler>
+			</command>
+			<command
+				id="org.ita.neutrino.refactorings.extractfinalizationmethod"
+				name="Extract Finalization Method">
+				<defaultHandler
+					class="org.ita.neutrino.refactorings.extractfinalizationmethod.ExtractFinalizationMethodHandler">
+				</defaultHandler>
+			</command>
+			<command
+				id="org.ita.neutrino.refactorings.extractinitializationmethod"
+				name="Extract Initialization Method">
+				<defaultHandler
+					class="org.ita.neutrino.refactorings.extractinitializationmethod.ExtractInitializationMethodHandler">
+				</defaultHandler>
+			</command>
+			<command
+				id="org.ita.neutrino.refactorings.inputfinalization"
+				name="Input Finalization">
+				<defaultHandler
+					class="org.ita.neutrino.refactorings.inputfinalization.InputFinalizationHandler">
+				</defaultHandler>
+			</command>
+			<command
+				id="org.ita.neutrino.refactorings.inputinitialization"
+				name="Input Initialization">
+				<defaultHandler
+					class="org.ita.neutrino.refactorings.inputinitialization.InputInitializationHandler">
+				</defaultHandler>
+			</command>
+			<command
+				id="org.ita.neutrino.refactorings.pulldowntest"
+				name="Pull Down Test">
+				<defaultHandler
+					class="org.ita.neutrino.refactorings.pulldowntest.PullDownTestHandler">
+				</defaultHandler>
+			</command>
+			<command
+				id="org.ita.neutrino.refactorings.pulluptest"
+				name="Pull Up Test">
+				<defaultHandler
+					class="org.ita.neutrino.refactorings.pulluptest.PullUpTestHandler">
+				</defaultHandler>
+			</command>
+			<command
+				id="org.ita.neutrino.refactorings.groupsimilartests"
+				name="Group Similar Tests">
+				<defaultHandler
+					class="org.ita.neutrino.refactorings.groupsimilartests.GroupSimilarTestsHandler">
+				</defaultHandler>
+			</command>
+			<command
+				id="org.ita.neutrino.refactorings.groupincrementaltests"
+				name="Group Incremental Tests">
+				<defaultHandler
+					class="org.ita.neutrino.refactorings.groupincrementaltests.GroupIncrementalTestsHandler">
+				</defaultHandler>
+			</command>
+			<command
+				id="org.ita.neutrino.refactorings.splitincrementaltests"
+				name="Split Incremental Tests">
+				<defaultHandler
+					class="org.ita.neutrino.refactorings.splitincrementaltests.SplitIncrementalTestsHandler">
+				</defaultHandler>
+			</command>
+			<command
+				id="org.ita.neutrino.testsmells.ToggleNature"
+				name="Detect smells automatically">
+				<defaultHandler
+					class="org.ita.neutrino.testsmells.CommandHandler">
+				</defaultHandler>
+				<state
+					class="org.eclipse.ui.handlers.RegistryToggleState:true"
+					id="org.eclipse.ui.commands.toggleState">
+				</state>
+			</command> 
+			<command
+				id="org.ita.neutrino.testsmells.RunDetection"
+				name="(Re)run smell detection">
+				<defaultHandler
+					class="org.ita.neutrino.testsmells.CommandHandler">
+				</defaultHandler>
+			</command>
+	</extension>
+
+	<!-- Menus -->
+	<extension
+	        point="org.eclipse.ui.menus">
+				<menuContribution
+					locationURI="menu:org.eclipse.ui.main.menu">
+					<menu
+						label="Test Refactorings">
+						<command
+								commandId="org.ita.neutrino.refactorings.addexplanation"
+								label="Add explanation to assertion" />
+						<command
+								commandId="org.ita.neutrino.refactorings.addfixture"
+								label="Add fixture" />
+						<command
+								commandId="org.ita.neutrino.refactorings.decomposeassertion"
+								label="Decompose assertion" />
+						<command
+								commandId="org.ita.neutrino.refactorings.extractfinalizationmethod"
+								label="Extract finalization method" />
+						<command
+								commandId="org.ita.neutrino.refactorings.extractinitializationmethod"
+								label="Extract initialization method" />
+						<command
+								commandId="org.ita.neutrino.refactorings.inputfinalization"
+								label="Input finalization method" />
+						<command
+								commandId="org.ita.neutrino.refactorings.inputinitialization"
+								label="Input initialization" />
+						<command
+								commandId="org.ita.neutrino.refactorings.pulldowntest"
+								label="Pull down test" />
+						<command
+								commandId="org.ita.neutrino.refactorings.pulluptest"
+								label="Pull up test" />
+						<command
+								commandId="org.ita.neutrino.refactorings.groupsimilartests"
+								label="Group similar tests" />
+						<command
+								commandId="org.ita.neutrino.refactorings.groupincrementaltests"
+								label="Group incremental tests" />
+						<command
+								commandId="org.ita.neutrino.refactorings.splitincrementaltests"
+								label="Split incremental tests" />		
+						<command
+								commandId="org.ita.neutrino.testsmells.ToggleNature"
+								label="Detect smells automaticaly" 
+								style="toggle" />		
+						<command
+								commandId="org.ita.neutrino.testsmells.RunDetection"
+								label="(Re)run smell detection" />		
+					</menu>
+				</menuContribution>
+	</extension>
+
+    <!--
+    <extension point="org.eclipse.ui.commands">
+    	<command
+    		id="org.ita.neutrino.refactorings.addexplanation.AddExplanationAction"
+    		name="Add explanation to assertion"
+    		defaultHandler="org.ita.neutrino.eclipseaction.ActionController"
+    	/>
+    </extension>
+    <extension point="org.eclipse.ui.handlers">
+    	<handler
+    		commandId="org.ita.neutrino.refactorings.addexplanation.AddExplanationAction"
+    		class="org.ita.neutrino.eclipseaction.ActionController"
+    </extension>
+    -->
 </plugin>
