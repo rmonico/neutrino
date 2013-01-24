@@ -16,7 +16,6 @@ import org.ita.neutrino.codeparser.SourceFile;
 import org.ita.neutrino.codeparser.Statement;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.VariableDeclarationStatement;
-import org.ita.neutrino.debug.ConsoleVisitor;
 
 class BlockParser {
 
@@ -27,7 +26,11 @@ class BlockParser {
 		private static final long serialVersionUID = 3227126996063055111L;
 
 		public UnsupportedSintaxException() {
-			super("Sintax não suportada.");
+			super("Sintax error.");
+		}
+		
+		public UnsupportedSintaxException(String message) {
+			super("Sintax error: " + message);
 		}
 	}
 
@@ -64,7 +67,7 @@ class BlockParser {
 		} else if (node instanceof org.eclipse.jdt.core.dom.Statement) {
 			wrappAsGenericStatement = true;
 		} else {
-			throw new UnsupportedSintaxException();
+			throw new UnsupportedSintaxException("Unknown statement.");
 		}
 
 		if (wrappAsGenericStatement) {
@@ -118,23 +121,36 @@ class BlockParser {
 	 */
 	private VariableDeclarationStatement parseVariableDeclaration(org.eclipse.jdt.core.dom.VariableDeclarationStatement node) throws ParserException {
 		List<ASTNode> nodes = quickVisitor.quickVisit(node);
+		
+		org.eclipse.jdt.core.dom.Type variableTypeNode;
+		VariableDeclarationFragment variableFragment;
+		if(nodes.get(0) instanceof org.eclipse.jdt.core.dom.Type) {
+			variableTypeNode = (org.eclipse.jdt.core.dom.Type) nodes.get(0);
+			
+			if (!(nodes.get(1) instanceof VariableDeclarationFragment)) {
+				throw new UnsupportedSintaxException("Unexpected variable declaration second node.");
+			}
 
-		if (!(nodes.get(0) instanceof org.eclipse.jdt.core.dom.Type)) {
-			throw new UnsupportedSintaxException();
+			variableFragment = (VariableDeclarationFragment) nodes.get(1);
 		}
+		else if(nodes.get(0) instanceof org.eclipse.jdt.core.dom.Modifier) {
+			variableTypeNode = (org.eclipse.jdt.core.dom.Type) nodes.get(1);
+			
+			if (!(nodes.get(2) instanceof VariableDeclarationFragment)) {
+				throw new UnsupportedSintaxException("Unexpected variable declaration second node.");
+			}
 
-		org.eclipse.jdt.core.dom.Type variableTypeNode = (org.eclipse.jdt.core.dom.Type) nodes.get(0);
-
-		if (!(nodes.get(1) instanceof VariableDeclarationFragment)) {
-			throw new UnsupportedSintaxException();
+			variableFragment = (VariableDeclarationFragment) nodes.get(2);
 		}
-
-		VariableDeclarationFragment variableFragment = (VariableDeclarationFragment) nodes.get(1);
+		else {
+			throw new UnsupportedSintaxException("Unexpected variable declaration first node.");
+		}
+		
 
 		List<ASTNode> fragmentNodes = quickVisitor.quickVisit(variableFragment);
 
 		if (!(fragmentNodes.get(0) instanceof SimpleName)) {
-			throw new UnsupportedSintaxException();
+			throw new UnsupportedSintaxException("Variable name expected.");
 		}
 
 		SimpleName variableNameNode = (SimpleName) fragmentNodes.get(0);
