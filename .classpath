@@ -7,14 +7,5 @@
 	<classpathentry kind="lib" path="lib/guava-r09.jar"/>
 	<classpathentry kind="lib" path="lib/guice-3.0.jar"/>
 	<classpathentry kind="lib" path="lib/Utils.jar" sourcepath="/Utils/src"/>
-	<classpathentry kind="lib" path="C:/Program Files/Eclipse/plugins/org.eclipse.ltk.core.refactoring.source_3.6.0.v20120523-1543.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Eclipse/plugins/org.eclipse.ltk.core.refactoring_3.6.0.v20120523-1543.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Eclipse/plugins/org.eclipse.ltk.ui.refactoring.source_3.7.0.v20120523-1543.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Eclipse/plugins/org.eclipse.ltk.ui.refactoring_3.7.0.v20120523-1543.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Eclipse/plugins/org.eclipse.jdt.compiler.apt_1.0.500.v20120522-1651.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Eclipse/plugins/org.eclipse.jdt.compiler.tool_1.0.101.v20120522-1651.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Eclipse/plugins/org.eclipse.jdt.core_3.8.2.v20120814-155456.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Eclipse/plugins/org.eclipse.jdt.ui_3.8.1.v20120814-144251.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Eclipse/plugins/org.eclipse.jface_3.8.101.v20120817-083647.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
