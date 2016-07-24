@@ -2,6 +2,7 @@ package org.ita.neutrino.refactorings;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -232,11 +233,11 @@ public abstract class AbstractEclipseRefactoringCommandHandler extends AbstractH
 			codeSelectionOffset.offsetStart = textSelection.getOffset();
 			codeSelectionOffset.offsetLength = textSelection.getLength();
 		} else {
-			ICompilationUnit compilationUnit = new SelectionExtractor(selection).extractFromTreeSelection();
-			if(compilationUnit != null){
+			Optional<ICompilationUnit> compilationUnit = new OptionalSelectionExtractor(selection).extractFromTreeSelection();
+			if(compilationUnit.isPresent()){
 				try {
 					codeSelectionOffset.offsetStart = 0;
-					codeSelectionOffset.offsetLength = compilationUnit.getSource().length();
+					codeSelectionOffset.offsetLength = compilationUnit.get().getSource().length();
 				} catch (JavaModelException e) {
 					throw new ExecutionException(e.getMessage(), e);
 				}
