@@ -1,6 +1,5 @@
 package org.ita.neutrino.refactorings;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -9,6 +8,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.ITypeRoot;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.ITextSelection;
@@ -108,15 +108,14 @@ public abstract class AbstractEclipseRefactoringCommandHandler extends AbstractH
 
 		refactoringObject.setBattery(battery);
 		TestSelection selection = battery.getSelection();
-
-		// TODO Alterar para Optional<TestSelection> durante refatoração para Java8 e JUnit5
-		if (selection == null){ 
-			// FIXME Verificar se vale a pena criar abstract hook-method para especificar melhor a mensagem a ser apresentada 
-			List<String> problems = Arrays.asList("TestSelection must be a non null value.");
-			showMessageDialogAndThrowExecutionException(problems);
+		TestElement<?> element = null;
+		
+		if (selection != null) {
+			element = selection.getSelectedFragment();
+		} else {
+			element = battery.getSuiteList().get(0);
 		}
 		
-		TestElement<?> element = selection.getSelectedFragment();
 		refactoringObject.setTargetFragment(element);
 		
 		RefactoringWizardOpenOperation operation = new RefactoringWizardOpenOperation(refactoringWizard);
@@ -134,16 +133,12 @@ public abstract class AbstractEclipseRefactoringCommandHandler extends AbstractH
 		List<String> problems = checkPreConditions();
 
 		if ((problems != null) && (problems.size() > 0)) {
-			showMessageDialogAndThrowExecutionException(problems);
+			String message = RefactoringException.getMessageForProblemList(problems);
+			
+			MessageDialog.openWarning(null, getRefactoringName(), message);
+			
+			throw new ExecutionException(message);
 		}
-	}
-
-	private void showMessageDialogAndThrowExecutionException(List<String> problems) throws ExecutionException {
-		String message = RefactoringException.getMessageForProblemList(problems);
-		
-		MessageDialog.openWarning(null, getRefactoringName(), message);
-
-		throw new ExecutionException(message);
 	}
 
 	/**
@@ -163,17 +158,17 @@ public abstract class AbstractEclipseRefactoringCommandHandler extends AbstractH
 			// objeto codeParser
 			codeParser.setCompilationUnits(RefactoringUtils.getAllWorkspaceCompilationUnits(null).toArray(new ICompilationUnit[0]));
 		} catch (CoreException e) {
-			throw new ExecutionException(e.getMessage());
+			throw new ExecutionException(e.getMessage(), e);
 		}
 
 		ICompilationUnit activeCompilationUnit = getActiveCompilationUnit();
 		codeParser.setActiveCompilationUnit(activeCompilationUnit);
 		ASTSelection codeSelection = codeParser.getSelection();
 		codeSelection.setSourceFile(activeCompilationUnit);
-
-		ITextSelection textSelection = (ITextSelection) getSelection();
-		codeSelection.setSelectionStart(textSelection.getOffset());
-		codeSelection.setSelectionLength(textSelection.getLength());
+		
+		SelectionOffset codeSelectionOffset = extractCodeSelectionOffset(getSelection());
+		codeSelection.setSelectionStart(codeSelectionOffset.offsetStart);
+		codeSelection.setSelectionLength(codeSelectionOffset.offsetLength);
 
 		try {
 			codeParser.parse();
@@ -182,6 +177,37 @@ public abstract class AbstractEclipseRefactoringCommandHandler extends AbstractH
 		}
 
 		return codeParser.getEnvironment();
+	}
+
+	private SelectionOffset extractCodeSelectionOffset(ISelection selection) throws ExecutionException {
+		SelectionOffset codeSelectionOffset = new SelectionOffset();
+		
+		if (selection instanceof ITextSelection) {
+			ITextSelection textSelection = (ITextSelection) selection;
+			codeSelectionOffset.offsetStart = textSelection.getOffset();
+			codeSelectionOffset.offsetLength = textSelection.getLength();
+		} else {
+			ICompilationUnit compilationUnit = new SelectionExtractor(selection).extractFromTreeSelection();
+			if(compilationUnit != null){
+				try {
+					codeSelectionOffset.offsetStart = 0;
+					codeSelectionOffset.offsetLength = compilationUnit.getSource().length();
+				} catch (JavaModelException e) {
+					throw new ExecutionException(e.getMessage(), e);
+				}
+			} else {
+				throw new ExecutionException("Method \"" + getClass().getName() + 
+						".doCodeParsing()\" should contain a ITextSelection or a ICompilationUnit, but contains a "
+						+ selection.getClass().getSimpleName()
+						+ ".");
+			}
+		}
+		return codeSelectionOffset;
+	}
+	
+	private class SelectionOffset {
+		int offsetStart = 0;
+		int offsetLength = 0;
 	}
 
 	protected AbstractTestParser instantiateParser() {
