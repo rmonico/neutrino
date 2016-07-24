@@ -1,5 +1,6 @@
 package org.ita.neutrino.refactorings;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -107,6 +108,14 @@ public abstract class AbstractEclipseRefactoringCommandHandler extends AbstractH
 
 		refactoringObject.setBattery(battery);
 		TestSelection selection = battery.getSelection();
+
+		// TODO Alterar para Optional<TestSelection> durante refatoração para Java8 e JUnit5
+		if (selection == null){ 
+			// FIXME Verificar se vale a pena criar abstract hook-method para especificar melhor a mensagem a ser apresentada 
+			List<String> problems = Arrays.asList("TestSelection must be a non null value.");
+			showMessageDialogAndThrowExecutionException(problems);
+		}
+		
 		TestElement<?> element = selection.getSelectedFragment();
 		refactoringObject.setTargetFragment(element);
 		
@@ -125,12 +134,16 @@ public abstract class AbstractEclipseRefactoringCommandHandler extends AbstractH
 		List<String> problems = checkPreConditions();
 
 		if ((problems != null) && (problems.size() > 0)) {
-			String message = RefactoringException.getMessageForProblemList(problems);
-
-			MessageDialog.openWarning(null, getRefactoringName(), message);
-
-			throw new ExecutionException(message);
+			showMessageDialogAndThrowExecutionException(problems);
 		}
+	}
+
+	private void showMessageDialogAndThrowExecutionException(List<String> problems) throws ExecutionException {
+		String message = RefactoringException.getMessageForProblemList(problems);
+		
+		MessageDialog.openWarning(null, getRefactoringName(), message);
+
+		throw new ExecutionException(message);
 	}
 
 	/**
