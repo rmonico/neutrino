@@ -71,7 +71,7 @@ public class ASTRewriteExample {
 			ICompilationUnit cu= pack1.createCompilationUnit("E.java", buf.toString(), false, null);
 			
 			// create an AST
-			ASTParser parser= ASTParser.newParser(AST.JLS3);
+			ASTParser parser= ASTParser.newParser(AST.JLS8);
 			parser.setSource(cu);
 			parser.setResolveBindings(false);
 			CompilationUnit astRoot= (CompilationUnit) parser.createAST(null);
