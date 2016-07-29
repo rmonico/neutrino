@@ -31,7 +31,7 @@ public class JUnit4ParserTests extends JUnitParserTests {
 		mockClassCode.append("    private Object fixture1 = new Object();\n");
 		mockClassCode.append("    \n");
 		mockClassCode.append("    @Before\n");
-		mockClassCode.append("    public void setup() {\n");
+		mockClassCode.append("    public void setUp() {\n");
 		mockClassCode.append("        action();\n");
 		mockClassCode.append("    }\n");
 		mockClassCode.append("    \n");
@@ -56,7 +56,7 @@ public class JUnit4ParserTests extends JUnitParserTests {
 		mockClassCode.append("    }\n");
 		mockClassCode.append("    \n");
 		mockClassCode.append("    @After\n");
-		mockClassCode.append("    public void teardown() {\n");
+		mockClassCode.append("    public void tearDown() {\n");
 		mockClassCode.append("        \n");
 		mockClassCode.append("    }\n");
 		mockClassCode.append("}\n");

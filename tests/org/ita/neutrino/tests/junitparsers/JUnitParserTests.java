@@ -77,8 +77,8 @@ public abstract class JUnitParserTests extends PluginAbstractTests {
 		
 		assertEquals("Suite: test method list (size)", 2, suite.getTestMethodList().size());
 		
-		assertEquals("Suite: test method 0", "testNothing0", suite.getTestMethodList().get(0).getName());
-		assertEquals("Suite: test method 1", "testNothing1", suite.getTestMethodList().get(1).getName());
+		assertEquals("Suite: test method 0", "testNothing0", suite.getTestMethodList().get(1).getName());
+		assertEquals("Suite: test method 1", "testNothing1", suite.getTestMethodList().get(0).getName());
 	}
 
 	protected abstract Class<? extends JUnitAction> getActionClass();

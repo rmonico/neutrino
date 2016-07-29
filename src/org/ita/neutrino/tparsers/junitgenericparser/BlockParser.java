@@ -34,7 +34,15 @@ public class BlockParser {
 			"junit.framework.Assert.assertNotNull",
 			"junit.framework.Assert.assertSame",
 			"junit.framework.Assert.assertNotSame",
-			"junit.framework.Assert.fail");
+			"junit.framework.Assert.fail",
+			"junit.framework.TestCase.assertEquals",
+			"junit.framework.TestCase.assertTrue",
+			"junit.framework.TestCase.assertFalse",
+			"junit.framework.TestCase.assertNull",
+			"junit.framework.TestCase.assertNotNull",
+			"junit.framework.TestCase.assertSame",
+			"junit.framework.TestCase.assertNotSame",
+			"junit.framework.TestCase.fail");
 
 			
 	public void setBattery(JUnitTestBattery battery) {
