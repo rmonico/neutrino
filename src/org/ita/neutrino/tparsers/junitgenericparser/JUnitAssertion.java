@@ -206,6 +206,7 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 	private boolean getAssertionParts(List<MethodInvocation> parts, InfixExpression expr, QuickVisitor qv) {
 		Operator op = expr.getOperator();
 
+		// TODO Testar este método devido a troca da ordem dos índices em cada versão do JUnit
 		if (op == Operator.AND || op == Operator.CONDITIONAL_AND || op == Operator.OR || op == Operator.CONDITIONAL_OR) {
 			List<ASTNode> nodes = qv.quickVisit(expr);
 
