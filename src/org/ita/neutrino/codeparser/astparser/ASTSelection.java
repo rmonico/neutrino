@@ -5,7 +5,6 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.ita.neutrino.codeparser.CodeElement;
 import org.ita.neutrino.codeparser.CodeSelection;
-import org.ita.neutrino.refactorings.RefactoringUtils;
 
 public class ASTSelection implements CodeSelection {
 
@@ -58,13 +57,30 @@ public class ASTSelection implements CodeSelection {
 
 		// Verifica se a seleção está no arquivo ativo
 		if (nodeCompilationUnit.getJavaElement().equals(sourceFile)) {
-			if (RefactoringUtils.isNodeOverSelection(node, selectionStart, selectionLength)) {
+			if (isNodeOverSelection(node, selectionStart, selectionLength)) {
 				return true;
 			}
 		}
 		
 		return false;
 	}
+	
+	/**
+	 * Retorna true se a seleção está contida no nó.
+	 * 
+	 * @param node
+	 * @param selectionStart
+	 * @param selectionLength
+	 * @return
+	 */
+	private boolean isNodeOverSelection(ASTNode node, int selectionStart, int selectionLength) {
+		int nodeEndPosition = node.getStartPosition() + node.getLength();
+		int selectionEndPosition = selectionStart + selectionLength;
+
+		return ((selectionStart >= node.getStartPosition())
+				&& (selectionStart <= nodeEndPosition) && (selectionEndPosition <= nodeEndPosition));
+	}
+	
 
 	private CompilationUnit getCompilationUnitForNode(ASTNode node) {
 

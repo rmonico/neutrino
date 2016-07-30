@@ -1,13 +1,21 @@
 package org.ita.neutrino.refactorings;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.ITypeRoot;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -156,7 +164,7 @@ public abstract class AbstractEclipseRefactoringCommandHandler extends AbstractH
 		try {
 			// Retorna todo o código fonte existente no projeto e o passo para o
 			// objeto codeParser
-			codeParser.setCompilationUnits(RefactoringUtils.getAllWorkspaceCompilationUnits(null).toArray(new ICompilationUnit[0]));
+			codeParser.setCompilationUnits(getAllWorkspaceCompilationUnits(null).toArray(new ICompilationUnit[0]));
 		} catch (CoreException e) {
 			throw new ExecutionException(e.getMessage(), e);
 		}
@@ -179,6 +187,43 @@ public abstract class AbstractEclipseRefactoringCommandHandler extends AbstractH
 		return codeParser.getEnvironment();
 	}
 
+	private List<ICompilationUnit> getAllWorkspaceCompilationUnits(ICompilationUnit ignoredClass) throws CoreException {
+
+		List<ICompilationUnit> resultingList = new ArrayList<ICompilationUnit>();
+
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceRoot root = workspace.getRoot();
+		IProject[] projects = root.getProjects();
+
+		for (IProject project : projects) {
+			if (!project.isOpen()) {
+				continue;
+			}
+
+			if (!project.isNatureEnabled("org.eclipse.jdt.core.javanature")) {
+				continue;
+			}
+
+			IPackageFragment[] packages = JavaCore.create(project)
+					.getPackageFragments();
+
+			for (IPackageFragment mypackage : packages) {
+				if (mypackage.getKind() != IPackageFragmentRoot.K_SOURCE) {
+					continue;
+				}
+
+				for (ICompilationUnit unit : mypackage.getCompilationUnits()) {
+					if (unit != ignoredClass) {
+						resultingList.add(unit);
+					}
+				}
+			}
+		}
+
+		return resultingList;
+	}
+
+	
 	private SelectionOffset extractCodeSelectionOffset(ISelection selection) throws ExecutionException {
 		SelectionOffset codeSelectionOffset = new SelectionOffset();
 		

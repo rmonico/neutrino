@@ -19,6 +19,11 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+/**
+ * Não há mais necessidade de utilizar essa classe utilitária.
+ *
+ */
+@Deprecated
 public class RefactoringUtils {
 
 //	/**
@@ -116,16 +121,7 @@ public class RefactoringUtils {
 
 	}
 
-	/**
-	 * Devolve true se <code>baseMethod</code> é um metódo de teste válido.
-	 * 
-	 * @param baseMethod
-	 * @return
-	 */
-	private static boolean isValidTestMethod(MethodDeclaration method) {
-		return isTestAnnotated(method);
-	}
-//
+	//
 //	/**
 //	 * Devolve true se <code>baseMethod</code> fizer parte da classe pública em
 //	 * <code>compilationUnit</code>.
@@ -180,7 +176,7 @@ public class RefactoringUtils {
 		List<MethodDeclaration> testMethods = new ArrayList<MethodDeclaration>();
 
 		for (MethodDeclaration method : allMethods) {
-			if (RefactoringUtils.isValidTestMethod(method)) {
+			if (RefactoringUtils.isTestAnnotated(method)) {
 				testMethods.add(method);
 			}
 		}
