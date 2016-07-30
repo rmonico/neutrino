@@ -28,7 +28,9 @@ Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/guava-r09.jar,
  .,
  lib/guice-3.0.jar,
- lib/Utils.jar
+ lib/Utils.jar,
+ lib/junit-jupiter-api-5.0.0-M1.jar,
+ lib/opentest4j-1.0.0-M1.jar
 Export-Package: org.ita.neutrino.codeparser;uses:="org.ita.neutrino.abstracttestparser,org.eclipse.jdt.core.dom",
  org.ita.neutrino.codeparser.astparser;
   uses:="org.ita.neutrino.abstracttestparser,
