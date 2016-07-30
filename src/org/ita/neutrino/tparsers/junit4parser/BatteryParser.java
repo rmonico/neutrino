@@ -1,9 +1,9 @@
 package org.ita.neutrino.tparsers.junit4parser;
 
 import org.ita.neutrino.codeparser.Annotation;
-import org.ita.neutrino.codeparser.Class;
 import org.ita.neutrino.codeparser.Method;
 import org.ita.neutrino.codeparser.MutableType;
+import org.ita.neutrino.tparsers.junitgenericparser.BlockParser;
 
 /**
  * Responsável por localizar as Suites de testes e seus respectivos métodos.
@@ -12,6 +12,13 @@ import org.ita.neutrino.codeparser.MutableType;
  * 
  */
 class BatteryParser extends org.ita.neutrino.tparsers.junitgenericparser.BatteryParser {
+	
+	BatteryParser() {}
+	
+	@Override
+	protected BlockParser createBlockParser() {
+		return new org.ita.neutrino.tparsers.junit4parser.BlockParser();
+	}
 
 	protected TestMethodKind getTestMethodKind(Method method) {
 
@@ -19,18 +26,18 @@ class BatteryParser extends org.ita.neutrino.tparsers.junitgenericparser.Battery
 
 			String annotationQualifiedName = a.getQualifiedName();
 
-			if (annotationQualifiedName.equals("org.junit.Before")) {
+			if (annotationQualifiedName.equals(JUnitTestMethod.JUNIT4_BEFORE_ANOTATION_FQDN)) {
 				return TestMethodKind.BEFORE_METHOD;
-			} else if (annotationQualifiedName.equals("org.junit.Test")) {
+			} else if (annotationQualifiedName.equals(JUnitTestMethod.JUNIT4_TEST_ANNOTATION_FQDN)) {
 				return TestMethodKind.TEST_METHOD;
-			} else if (annotationQualifiedName.equals("org.junit.After")) {
+			} else if (annotationQualifiedName.equals(JUnitTestMethod.JUNIT4_AFTER_ANOTATION_FQDN)) {
 				return TestMethodKind.AFTER_METHOD;
 			}
 		}
 
 		return TestMethodKind.NOT_TEST_METHOD;
 	}
-
+	
 	@Override
 	protected boolean canParse(MutableType t) {
 		
@@ -42,22 +49,6 @@ class BatteryParser extends org.ita.neutrino.tparsers.junitgenericparser.Battery
 			if (getTestMethodKind(method) == TestMethodKind.TEST_METHOD) {
 				return true;
 			}
-		}
-		
-		return false;
-	}
-	
-	private boolean isJUnit3TestCase(MutableType t) {
-		if (!(t instanceof Class)) {
-			return false;
-		}
-		Class clazz = (Class) t;
-		
-		while (clazz != null) {
-			if (clazz.getQualifiedName().equals("junit.framework.TestCase")) {
-				return true;
-			}
-			clazz = clazz.getSuperClass();
 		}
 		
 		return false;

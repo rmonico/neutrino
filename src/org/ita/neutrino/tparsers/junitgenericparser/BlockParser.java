@@ -1,6 +1,7 @@
 package org.ita.neutrino.tparsers.junitgenericparser;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -9,42 +10,13 @@ import org.ita.neutrino.codeparser.MethodInvocationStatement;
 import org.ita.neutrino.codeparser.Statement;
 import org.ita.neutrino.codeparser.Type;
 
-import com.google.common.collect.ImmutableSet;
-
-public class BlockParser {
+public abstract class BlockParser {
 
 	private JUnitTestBattery battery;
 	private List<JUnitTestMethod> concreteMethodList;
-	private static final Set<String> assertionMethods = ImmutableSet.of(
-			"org.junit.Assert.assertArrayEquals",
-			"org.junit.Assert.assertArrayEquals",
-			"org.junit.Assert.assertEquals",
-			"org.junit.Assert.assertTrue",
-			"org.junit.Assert.assertFalse",
-			"org.junit.Assert.assertNull",
-			"org.junit.Assert.assertNotNull",
-			"org.junit.Assert.assertSame",
-			"org.junit.Assert.assertNotSame",
-			"org.junit.Assert.assertThat",
-			"org.junit.Assert.fail",
-			"junit.framework.Assert.assertEquals",
-			"junit.framework.Assert.assertTrue",
-			"junit.framework.Assert.assertFalse",
-			"junit.framework.Assert.assertNull",
-			"junit.framework.Assert.assertNotNull",
-			"junit.framework.Assert.assertSame",
-			"junit.framework.Assert.assertNotSame",
-			"junit.framework.Assert.fail",
-			"junit.framework.TestCase.assertEquals",
-			"junit.framework.TestCase.assertTrue",
-			"junit.framework.TestCase.assertFalse",
-			"junit.framework.TestCase.assertNull",
-			"junit.framework.TestCase.assertNotNull",
-			"junit.framework.TestCase.assertSame",
-			"junit.framework.TestCase.assertNotSame",
-			"junit.framework.TestCase.fail");
 
-			
+	protected static final Set<String> assertionMethods = new HashSet<String>();
+	
 	public void setBattery(JUnitTestBattery battery) {
 		this.battery = battery;
 	}
