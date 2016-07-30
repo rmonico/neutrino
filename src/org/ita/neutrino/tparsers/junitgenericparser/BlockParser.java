@@ -1,7 +1,7 @@
 package org.ita.neutrino.tparsers.junitgenericparser;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +15,7 @@ public abstract class BlockParser {
 	private JUnitTestBattery battery;
 	private List<JUnitTestMethod> concreteMethodList;
 
-	protected static final Set<String> assertionMethods = new HashSet<String>();
+	protected static final Set<String> assertionMethods = new LinkedHashSet<String>();
 	
 	public void setBattery(JUnitTestBattery battery) {
 		this.battery = battery;

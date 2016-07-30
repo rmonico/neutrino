@@ -44,6 +44,7 @@ import org.ita.neutrino.tparsers.abstracttestparser.TestSelection;
 import org.ita.neutrino.tparsers.generictestparser.GenericTestParser;
 import org.ita.neutrino.tparsers.junit3parser.JUnit3Parser;
 import org.ita.neutrino.tparsers.junit4parser.JUnit4Parser;
+import org.ita.neutrino.tparsers.junit5parser.JUnit5Parser;
 
 public abstract class AbstractEclipseRefactoringCommandHandler extends AbstractHandler {
 	
@@ -257,9 +258,11 @@ public abstract class AbstractEclipseRefactoringCommandHandler extends AbstractH
 	}
 
 	protected AbstractTestParser instantiateParser() {
+		// TODO Criar forma de adicionar todos os frameworks disponíveis automaticamente
 		return new GenericTestParser(
 				new JUnit3Parser().asTestSuiteParser(),
-				new JUnit4Parser().asTestSuiteParser());
+				new JUnit4Parser().asTestSuiteParser(),
+				new JUnit5Parser().asTestSuiteParser());
 	}
 
 	private TestBattery doTestParsing(Environment environment) throws ExecutionException {
