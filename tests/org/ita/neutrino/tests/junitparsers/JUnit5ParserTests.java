@@ -7,30 +7,30 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.ita.neutrino.codeparser.CodeElement;
 import org.ita.neutrino.codeparser.ParserException;
 import org.ita.neutrino.codeparser.astparser.ASTParser;
-import org.ita.neutrino.tparsers.junit4parser.JUnit4Parser;
-import org.ita.neutrino.tparsers.junit4parser.JUnitAction;
-import org.ita.neutrino.tparsers.junit4parser.JUnitAssertion;
+import org.ita.neutrino.tparsers.junit5parser.JUnit5Parser;
+import org.ita.neutrino.tparsers.junit5parser.JUnitAction;
+import org.ita.neutrino.tparsers.junit5parser.JUnitAssertion;
 import org.ita.neutrino.tparsers.junitgenericparser.JUnitGenericParser;
 
-public class JUnit4ParserTests extends JUnitParserTests {
+public class JUnit5ParserTests extends JUnitParserTests {
 	
 	protected void prepareTests() throws JavaModelException, ParserException {
 		StringBuilder mockClassCode = new StringBuilder();
 
-		mockClassCode.append("package org.ita.neutrino.testfiles.junit4parsertests;\n");
+		mockClassCode.append("package org.ita.neutrino.testfiles.junit5parsertests;\n");
 		mockClassCode.append("\n");
-		mockClassCode.append("import static org.junit.Assert.assertTrue;\n");
+		mockClassCode.append("import static org.junit.jupiter.api.Assertions.assertTrue;\n");
 		mockClassCode.append("\n");
-		mockClassCode.append("import org.junit.After;\n");
-		mockClassCode.append("import org.junit.Before;\n");
-		mockClassCode.append("import org.junit.Test;\n");
+		mockClassCode.append("import org.junit.jupiter.api.AfterEach;\n");
+		mockClassCode.append("import org.junit.jupiter.api.BeforeEach;\n");
+		mockClassCode.append("import org.junit.jupiter.api.Test;\n");
 		mockClassCode.append("\n");
 		mockClassCode.append("public class MockClass {\n");
 		mockClassCode.append("\n");
 		mockClassCode.append("    private Object fixture0 = new Object();\n");
 		mockClassCode.append("    private Object fixture1 = new Object();\n");
 		mockClassCode.append("    \n");
-		mockClassCode.append("    @Before\n");
+		mockClassCode.append("    @BeforeEach\n");
 		mockClassCode.append("    public void setUp() {\n");
 		mockClassCode.append("        action();\n");
 		mockClassCode.append("    }\n");
@@ -39,7 +39,7 @@ public class JUnit4ParserTests extends JUnitParserTests {
 		mockClassCode.append("    public void testNothing0() {\n");
 		mockClassCode.append("        action();\n");
 		mockClassCode.append("        \n");
-		mockClassCode.append("        assertTrue(\"Comment\", true);\n");
+		mockClassCode.append("        assertTrue(true, \"Comment\");\n");
 		mockClassCode.append("    }\n");
 		mockClassCode.append("\n");
 		mockClassCode.append("\n");
@@ -47,7 +47,7 @@ public class JUnit4ParserTests extends JUnitParserTests {
 		mockClassCode.append("    public void testNothing1() {\n");
 		mockClassCode.append("        action();\n");
 		mockClassCode.append("        \n");
-		mockClassCode.append("        assertTrue(\"Comment\", true);\n");
+		mockClassCode.append("        assertTrue(true, \"Comment\");\n");
 		mockClassCode.append("    }\n");
 		mockClassCode.append("\n");
 		mockClassCode.append("    \n");
@@ -55,13 +55,13 @@ public class JUnit4ParserTests extends JUnitParserTests {
 		mockClassCode.append("        \n");
 		mockClassCode.append("    }\n");
 		mockClassCode.append("    \n");
-		mockClassCode.append("    @After\n");
+		mockClassCode.append("    @AfterEach\n");
 		mockClassCode.append("    public void tearDown() {\n");
 		mockClassCode.append("        \n");
 		mockClassCode.append("    }\n");
 		mockClassCode.append("}\n");
 
-		ICompilationUnit mockCompilationUnit = createSourceFile("org.ita.neutrino.testfiles.junit4parsertests", "MockClass.java", mockClassCode);
+		ICompilationUnit mockCompilationUnit = createSourceFile("org.ita.neutrino.testfiles.junit5parsertests", "MockClass.java", mockClassCode);
 		
 		codeParser = new ASTParser();
 		
@@ -74,7 +74,7 @@ public class JUnit4ParserTests extends JUnitParserTests {
 	protected void testSuiteParser() {
 		assertEquals("Suite: parent", battery, suite.getParent());
 		
-		CodeElement expectedSuiteCodeElement = codeParser.getEnvironment().getTypeCache().get("org.ita.neutrino.testfiles.junit4parsertests.MockClass");
+		CodeElement expectedSuiteCodeElement = codeParser.getEnvironment().getTypeCache().get("org.ita.neutrino.testfiles.junit5parsertests.MockClass");
 		
 		assertEquals("Suite: code element", expectedSuiteCodeElement, suite.getCodeElement());
 	}
@@ -85,14 +85,14 @@ public class JUnit4ParserTests extends JUnitParserTests {
 		
 		JUnitAssertion assertion = (JUnitAssertion) statementList.get(1);
 		
-		assertEquals("Assertion: valor", "assertTrue(\"Comment\",true);\n", assertion.toString());
+		assertEquals("Assertion: valor", "assertTrue(true,\"Comment\");\n", assertion.toString());
 				
 		assertEquals("Assertion: comentário", "Comment", assertion.getExplanation());
 	}
 
 	@Override
 	protected JUnitGenericParser instantiateJUnitParser() {
-		return new JUnit4Parser();
+		return new JUnit5Parser();
 	}
 
 	@Override

@@ -8,6 +8,10 @@ import org.ita.neutrino.tparsers.junitgenericparser.JUnitTestStatement;
 
 public class JUnitTestMethod extends org.ita.neutrino.tparsers.junitgenericparser.JUnitTestMethod {
 
+	public static final String JUNIT5_AFTER_ANOTATION_FQDN = "org.junit.jupiter.api.AfterEach";
+	public static final String JUNIT5_TEST_ANNOTATION_FQDN = "org.junit.jupiter.api.Test";
+	public static final String JUNIT5_BEFORE_ANOTATION_FQDN = "org.junit.jupiter.api.BeforeEach";
+
 	@Override
 	protected List<JUnitTestStatement> instantiateStatementList() {
 		return new ArrayList<JUnitTestStatement>();
@@ -43,7 +47,7 @@ public class JUnitTestMethod extends org.ita.neutrino.tparsers.junitgenericparse
 	
 	public boolean isAfterTestMethod() {
 		for (Annotation item : getCodeElement().getAnnotations()) {
-			if (item.getQualifiedName().equals("org.junit.After")) {
+			if (item.getQualifiedName().equals(JUNIT5_AFTER_ANOTATION_FQDN)) {
 				return true;
 			}
 		}
@@ -53,7 +57,7 @@ public class JUnitTestMethod extends org.ita.neutrino.tparsers.junitgenericparse
 	
 	public boolean isBeforeTestMethod(){
 		for (Annotation item : getCodeElement().getAnnotations()) {
-			if (item.getQualifiedName().equals("org.junit.Before")) {
+			if (item.getQualifiedName().equals(JUNIT5_BEFORE_ANOTATION_FQDN)) {
 				return true;
 			}
 		}

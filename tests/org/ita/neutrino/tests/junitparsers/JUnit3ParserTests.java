@@ -71,6 +71,17 @@ public class JUnit3ParserTests extends JUnitParserTests {
 		
 		assertEquals("Suite: code element", expectedSuiteCodeElement, suite.getCodeElement());
 	}
+	
+	@Override
+	protected void testAssertions() {
+		assertEquals("Assertion: classe", statementList.get(1).getClass(), getAssertionClass());
+		
+		JUnitAssertion assertion = (JUnitAssertion) statementList.get(1);
+		
+		assertEquals("Assertion: valor", "assertTrue(\"Comment\",true);\n", assertion.toString());
+				
+		assertEquals("Assertion: comentário", "Comment", assertion.getExplanation());
+	}
 
 	@Override
 	protected JUnitGenericParser instantiateJUnitParser() {

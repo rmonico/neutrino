@@ -24,6 +24,8 @@ public abstract class JUnitParserTests extends PluginAbstractTests {
 	protected ASTParser codeParser;
 	protected JUnitTestBattery battery;
 	protected JUnitTestSuite suite;
+	protected JUnitTestMethod testNothing0;
+	protected List<? extends JUnitTestStatement> statementList;
 
 	protected abstract void prepareTests() throws JavaModelException, ParserException;
 	protected abstract JUnitGenericParser instantiateJUnitParser();
@@ -59,7 +61,7 @@ public abstract class JUnitParserTests extends PluginAbstractTests {
 	}
 	
 	protected abstract void testSuiteParser();
-	
+
 	private void testSuiteFixtureParser() {
 		assertEquals("Suite: fixture list (size)", 2, suite.getFixtures().size());
 		assertEquals("Suite: fixture 0", "fixture0", suite.getFixtures().get(0).getName());
@@ -86,9 +88,9 @@ public abstract class JUnitParserTests extends PluginAbstractTests {
 	protected abstract Class<? extends JUnitAssertion> getAssertionClass();
 
 	private void testBlockElementsParser() {
-		JUnitTestMethod testNothing0 = suite.getMethodByName("testNothing0");
+		testNothing0 = suite.getMethodByName("testNothing0");
 		
-		List<? extends JUnitTestStatement> statementList = testNothing0.getStatements();
+		statementList = testNothing0.getStatements();
 		
 		assertEquals("StatementList: size", 2, statementList.size());
 		
@@ -99,15 +101,10 @@ public abstract class JUnitParserTests extends PluginAbstractTests {
 		
 		assertEquals("Action: valor", "action();\n", action.toString());
 		
-		
-		assertEquals("Assertion: classe", statementList.get(1).getClass(), getAssertionClass());
-		
-		JUnitAssertion assertion = (JUnitAssertion) statementList.get(1);
-		
-		assertEquals("Assertion: valor", "assertTrue(\"Comment\",true);\n", assertion.toString());
-				
-		assertEquals("Assertion: comentário", "Comment", assertion.getExplanation());
+		this.testAssertions();
 		
 	}
-
+	
+	protected abstract void testAssertions();
+	
 }
