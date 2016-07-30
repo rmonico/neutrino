@@ -1,7 +1,5 @@
 package org.ita.neutrino.tparsers.junit4parser;
 
-
-
 public class JUnitAssertion extends org.ita.neutrino.tparsers.junitgenericparser.JUnitAssertion {
 
 	JUnitAssertion() {

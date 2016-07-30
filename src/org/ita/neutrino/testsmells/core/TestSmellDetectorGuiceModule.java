@@ -13,6 +13,7 @@ import org.ita.neutrino.tparsers.generictestparser.GenericTestParser;
 import org.ita.neutrino.tparsers.generictestparser.TestFramework;
 import org.ita.neutrino.tparsers.junit3parser.JUnit3Parser;
 import org.ita.neutrino.tparsers.junit4parser.JUnit4Parser;
+import org.ita.neutrino.tparsers.junit5parser.JUnit5Parser;
 
 import com.google.common.collect.ImmutableList;
 import com.google.inject.AbstractModule;
@@ -46,7 +47,9 @@ public class TestSmellDetectorGuiceModule extends AbstractModule {
 	
 	@Provides
 	public Iterable<TestFramework> allTestFrameworks() {
+		// TODO Criar forma de adicionar todos os frameworks disponíveis automaticamente
 		return ImmutableList.of(
+				new JUnit5Parser().asTestSuiteParser(),
 				new JUnit4Parser().asTestSuiteParser(),
 				new JUnit3Parser().asTestSuiteParser());
 	}
