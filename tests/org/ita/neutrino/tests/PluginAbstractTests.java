@@ -77,12 +77,14 @@ public class PluginAbstractTests {
 		javaProject = JavaCore.create(project);
 
 		String jUnit4JarPath = getJUnitJarPath("junit4.path");
+		String jUnit5JarPath = getJUnitJarPath("junit5.path");
 
 		// Cria as entradas no classpath....
 		IClasspathEntry[] cpentry = new IClasspathEntry[] { 
 				JavaCore.newSourceEntry(javaProject.getPath()),
 				JavaRuntime.getDefaultJREContainerEntry(), 
-				JavaCore.newLibraryEntry(new Path(jUnit4JarPath), null, null) };
+				JavaCore.newLibraryEntry(new Path(jUnit4JarPath), null, null),
+				JavaCore.newLibraryEntry(new Path(jUnit5JarPath), null, null) };
 		javaProject.setRawClasspath(cpentry, javaProject.getPath(), null);
 		Map options = new HashMap();
 		options.put(DefaultCodeFormatterConstants.FORMATTER_TAB_CHAR, JavaCore.SPACE);
@@ -90,22 +92,23 @@ public class PluginAbstractTests {
 		javaProject.setOptions(options);
 
 		// Apaga o projeto de testes após rodar cada teste.
-		setDeleteTestProject(true);
+		setDeleteTestProject(false);
 	}
+
 
 	private String getJUnitJarPath(String key) throws CoreException {
 
- 		InputStream fis = null;
+		InputStream fis = null;
 
 		try {
- 			
+			
 			Properties props = new Properties();
 			
 			try {
 				URL resource = PluginAbstractTests.class.getClassLoader().getResource("neutrino_test.properties");
 				fis = new FileInputStream(new File(FileLocator.resolve(resource).toURI()));
 			} catch (URISyntaxException | IOException e1) {
-				throw new RuntimeException("Arquivo de configuração de testes nÃ£o encontrado...", e1);
+				throw new RuntimeException("Arquivo de configuração de testes não encontrado...", e1);
 			}
 			
 			// try retrieve data from file
@@ -125,9 +128,9 @@ public class PluginAbstractTests {
 				try {
 					fis.close();
 				} catch (IOException e) {}
- 		}
+		}
 		
- 	}
+	}
 
 	@After
 	public void releaseEnvironment() throws CoreException {
