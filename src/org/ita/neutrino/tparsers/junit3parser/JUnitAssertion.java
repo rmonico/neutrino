@@ -14,5 +14,15 @@ public class JUnitAssertion extends org.ita.neutrino.tparsers.junitgenericparser
 	public void setParent(JUnitTestMethod parent) {
 		super.setParent(parent);
 	}
-
+	
+	@Override
+	protected int assertionIndex() {
+		return 1;
+	}
+	
+	@Override
+	protected int explanationIndex() {
+		return 0;
+	}
+	
 }
