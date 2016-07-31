@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
+import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.PrefixExpression;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
@@ -82,7 +83,7 @@ class BlockParser {
 		}
 	}
 
-	private Statement parseExpression(ExpressionStatement node) {
+	private Statement parseExpression(ExpressionStatement node) throws ParserException {
 		Expression astExpression = node.getExpression();
 
 		if (astExpression instanceof org.eclipse.jdt.core.dom.MethodInvocation) {
@@ -94,7 +95,14 @@ class BlockParser {
 
 			populateParameterList(methodInvocation.getParameterList(), astMethodInvocation.arguments());
 
-			String methodTypeQualifiedName = astMethodInvocation.resolveMethodBinding().getDeclaringClass().getQualifiedName();
+			IMethodBinding resolveMethodBinding = astMethodInvocation.resolveMethodBinding();
+			if(resolveMethodBinding == null) {
+				throw new ParserException("It was not possible to parse the expression \""
+						+ astExpression
+						+ "\". ResolveMethodBinding not found, a library or plugin depedency may be missing in the project classpath.");
+			}
+			
+			String methodTypeQualifiedName = resolveMethodBinding.getDeclaringClass().getQualifiedName();
 			
 			String methodName = astMethodInvocation.getName().getIdentifier();
 
