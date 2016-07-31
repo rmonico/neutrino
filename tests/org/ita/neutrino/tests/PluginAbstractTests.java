@@ -92,7 +92,7 @@ public class PluginAbstractTests {
 		javaProject.setOptions(options);
 
 		// Apaga o projeto de testes após rodar cada teste.
-		setDeleteTestProject(false);
+		setDeleteTestProject(true);
 	}
 
 
