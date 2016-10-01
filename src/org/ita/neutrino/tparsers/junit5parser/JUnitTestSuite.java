@@ -1,4 +1,4 @@
-package org.ita.neutrino.tparsers.junit4parser;
+package org.ita.neutrino.tparsers.junit5parser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,9 +89,9 @@ public class JUnitTestSuite extends org.ita.neutrino.tparsers.junitgenericparser
 
 		Environment environment = getCodeElement().getPackage().getParent();
 
-		Type junit4BeforeAnnotation = (Type) environment.getTypeCache().get(JUnitTestMethod.JUNIT4_BEFORE_ANOTATION_FQDN);
+		Type junit5BeforeAnnotation = (Type) environment.getTypeCache().get(JUnitTestMethod.JUNIT5_BEFORE_ANOTATION_FQDN);
 
-		newMethod.addAnnotation(junit4BeforeAnnotation);
+		newMethod.addAnnotation(junit5BeforeAnnotation);
 
 		return parseBeforeMethod(newMethod);
 	}
@@ -125,9 +125,9 @@ public class JUnitTestSuite extends org.ita.neutrino.tparsers.junitgenericparser
 
 		Environment environment = getCodeElement().getPackage().getParent();
 
-		Type junit4AfterAnnotation = (Type) environment.getTypeCache().get(JUnitTestMethod.JUNIT4_AFTER_ANOTATION_FQDN);
+		Type junit5AfterAnnotation = (Type) environment.getTypeCache().get(JUnitTestMethod.JUNIT5_AFTER_ANOTATION_FQDN);
 
-		newMethod.addAnnotation(junit4AfterAnnotation);
+		newMethod.addAnnotation(junit5AfterAnnotation);
 
 		return parseAfterMethod(newMethod);
 	}
@@ -159,9 +159,9 @@ public class JUnitTestSuite extends org.ita.neutrino.tparsers.junitgenericparser
 
 		Environment environment = getCodeElement().getPackage().getParent();
 
-		Type junit4TestAnnotation = (Type) environment.getTypeCache().get(JUnitTestMethod.JUNIT4_TEST_ANNOTATION_FQDN);
+		Type junit5TestAnnotation = (Type) environment.getTypeCache().get(JUnitTestMethod.JUNIT5_TEST_ANNOTATION_FQDN);
 
-		newMethod.addAnnotation(junit4TestAnnotation);
+		newMethod.addAnnotation(junit5TestAnnotation);
 
 		return parseTestMethod(newMethod);
 	}

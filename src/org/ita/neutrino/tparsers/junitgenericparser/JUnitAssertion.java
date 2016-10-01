@@ -36,10 +36,9 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 	private JUnitTestStatementHandler handler = new JUnitTestStatementHandler(this);
 	private AST ast;
 	
-	protected JUnitAssertion() {
-		super();
-	}
-
+	protected abstract int assertionIndex();
+	protected abstract int explanationIndex();
+	
 	@Override
 	public void setParent(JUnitTestMethod parent) {
 		this.parent = parent;
@@ -69,7 +68,7 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 			return null;
 		}
 
-		Expression candidateExpression = parameterList.get(0);
+		Expression candidateExpression = parameterList.get(explanationIndex());
 
 		if (methodName.equals("assertArrayEquals")) {
 
@@ -150,7 +149,6 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 
 	@Override
 	public TestStatement getStatement() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -208,25 +206,26 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 	private boolean getAssertionParts(List<MethodInvocation> parts, InfixExpression expr, QuickVisitor qv) {
 		Operator op = expr.getOperator();
 
+		// TODO Testar este método devido a troca da ordem dos índices em cada versão do JUnit
 		if (op == Operator.AND || op == Operator.CONDITIONAL_AND || op == Operator.OR || op == Operator.CONDITIONAL_OR) {
 			List<ASTNode> nodes = qv.quickVisit(expr);
 
 			if (expr.getRightOperand() instanceof InfixExpression) {
 				InfixExpression right = (InfixExpression) expr.getRightOperand();
 				if (getAssertionParts(parts, right, qv)) {
-					parts.add(0, getMethodInvocation(nodes.get(1)));
+					parts.add(0, getMethodInvocation(nodes.get(assertionIndex())));
 				}
 			} else {
-				parts.add(0, getMethodInvocation(nodes.get(1)));
+				parts.add(0, getMethodInvocation(nodes.get(assertionIndex())));
 			}
 
 			if (expr.getLeftOperand() instanceof InfixExpression) {
 				InfixExpression left = (InfixExpression) expr.getLeftOperand();
 				if (getAssertionParts(parts, left, qv)) {
-					parts.add(0, getMethodInvocation(nodes.get(0)));
+					parts.add(0, getMethodInvocation(nodes.get(explanationIndex())));
 				}
 			} else {
-				parts.add(0, getMethodInvocation(nodes.get(0)));
+				parts.add(0, getMethodInvocation(nodes.get(explanationIndex())));
 			}
 			return false;
 		} else {
@@ -313,7 +312,6 @@ public abstract class JUnitAssertion implements JUnitTestStatement, Assertion {
 
 	@Override
 	public boolean isAssertion() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

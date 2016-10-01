@@ -7,5 +7,7 @@
 	<classpathentry kind="lib" path="lib/guava-r09.jar"/>
 	<classpathentry kind="lib" path="lib/guice-3.0.jar"/>
 	<classpathentry kind="lib" path="lib/Utils.jar" sourcepath="/Utils/src"/>
+	<classpathentry kind="lib" path="lib/junit-jupiter-api-5.0.0-M1.jar"/>
+	<classpathentry kind="lib" path="lib/opentest4j-1.0.0-M1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Test refactorings
 Bundle-SymbolicName: org.ita.neutrino;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 2.0.0
 Bundle-Activator: org.ita.neutrino.eclipseaction.Activator
 Bundle-Vendor: Rafael Monico
 Require-Bundle: org.eclipse.core.runtime,
@@ -23,12 +23,14 @@ Require-Bundle: org.eclipse.core.runtime,
 Import-Package: org.eclipse.jdt.launching,
  org.eclipse.jdt.ui,
  org.eclipse.jface.text
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/guava-r09.jar,
  .,
  lib/guice-3.0.jar,
- lib/Utils.jar
+ lib/Utils.jar,
+ lib/junit-jupiter-api-5.0.0-M1.jar,
+ lib/opentest4j-1.0.0-M1.jar
 Export-Package: org.ita.neutrino.codeparser;uses:="org.ita.neutrino.abstracttestparser,org.eclipse.jdt.core.dom",
  org.ita.neutrino.codeparser.astparser;
   uses:="org.ita.neutrino.abstracttestparser,

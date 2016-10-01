@@ -1,4 +1,4 @@
-package org.ita.neutrino.tparsers.junit4parser;
+package org.ita.neutrino.tparsers.junit5parser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +8,9 @@ import org.ita.neutrino.tparsers.junitgenericparser.JUnitTestStatement;
 
 public class JUnitTestMethod extends org.ita.neutrino.tparsers.junitgenericparser.JUnitTestMethod {
 
-	public static final String JUNIT4_AFTER_ANOTATION_FQDN = "org.junit.After";
-	public static final String JUNIT4_TEST_ANNOTATION_FQDN = "org.junit.Test";
-	public static final String JUNIT4_BEFORE_ANOTATION_FQDN = "org.junit.Before";
+	public static final String JUNIT5_AFTER_ANOTATION_FQDN = "org.junit.jupiter.api.AfterEach";
+	public static final String JUNIT5_TEST_ANNOTATION_FQDN = "org.junit.jupiter.api.Test";
+	public static final String JUNIT5_BEFORE_ANOTATION_FQDN = "org.junit.jupiter.api.BeforeEach";
 
 	@Override
 	protected List<JUnitTestStatement> instantiateStatementList() {
@@ -47,7 +47,7 @@ public class JUnitTestMethod extends org.ita.neutrino.tparsers.junitgenericparse
 	
 	public boolean isAfterTestMethod() {
 		for (Annotation item : getCodeElement().getAnnotations()) {
-			if (item.getQualifiedName().equals("org.junit.After")) {
+			if (item.getQualifiedName().equals(JUNIT5_AFTER_ANOTATION_FQDN)) {
 				return true;
 			}
 		}
@@ -57,7 +57,7 @@ public class JUnitTestMethod extends org.ita.neutrino.tparsers.junitgenericparse
 	
 	public boolean isBeforeTestMethod(){
 		for (Annotation item : getCodeElement().getAnnotations()) {
-			if (item.getQualifiedName().equals(JUNIT4_BEFORE_ANOTATION_FQDN)) {
+			if (item.getQualifiedName().equals(JUNIT5_BEFORE_ANOTATION_FQDN)) {
 				return true;
 			}
 		}

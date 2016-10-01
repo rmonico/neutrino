@@ -3,6 +3,7 @@ package org.ita.neutrino.tparsers.junitgenericparser;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ita.neutrino.codeparser.Class;
 import org.ita.neutrino.codeparser.Environment;
 import org.ita.neutrino.codeparser.Field;
 import org.ita.neutrino.codeparser.Method;
@@ -10,6 +11,8 @@ import org.ita.neutrino.codeparser.MutableMethod;
 import org.ita.neutrino.codeparser.MutableType;
 import org.ita.neutrino.codeparser.Type;
 import org.ita.neutrino.codeparser.TypeKind;
+
+import junit.framework.TestCase;
 
 /**
  * Responsável por localizar as Suites de testes e seus respectivos métodos.
@@ -90,13 +93,15 @@ public abstract class BatteryParser {
 	}
 
 	private void doBlocksParse() {
-		BlockParser parser = new BlockParser();
+		BlockParser parser = createBlockParser();
 
 		parser.setBattery(battery);
 
 		parser.parse();
 
 	}
+
+	abstract protected BlockParser createBlockParser();
 
 	private List<MutableType> getKnownTypesList() {
 		List<MutableType> knownTypes = new ArrayList<MutableType>();
@@ -119,5 +124,21 @@ public abstract class BatteryParser {
 	}
 
 	protected abstract TestMethodKind getTestMethodKind(Method method);
+
+	protected boolean isJUnit3TestCase(MutableType t) {
+		if (!(t instanceof Class)) {
+			return false;
+		}
+		Class clazz = (Class) t;
+		
+		while (clazz != null) {
+			if (clazz.getQualifiedName().equals(TestCase.class.getCanonicalName())) {
+				return true;
+			}
+			clazz = clazz.getSuperClass();
+		}
+		
+		return false;
+	}
 
 }

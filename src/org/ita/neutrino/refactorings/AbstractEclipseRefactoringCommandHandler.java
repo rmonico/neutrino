@@ -2,6 +2,7 @@ package org.ita.neutrino.refactorings;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -43,6 +44,7 @@ import org.ita.neutrino.tparsers.abstracttestparser.TestSelection;
 import org.ita.neutrino.tparsers.generictestparser.GenericTestParser;
 import org.ita.neutrino.tparsers.junit3parser.JUnit3Parser;
 import org.ita.neutrino.tparsers.junit4parser.JUnit4Parser;
+import org.ita.neutrino.tparsers.junit5parser.JUnit5Parser;
 
 public abstract class AbstractEclipseRefactoringCommandHandler extends AbstractHandler {
 	
@@ -232,11 +234,11 @@ public abstract class AbstractEclipseRefactoringCommandHandler extends AbstractH
 			codeSelectionOffset.offsetStart = textSelection.getOffset();
 			codeSelectionOffset.offsetLength = textSelection.getLength();
 		} else {
-			ICompilationUnit compilationUnit = new SelectionExtractor(selection).extractFromTreeSelection();
-			if(compilationUnit != null){
+			Optional<ICompilationUnit> compilationUnit = new OptionalSelectionExtractor(selection).extractFromTreeSelection();
+			if(compilationUnit.isPresent()){
 				try {
 					codeSelectionOffset.offsetStart = 0;
-					codeSelectionOffset.offsetLength = compilationUnit.getSource().length();
+					codeSelectionOffset.offsetLength = compilationUnit.get().getSource().length();
 				} catch (JavaModelException e) {
 					throw new ExecutionException(e.getMessage(), e);
 				}
@@ -256,9 +258,11 @@ public abstract class AbstractEclipseRefactoringCommandHandler extends AbstractH
 	}
 
 	protected AbstractTestParser instantiateParser() {
+		// TODO Criar forma de adicionar todos os frameworks disponíveis automaticamente
 		return new GenericTestParser(
 				new JUnit3Parser().asTestSuiteParser(),
-				new JUnit4Parser().asTestSuiteParser());
+				new JUnit4Parser().asTestSuiteParser(),
+				new JUnit5Parser().asTestSuiteParser());
 	}
 
 	private TestBattery doTestParsing(Environment environment) throws ExecutionException {

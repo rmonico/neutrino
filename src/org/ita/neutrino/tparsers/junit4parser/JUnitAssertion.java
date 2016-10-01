@@ -1,7 +1,5 @@
 package org.ita.neutrino.tparsers.junit4parser;
 
-
-
 public class JUnitAssertion extends org.ita.neutrino.tparsers.junitgenericparser.JUnitAssertion {
 
 	JUnitAssertion() {
@@ -17,7 +15,15 @@ public class JUnitAssertion extends org.ita.neutrino.tparsers.junitgenericparser
 		super.setParent(parent);
 	}
 
-
+	@Override
+	protected int assertionIndex() {
+		return 1;
+	}
+	
+	@Override
+	protected int explanationIndex() {
+		return 0;
+	}
 	
 
 }

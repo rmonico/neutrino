@@ -2,6 +2,7 @@ package org.ita.neutrino.refactorings.extractmethod;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jface.text.ITextSelection;
@@ -10,7 +11,7 @@ import org.eclipse.ltk.core.refactoring.Refactoring;
 import org.eclipse.ltk.ui.refactoring.RefactoringWizard;
 import org.ita.neutrino.refactorings.AbstractEclipseRefactoringCommandHandler;
 import org.ita.neutrino.refactorings.NoInputWizard;
-import org.ita.neutrino.refactorings.SelectionExtractor;
+import org.ita.neutrino.refactorings.OptionalSelectionExtractor;
 
 public abstract class ExtractConfigurationMethodHandler extends AbstractEclipseRefactoringCommandHandler {
 	
@@ -31,9 +32,9 @@ public abstract class ExtractConfigurationMethodHandler extends AbstractEclipseR
 	}
 
 	private boolean isSelectionFromPackageExplorer(ISelection selection) {
-		ICompilationUnit compilationUnit =  new SelectionExtractor(selection).extractFromTreeSelection();
-		if(compilationUnit != null && 
-		   compilationUnit.getElementType() == ICompilationUnit.COMPILATION_UNIT){
+		Optional<ICompilationUnit> compilationUnit =  new OptionalSelectionExtractor(selection).extractFromTreeSelection();
+		if(compilationUnit.isPresent() && 
+		   compilationUnit.get().getElementType() == ICompilationUnit.COMPILATION_UNIT){
 			return true;
 		}
 		return false;

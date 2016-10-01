@@ -1,4 +1,4 @@
-package org.ita.neutrino.tparsers.junit4parser;
+package org.ita.neutrino.tparsers.junit5parser;
 
 import org.ita.neutrino.codeparser.Annotation;
 import org.ita.neutrino.codeparser.Method;
@@ -17,7 +17,7 @@ class BatteryParser extends org.ita.neutrino.tparsers.junitgenericparser.Battery
 	
 	@Override
 	protected BlockParser createBlockParser() {
-		return new org.ita.neutrino.tparsers.junit4parser.BlockParser();
+		return new org.ita.neutrino.tparsers.junit5parser.BlockParser();
 	}
 
 	protected TestMethodKind getTestMethodKind(Method method) {
@@ -26,18 +26,18 @@ class BatteryParser extends org.ita.neutrino.tparsers.junitgenericparser.Battery
 
 			String annotationQualifiedName = a.getQualifiedName();
 
-			if (annotationQualifiedName.equals(JUnitTestMethod.JUNIT4_BEFORE_ANOTATION_FQDN)) {
+			if (annotationQualifiedName.equals(JUnitTestMethod.JUNIT5_BEFORE_ANOTATION_FQDN)) {
 				return TestMethodKind.BEFORE_METHOD;
-			} else if (annotationQualifiedName.equals(JUnitTestMethod.JUNIT4_TEST_ANNOTATION_FQDN)) {
+			} else if (annotationQualifiedName.equals(JUnitTestMethod.JUNIT5_TEST_ANNOTATION_FQDN)) {
 				return TestMethodKind.TEST_METHOD;
-			} else if (annotationQualifiedName.equals(JUnitTestMethod.JUNIT4_AFTER_ANOTATION_FQDN)) {
+			} else if (annotationQualifiedName.equals(JUnitTestMethod.JUNIT5_AFTER_ANOTATION_FQDN)) {
 				return TestMethodKind.AFTER_METHOD;
 			}
 		}
 
 		return TestMethodKind.NOT_TEST_METHOD;
 	}
-	
+
 	@Override
 	protected boolean canParse(MutableType t) {
 		
@@ -53,4 +53,5 @@ class BatteryParser extends org.ita.neutrino.tparsers.junitgenericparser.Battery
 		
 		return false;
 	}
+	
 }

@@ -1,4 +1,4 @@
-package org.ita.neutrino.tparsers.junit3parser;
+package org.ita.neutrino.tparsers.junit5parser;
 
 public class JUnitAssertion extends org.ita.neutrino.tparsers.junitgenericparser.JUnitAssertion {
 
@@ -17,12 +17,12 @@ public class JUnitAssertion extends org.ita.neutrino.tparsers.junitgenericparser
 	
 	@Override
 	protected int assertionIndex() {
-		return 1;
+		return 0;
 	}
 	
 	@Override
 	protected int explanationIndex() {
-		return 0;
+		return 1;
 	}
-	
+
 }

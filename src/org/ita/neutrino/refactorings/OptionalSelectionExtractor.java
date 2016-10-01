@@ -1,19 +1,21 @@
 package org.ita.neutrino.refactorings;
 
+import java.util.Optional;
+
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreeSelection;
 
-public class SelectionExtractor {
+public class OptionalSelectionExtractor {
 
 	private ISelection selection;
 
-	public SelectionExtractor(ISelection selection) {
+	public OptionalSelectionExtractor(ISelection selection) {
 		this.selection = selection;
 	}
 
-	public ICompilationUnit extractFromTreeSelection(){
+	public Optional<ICompilationUnit> extractFromTreeSelection(){
 		if (selection instanceof TreeSelection) {
 			TreeSelection treeSelection = (TreeSelection) selection;
 			Object firstElement = treeSelection.getFirstElement();
@@ -23,10 +25,10 @@ public class SelectionExtractor {
 			}
 			if (firstElement instanceof ICompilationUnit) {
 				ICompilationUnit compilationUnit = (ICompilationUnit) firstElement;
-				return compilationUnit;
+				return Optional.of(compilationUnit);
 			}
 		}
-		return null;
+		return Optional.empty();
 	}
 
 }
