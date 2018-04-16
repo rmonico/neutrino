@@ -23,16 +23,15 @@ public class AddExplanationRefactoringInputPage extends UserInputWizardPage {
 	public void createControl(Composite parent) {
 		Composite result= new Composite(parent, SWT.NONE);
 		
-		GridLayout layout= new GridLayout();
-		layout.numColumns = 1;
+		GridLayout layout= new GridLayout(1, true);
 		result.setLayout(layout);
-		result.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		setControl(result);
 		
 		Label label= new Label(result, SWT.NONE);
 		label.setText("Explanation string:");
 		
 		fNameField = new Text(result, SWT.SINGLE | SWT.LEAD | SWT.BORDER);
+		fNameField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		fNameField.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent event) {
