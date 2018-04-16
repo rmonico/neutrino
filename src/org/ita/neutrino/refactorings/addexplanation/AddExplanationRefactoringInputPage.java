@@ -32,7 +32,7 @@ public class AddExplanationRefactoringInputPage extends UserInputWizardPage {
 		Label label= new Label(result, SWT.NONE);
 		label.setText("Explanation string:");
 		
-		fNameField = new Text(result, SWT.SINGLE | SWT.LEFT | SWT.BORDER);
+		fNameField = new Text(result, SWT.SINGLE | SWT.LEAD | SWT.BORDER);
 		
 		fNameField.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent event) {
